@@ -11,6 +11,10 @@ Rui Oliveira
 Foi utilizado o site: http://www.json-generator.com/, com o ficheiro *dataCreator.js*
 
 
+**Source do Projeto**
+Recomendado o uso de eclipse, download: https://www.eclipse.org/downloads/. Eventualmente pode ser usado BlueJ.
+
+
 
 
 
