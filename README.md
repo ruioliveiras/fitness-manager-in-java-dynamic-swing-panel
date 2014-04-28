@@ -12,9 +12,25 @@ Foi utilizado o site: http://www.json-generator.com/, com o ficheiro *dataCreato
 
 
 **Source do Projeto**
-Recomendado o uso de eclipse, download: https://www.eclipse.org/downloads/. Eventualmente pode ser usado BlueJ.
+Recomendado o uso de BlueJ, download: https://www.eclipse.org/downloads/. Eventualmente pode ser usado eclipse.
+
+Projeto segue a arquitetura de MVC Model-View-Controller
 
 
+**TODO:**
+-RUI OLIVEIRAS:
+	-Implementar classes abstractas da Activity
+	-Criar Server Git
+
+-RUI CAMPOSINHOS:
+	-organizar as Actividades
+	- ??? Não me lembro
+
+-ANDRE SANTOS
+	-Implemntar User
+
+
+-Todos, pensar antes de ir para a cama sobre os Recordes :)
 
 
 

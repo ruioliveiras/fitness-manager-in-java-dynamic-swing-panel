@@ -1,34 +1,17 @@
 package view.main.panel;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 
 import view.FormUtils.FormAttr;
 import view.FormUtils.FormButtons;
 import view.main.PanelListToolBar;
-import view.main.PanelToolBar;
-import view.main.panel.PanelEvents.Attr;
 
 public class PanelActivities extends PanelListToolBar {
 	private enum Buttons implements FormButtons{

@@ -14,9 +14,9 @@ import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
 import view.FormUtils;
-import view.ViewListeners;
+import view.Listeners;
 import view.FormUtils.FormAttr;
-import view.ViewListeners.ListenerPanelProfile;
+import view.Listeners.ListenerPanelProfile;
 import view.main.PanelToolBar;
 
 

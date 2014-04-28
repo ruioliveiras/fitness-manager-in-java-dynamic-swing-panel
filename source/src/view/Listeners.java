@@ -1,7 +1,7 @@
 package view;
 import view.main.panel.PanelEvents;
 
-public class ViewListeners {
+public class Listeners {
 	
 	public interface ListenerPanelEventos{
 		public void save(PanelEvents.Attr a);
