@@ -9,5 +9,13 @@
 	<classpathentry kind="lib" path="/home/ruioliveira/Downloads/jgoodies-looks-2.6.0/jgoodies-looks-2.6.0-tests.jar"/>
 	<classpathentry kind="lib" path="/home/ruioliveira/Downloads/jgoodies-looks-2.6.0/jgoodies-looks-2.6.0-sources.jar"/>
 	<classpathentry kind="lib" path="/home/ruioliveira/Downloads/jgoodies-looks-2.6.0/jgoodies-looks-2.6.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/ruioliveira/Downloads/jgoodies-common-1.8.0/jgoodies-common-1.8.0.jar"/>
+	<classpathentry kind="lib" path="/home/ruioliveira/Downloads/jgoodies-common-1.8.0/jgoodies-common-1.8.0-tests.jar"/>
+	<classpathentry kind="lib" path="/home/ruioliveira/Downloads/jgoodies-common-1.8.0/jgoodies-common-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="/home/ruioliveira/Downloads/jgoodies-common-1.8.0/jgoodies-common-1.8.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/ruioliveira/Downloads/jgoodies-binding-2.10.0/jgoodies-binding-2.10.0.jar"/>
+	<classpathentry kind="lib" path="/home/ruioliveira/Downloads/jgoodies-binding-2.10.0/jgoodies-binding-2.10.0-tests.jar"/>
+	<classpathentry kind="lib" path="/home/ruioliveira/Downloads/jgoodies-binding-2.10.0/jgoodies-binding-2.10.0-sources.jar"/>
+	<classpathentry kind="lib" path="/home/ruioliveira/Downloads/jgoodies-binding-2.10.0/jgoodies-binding-2.10.0-javadoc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

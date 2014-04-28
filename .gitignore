@@ -1,0 +1,8 @@
+*.class
+
+nbproject/private/
+
+*.lock
+*.DS_Store
+*.swp
+*.out
