@@ -23,8 +23,10 @@ Projeto segue a arquitetura de MVC Model-View-Controller
 	-Criar Server Git
 
 -RUI CAMPOSINHOS:
-	-organizar as Actividades
-	- ??? Não me lembro
+	-organizar as Actividades por tipo (excel)
+	-definir funcoes para calculo de calorias por tipo de actividade
+	-enviar email para formalizacao do grupo
+	-criada pasta <others> para elementos auxiliares ao projeto
 
 -ANDRE SANTOS
 	-Implemntar User
