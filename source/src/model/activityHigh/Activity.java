@@ -44,6 +44,7 @@ public abstract class Activity {
 	public Weather getWeather(){return mWeather;}
 
 	public abstract String getName();
+	public abstract int calcCalories();
 	public abstract int getRecordType();
 	public abstract int compareRecord(Activity otherActivity);
 
@@ -63,9 +64,9 @@ public abstract class Activity {
 		return (int)mTime + mWeather.hashCode();
 	}
 	
-	/*@Override
-	public Object clone(){
-		return new Activity(this);
+	
+	
+	public static int CalcHashCode(int a,int b,int c){
+		return Long.valueOf((a * 31 + b) * 31 + c).hashCode();
 	}
-	*/
 }
