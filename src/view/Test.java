@@ -11,7 +11,12 @@ import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class Test extends JPanel {
-    public Test() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public Test() {
       super(new BorderLayout());
 
         PanelBuilder builder = new PanelBuilder(new FormLayout(""));

@@ -10,9 +10,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import com.jgoodies.binding.list.SelectionInList; //binding.list.SelectionInList
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.FormLayout;
+//binding.list.SelectionInList
 
 
 
@@ -69,8 +69,7 @@ public class ViewLogin implements ActionListener{
         builder.appendRow("top:pref");
         builder.nextLine();
   
-        SelectionInList<String> g = new SelectionInList<>();
-    //    g.
+        //    g.
 //       builder.add(buildTab(),);
         
         jPanel.add( builder.getPanel());

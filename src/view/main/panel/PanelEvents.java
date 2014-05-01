@@ -12,7 +12,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.text.JTextComponent;
 
 import view.FormUtils;
-import view.FormUtils.FormAttr;
 import view.FormUtils.FormButtons;
 import view.main.PanelListToolBar;
 
