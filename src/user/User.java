@@ -23,13 +23,15 @@ public class User{
     private GregorianCalendar dataNascimento;
     private String desportoFavorito;
     private Permissoes permissoes;
+    private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
     
     
-    /*A implementar quando se tiver implementacoes concretas das classes das actividades.
-     * - Informação das actividades que realizou;
+    /**A implementar quando se tiver implementacoes concretas das classes das actividades.
+     * - Informaï¿½ï¿½o das actividades que realizou;
      * - Records
      * - Lista de Amigos -> provavelmente tera que ser noutra classe.
-       */
+     * - calendario das actividades do utilizador (requisito)!!!
+     */
      
      /*
       * Construtores
@@ -44,11 +46,12 @@ public class User{
         this.dataNascimento = new GregorianCalendar();
         this.desportoFavorito = "";
         this.permissoes = Permissoes.GUEST;
+        this.fcr = 0;
     }
     
     public User(String nome, String email, String Password, Genero genero, int altura, int peso, 
                 int diaNascimento, int mesNascimento, int anoNascimento, 
-                String desportoFavorito, Permissoes permissoes){
+                String desportoFavorito, Permissoes permissoes, int fcRepouso){
                     this.nome = nome;
                     this.email = email;
                     this.password = password;
@@ -58,6 +61,7 @@ public class User{
                     this.dataNascimento = new GregorianCalendar(anoNascimento, mesNascimento, diaNascimento);
                     this.desportoFavorito = desportoFavorito;
                     this.permissoes = permissoes;
+                    this.fcr = fcRepouso;
                 }
                 
     public User(User u){
@@ -70,6 +74,7 @@ public class User{
         this.dataNascimento = (GregorianCalendar) u.getDataNascimento().clone();
         this.desportoFavorito = u.desportoFavorito;
         this.permissoes = u.permissoes;
+        this.fcr = u.getFreqCardio();
     }
     
       /*
@@ -94,6 +99,7 @@ public class User{
     }
     public String getDesportoFavorito(){return this.desportoFavorito;}
     public Permissoes getPermissoes(){return this.permissoes;}
+    public int getFreqCardio(){return this.fcr;}
     
     /*
       * Setters
@@ -109,6 +115,7 @@ public class User{
     }
     public void setDesportoFavorito(String desporto){this.desportoFavorito = desporto;}
     public void setPermissoes(Permissoes permissoes){this.permissoes = permissoes;}
+    public void setFreqCardio(){this.fcr=fcr;}
     
     public String generoToString(){
         String aux;
@@ -123,7 +130,7 @@ public class User{
                 aux = "Nao inserido";
                 break;
             default:
-                System.err.println("ERRO: Passado género não conhecido.");
+                System.err.println("ERRO: Passado gï¿½nero nï¿½o conhecido.");
                 aux = "ERRO";
                 break;
         }
@@ -140,7 +147,7 @@ public class User{
             case GUEST:
                 aux = "GUEST";
             default:
-                System.err.println("ERRO: Passada permissão não conhecida.");
+                System.err.println("ERRO: Passada permissï¿½o nï¿½o conhecida.");
                 aux = "ERRO";
                 break;
         }
