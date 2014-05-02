@@ -2,6 +2,9 @@
 
 nbproject/private/
 
+/bin
+*.class
+
 *.lock
 *.DS_Store
 *.swp

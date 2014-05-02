@@ -1,11 +1,16 @@
 package model.activityHigh;
 
 public enum Weather {
-	INDOOR,
-	OUTDOOR;
+	INDOOR("Indoor"),
+	OUTDOOR("Outdoor");
 	
+	private String mText;
 	private WeatherSun mSun;
 	private WeatherWind mWind;
+	
+	private Weather(String text) {
+		mText = text;
+	}
 	
 	public void setWeather(WeatherSun sun,WeatherWind wind ){
 		if (this == OUTDOOR){
@@ -15,6 +20,17 @@ public enum Weather {
 	}
 	public WeatherSun getSun(){return mSun;}
 	public WeatherWind getWind(){return mWind;}
+	@Override
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		if (this.equals(INDOOR)){
+			sb.append(mText);
+		}else{
+			sb.append("Weather: ");sb.append("Weather: ");
+		}
+		
+		return null;
+	}
 	
 	public enum WeatherSun{
 		SUN(10),
