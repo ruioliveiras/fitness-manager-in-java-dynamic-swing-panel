@@ -18,30 +18,14 @@ Projeto segue a arquitetura de MVC Model-View-Controller
 
 
 **TODO:**
--RUI OLIVEIRAS:
-	-Implementar classes abstractas da Activity
-	-Criar Server Git
 
--RUI CAMPOSINHOS:
-	-organizar as Actividades por tipo (excel)
-	-definir funcoes para calculo de calorias por tipo de actividade
-	-enviar email para formalizacao do grupo
-	-criada pasta <others> para elementos auxiliares ao projeto
+-Classe de conjunto de Users (rede social)
 
--ANDRE SANTOS
-	-Implemntar User
+-Classe Calendario (cada User deve ter um calendario de actividades - requisito!)
 
+-Classes especializadas de cada actividade em particular
 
--Todos, pensar antes de ir para a cama sobre os Recordes :)
+-Todos (AINDA) a pensar sobre os Recordes :)
 
 
 
-
-*This will be Italic*
-
-**This will be Bold**
-
-- This will be a list item
-- This will be a list item
-
-    Add a indent and this will end up as code
