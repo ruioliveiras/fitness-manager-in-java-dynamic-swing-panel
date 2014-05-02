@@ -132,8 +132,132 @@ A figura (...) apresenta o grafo de dependências dos vários ficheiros de códi
 \label{cap:complexidade}
 (...)
 
-\chapter{Cálculo do consumo de calorias por actividade}
+\chapter{Cálculo do Consumo de Calorias por Actividade}
 \label{cap:calorias}
+O procedimento de cálculo utilizado para estimar a quantidade de calorias dispendidas por actividade seguiu uma filosofia semelhante à utilizada 
+na rede social \emph{Endomondo} (\url{www.endomondo.com}). 
+Na figura \ref{fig:caloriasProcedimento} apresenta-se um diagrama explicativo do mesmo, onde se evidenciam duas vias: uma baseada na frequência 
+cardíaca e outra no tipo de actividade.
+
+Os dados básicos necessários para o cálculo das calorias dispendidas estão relacionados com o individuo e são:
+\begin{itemize}
+ \item Género;
+ \item Características físicas --- peso, altura;
+ \item Idade;
+ \item Frequência cardíaca em repouso (no caso da via de cálculo baseada na frequência cardíaca).
+\end{itemize}
+
+Os dados complementares são:
+\begin{itemize}
+ \item Duração da actividade;
+ \item O tipo de actividade (no caso da via de cálculo baseada no tipo de actividade);
+ \item Frequência cardíaca média durante a actividade (no caso da via de cálculo baseada na frequência cardíaca).
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=7cm]{endomondoCalories.jpg}
+\caption{Diagrama com o procedimento de cálculo adoptado para a estimativa do consumo de calorias por actividade (ref. \cite{endomondo}).}
+\label{fig:caloriasProcedimento}
+\end{figure}
+
+\section{Cálculo Baseado na Frequência Cardíaca}
+\label{sec:caloriasFcardio}
+As formulações expostas na presente secção tiveram por base a aplicação web ``Heart Rate Based Calorie Burn Calculator'', 
+da página \url{http://www.shapesense.com/fitness-exercise/calculators/}. Por uma questão de completitude apresentam-se todas as referências originais.
+No cálculo pela via da frequência cardíaca um dos parâmetros fundamentais é o $VO2_{max}$, que é a capacidade máxima do corpo de um 
+indivíduo em transportar e fazer uso de oxigênio durante um exercício físico incremental.
+Este parâmetro pode ser estimado de acordo com \cite{VO2max}, com base na frequência cardíaca máxima ($MHR$) e em 
+repouso ($RHR$) --- equação \ref{eq:VO2max}.
+A frequência cardíaca máxima pode ser estimada com base na idade de acordo com \cite{MHR} --- equação \ref{eq:MHR}.
+As calorias brutas dispendidas ($GCB$) foram estimadas de acordo com \cite{GCB} --- equação \ref{eq:GCB}.
+Por fim, para se determinar o número de calorias efectivas ($NCB$) calculou-se a taxa metabólica basal ($BMR$) e a taxa de actividade ($RMRCB$)
+A estimativa das calorias efectivas foi realizada de acordo com \cite{NCB} --- equações \ref{eq:NCB}, \ref{eq:RMRCB} e \ref{eq:BMR}.
+
+\begin{equation} \label{eq:MHR} 
+MHR = 208 - 0.7 \times Idade \text{\hspace*{0.3cm}[1/min]}
+\end{equation}
+
+\begin{equation} \label{eq:VO2max} 
+VO2_{max} = 15.3 \times \frac{MHR}{RMR} \text{\hspace*{0.3cm}[ml/(kg.min)]}
+\end{equation}
+
+\begin{eqnarray} \label{eq:GCB}
+\text{Homens:}&&\\ 
+GCB &=& \frac{-55.0969 + 0.6309 \times HR + 0.1988 \times W + 0.2017 \times A}{4.184} \times 60 \times T \text{\hspace*{0.3cm}[kcal]}\nonumber\\
+\text{Mulheres:}&&\nonumber\\ 
+GCB &=& \frac{-20.4022 + 0.4472 \times HR + 0.1263 \times W + 0.074 \times A}{4.184} \times 60 \times T \text{\hspace*{0.3cm}[kcal]}\nonumber\\
+\text{onde:}&& \nonumber\\
+HR &=& \text{frequência cardíaca [1/min]}\nonumber\\ 
+W &=& \text{Peso [kg]}\nonumber\\
+A &=& \text{Idade [anos]}\nonumber\\
+T &=& \text{Duração exercício [h]}\nonumber
+\end{eqnarray}
+
+\begin{equation} \label{eq:NCB} 
+NCB = GCB - RMRCB \text{\hspace*{0.3cm}[kcal]}
+\end{equation}
+
+\begin{equation} \label{eq:RMRCB} 
+RMRCB = \frac{BMR \times 1.1}{24} \times T \text{\hspace*{0.3cm}[kcal]}
+\end{equation}
+
+\begin{eqnarray} \label{eq:BMR}
+\text{Homens:}&&\\
+BMR &=& (13.75 \times W) + (5 \times H) - (6.76 \times A) + 66 \text{\hspace*{0.3cm}[kcal/24h]}\nonumber\\
+\text{Mulheres:}&&\nonumber\\ 
+BMR &=& (9.56 \times W) + (1.85 \times H) - 4.68 \times A) + 655 \text{\hspace*{0.3cm}[kcal/24h]}\nonumber\\
+\text{onde:}&& \nonumber\\
+H &=& \text{altura [cm]}\nonumber\\ 
+&&\text{restantes referências na eq. \ref{eq:GCB}}\nonumber
+\end{eqnarray}
+
+\section{Cálculo Baseado no Tipo de Actividade}
+\label{sec:caloriasMet}
+Na ausência de dados relativos à frequência cardíaca do individuo, o cálculo do número de calorias dispendidas ($CB$) é efectuado com base 
+no índice MET (``The Metabolic Equivalent of Task''). Este índice é uma medida fisiológica do custo energético de um dado exercício físico.
+Com base nesta abordagem mais simplificada, as calorias dispendidas podem ser calculadas de acordo com a equação \ref{eq:CBmet}.
+
+\begin{equation} \label{eq:CBmet} 
+CB = MET \times W \times T \text{\hspace*{0.3cm}[kcal]}
+\end{equation}
+
+Os índices MET foram definidos de acordo com o ``Compendium of physical activities'' \cite{compendium}, da autoria do ``Healthy Lifestyles Research Center``, 
+''School of Nutrition and Health Promotion`` da Arizona State University \url{https://sites.google.com/site/compendiumofphysicalactivities/}.
+Na tabela \ref{tab:met} apresentam-se alguns valores típicos dos índices MET. 
+De forma a adaptar os valores dos índices MET a cada índividuo (peso, altura e idade), foram aplicadas correcções de acordo com \cite{NCB} --- 
+valor corrigido $CMET$ (eq. \ref{eq:CMET}), para mais detalhes ver \url{https://sites.google.com/site/compendiumofphysicalactivities/corrected-mets}.
+
+\begin{table}
+\caption {Valores típicos do índice MET (ref. \url{http://www.my-calorie-counter.com/mets_calculation.asp})} 
+\label{tab:met}
+\begin{center}
+  \begin{tabular}{| c | l |}
+    \hline                       
+    METS & Activity\\
+    \hline  
+    \hline  
+    1 & sitting quietly and watching television \\
+    \hline  
+    2 & walking, less than 2.0 mph, level ground, strolling, very slow \\
+    \hline  
+    3 & loading /unloading a car\\
+    \hline  
+    4 & bicycling, < 10 mph, leisure, to work or for pleasure\\
+    \hline  
+    (...) & (...)\\
+    \hline  
+    11 & running, 6.7 mph\\
+    \hline  
+    12 & fire fighter, general\\
+    \hline  
+  \end{tabular}
+\end{center}
+\end{table}
+
+\begin{equation} \label{eq:CMET} 
+CMET = MET \times \frac{3.5 \text{ ml/kg/min}}{RMRCB [\text{ ml/kg/min}]}
+\end{equation}
 
 \chapter{Conclusões}
 \label{cap:concl}
