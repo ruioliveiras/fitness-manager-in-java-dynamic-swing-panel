@@ -6,3 +6,13 @@ nbproject/private/
 *.DS_Store
 *.swp
 *.out
+report/*.aux
+report/*.log
+report/*.out
+report/*.toc
+report/*.bbl
+report/*.blg
+report/*~
+report/*xml
+report/*backup
+report/*blx*
