@@ -1,0 +1,81 @@
+==========================
+===SUPER-CLASSE RECORDS===
+==========================
+
+public class Records{
+	
+	Map que associa uma String correspondente à descrição do record com o seu valor numérico.
+	Assume-se portanto que todos os records podem ser expressos por um inteiro (tempo, distancia, nº pontos etc...).
+
+	Map<String, Integer> tabelaRecords;
+
+	public Records(){
+		tabelaRecords = Map<String, Integer>();
+	}
+
+	public Records(String[] listaRecords, int valorInit){
+		for(String rec : listaRecords){
+			tabelaRecords.put(rec,valorInit);
+		}
+	}
+
+	public Records(String[] listaRecords, int[] valoresInit){
+		int i=0;
+
+		if(listaRecords.length == valoresInitlength){
+			for(String rec : listaRecords){
+			tabelaRecords.put(rec,valoresInit[i]);
+			i++;
+			}
+		}else{
+			//Ou erro ou chama construtor padrão, ou excepção...
+		}
+
+	}
+
+
+	public int getRecord(String record){return this.tabelaRecords.get(record);}
+
+	O método seguinte adiciona uma nova entrada para o record caso ele ainda não exista.
+	Se existir, o record é sempre actualizado com valorRecord passado.
+	NOTA: Por esse motivo, apenas chamar este método quando se tem a certeza
+	que o novo valor é mesmo um record e pode ser substituido.
+	A verificação de se um novo valor é record ou nao fica por isso a cargo de quem chama a função.
+	Visto que em algumas actividades um valor maior significa "melhor" (p.e "pontos") e
+	em outras interessam os menores valores (p.e "tempo").
+
+	public void adicionaRecord(String record, int valorRecord){
+		this.tabelaRecords.put(record,valorRecord);
+	}
+}
+
+
+
+=========================
+=====CLASSE CORRIDAS=====
+=========================
+
+Exemplo de como a classe records poderia ser usada para os records de uma classe concreta, neste caso a classe corridas.
+
+String[] tiposRecord =  new String[]{"100m","250m","500m"};
+Records recordsCorridas = new Records(tiposRecord, Integer.INT_MAX);
+
+Saber o record de tempo de um utilizador para os 100m:
+int tempo100m = recordsCorridas.getRecord("100m");
+
+Supondo que um utilizador fez 100m em 20 segundos.
+Para verificar se é necessário actualizar e fazê-lo caso seja um novo record:
+
+int novoTempo = 20; //20 segs
+
+if(recordCorridas.getRecord("100m") > novoTempo){
+	//É necessário actualizar:
+	recordCorridas.adicionaRecord("100m", novoTempo);
+}
+
+
+
+
+
+
+

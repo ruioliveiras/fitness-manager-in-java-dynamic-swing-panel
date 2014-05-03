@@ -97,9 +97,6 @@ public class User{
     public Permissoes getPermissoes(){return this.permissoes;}
     public int getFreqCardio(){return this.fcr;}
     
-    
-    
-    
     /*
       * Setters
       */
