@@ -3,6 +3,10 @@ package model.user;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import model.activityHigh.Activity;
 
 /*
  * Classe com informacao dos utilizadores.
@@ -19,6 +23,7 @@ public class User{
     private GregorianCalendar dataNascimento;
     private String desportoFavorito;
     private Permissoes permissoes;
+    private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
     /**TODO:   Camposinhos - Set de emails de amigos
      *          Camposinhos - hascode de Users
@@ -37,9 +42,11 @@ public class User{
         this.email = "";
         this.password = "guest";
         this.genero = Genero.Desconhecido;
+
         this.altura = 0;
         this.peso = 0;
         this.dataNascimento = new GregorianCalendar();
+        this.recordes = new HashMap<Class<?>, HashMap<Integer, Activity>>();
         this.desportoFavorito = "";
         this.permissoes = Permissoes.Guest;
         this.fcr = 0;
@@ -54,6 +61,7 @@ public class User{
                     this.altura = altura;
                     this.peso = peso;
                     this.genero = genero;
+                    this.recordes = new HashMap<Class<?>, HashMap<Integer, Activity>>();
                     this.dataNascimento = new GregorianCalendar(anoNascimento, mesNascimento, diaNascimento);
                     this.desportoFavorito = desportoFavorito;
                     this.permissoes = permissoes;
@@ -112,6 +120,29 @@ public class User{
     public void setDesportoFavorito(String desporto){this.desportoFavorito = desporto;}
     public void setPermissoes(Permissoes permissoes){this.permissoes = permissoes;}
     public void setFreqCardio(){this.fcr=fcr;}
+    
+    
+    /*Should be called in addActivity*/
+    /*TODO: TEST it*/
+    @SuppressWarnings("unused")
+	private void addRecord(Activity activity){
+    	HashMap<Integer, Activity> actRecords = recordes.get(activity.getClass());
+    	Activity actualRecord;
+    	
+    	/*iF Don't exist, add*/
+    	if (actRecords == null){
+    		recordes.put(activity.getClass(), new HashMap<Integer, Activity> ());
+    		actRecords = recordes.get(activity.getClass());
+    	}
+    	
+    	actualRecord = actRecords.get(activity.getRecordType());
+    	if (actualRecord == null || activity.compareRecord(actualRecord) > 0){
+    		actRecords.put(activity.getRecordType(), activity);
+    	}
+    	
+    }
+    
+    
     
     public User clone(){return new User(this);}
     

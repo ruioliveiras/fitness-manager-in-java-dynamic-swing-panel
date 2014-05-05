@@ -62,9 +62,10 @@ public abstract class Activity {
     public int getHeartRate(){return mHearthRate;}
 
     public abstract String getName();
+    /*public abstract int getRecordSize();*/ /*need? to know how many different records exists?*/
     public abstract int getRecordType();
     public abstract int compareRecord(Activity otherActivity);
-
+    
     
     @Override
     public boolean equals (Object obj){
