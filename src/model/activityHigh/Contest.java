@@ -15,15 +15,15 @@ public abstract class Contest extends Activity {
 		mPointTeam = 0;
 	}
 
-	public Contest(long time,Weather weather,int pointRival,int pointTeam,Contest.Result result) {
-		super(time, weather);
+	public Contest(long time,Weather weather,int hRate,int pointRival,int pointTeam,Contest.Result result) {
+		super(time, weather, hRate);
 		mPointRival = pointRival;
 		mPointTeam = pointTeam;
 		mResult = result;
 	}   
 
 	public Contest(Contest act) {
-		this(act.getTime(),act.getWeather(),act.getPointRival(),act.getPointTeam(),act.getResult());
+		this(act.getTime(),act.getWeather(),act.getHeartRate(),act.getPointRival(),act.getPointTeam(),act.getResult());
 	}
 	
 	public void setPointRival(int pointRival){mPointRival = pointRival;}

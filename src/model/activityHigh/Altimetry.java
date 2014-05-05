@@ -16,8 +16,8 @@ public abstract class Altimetry extends Distance {
 		mMaxAltitude = 0;
 	}
 
-	public Altimetry(long time,Weather weather,int distance,int maxSpeed,int ascendent,int descendent,int minAltitude, int maxAltitude) {
-		super(time,weather,distance,maxSpeed);
+	public Altimetry(long time,Weather weather,int hearthRate,int distance,int maxSpeed,int ascendent,int descendent,int minAltitude, int maxAltitude) {
+		super(time,weather,hearthRate,distance,maxSpeed);
 		mAscendent = ascendent;
 		mDescendent = descendent;
 		mMinAltitude = minAltitude;
@@ -25,7 +25,7 @@ public abstract class Altimetry extends Distance {
 	}   
 	
 	public Altimetry(Altimetry act) {
-		this(act.getTime(),act.getWeather(),act.getDistance(),act.getMaxSpeed(),act.getAscendent(),act.getDescendent(),act.getMinAltitude(),act.getMaxAltitude());
+		this(act.getTime(),act.getWeather(),act.getHeartRate(),act.getDistance(),act.getMaxSpeed(),act.getAscendent(),act.getDescendent(),act.getMinAltitude(),act.getMaxAltitude());
 	}
 	
 	public void setAscendent(int ascendent){mAscendent = ascendent;}

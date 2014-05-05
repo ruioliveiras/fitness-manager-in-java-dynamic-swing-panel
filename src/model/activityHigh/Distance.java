@@ -10,14 +10,14 @@ public abstract class Distance extends Activity {
 		mMaxSpeed = 0;
 	}
 
-	public Distance(long time,Weather weather,int distance,int maxSpeed) {
-		super(time,weather);
+	public Distance(long time,Weather weather,int hearthRate,int distance,int maxSpeed) {
+		super(time,weather,hearthRate);
 		mMaxSpeed = maxSpeed;
 		mDistance = distance;
 	}   
 	
 	public Distance(Distance act) {
-		this(act.getTime(),act.getWeather(),act.getDistance(),act.getMaxSpeed());
+		this(act.getTime(),act.getWeather(),act.getHeartRate(),act.getDistance(),act.getMaxSpeed());
 	}
 	
 	public void setDistance(int distance){mDistance = distance;}

@@ -12,14 +12,14 @@ public abstract class Skill extends Activity {
 		mMaxTrick = 0;
 	}
 
-	public Skill(long time,Weather weather,int points,int maxTrick) {
-		super(time,weather);
+	public Skill(long time,Weather weather,int hearthRate,int points,int maxTrick) {
+		super(time,weather,hearthRate);
 		mPoints = points;
 		mMaxTrick = maxTrick;
 	}   
 
 	public Skill(Skill act) {
-		this(act.getTime(),act.getWeather(),act.getPoints(),act.getMaxTrick());
+		this(act.getTime(),act.getWeather(),act.getHeartRate(),act.getPoints(),act.getMaxTrick());
 	}
 	
 	public void setPoints(int points){mPoints = points;}
