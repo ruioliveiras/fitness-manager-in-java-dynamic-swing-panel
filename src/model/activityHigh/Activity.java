@@ -20,6 +20,14 @@ import model.user.Genero;
 
 
 public abstract class Activity {
+    /**TODO:    Santos - criar var. GregorianCalendar para ter data na actividade
+     *          Santos - Comparator por data
+     *          Santos - metodo para retornar intensidade (abstracto)
+     *          Camposinhos - metodo para retornar o valor MET
+     *          Camposinhos - actualizar metodo de calorias para receber um User
+     *          Camposinhos - mTime em milesimos! ->update timeInHours
+     *          Oliveira - implementar Recordes
+     */
     private long mTime; /*activity duration [s]*/
     private Weather mWeather;
     private int mHR;/*heart rate [1/min] - for calorie burn calculation*/

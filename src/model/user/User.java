@@ -20,14 +20,14 @@ public class User{
     private String desportoFavorito;
     private Permissoes permissoes;
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
+    /**TODO:   Camposinhos - Set de emails de amigos
+     *          Camposinhos - hascode de Users
+     *          Santos - TreeSet de Activities (Calendario de Activities - ordenado por data)
+     *          Santos - acrescentar var. forma + metodos
+     *          Oliveira - implementar Recordes (facebook)
+     */ 
     
     
-    /**A implementar quando se tiver implementacoes concretas das classes das actividades.
-     * - Informa��o das actividades que realizou;
-     * - Records
-     * - Lista de Amigos -> provavelmente tera que ser noutra classe.
-     * - calendario das actividades do utilizador (requisito)!!!
-     */
      
      /*
       * Construtores
