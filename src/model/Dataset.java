@@ -1,11 +1,16 @@
 package model;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
 
+import model.activityHigh.Activity;
+import model.activityLow.Basquetebol;
+import model.activityLow.Ciclismo;
 import model.user.User;
 
 public class Dataset {
@@ -20,6 +25,9 @@ public class Dataset {
 		}
 		
 		private Comparator<User> getComp(){return eComp;};
+	}
+	public enum classManager{
+		
 	}
 	
 	
@@ -60,26 +68,63 @@ public class Dataset {
 	}
 	
 	public User getUser(String email){
+		
 		User u = mUsers.get(email);
 		return (u==null) ? null : u.clone();
 	}
 	
 	
 	
-	public static Comparator<User> sComparatorUserAlfa = new Comparator<User>() {
+	private final static Comparator<User> sComparatorUserAlfa = new Comparator<User>() {
 		
 		@Override
 		public int compare(User o1, User o2) {
 			return o1.getNome().compareTo(o2.getNome());
 		}
 	};
-	public static Comparator<User> sComparatorUserSimple = new Comparator<User>() {
+	private final static Comparator<User> sComparatorUserSimple = new Comparator<User>() {
 		
 		@Override
 		public int compare(User o1, User o2) {
 			return 1;
 		}
+		
 	};
 	
+	public final static Class<?>[] sActivitys = {Ciclismo.class,Basquetebol.class};  
+	public static void teste(){
+		boolean t = Activity.class.isAssignableFrom(sActivitys[0]);
+		Activity a;
+		try {
+			Constructor<?> construct = sActivitys[0].getDeclaredConstructor();
+			a = (Activity)construct.newInstance();
+			
+			System.out.print(a.getName());
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 	
+	public static void main(String[] args) {
+		teste();
+	}
+
 }
