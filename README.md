@@ -17,7 +17,9 @@ Recomendado o uso de BlueJ, download: https://www.eclipse.org/downloads/. Eventu
 Projeto segue a arquitetura de MVC Model-View-Controller
 
 
-**TODO:**
+**TODO (de acordo com reuniao de dia 05/05/2014):**
+
+- Ver TODOs especificos nos ficheiros .java
 
 -Classe de conjunto de Users (rede social)
 
@@ -25,7 +27,10 @@ Projeto segue a arquitetura de MVC Model-View-Controller
 
 -Classes especializadas de cada actividade em particular
 
--Todos (AINDA) a pensar sobre os Recordes :)
+-Recordes (ref. facebook Oliveira)
 
+-Package eventos: Classe Evento + Classe Simulacao
 
+-Classe Evento: {Conjuto Users, Actividade, Categoria, Data evento, Data inscricao, Nome, pre-requisito inscricao (long tempo/distancia), numero maximo de participantes}
 
+-Classe DataSet: {HashMap Users, HashMap Eventos, ...}
