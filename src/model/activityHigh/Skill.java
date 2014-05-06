@@ -1,5 +1,7 @@
 package model.activityHigh;
 
+import java.util.GregorianCalendar;
+
 public abstract class Skill extends Activity {
 	/*Resultado do contest? */
 	private int mPoints;
@@ -12,14 +14,14 @@ public abstract class Skill extends Activity {
 		mMaxTrick = 0;
 	}
 
-	public Skill(long time,Weather weather,int hearthRate,int points,int maxTrick) {
-		super(time,weather,hearthRate);
+	public Skill(long time,Weather weather,int hearthRate,GregorianCalendar date,int points,int maxTrick) {
+		super(time,weather,hearthRate,date);
 		mPoints = points;
 		mMaxTrick = maxTrick;
 	}   
 
 	public Skill(Skill act) {
-		this(act.getTime(),act.getWeather(),act.getHeartRate(),act.getPoints(),act.getMaxTrick());
+		this(act.getTime(),act.getWeather(),act.getHeartRate(),act.getDate(),act.getPoints(),act.getMaxTrick());
 	}
 	
 	public void setPoints(int points){mPoints = points;}

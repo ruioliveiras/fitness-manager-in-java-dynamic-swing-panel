@@ -1,5 +1,6 @@
 package model.activityHigh;
 import model.user.Genero;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -28,6 +29,7 @@ public abstract class Activity {
      *          Camposinhos - mTime em milesimos! ->update timeInHours
      *          Oliveira - implementar Recordes
      */
+    private GregorianCalendar mDate;
     private long mTime; /*activity duration [s]*/
     private Weather mWeather;
     private int mHearthRate;/*heart rate [1/min] - for calorie burn calculation*/
@@ -40,17 +42,20 @@ public abstract class Activity {
     public Activity() {
         mTime = 0;
         mWeather = Weather.INDOOR;
+
         mHearthRate = 0;
+        mDate = new GregorianCalendar();
     }
 
-    public Activity(long time, Weather weather, int hRate) {
+    public Activity(long time, Weather weather, int hRate, GregorianCalendar date) {
         mTime = time;
         mWeather = weather;
         mHearthRate = hRate;
+        mDate = (GregorianCalendar) date.clone();
     }   
 
     public Activity(Activity act) {
-        this(act.getTime(), act.getWeather(), act.getHeartRate());
+        this(act.getTime(), act.getWeather(), act.getHeartRate(), act.getDate());
     }
 
     
@@ -61,11 +66,16 @@ public abstract class Activity {
     public void setHeartRate(int heathRate){mHearthRate = heathRate;}
     public int getHeartRate(){return mHearthRate;}
 
+    public GregorianCalendar getDate(){ return mDate;}
+    public void setDate(int ano, int mes, int dia){mDate = new GregorianCalendar(ano, mes, dia);}
+    public void setDate(GregorianCalendar date){mDate = (GregorianCalendar) date.clone();}
+    
+    
     public abstract String getName();
     /*public abstract int getRecordSize();*/ /*need? to know how many different records exists?*/
     public abstract int getRecordType();
     public abstract int compareRecord(Activity otherActivity);
-    
+    public abstract int getIntensidade();
     
     @Override
     public boolean equals (Object obj){

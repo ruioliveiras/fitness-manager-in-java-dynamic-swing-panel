@@ -2,7 +2,6 @@ package model.user;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +51,7 @@ public class User{
         this.fcr = 0;
     }
     
-    public User(String nome, String email, String Password, Genero genero, int altura, int peso, 
+    public User(String nome, String email, String password, Genero genero, int altura, int peso, 
                 int diaNascimento, int mesNascimento, int anoNascimento, 
                 String desportoFavorito, Permissoes permissoes, int fcRepouso){
                     this.nome = nome;
@@ -119,7 +118,7 @@ public class User{
     }
     public void setDesportoFavorito(String desporto){this.desportoFavorito = desporto;}
     public void setPermissoes(Permissoes permissoes){this.permissoes = permissoes;}
-    public void setFreqCardio(){this.fcr=fcr;}
+    public void setFreqCardio(int fcr){this.fcr=fcr;}
     
     
     /*Should be called in addActivity*/
