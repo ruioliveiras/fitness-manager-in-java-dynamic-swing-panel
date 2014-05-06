@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Contest()
+comment1.params=act
+comment1.target=Contest(Contest)
+comment10.params=
+comment10.target=int\ hashCode()
+comment10.text=TODO\:\ IMPLEMENTAR\ toString??
+comment2.params=pointRival
+comment2.target=void\ setPointRival(int)
+comment3.params=
+comment3.target=int\ getPointRival()
+comment4.params=pointTeam
+comment4.target=void\ setPointTeam(int)
+comment5.params=
+comment5.target=int\ getPointTeam()
+comment6.params=result
+comment6.target=void\ setResult(Contest.Result)
+comment7.params=
+comment7.target=Contest.Result\ getResult()
+comment8.params=
+comment8.target=java.lang.String\ getPointName()
+comment9.params=obj
+comment9.target=boolean\ equals(java.lang.Object)
+comment9.text=Return\ "Goal"\ "points"\ etc..
+numComments=11

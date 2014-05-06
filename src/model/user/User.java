@@ -17,15 +17,15 @@ public class User{
     private String nome;
     private String password;
     private Genero genero;
-    private int altura;
-    private int peso;
+    private int altura; /*cm*/
+    private int peso; /*kg*/
     private GregorianCalendar dataNascimento;
     private String desportoFavorito;
     private Permissoes permissoes;
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
-    /**TODO:   Camposinhos - Set de emails de amigos
-     *          Camposinhos - hascode de Users
+    /**TODO:    Camposinhos - Set de emails de amigos
+     *          Camposinhos - hascode de Users --- DONE
      *          Santos - TreeSet de Activities (Calendario de Activities - ordenado por data)
      *          Santos - acrescentar var. forma + metodos
      *          Oliveira - implementar Recordes (facebook)
@@ -141,7 +141,9 @@ public class User{
     	
     }
     
-    
+    public int hashCode(){
+        return getEmail().hashCode();
+    }
     
     public User clone(){return new User(this);}
     

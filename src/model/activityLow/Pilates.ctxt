@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=
+comment0.target=java.lang.String\ getName()
+comment1.params=
+comment1.target=int\ getRecordType()
+comment2.params=otherActivity
+comment2.target=int\ compareRecord(model.activityHigh.Activity)
+comment3.params=
+comment3.target=int\ getIntensidade()
+numComments=4
