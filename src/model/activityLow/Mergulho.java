@@ -1,13 +1,13 @@
 package model.activityLow;
 
 import model.activityHigh.Activity;
-import model.activityHigh.Skill;
+import model.activityHigh.Ludic;
 
-public class Suft extends Skill {
+public class Mergulho extends Ludic {
 
 	@Override
 	public String getName() {
-		return "Surf";
+		return "Mergulho";
 	}
 
 	@Override
@@ -27,9 +27,7 @@ public class Suft extends Skill {
 	}
 
 	@Override
-	public String getPointName() {
-		// TODO Auto-generated method stub
-		return null;
+	public double getMET() {
+		return 7.0;
 	}
-
 }
