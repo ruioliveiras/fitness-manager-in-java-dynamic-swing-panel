@@ -9,12 +9,12 @@ public class Squash extends Individual {
 	}
 
 	@Override
-	public int getRecordType() {
+	public int getRecordSize() {
 		return 0;
 	}
 
 	@Override
-	public int compareRecord(Activity otherActivity) {
+	public int compareRecord(Activity otherActivity,int recordType) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -125,20 +125,24 @@ public class User{
     /*TODO: TEST it*/
     @SuppressWarnings("unused")
 	private void addRecord(Activity activity){
-    	HashMap<Integer, Activity> actRecords = recordes.get(activity.getClass());
-    	Activity actualRecord;
+    	HashMap<Integer, Activity> actualRecords = recordes.get(activity.getClass());
+    	int numRecords;
+    	Activity record;
+    	
     	
     	/*iF Don't exist, add*/
-    	if (actRecords == null){
+    	if (actualRecords == null){
     		recordes.put(activity.getClass(), new HashMap<Integer, Activity> ());
-    		actRecords = recordes.get(activity.getClass());
+    		actualRecords = recordes.get(activity.getClass());
     	}
     	
-    	actualRecord = actRecords.get(activity.getRecordType());
-    	if (actualRecord == null || activity.compareRecord(actualRecord) > 0){
-    		actRecords.put(activity.getRecordType(), activity);
+    	numRecords = activity.getRecordSize();
+    	for (int i=0;i<numRecords;i++){
+    		record = actualRecords.get(i);
+    		if (record == null || activity.compareRecord(record,i) > 0){
+        		actualRecords.put(activity.getRecordSize(), activity);
+        	}
     	}
-    	
     }
     
     public int hashCode(){

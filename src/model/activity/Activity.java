@@ -74,8 +74,8 @@ public abstract class Activity {
     
     public abstract String getName();
     /*public abstract int getRecordSize();*/ /*need? to know how many different records exists?*/
-    public abstract int getRecordType();
-    public abstract int compareRecord(Activity otherActivity);
+    public abstract int getRecordSize();
+    public abstract int compareRecord(Activity otherActivity,int recordType);
     public abstract int getIntensidade();
     public abstract double getMET(); /*for calories*/
     
