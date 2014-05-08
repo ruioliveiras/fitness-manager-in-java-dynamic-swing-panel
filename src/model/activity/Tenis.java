@@ -1,7 +1,7 @@
 package model.activity;
 
 
-public class Tenis extends Collective {
+public class Tenis extends Individual {
 
 	@Override
 	public String getName() {

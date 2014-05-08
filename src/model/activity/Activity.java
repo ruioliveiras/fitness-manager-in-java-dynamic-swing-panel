@@ -23,15 +23,6 @@ import java.util.GregorianCalendar;
 
 
 public abstract class Activity {
-    /**TODO:    Santos - criar var. GregorianCalendar para ter data na actividade
-     *          Santos - Comparator por data
-     *          Santos - metodo para retornar intensidade (abstracto)
-     *          Camposinhos - metodo para retornar o valor MET --- DONE
-     *          Camposinhos - actualizar metodo de calorias para receber um User --- DONE
-     *          Camposinhos - mTime em milesimos! ->update timeInHours --- DONE
-     *          Oliveira - implementar Recordes
-     *          GERAL - fazer clone nos gets?
-     */
     private GregorianCalendar mDate;
     private long mTime; /*activity duration [ms]*/
     private Weather mWeather;
@@ -69,7 +60,7 @@ public abstract class Activity {
     public void setHeartRate(int heathRate){mHearthRate = heathRate;}
     public int getHeartRate(){return mHearthRate;}
 
-    public GregorianCalendar getDate(){ return mDate;}
+    public GregorianCalendar getDate(){ return (GregorianCalendar) mDate.clone();}
     public void setDate(int ano, int mes, int dia){mDate = new GregorianCalendar(ano, mes, dia);}
     public void setDate(GregorianCalendar date){mDate = (GregorianCalendar) date.clone();}
     
@@ -93,13 +84,13 @@ public abstract class Activity {
     
     @Override
     public int hashCode(){
-        return (int)mTime + mWeather.hashCode() + mHearthRate;
+        return CalcHashCode((int) mTime, mWeather.hashCode(),mHearthRate);
     }
     @Override
     public  abstract Object clone();
     
     
-    /*Oliveira: esta funcao serve para o que????*/
+    /*a importar para um package util*/
     public static int CalcHashCode(int a,int b,int c){
         return Long.valueOf((a * 31 + b) * 31 + c).hashCode();
     }
@@ -117,14 +108,9 @@ public abstract class Activity {
     }
     /**
      * Calories burn calculation - based on HR *******ATENTION - NEEDS TESTING*****
-     * @param g gender
-     * @param w weight [kg]
-     * @param h height [cm]
-     * @param a age [years]
-     * @param hrr heart rate at rest [1/min]
+     * @param u user from User classe, namely {gender, weight, height, age, at rest heart rate}
      * @return net calories burn [kcal]
      */
-    /*previous version: private int calcCaloriesHR(Genero g, int w, int h, int a, int hrr)*/
     private int calcCaloriesHR(User u){
         double ncb, gcb, bmr, rmrcb;
         double hrm = 208.0 - 0.7*((double) u.getIdade());
@@ -151,7 +137,6 @@ public abstract class Activity {
      * @param u user from User classe, namely {gender, weight, height, age}
      * @return calories burn [kcal]
      */
-    /*previous version: private int calcCaloriesMET(Genero g, int w, int h, int a, double met)*/
     private int calcCaloriesMET(User u){
         double cb, cmet, rmr;
         if(u.getGenero() == Genero.Masculino){
@@ -169,7 +154,11 @@ public abstract class Activity {
         return (int) cb;
     }
     
-    /*public int calcCalories(Genero g, int w, int h, int a, int hrr, double met)*/
+    /**
+     * Calories burn calculation - based on MET or HR *******ATENTION - NEEDS TESTING*****
+     * @param u user from User classe, namely {gender, weight, height, age, hrr}
+     * @return calories burn [kcal]
+     */
     public int calcCalories(User u){
         int cb = 0;
         
