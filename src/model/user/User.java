@@ -1,3 +1,7 @@
+    /**TODO:
+     *          Santos - acrescentar var. forma + metodos
+     */ 
+
 package model.user;
 
 import java.util.Calendar;
@@ -13,9 +17,7 @@ import model.activity.Ciclismo;
 
 /*
  * Classe com informacao dos utilizadores.
- * @author andrerfcsantos
  */
-
 public class User{
     private String email;
     private String nome;
@@ -31,12 +33,7 @@ public class User{
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
     private Set<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
     
-    /**TODO:    Camposinhos - Set de emails de amigos
-     *          Camposinhos - hascode de Users --- DONE
-     *          Santos - TreeSet de Activities (Calendario de Activities - ordenado por data)
-     *          Santos - acrescentar var. forma + metodos
-     *          Oliveira - implementar Recordes (facebook)
-     */ 
+
     
     
      
@@ -105,13 +102,7 @@ public class User{
     public int getPeso(){return this.peso;}
     public Genero getGenero(){return this.genero;}
     public GregorianCalendar getDataNascimento(){return this.dataNascimento;}
-    public int getIdade(){
-        /* Alternativa caso seja necessaria mais precisao:
-         * 
-         * GregorianCalendar agora = new GregorianCalendar();
-         * long diferenca = agora.getTimeInMillis() - this.getTimeInMillis();
-         * return (double) diferenca/(1000*60*60*24*30*365);*/
-        
+    public int getIdade(){        
         GregorianCalendar agora = new GregorianCalendar();
         return agora.get(Calendar.YEAR) - this.dataNascimento.get(Calendar.YEAR);
     }
