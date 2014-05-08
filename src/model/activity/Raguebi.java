@@ -36,4 +36,10 @@ public class Raguebi extends Collective {
 		return 0;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

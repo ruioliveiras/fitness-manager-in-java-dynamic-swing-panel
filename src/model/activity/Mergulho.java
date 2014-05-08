@@ -28,4 +28,10 @@ public class Mergulho extends Ludic {
 	public double getMET() {
 		return 7.0;
 	}
+
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

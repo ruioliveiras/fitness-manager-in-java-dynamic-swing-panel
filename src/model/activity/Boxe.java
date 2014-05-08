@@ -34,4 +34,10 @@ public class Boxe extends Collective {
 		return 12.8;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

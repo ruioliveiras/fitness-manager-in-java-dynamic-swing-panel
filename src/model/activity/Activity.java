@@ -1,6 +1,7 @@
 package model.activity;
 import model.user.Genero;
 import model.user.User;
+
 import java.util.GregorianCalendar;
 
 
@@ -29,6 +30,7 @@ public abstract class Activity {
      *          Camposinhos - actualizar metodo de calorias para receber um User --- DONE
      *          Camposinhos - mTime em milesimos! ->update timeInHours --- DONE
      *          Oliveira - implementar Recordes
+     *          GERAL - fazer clone nos gets?
      */
     private GregorianCalendar mDate;
     private long mTime; /*activity duration [ms]*/
@@ -93,6 +95,8 @@ public abstract class Activity {
     public int hashCode(){
         return (int)mTime + mWeather.hashCode() + mHearthRate;
     }
+    @Override
+    public  abstract Object clone();
     
     
     /*Oliveira: esta funcao serve para o que????*/

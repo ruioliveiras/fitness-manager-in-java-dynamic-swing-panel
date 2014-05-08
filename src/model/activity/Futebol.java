@@ -34,4 +34,10 @@ public class Futebol extends Collective {
 		return 7.0;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -30,5 +30,11 @@ public class Ginasio extends Ludic {
 		return 0;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

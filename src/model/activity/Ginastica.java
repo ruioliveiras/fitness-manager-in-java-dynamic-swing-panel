@@ -35,4 +35,10 @@ public class Ginastica extends Skill {
 		return 3.8;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

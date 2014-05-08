@@ -28,4 +28,10 @@ public class Caiaque extends Distance{
 	public double getMET() {
 		return 5.0;
 	}
+
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

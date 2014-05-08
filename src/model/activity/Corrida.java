@@ -29,4 +29,10 @@ public class Corrida extends Altimetry {
 		return 7.0;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

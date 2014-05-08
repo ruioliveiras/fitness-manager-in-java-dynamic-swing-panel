@@ -35,4 +35,10 @@ public class Snowboard extends Skill {
 		return 5.3;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

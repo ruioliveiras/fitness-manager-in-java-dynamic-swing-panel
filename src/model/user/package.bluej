@@ -8,17 +8,23 @@ dependency2.type=UsesDependency
 objectbench.height=76
 objectbench.width=641
 package.editor.height=400
+<<<<<<< HEAD
 package.editor.width=519
-package.editor.x=-141
-package.editor.y=75
+package.editor.x=67
+package.editor.y=258
+=======
+package.editor.width=543
+package.editor.x=363
+package.editor.y=188
+>>>>>>> 0b22ffbfda0b8ed9ebc2037d6586ac6e00f04ed2
 package.numDependencies=2
 package.numTargets=3
 package.showExtends=true
 package.showUses=true
 target1.editor.height=589
 target1.editor.width=917
-target1.editor.x=4
-target1.editor.y=30
+target1.editor.x=-81
+target1.editor.y=53
 target1.height=50
 target1.name=User
 target1.naviview.expanded=false

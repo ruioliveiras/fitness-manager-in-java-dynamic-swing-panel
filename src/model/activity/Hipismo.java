@@ -35,4 +35,10 @@ public class Hipismo extends Skill {
 		return 5.5;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

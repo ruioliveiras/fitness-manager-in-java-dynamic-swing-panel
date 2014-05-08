@@ -34,4 +34,10 @@ public class Tenis extends Collective {
 		return 7.3;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

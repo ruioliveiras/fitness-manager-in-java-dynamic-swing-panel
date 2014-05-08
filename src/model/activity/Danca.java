@@ -29,4 +29,10 @@ public class Danca extends Ludic {
 		return 7.8;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -28,4 +28,10 @@ public class Caminhada extends Distance{
 	public double getMET() {
 		return 3.5;
 	}
+
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

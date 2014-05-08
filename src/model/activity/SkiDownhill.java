@@ -30,4 +30,10 @@ public class SkiDownhill extends Distance {
 		return 0;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

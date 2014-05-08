@@ -34,4 +34,10 @@ public class ArtesMarciais extends Collective {
 		return 10.3;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

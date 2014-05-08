@@ -28,4 +28,10 @@ public class BTT extends Altimetry{
 	public double getMET() {
 		return 8.5;
 	}
+
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

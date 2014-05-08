@@ -36,4 +36,10 @@ public class TenisMesa extends Collective {
 		return 0;
 	}
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

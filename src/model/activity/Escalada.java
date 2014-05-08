@@ -28,4 +28,10 @@ public class Escalada extends Ludic {
 	public double getMET() {
 		return 8.0;
 	}
+
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

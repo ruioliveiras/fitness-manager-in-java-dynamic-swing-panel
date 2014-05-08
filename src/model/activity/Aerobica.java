@@ -28,5 +28,11 @@ public class Aerobica extends Ludic {
 	public double getMET() {
 		return 7.3;
 	}
+
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 

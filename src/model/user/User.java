@@ -4,8 +4,13 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.TreeSet;
 
+import model.activity.ActivityComparatorByDate;
 import model.activity.Activity;
+import model.activity.Ciclismo;
 
 /*
  * Classe com informacao dos utilizadores.
@@ -22,8 +27,11 @@ public class User{
     private GregorianCalendar dataNascimento;
     private String desportoFavorito;
     private Permissoes permissoes;
+    private TreeSet<Activity> actividadesUser;
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
+    private Set<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
+    
     /**TODO:    Camposinhos - Set de emails de amigos
      *          Camposinhos - hascode de Users --- DONE
      *          Santos - TreeSet de Activities (Calendario de Activities - ordenado por data)
@@ -41,7 +49,6 @@ public class User{
         this.email = "";
         this.password = "guest";
         this.genero = Genero.Desconhecido;
-
         this.altura = 0;
         this.peso = 0;
         this.dataNascimento = new GregorianCalendar();
@@ -49,6 +56,8 @@ public class User{
         this.desportoFavorito = "";
         this.permissoes = Permissoes.Guest;
         this.fcr = 0;
+        this.amigos = new HashSet<String>();
+        this.actividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
     }
     
     public User(String nome, String email, String password, Genero genero, int altura, int peso, 
@@ -65,7 +74,9 @@ public class User{
                     this.desportoFavorito = desportoFavorito;
                     this.permissoes = permissoes;
                     this.fcr = fcRepouso;
-                }
+                    this.amigos = new HashSet<String>();
+                    this.actividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
+               }
                 
     public User(User u){
         this.nome = u.getNome();
@@ -78,6 +89,11 @@ public class User{
         this.desportoFavorito = u.desportoFavorito;
         this.permissoes = u.permissoes;
         this.fcr = u.getFreqCardio();
+        this.amigos = new HashSet<String>(u.getAmigos());
+        for(Activity a : u.actividadesUser){
+            /*TODO: necessita do clone de Activity implementado para compilar, caso contrário assume o clone() de Object que é protected.*/
+            this.actividadesUser.add((Activity) a.clone());
+        }
     }
     
       /*
@@ -103,6 +119,13 @@ public class User{
     public String getDesportoFavorito(){return this.desportoFavorito;}
     public Permissoes getPermissoes(){return this.permissoes;}
     public int getFreqCardio(){return this.fcr;}
+    public Set<String> getAmigos(){
+        Set<String> amg = new HashSet<String>();
+        for(String n : amigos)
+            amg.add(n);
+        return amg;
+    }
+    
     
     /*
       * Setters
@@ -119,7 +142,32 @@ public class User{
     public void setDesportoFavorito(String desporto){this.desportoFavorito = desporto;}
     public void setPermissoes(Permissoes permissoes){this.permissoes = permissoes;}
     public void setFreqCardio(int fcr){this.fcr=fcr;}
+    public void setAmigos(Set<String> amg) {
+        for(String n : amg)
+            amigos.add(n);
+    }
     
+    public void addActivity(Activity a){
+    	actividadesUser.add((Activity) a.clone());
+    }
+    
+    public Set<Activity> actividadesEntre(GregorianCalendar dataInferior, GregorianCalendar dataSuperior){
+    	 Set<Activity> res = new TreeSet<Activity>(new ActivityComparatorByDate());
+         /*Actividades artificiais para efeitos de comparacao*/
+         Activity a1 = new Ciclismo(); a1.setDate(dataInferior);
+         Activity a2 = new Ciclismo(); a2.setDate(dataSuperior);
+         
+         for(Activity ac : this.actividadesUser.subSet(a1, true, a2, true)){
+             res.add((Activity) ac.clone());
+         }
+         
+         return res;
+    }
+    
+    public double getForma(){
+        /*WIP*/
+        return 0.0;
+    }
     
     /*Should be called in addActivity*/
     /*TODO: TEST it*/
@@ -144,6 +192,21 @@ public class User{
         	}
     	}
     }
+    /**
+     * Metodos para gerir amigos (string code: email)
+     */
+    public void addAmigo(String amg){
+        amigos.add(amg);
+    }
+    
+    public boolean existeAmigo(String amg) {
+        return (amigos.contains(amg));
+    }
+    
+    public void removeAmigo(String amg) {
+        amigos.remove(amg);
+    }
+    
     
     public int hashCode(){
         return getEmail().hashCode();
