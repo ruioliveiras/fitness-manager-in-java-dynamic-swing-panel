@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.TreeSet;
-import model.activityHigh.ActivityComparatorByDate;
+import model.activity.ActivityComparatorByDate;
 import model.activity.Activity;
 
 /*
