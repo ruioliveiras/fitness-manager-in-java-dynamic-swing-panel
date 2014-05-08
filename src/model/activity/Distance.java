@@ -2,6 +2,8 @@ package model.activity;
 
 import java.util.GregorianCalendar;
 
+import core.Util;
+
 public abstract class Distance extends Activity {
 	private int mDistance;
 	private int mMaxSpeed;
@@ -19,7 +21,7 @@ public abstract class Distance extends Activity {
 	}   
 	
 	public Distance(Distance act) {
-		this(act.getTime(),act.getWeather(),act.getHeartRate(), act.getDate() ,act.getDistance(),act.getMaxSpeed());
+		this(act.getDuration(),act.getWeather(),act.getHeartRate(), act.getDate() ,act.getDistance(),act.getMaxSpeed());
 	}
 	
 	public void setDistance(int distance){mDistance = distance;}
@@ -29,7 +31,7 @@ public abstract class Distance extends Activity {
 	
 	
 	public float getVelocity(){
-		return (float)mDistance/ (float)super.getTime();
+		return (float)mDistance/ (float)super.getDuration();
 	}
 	
 	
@@ -45,7 +47,7 @@ public abstract class Distance extends Activity {
 	
 	@Override
 	public int hashCode(){
-		return CalcHashCode(mDistance,mMaxSpeed,super.hashCode());
+		return Util.CalcHashCode(mDistance,mMaxSpeed,super.hashCode());
 	}
 
 

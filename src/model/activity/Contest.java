@@ -25,7 +25,7 @@ public abstract class Contest extends Activity {
 	}   
 
 	public Contest(Contest act) {
-		this(act.getTime(),act.getWeather(),act.getHeartRate(),act.getDate(),act.getPointRival(),act.getPointTeam(),act.getResult());
+		this(act.getDuration(),act.getWeather(),act.getHeartRate(),act.getDate(),act.getPointRival(),act.getPointTeam(),act.getResult());
 	}
 	
 	public void setPointRival(int pointRival){mPointRival = pointRival;}

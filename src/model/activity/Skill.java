@@ -21,7 +21,7 @@ public abstract class Skill extends Activity {
 	}   
 
 	public Skill(Skill act) {
-		this(act.getTime(),act.getWeather(),act.getHeartRate(),act.getDate(),act.getPoints(),act.getMaxTrick());
+		this(act.getDuration(),act.getWeather(),act.getHeartRate(),act.getDate(),act.getPoints(),act.getMaxTrick());
 	}
 	
 	public void setPoints(int points){mPoints = points;}

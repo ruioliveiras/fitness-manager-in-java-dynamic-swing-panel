@@ -2,6 +2,8 @@ package model.activity;
 
 import java.util.GregorianCalendar;
 
+import core.Util;
+
 public abstract class Altimetry extends Distance {
 	
 	private int mAscendent;
@@ -27,7 +29,7 @@ public abstract class Altimetry extends Distance {
 	}   
 	
 	public Altimetry(Altimetry act) {
-		this(act.getTime(),act.getWeather(),act.getHeartRate(),act.getDate(),act.getDistance(),act.getMaxSpeed(),act.getAscendent(),act.getDescendent(),act.getMinAltitude(),act.getMaxAltitude());
+		this(act.getDuration(),act.getWeather(),act.getHeartRate(),act.getDate(),act.getDistance(),act.getMaxSpeed(),act.getAscendent(),act.getDescendent(),act.getMinAltitude(),act.getMaxAltitude());
 	}
 	
 	public void setAscendent(int ascendent){mAscendent = ascendent;}
@@ -54,7 +56,7 @@ public abstract class Altimetry extends Distance {
 	
 	@Override
 	public int hashCode(){
-		return CalcHashCode(mAscendent,mDescendent,mMinAltitude) + CalcHashCode(mMaxAltitude, super.hashCode(), 0);
+		return Util.CalcHashCode(mAscendent,mDescendent,mMinAltitude) + Util.CalcHashCode(mMaxAltitude, super.hashCode(), 0);
 	}
 
 	
