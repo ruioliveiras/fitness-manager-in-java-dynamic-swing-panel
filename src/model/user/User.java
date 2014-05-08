@@ -4,10 +4,12 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+
 import java.util.Set;
 import java.util.HashSet;
-
-import model.activityHigh.Activity;
+import java.util.TreeSet;
+import model.activityHigh.ActivityComparatorByDate;
+import model.activity.Activity;
 
 /*
  * Classe com informacao dos utilizadores.
@@ -24,6 +26,7 @@ public class User{
     private GregorianCalendar dataNascimento;
     private String desportoFavorito;
     private Permissoes permissoes;
+    private TreeSet<Activity> actividadesUser;
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
     private Set<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
@@ -53,6 +56,7 @@ public class User{
         this.permissoes = Permissoes.Guest;
         this.fcr = 0;
         this.amigos = new HashSet<String>();
+        this.actividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
     }
     
     public User(String nome, String email, String password, Genero genero, int altura, int peso, 
@@ -70,7 +74,8 @@ public class User{
                     this.permissoes = permissoes;
                     this.fcr = fcRepouso;
                     this.amigos = new HashSet<String>();
-                }
+                    this.actividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
+               }
                 
     public User(User u){
         this.nome = u.getNome();
@@ -84,6 +89,10 @@ public class User{
         this.permissoes = u.permissoes;
         this.fcr = u.getFreqCardio();
         this.amigos = new HashSet<String>(u.getAmigos());
+        for(Activity a : u.actividadesUser){
+            /*TODO: necessita do clone de Activity implementado para compilar, caso contrário assume o clone() de Object que é protected.*/
+            this.actividadesUser.add(a.clone());
+        }
     }
     
       /*
@@ -137,6 +146,27 @@ public class User{
             amigos.add(n);
     }
     
+    public void addActivity(Activity a){
+        actividades.add(a.clone());
+    }
+    
+    public Set<Activity> actividadesEntre(GregorianCalendar dataInferior, GregorianCalendar dataSuperior){
+        Set<Activity> res = new TreeSet<Activity>(new ActivityComparatorByDate());
+        /*Actividades artificiais para efeitos de comparacao*/
+        Activity a1 = new Activity(); a1.setDate(dataInferior);
+        Activity a2 = new Activity(); a2.setDate(dataSuperior);
+        
+        for(Activity ac : this.actividadesUser.subSet(a1, true, a2, true)){
+            res.add(ac.clone());
+        }
+        
+        return res;
+    }
+    
+    public double getForma(){
+        /*WIP*/
+        return 0.0;
+    }
     
     /*Should be called in addActivity*/
     /*TODO: TEST it*/

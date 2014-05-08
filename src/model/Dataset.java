@@ -8,9 +8,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
 
-import model.activityHigh.Activity;
-import model.activityLow.Basquetebol;
-import model.activityLow.Ciclismo;
+import model.activity.Activity;
+import model.activity.Basquetebol;
+import model.activity.Ciclismo;
 import model.user.User;
 
 public class Dataset {
