@@ -8,55 +8,80 @@ import model.activity.Activity;
 //-Classe Evento: {Conjuto Users, Actividade, Categoria, Data evento, Data inscricao, Nome, pre-requisito inscricao (long tempo/distancia), numero maximo de participantes}
 
 public class Event  {
+
 	private String mName;
 	private Activity mActivity;
-	private int mRecord;
+	private int mRecordType; /*An event is about a Activity with his record type, like: Run 100m*/
 	private GregorianCalendar mEventDate;
 	private GregorianCalendar mEndDate;
 	private int mPreRequisite;
 	private int mMaxNumUsers;
+
+	public Event() {
+		mName = "";
+		mActivity = null;
+		mRecordType = -1;
+		mEventDate = new GregorianCalendar();
+		mEndDate = new GregorianCalendar();
+		mPreRequisite = -1;
+		mMaxNumUsers = -1;
+	}
+	public Event(String name, Activity activity, int recordType,
+			GregorianCalendar eventDate, GregorianCalendar endDate,
+			int preRequisite, int maxNumUsers) {
+		mName = name;
+		mActivity = activity;
+		mRecordType = recordType;
+		mEventDate = eventDate;
+		mEndDate = endDate;
+		mPreRequisite = preRequisite;
+		mMaxNumUsers = maxNumUsers;
+	}
+	public Event(Event e){
+		this(e.getName(),e.getActivity(),e.getRecord(),e.getEventDate(),e.getEndDate(),e.getPreRequisite(),e.getMaxNumUsers());
+	}
 	
-	
-	public String getmName() {
+
+	public String getName() {
 		return mName;
 	}
-	public void setmName(String mName) {
+	public void setName(String mName) {
 		this.mName = mName;
 	}
-	public Activity getmActivity() {
+	public Activity getActivity() {
 		return mActivity;
 	}
-	public void setmActivity(Activity mActivity) {
+	public void setActivity(Activity mActivity) {
 		this.mActivity = mActivity;
 	}
-	public int getmRecord() {
-		return mRecord;
+	public int getRecord() {
+		return mRecordType;
 	}
-	public void setmRecord(int mRecord) {
-		this.mRecord = mRecord;
+	public void setRecord(int mRecord) {
+		this.mRecordType = mRecord;
 	}
-	public GregorianCalendar getmEventDate() {
+	public GregorianCalendar getEventDate() {
 		return mEventDate;
 	}
-	public void setmEventDate(GregorianCalendar mEventDate) {
+	public void setEventDate(GregorianCalendar mEventDate) {
 		this.mEventDate = mEventDate;
 	}
-	public GregorianCalendar getmEndDate() {
+	public GregorianCalendar getEndDate() {
 		return mEndDate;
 	}
-	public void setmEndDate(GregorianCalendar mEndDate) {
+	public void setEndDate(GregorianCalendar mEndDate) {
 		this.mEndDate = mEndDate;
 	}
-	public int getmPreRequisite() {
+	public int getPreRequisite() {
 		return mPreRequisite;
 	}
-	public void setmPreRequisite(int mPreRequisite) {
+	public void setPreRequisite(int mPreRequisite) {
 		this.mPreRequisite = mPreRequisite;
 	}
-	public int getmMaxNumUsers() {
+	public int getMaxNumUsers() {
 		return mMaxNumUsers;
 	}
-	public void setmMaxNumUsers(int mMaxNumUsers) {
+	public void setMaxNumUsers(int mMaxNumUsers) {
 		this.mMaxNumUsers = mMaxNumUsers;
 	}
 
