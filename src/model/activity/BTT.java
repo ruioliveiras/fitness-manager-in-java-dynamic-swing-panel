@@ -9,12 +9,12 @@ public class BTT extends Altimetry{
 	}
 
 	@Override
-	public int getRecordType() {
+	public int getRecordSize() {
 		return 0;
 	}
 
 	@Override
-	public int compareRecord(Activity otherActivity) {
+	public int compareRecord(Activity otherActivity,int recordType) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -27,5 +27,11 @@ public class BTT extends Altimetry{
 	@Override
 	public double getMET() {
 		return 8.5;
+	}
+
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

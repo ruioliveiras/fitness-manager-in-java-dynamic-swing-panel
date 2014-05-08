@@ -1,6 +1,7 @@
 package model.activity;
 import model.user.Genero;
 import model.user.User;
+
 import java.util.GregorianCalendar;
 
 
@@ -75,8 +76,8 @@ public abstract class Activity {
     
     public abstract String getName();
     /*public abstract int getRecordSize();*/ /*need? to know how many different records exists?*/
-    public abstract int getRecordType();
-    public abstract int compareRecord(Activity otherActivity);
+    public abstract int getRecordSize();
+    public abstract int compareRecord(Activity otherActivity,int recordType);
     public abstract int getIntensidade();
     public abstract double getMET(); /*for calories*/
     
@@ -94,6 +95,8 @@ public abstract class Activity {
     public int hashCode(){
         return (int)mTime + mWeather.hashCode() + mHearthRate;
     }
+    @Override
+    public  abstract Object clone();
     
     
     /*Oliveira: esta funcao serve para o que????*/

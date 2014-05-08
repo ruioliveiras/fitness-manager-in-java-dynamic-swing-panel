@@ -4,12 +4,12 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-
 import java.util.Set;
 import java.util.HashSet;
 import java.util.TreeSet;
 import model.activity.ActivityComparatorByDate;
 import model.activity.Activity;
+import model.activity.Ciclismo;
 
 /*
  * Classe com informacao dos utilizadores.
@@ -91,7 +91,7 @@ public class User{
         this.amigos = new HashSet<String>(u.getAmigos());
         for(Activity a : u.actividadesUser){
             /*TODO: necessita do clone de Activity implementado para compilar, caso contrário assume o clone() de Object que é protected.*/
-            this.actividadesUser.add(a.clone());
+            this.actividadesUser.add((Activity) a.clone());
         }
     }
     
@@ -147,20 +147,20 @@ public class User{
     }
     
     public void addActivity(Activity a){
-        actividades.add(a.clone());
+    	actividadesUser.add((Activity) a.clone());
     }
     
     public Set<Activity> actividadesEntre(GregorianCalendar dataInferior, GregorianCalendar dataSuperior){
-        Set<Activity> res = new TreeSet<Activity>(new ActivityComparatorByDate());
-        /*Actividades artificiais para efeitos de comparacao*/
-        Activity a1 = new Activity(); a1.setDate(dataInferior);
-        Activity a2 = new Activity(); a2.setDate(dataSuperior);
-        
-        for(Activity ac : this.actividadesUser.subSet(a1, true, a2, true)){
-            res.add(ac.clone());
-        }
-        
-        return res;
+    	 Set<Activity> res = new TreeSet<Activity>(new ActivityComparatorByDate());
+         /*Actividades artificiais para efeitos de comparacao*/
+         Activity a1 = new Ciclismo(); a1.setDate(dataInferior);
+         Activity a2 = new Ciclismo(); a2.setDate(dataSuperior);
+         
+         for(Activity ac : this.actividadesUser.subSet(a1, true, a2, true)){
+             res.add((Activity) ac.clone());
+         }
+         
+         return res;
     }
     
     public double getForma(){
@@ -171,23 +171,26 @@ public class User{
     /*Should be called in addActivity*/
     /*TODO: TEST it*/
     @SuppressWarnings("unused")
-    private void addRecord(Activity activity){
-        HashMap<Integer, Activity> actRecords = recordes.get(activity.getClass());
-        Activity actualRecord;
-        
-        /*iF Don't exist, add*/
-        if (actRecords == null){
-            recordes.put(activity.getClass(), new HashMap<Integer, Activity> ());
-            actRecords = recordes.get(activity.getClass());
-        }
-        
-        actualRecord = actRecords.get(activity.getRecordType());
-        if (actualRecord == null || activity.compareRecord(actualRecord) > 0){
-            actRecords.put(activity.getRecordType(), activity);
-        }
-        
+	private void addRecord(Activity activity){
+    	HashMap<Integer, Activity> actualRecords = recordes.get(activity.getClass());
+    	int numRecords;
+    	Activity record;
+    	
+    	
+    	/*iF Don't exist, add*/
+    	if (actualRecords == null){
+    		recordes.put(activity.getClass(), new HashMap<Integer, Activity> ());
+    		actualRecords = recordes.get(activity.getClass());
+    	}
+    	
+    	numRecords = activity.getRecordSize();
+    	for (int i=0;i<numRecords;i++){
+    		record = actualRecords.get(i);
+    		if (record == null || activity.compareRecord(record,i) > 0){
+        		actualRecords.put(activity.getRecordSize(), activity);
+        	}
+    	}
     }
-    
     /**
      * Metodos para gerir amigos (string code: email)
      */

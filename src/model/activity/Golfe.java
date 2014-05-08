@@ -9,12 +9,12 @@ public class Golfe extends Skill {
 	}
 
 	@Override
-	public int getRecordType() {
+	public int getRecordSize() {
 		return 0;
 	}
 
 	@Override
-	public int compareRecord(Activity otherActivity) {
+	public int compareRecord(Activity otherActivity,int recordType) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -33,6 +33,12 @@ public class Golfe extends Skill {
 	public double getMET() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
