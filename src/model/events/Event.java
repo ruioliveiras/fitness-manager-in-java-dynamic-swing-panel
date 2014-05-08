@@ -2,12 +2,13 @@ package model.events;
 
 import java.util.GregorianCalendar;
 
+import model.Clonable;
 import model.activity.Activity;
 
 
 //-Classe Evento: {Conjuto Users, Actividade, Categoria, Data evento, Data inscricao, Nome, pre-requisito inscricao (long tempo/distancia), numero maximo de participantes}
 
-public class Event  {
+public class Event implements Clonable  {
 
 	private String mName;
 	private Activity mActivity;
@@ -85,5 +86,7 @@ public class Event  {
 		this.mMaxNumUsers = mMaxNumUsers;
 	}
 
-	
+	public Object clone(){
+		return new Event(this);
+	}
 }

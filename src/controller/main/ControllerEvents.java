@@ -1,4 +1,4 @@
-package controller.controller.main;
+package controller.main;
 
 public class ControllerEvents {
 

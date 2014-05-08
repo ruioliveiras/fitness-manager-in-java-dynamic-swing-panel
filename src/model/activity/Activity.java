@@ -1,4 +1,5 @@
 package model.activity;
+import model.Clonable;
 import model.user.Genero;
 import model.user.User;
 
@@ -22,7 +23,7 @@ import java.util.GregorianCalendar;
  */
 
 
-public abstract class Activity {
+public abstract class Activity implements Clonable {
     private GregorianCalendar mDate;
     private long mTime; /*activity duration [ms]*/
     private Weather mWeather;
@@ -31,8 +32,6 @@ public abstract class Activity {
     /**TODO
      * array de strings para comentarios nas actividades?
      */
-    
-
     public Activity() {
         mTime = 0;
         mWeather = Weather.INDOOR;
@@ -55,8 +54,10 @@ public abstract class Activity {
     
     public void setTime(long time){mTime = time;}
     public long getTime(){return mTime;}
+   
     public void setWeather(Weather weather){mWeather = weather;}
     public Weather getWeather(){return mWeather;}
+    
     public void setHeartRate(int heathRate){mHearthRate = heathRate;}
     public int getHeartRate(){return mHearthRate;}
 
@@ -66,7 +67,6 @@ public abstract class Activity {
     
     
     public abstract String getName();
-    /*public abstract int getRecordSize();*/ /*need? to know how many different records exists?*/
     public abstract int getRecordSize();
     public abstract int compareRecord(Activity otherActivity,int recordType);
     public abstract int getIntensidade();
@@ -80,7 +80,6 @@ public abstract class Activity {
         return this.mTime == e.getTime() && this.mWeather == e.getWeather() && this.mHearthRate == e.getHeartRate();
     }
     
-    /*TODO: IMPLEMENTAR toString?? */
     
     @Override
     public int hashCode(){

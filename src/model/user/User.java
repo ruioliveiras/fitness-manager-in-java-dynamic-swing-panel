@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.TreeSet;
+
+import model.Clonable;
+import model.ObjectKey;
 import model.activity.ActivityComparatorByDate;
 import model.activity.Activity;
 import model.activity.Ciclismo;
@@ -18,7 +21,7 @@ import model.activity.Ciclismo;
 /*
  * Classe com informacao dos utilizadores.
  */
-public class User{
+public class User implements ObjectKey,Clonable{
     private String email;
     private String nome;
     private String password;
@@ -218,6 +221,11 @@ public class User{
       if((obj == null) || (this.getClass() != obj.getClass())) return false;
       User u = (User) obj;
       return this.email.equals(u.getEmail());
-   } 
+   }
+
+	@Override
+	public Object getKey() {
+		return getEmail();
+	} 
     
 }
