@@ -4,6 +4,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeSet;
+import java.util.Set;
+import model.activityHigh.ActivityComparatorByDate;
 
 import model.activity.Activity;
 
@@ -22,6 +25,7 @@ public class User{
     private GregorianCalendar dataNascimento;
     private String desportoFavorito;
     private Permissoes permissoes;
+    private TreeSet<Activity> actividadesUser;
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
     /**TODO:    Camposinhos - Set de emails de amigos
@@ -41,7 +45,6 @@ public class User{
         this.email = "";
         this.password = "guest";
         this.genero = Genero.Desconhecido;
-
         this.altura = 0;
         this.peso = 0;
         this.dataNascimento = new GregorianCalendar();
@@ -49,6 +52,7 @@ public class User{
         this.desportoFavorito = "";
         this.permissoes = Permissoes.Guest;
         this.fcr = 0;
+        actividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
     }
     
     public User(String nome, String email, String password, Genero genero, int altura, int peso, 
@@ -65,6 +69,7 @@ public class User{
                     this.desportoFavorito = desportoFavorito;
                     this.permissoes = permissoes;
                     this.fcr = fcRepouso;
+                    actividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
                 }
                 
     public User(User u){
@@ -78,6 +83,10 @@ public class User{
         this.desportoFavorito = u.desportoFavorito;
         this.permissoes = u.permissoes;
         this.fcr = u.getFreqCardio();
+        for(Activity a : u.actividadesUser){
+            /*TODO: necessita do clone de Activity implementado para compilar, caso contrário assume o clone() de Object que é protected.*/
+            this.actividadesUser.add(a.clone());
+        }
     }
     
       /*
@@ -120,25 +129,46 @@ public class User{
     public void setPermissoes(Permissoes permissoes){this.permissoes = permissoes;}
     public void setFreqCardio(int fcr){this.fcr=fcr;}
     
+    public void addActivity(Activity a){
+        actividades.add(a.clone());
+    }
+    
+    public Set<Activity> actividadesEntre(GregorianCalendar dataInferior, GregorianCalendar dataSuperior){
+        Set<Activity> res = new TreeSet<Activity>(new ActivityComparatorByDate());
+        /*Actividades artificiais para efeitos de comparacao*/
+        Activity a1 = new Activity(); a1.setDate(dataInferior);
+        Activity a2 = new Activity(); a2.setDate(dataSuperior);
+        
+        for(Activity ac : this.actividadesUser.subSet(a1, true, a2, true)){
+            res.add(ac.clone());
+        }
+        
+        return res;
+    }
+    
+    public double getForma(){
+        /*WIP*/
+        return 0.0;
+    }
     
     /*Should be called in addActivity*/
     /*TODO: TEST it*/
     @SuppressWarnings("unused")
-	private void addRecord(Activity activity){
-    	HashMap<Integer, Activity> actRecords = recordes.get(activity.getClass());
-    	Activity actualRecord;
-    	
-    	/*iF Don't exist, add*/
-    	if (actRecords == null){
-    		recordes.put(activity.getClass(), new HashMap<Integer, Activity> ());
-    		actRecords = recordes.get(activity.getClass());
-    	}
-    	
-    	actualRecord = actRecords.get(activity.getRecordType());
-    	if (actualRecord == null || activity.compareRecord(actualRecord) > 0){
-    		actRecords.put(activity.getRecordType(), activity);
-    	}
-    	
+    private void addRecord(Activity activity){
+        HashMap<Integer, Activity> actRecords = recordes.get(activity.getClass());
+        Activity actualRecord;
+        
+        /*iF Don't exist, add*/
+        if (actRecords == null){
+            recordes.put(activity.getClass(), new HashMap<Integer, Activity> ());
+            actRecords = recordes.get(activity.getClass());
+        }
+        
+        actualRecord = actRecords.get(activity.getRecordType());
+        if (actualRecord == null || activity.compareRecord(actualRecord) > 0){
+            actRecords.put(activity.getRecordType(), activity);
+        }
+        
     }
     
     public int hashCode(){
