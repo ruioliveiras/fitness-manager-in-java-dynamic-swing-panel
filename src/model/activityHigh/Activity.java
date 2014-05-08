@@ -29,6 +29,7 @@ public abstract class Activity {
      *          Camposinhos - actualizar metodo de calorias para receber um User --- DONE
      *          Camposinhos - mTime em milesimos! ->update timeInHours --- DONE
      *          Oliveira - implementar Recordes
+     *          GERAL - fazer clone nos gets?
      */
     private GregorianCalendar mDate;
     private long mTime; /*activity duration [ms]*/

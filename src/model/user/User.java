@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 import model.activityHigh.Activity;
 
@@ -24,6 +26,8 @@ public class User{
     private Permissoes permissoes;
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
+    private Set<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
+    
     /**TODO:    Camposinhos - Set de emails de amigos
      *          Camposinhos - hascode de Users --- DONE
      *          Santos - TreeSet de Activities (Calendario de Activities - ordenado por data)
@@ -41,7 +45,6 @@ public class User{
         this.email = "";
         this.password = "guest";
         this.genero = Genero.Desconhecido;
-
         this.altura = 0;
         this.peso = 0;
         this.dataNascimento = new GregorianCalendar();
@@ -49,6 +52,7 @@ public class User{
         this.desportoFavorito = "";
         this.permissoes = Permissoes.Guest;
         this.fcr = 0;
+        this.amigos = new HashSet<String>();
     }
     
     public User(String nome, String email, String password, Genero genero, int altura, int peso, 
@@ -65,6 +69,7 @@ public class User{
                     this.desportoFavorito = desportoFavorito;
                     this.permissoes = permissoes;
                     this.fcr = fcRepouso;
+                    this.amigos = new HashSet<String>();
                 }
                 
     public User(User u){
@@ -78,6 +83,7 @@ public class User{
         this.desportoFavorito = u.desportoFavorito;
         this.permissoes = u.permissoes;
         this.fcr = u.getFreqCardio();
+        this.amigos = new HashSet<String>(u.getAmigos());
     }
     
       /*
@@ -103,6 +109,13 @@ public class User{
     public String getDesportoFavorito(){return this.desportoFavorito;}
     public Permissoes getPermissoes(){return this.permissoes;}
     public int getFreqCardio(){return this.fcr;}
+    public Set<String> getAmigos(){
+        Set<String> amg = new HashSet<String>();
+        for(String n : amigos)
+            amg.add(n);
+        return amg;
+    }
+    
     
     /*
       * Setters
@@ -119,27 +132,47 @@ public class User{
     public void setDesportoFavorito(String desporto){this.desportoFavorito = desporto;}
     public void setPermissoes(Permissoes permissoes){this.permissoes = permissoes;}
     public void setFreqCardio(int fcr){this.fcr=fcr;}
+    public void setAmigos(Set<String> amg) {
+        for(String n : amg)
+            amigos.add(n);
+    }
     
     
     /*Should be called in addActivity*/
     /*TODO: TEST it*/
     @SuppressWarnings("unused")
-	private void addRecord(Activity activity){
-    	HashMap<Integer, Activity> actRecords = recordes.get(activity.getClass());
-    	Activity actualRecord;
-    	
-    	/*iF Don't exist, add*/
-    	if (actRecords == null){
-    		recordes.put(activity.getClass(), new HashMap<Integer, Activity> ());
-    		actRecords = recordes.get(activity.getClass());
-    	}
-    	
-    	actualRecord = actRecords.get(activity.getRecordType());
-    	if (actualRecord == null || activity.compareRecord(actualRecord) > 0){
-    		actRecords.put(activity.getRecordType(), activity);
-    	}
-    	
+    private void addRecord(Activity activity){
+        HashMap<Integer, Activity> actRecords = recordes.get(activity.getClass());
+        Activity actualRecord;
+        
+        /*iF Don't exist, add*/
+        if (actRecords == null){
+            recordes.put(activity.getClass(), new HashMap<Integer, Activity> ());
+            actRecords = recordes.get(activity.getClass());
+        }
+        
+        actualRecord = actRecords.get(activity.getRecordType());
+        if (actualRecord == null || activity.compareRecord(actualRecord) > 0){
+            actRecords.put(activity.getRecordType(), activity);
+        }
+        
     }
+    
+    /**
+     * Metodos para gerir amigos (string code: email)
+     */
+    public void addAmigo(String amg){
+        amigos.add(amg);
+    }
+    
+    public boolean existeAmigo(String amg) {
+        return (amigos.contains(amg));
+    }
+    
+    public void removeAmigo(String amg) {
+        amigos.remove(amg);
+    }
+    
     
     public int hashCode(){
         return getEmail().hashCode();
