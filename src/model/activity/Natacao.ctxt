@@ -2,9 +2,13 @@
 comment0.params=
 comment0.target=java.lang.String\ getName()
 comment1.params=
-comment1.target=int\ getRecordType()
-comment2.params=otherActivity
-comment2.target=int\ compareRecord(model.activityHigh.Activity)
+comment1.target=int\ getRecordSize()
+comment2.params=otherActivity\ recordType
+comment2.target=int\ compareRecord(Activity,\ int)
 comment3.params=
 comment3.target=int\ getIntensidade()
-numComments=4
+comment4.params=
+comment4.target=double\ getMET()
+comment5.params=
+comment5.target=java.lang.Object\ clone()
+numComments=6
