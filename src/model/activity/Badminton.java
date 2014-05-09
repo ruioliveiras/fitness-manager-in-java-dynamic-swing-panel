@@ -1,6 +1,7 @@
 package model.activity;
 
 
+
 public class Badminton extends Individual {
 
 	@Override

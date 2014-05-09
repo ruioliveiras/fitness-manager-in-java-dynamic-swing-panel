@@ -2,7 +2,7 @@ package model.activity;
 
 import java.util.GregorianCalendar;
 
-import core.Util;
+import core.util.Util;
 
 public abstract class Distance extends Activity {
 	private int mDistance;

@@ -1,6 +1,7 @@
 package model.activity;
 
 
+
 public class Basquetebol extends Collective {
 
 	@Override

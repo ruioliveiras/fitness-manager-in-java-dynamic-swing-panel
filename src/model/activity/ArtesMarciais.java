@@ -1,6 +1,7 @@
 package model.activity;
 
 
+
 public class ArtesMarciais extends Individual {
 
 	@Override

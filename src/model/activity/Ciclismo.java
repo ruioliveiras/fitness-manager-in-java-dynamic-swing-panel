@@ -1,6 +1,7 @@
 package model.activity;
 
 
+
 public class Ciclismo extends Altimetry {
 
 	@Override

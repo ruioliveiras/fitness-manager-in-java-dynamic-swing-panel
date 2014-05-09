@@ -2,6 +2,7 @@ package model.activity;
 
 
 
+
 public class Remo extends Distance{
     @Override
 	public String getName() {

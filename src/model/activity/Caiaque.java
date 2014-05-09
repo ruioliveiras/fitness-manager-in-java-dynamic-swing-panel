@@ -2,6 +2,7 @@ package model.activity;
 
 
 
+
 public class Caiaque extends Distance{
     @Override
 	public String getName() {

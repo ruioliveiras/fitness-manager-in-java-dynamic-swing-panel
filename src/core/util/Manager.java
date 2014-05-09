@@ -1,7 +1,8 @@
-package model;
+package core.util;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Map;
@@ -11,14 +12,6 @@ import java.util.TreeSet;
 import model.Clonable;
 import model.ObjectKey;
 
-/*
- * Colecçoes de User: email -> user
- * coleçoe sde activity Activity
- * coleçoes de Events Events;
- * 
- * 
- * 
- */
 
 public class Manager<V>{
 	private Map<Object, V> mMap;
@@ -30,7 +23,7 @@ public class Manager<V>{
 	public Manager(Set<V> set){
 		mSet = set;
 	}
-	
+	/*TODO: FAZER COPIA?*/
 	public void add(V obj){
 		if (obj instanceof ObjectKey && mMap != null){
 			mMap.put(((ObjectKey) obj).getKey(),obj);
@@ -65,7 +58,39 @@ public class Manager<V>{
 		return res.iterator();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Collection<V> collection(){
+		ArrayList<V> res = new ArrayList<V>();
+		Iterable<V> ite = (mMap != null) ? mMap.values() : mSet ;
+		for (V value : ite) {
+			try {
+				res.add((V) ((Clonable) value).clone());
+			} catch (Exception e) {
+				throw new RuntimeException("Clone not supported");
+			}
+		}
+		return res;
+	}
+	
 	public V get(ObjectKey a){
 		return mMap.get(a.getKey());
 	}
+	
+	public void remove(V obj){
+		if (obj instanceof ObjectKey && mMap != null){
+			mMap.remove((ObjectKey) obj);
+		}else if (mSet != null){
+			mSet.remove(obj);
+		}
+	}
+	
+	public boolean contains(V obj){
+		if (obj instanceof ObjectKey && mMap != null){
+			return mMap.get((ObjectKey) obj) != null;
+		}else if (mSet != null){
+			return mSet.contains(obj);
+		}
+		return false;
+	}
+	
 }

@@ -1,6 +1,7 @@
 package model.activity;
 
 
+
 public class TenisMesa extends Individual {
 
 	@Override

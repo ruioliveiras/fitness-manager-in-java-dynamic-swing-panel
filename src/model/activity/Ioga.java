@@ -1,6 +1,7 @@
 package model.activity;
 
 
+
 public class Ioga extends Ludic {
 
 	@Override

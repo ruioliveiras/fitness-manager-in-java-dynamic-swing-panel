@@ -1,6 +1,7 @@
 package model.activity;
 
 
+
 public class WindSurf extends Distance {
 
 	@Override

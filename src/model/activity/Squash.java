@@ -1,6 +1,7 @@
 package model.activity;
 
 
+
 public class Squash extends Individual {
 
 	@Override

@@ -2,6 +2,7 @@ package model.activity;
 
 
 
+
 public class Caminhada extends Distance{
     @Override
 	public String getName() {

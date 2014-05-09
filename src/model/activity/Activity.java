@@ -2,7 +2,7 @@ package model.activity;
 import java.util.GregorianCalendar;
 
 import model.Clonable;
-import core.Util;
+import core.util.Util;
 
 
 /**

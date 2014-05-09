@@ -4,6 +4,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import core.util.Manager;
+import model.activity.Basquetebol;
 import model.user.Genero;
 import model.user.Permissoes;
 import model.user.User;
@@ -60,6 +62,8 @@ public class Dataset {
 		User rui = new User("RUI Oliveira", "rui96pedro@hotmaail.com", "123", Genero.Masculino, 120, 87, 11, 10, 1994, "Natação", Permissoes.Admin, 0);
 		User rui2 = new User("RUI Camposinhos", "ruiCamposinho@gmail.co.uk", "123", Genero.Masculino, 120, 87, 11, 10, 1994, "Basquetebol", Permissoes.Admin, 0);
 		User test = new User();
+		Basquetebol a1 = new Basquetebol();
+		rui.addActivityRecord(a1);
 		test.setEmail("rui96pedro@hotmaail.com");
 		a.userManager().add(rui2);
 		a.userManager().add(rui);

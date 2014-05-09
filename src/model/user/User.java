@@ -12,10 +12,11 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+import core.util.Manager;
 import model.Clonable;
 import model.ObjectKey;
-import model.activity.ActivityComparatorByDate;
 import model.activity.Activity;
+import model.activity.ActivityComparatorByDate;
 import model.activity.Ciclismo;
 
 /*
@@ -31,11 +32,11 @@ public class User implements ObjectKey,Clonable{
     private GregorianCalendar dataNascimento;
     private String desportoFavorito;
     private Permissoes permissoes;
-    private TreeSet<Activity> actividadesUser;
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
-    private Set<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
-    
+    private Manager<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
+    private Manager<Activity> actividadesUser;
+    private TreeSet<Activity> treeActividadesUser;
 
     
     
@@ -55,8 +56,9 @@ public class User implements ObjectKey,Clonable{
         this.desportoFavorito = "";
         this.permissoes = Permissoes.Guest;
         this.fcr = 0;
-        this.amigos = new HashSet<String>();
-        this.actividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
+        this.amigos = new Manager<String>(new HashSet<String>());
+        this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
+        this.actividadesUser = new Manager<Activity>(this.treeActividadesUser);
     }
     
     public User(String nome, String email, String password, Genero genero, int altura, int peso, 
@@ -73,8 +75,9 @@ public class User implements ObjectKey,Clonable{
                     this.desportoFavorito = desportoFavorito;
                     this.permissoes = permissoes;
                     this.fcr = fcRepouso;
-                    this.amigos = new HashSet<String>();
-                    this.actividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
+                    this.amigos = new Manager<String>(new HashSet<String>());
+                    this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
+                    this.actividadesUser = new Manager<Activity>(this.treeActividadesUser);
                }
                 
     public User(User u){
@@ -88,61 +91,66 @@ public class User implements ObjectKey,Clonable{
         this.desportoFavorito = u.desportoFavorito;
         this.permissoes = u.permissoes;
         this.fcr = u.getFreqCardio();
-        this.amigos = new HashSet<String>(u.getAmigos());
-        for(Activity a : u.actividadesUser){
-            /*TODO: necessita do clone de Activity implementado para compilar, caso contrário assume o clone() de Object que é protected.*/
-            this.actividadesUser.add((Activity) a.clone());
-        }
+        this.amigos = new Manager<String>(new HashSet<String>(u.amigosManager().collection()));
+        
+        this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
+        this.treeActividadesUser.addAll(u.atividadesManager().collection());
+        this.actividadesUser = new Manager<Activity>(this.treeActividadesUser);
     }
     
       /*
       * Getters
       */
-    public String getNome(){return this.nome;}
-    public String getEmail(){return this.email;}
-    public String getPassword(){return this.password;}
-    public int getAltura(){return this.altura;}
-    public int getPeso(){return this.peso;}
-    public Genero getGenero(){return this.genero;}
+    public String getNome()		{return this.nome;}
+    public String getEmail()	{return this.email;}
+    public String getPassword()	{return this.password;}
+    
+    public int getAltura()		{return this.altura;}
+    public int getPeso()		{return this.peso;}
+    public int getFreqCardio()	{return this.fcr;}
+    
     public GregorianCalendar getDataNascimento(){return this.dataNascimento;}
+    public String getDesportoFavorito()			{return this.desportoFavorito;}
+    
+    public Permissoes getPermissoes()			{return this.permissoes;}
+    public Genero getGenero()					{return this.genero;}
+       
+    /*
+      * Setters
+      */
+    public void setNome(String nome)		{this.nome=nome;}
+    public void setEmail(String email)		{this.email=email;}
+    public void setPassword(String password){this.password=password;}
+    
+    public void setAltura(int altura)		{this.altura=altura;}
+    public void setPeso(int peso)			{this.peso=peso;}
+    public void setFreqCardio(int fcr)		{this.fcr=fcr;}
+      
+    public void setDataNascimento(int ano, int mes, int dia)
+        				  {this.dataNascimento = new GregorianCalendar(ano, mes, dia);}
+    public void setDesportoFavorito(String desporto){this.desportoFavorito = desporto;}
+    public void setPermissoes(Permissoes permissoes){this.permissoes = permissoes;}
+    public void setGenero(Genero genero)			{this.genero=genero;}
+        
+    /*
+     * Getttes not direct (with calculation)
+     */
+
     public int getIdade(){        
         GregorianCalendar agora = new GregorianCalendar();
         return agora.get(Calendar.YEAR) - this.dataNascimento.get(Calendar.YEAR);
     }
-    public String getDesportoFavorito(){return this.desportoFavorito;}
-    public Permissoes getPermissoes(){return this.permissoes;}
-    public int getFreqCardio(){return this.fcr;}
-    public Set<String> getAmigos(){
-        Set<String> amg = new HashSet<String>();
-        for(String n : amigos)
-            amg.add(n);
-        return amg;
+    
+    public double getForma(){
+     	/*WIP*/
+        //return 0.0;
+    	throw new RuntimeException("DO NOT IMPLEMENT YET, IMPLEENT BEFORE USER IT");
     }
     
+	public Manager<String> amigosManager(){return this.amigos;}    
+	public Manager<Activity> atividadesManager(){return this.actividadesUser;}    
     
-    /*
-      * Setters
-      */
-    public void setNome(String nome){this.nome=nome;}
-    public void setEmail(String email){this.email=email;}
-    public void setPassword(String password){this.password=password;}
-    public void setAltura(int altura){this.altura=altura;}
-    public void setPeso(int peso){this.peso=peso;}
-    public void setGenero(Genero genero){this.genero=genero;}
-    public void setDataNascimento(int ano, int mes, int dia){
-        this.dataNascimento = new GregorianCalendar(ano, mes, dia);
-    }
-    public void setDesportoFavorito(String desporto){this.desportoFavorito = desporto;}
-    public void setPermissoes(Permissoes permissoes){this.permissoes = permissoes;}
-    public void setFreqCardio(int fcr){this.fcr=fcr;}
-    public void setAmigos(Set<String> amg) {
-        for(String n : amg)
-            amigos.add(n);
-    }
     
-    public void addActivity(Activity a){
-    	actividadesUser.add((Activity) a.clone());
-    }
     
     public Set<Activity> actividadesEntre(GregorianCalendar dataInferior, GregorianCalendar dataSuperior){
     	 Set<Activity> res = new TreeSet<Activity>(new ActivityComparatorByDate());
@@ -150,21 +158,19 @@ public class User implements ObjectKey,Clonable{
          Activity a1 = new Ciclismo(); a1.setDate(dataInferior);
          Activity a2 = new Ciclismo(); a2.setDate(dataSuperior);
          
-         for(Activity ac : this.actividadesUser.subSet(a1, true, a2, true)){
+         for(Activity ac : this.treeActividadesUser.subSet(a1, true, a2, true)){
              res.add((Activity) ac.clone());
          }
          
          return res;
     }
-    
-    public double getForma(){
-        /*WIP*/
-        return 0.0;
+
+    public void addActivityRecord(Activity a){
+    	Activity aClone = (Activity) a.clone();
+    	actividadesUser.add(aClone);
+    	addRecord(aClone);
     }
     
-    /*Should be called in addActivity*/
-    /*TODO: TEST it*/
-    @SuppressWarnings("unused")
 	private void addRecord(Activity activity){
     	HashMap<Integer, Activity> actualRecords = recordes.get(activity.getClass());
     	int numRecords;
@@ -185,28 +191,18 @@ public class User implements ObjectKey,Clonable{
         	}
     	}
     }
-    /**
-     * Metodos para gerir amigos (string code: email)
-     */
-    public void addAmigo(String amg){
-        amigos.add(amg);
-    }
-    
-    public boolean existeAmigo(String amg) {
-        return (amigos.contains(amg));
-    }
-    
-    public void removeAmigo(String amg) {
-        amigos.remove(amg);
-    }
     
     
+    /*Object statements*/
+    @Override
     public int hashCode(){
         return getEmail().hashCode();
     }
     
-    public User clone(){return new User(this);}
-    
+    @Override
+    public Object clone(){return new User(this);}
+   
+    @Override
     public String toString(){
         StringBuilder stringb = new StringBuilder();
         stringb.append("Nome: " + this.nome + "\n");
@@ -215,7 +211,8 @@ public class User implements ObjectKey,Clonable{
         stringb.append("Data Nascimento: " + this.dataNascimento.toString() + "\n");
         return stringb.toString();
     }
-    
+
+    @Override
     public boolean equals(Object obj) {
       if(this == obj) return true; 
       if((obj == null) || (this.getClass() != obj.getClass())) return false;

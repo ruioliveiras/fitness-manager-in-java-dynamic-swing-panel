@@ -1,6 +1,7 @@
 package model.activity;
 
 
+
 public class SkiDownhill extends Distance {
 
 	@Override

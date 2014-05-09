@@ -1,6 +1,7 @@
 package model.activity;
 
 
+
 public class Pilates extends Ludic {
 
 	@Override

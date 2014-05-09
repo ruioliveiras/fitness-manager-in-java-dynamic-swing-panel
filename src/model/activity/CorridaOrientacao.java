@@ -1,6 +1,7 @@
 package model.activity;
 
 
+
 public class CorridaOrientacao extends Distance {
 
 	@Override

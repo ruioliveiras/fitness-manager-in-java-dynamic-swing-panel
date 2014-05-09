@@ -1,6 +1,7 @@
 package model.activity;
 
 
+
 public class Snowboard extends Skill {
 
 	@Override

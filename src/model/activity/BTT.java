@@ -2,6 +2,7 @@ package model.activity;
 
 
 
+
 public class BTT extends Altimetry{
     @Override
 	public String getName() {
