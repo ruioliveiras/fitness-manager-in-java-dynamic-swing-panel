@@ -1,2 +1,16 @@
 #BlueJ class context
-numComments=0
+comment0.params=
+comment0.target=Dataset()
+comment1.params=users
+comment1.target=Dataset(core.util.Manager)
+comment2.params=users
+comment2.target=Dataset(Dataset)
+comment3.params=
+comment3.target=core.util.Manager\ userManager()
+comment4.params=o1\ o2
+comment4.target=int\ compare(user.User,\ user.User)
+comment5.params=o1\ o2
+comment5.target=int\ compare(user.User,\ user.User)
+comment6.params=args
+comment6.target=void\ main(java.lang.String[])
+numComments=7

@@ -101,59 +101,59 @@ public class User implements ObjectKey,Clonable{
       /*
       * Getters
       */
-    public String getNome()		{return this.nome;}
-    public String getEmail()	{return this.email;}
-    public String getPassword()	{return this.password;}
+    public String getNome()     {return this.nome;}
+    public String getEmail()    {return this.email;}
+    public String getPassword() {return this.password;}
     
-    public int getAltura()		{return this.altura;}
-    public int getPeso()		{return this.peso;}
-    public int getFreqCardio()	{return this.fcr;}
+    public int getAltura()      {return this.altura;}
+    public int getPeso()        {return this.peso;}
+    public int getFreqCardio()  {return this.fcr;}
     
     public GregorianCalendar getDataNascimento(){return this.dataNascimento;}
-    public String getDesportoFavorito()			{return this.desportoFavorito;}
+    public String getDesportoFavorito()         {return this.desportoFavorito;}
     
-    public Permissoes getPermissoes()			{return this.permissoes;}
-    public Genero getGenero()					{return this.genero;}
+    public Permissoes getPermissoes()           {return this.permissoes;}
+    public Genero getGenero()                   {return this.genero;}
        
     /*
       * Setters
       */
-    public void setNome(String nome)		{this.nome=nome;}
-    public void setEmail(String email)		{this.email=email;}
+    public void setNome(String nome)        {this.nome=nome;}
+    public void setEmail(String email)      {this.email=email;}
     public void setPassword(String password){this.password=password;}
     
-    public void setAltura(int altura)		{this.altura=altura;}
-    public void setPeso(int peso)			{this.peso=peso;}
-    public void setFreqCardio(int fcr)		{this.fcr=fcr;}
+    public void setAltura(int altura)       {this.altura=altura;}
+    public void setPeso(int peso)           {this.peso=peso;}
+    public void setFreqCardio(int fcr)      {this.fcr=fcr;}
       
     public void setDataNascimento(int ano, int mes, int dia)
-        				  {this.dataNascimento = new GregorianCalendar(ano, mes, dia);}
+                          {this.dataNascimento = new GregorianCalendar(ano, mes, dia);}
     public void setDesportoFavorito(String desporto){this.desportoFavorito = desporto;}
     public void setPermissoes(Permissoes permissoes){this.permissoes = permissoes;}
-    public void setGenero(Genero genero)			{this.genero=genero;}
+    public void setGenero(Genero genero)              {this.genero=genero;}
         
     /*
      * Getttes not direct (with calculation)
      */
-
+    //ESTA A CALCULAR BEM???? TEM QUE LER A DATA COMPLETA PARA CALCULAR O NUMERO DE ANOS
     public int getIdade(){        
         GregorianCalendar agora = new GregorianCalendar();
         return agora.get(Calendar.YEAR) - this.dataNascimento.get(Calendar.YEAR);
     }
     
     public double getForma(){
-     	/*WIP*/
+        /*WIP*/
         //return 0.0;
-    	throw new RuntimeException("DO NOT IMPLEMENT YET, IMPLEENT BEFORE USER IT");
+        throw new RuntimeException("DO NOT IMPLEMENT YET, IMPLEENT BEFORE USER IT");
     }
     
-	public Manager<String> amigosManager(){return this.amigos;}    
-	public Manager<Activity> atividadesManager(){return this.actividadesUser;}    
+    public Manager<String> amigosManager(){return this.amigos;}    
+    public Manager<Activity> atividadesManager(){return this.actividadesUser;}    
     
     
     
     public Set<Activity> actividadesEntre(GregorianCalendar dataInferior, GregorianCalendar dataSuperior){
-    	 Set<Activity> res = new TreeSet<Activity>(new ActivityComparatorByDate());
+         Set<Activity> res = new TreeSet<Activity>(new ActivityComparatorByDate());
          /*Actividades artificiais para efeitos de comparacao*/
          Activity a1 = new Ciclismo(); a1.setDate(dataInferior);
          Activity a2 = new Ciclismo(); a2.setDate(dataSuperior);
@@ -166,30 +166,30 @@ public class User implements ObjectKey,Clonable{
     }
 
     public void addActivityRecord(Activity a){
-    	Activity aClone = (Activity) a.clone();
-    	actividadesUser.add(aClone);
-    	addRecord(aClone);
+        Activity aClone = (Activity) a.clone();
+        actividadesUser.add(aClone);
+        addRecord(aClone);
     }
     
-	private void addRecord(Activity activity){
-    	HashMap<Integer, Activity> actualRecords = recordes.get(activity.getClass());
-    	int numRecords;
-    	Activity record;
-    	
-    	
-    	/*iF Don't exist, add*/
-    	if (actualRecords == null){
-    		recordes.put(activity.getClass(), new HashMap<Integer, Activity> ());
-    		actualRecords = recordes.get(activity.getClass());
-    	}
-    	
-    	numRecords = activity.getRecordSize();
-    	for (int i=0;i<numRecords;i++){
-    		record = actualRecords.get(i);
-    		if (record == null || activity.compareRecord(record,i) > 0){
-        		actualRecords.put(activity.getRecordSize(), activity);
-        	}
-    	}
+    private void addRecord(Activity activity){
+        HashMap<Integer, Activity> actualRecords = recordes.get(activity.getClass());
+        int numRecords;
+        Activity record;
+        
+        
+        /*iF Don't exist, add*/
+        if (actualRecords == null){
+            recordes.put(activity.getClass(), new HashMap<Integer, Activity> ());
+            actualRecords = recordes.get(activity.getClass());
+        }
+        
+        numRecords = activity.getRecordSize();
+        for (int i=0;i<numRecords;i++){
+            record = actualRecords.get(i);
+            if (record == null || activity.compareRecord(record,i) > 0){
+                actualRecords.put(activity.getRecordSize(), activity);
+            }
+        }
     }
     
     
@@ -220,9 +220,9 @@ public class User implements ObjectKey,Clonable{
       return this.email.equals(u.getEmail());
    }
 
-	@Override
-	public Object getKey() {
-		return getEmail();
-	} 
+    @Override
+    public Object getKey() {
+        return getEmail();
+    } 
     
 }

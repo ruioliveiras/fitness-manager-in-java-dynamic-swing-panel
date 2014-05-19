@@ -1,5 +1,6 @@
 package model.activity;
 
+import model.user.User;
 
 
 public class WindSurf extends Distance {
@@ -28,7 +29,7 @@ public class WindSurf extends Distance {
 	@Override
 	public double getMET() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 3.0;
 	}
 
 	@Override
