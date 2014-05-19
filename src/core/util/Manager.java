@@ -5,92 +5,66 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
 
-import model.Clonable;
+import model.ObjectClonable;
 import model.ObjectKey;
 
 
-public class Manager<V>{
-	private Map<Object, V> mMap;
-	private Set<V> mSet;
+public abstract class Manager<V>{
+
 	
-	public Manager(Map<Object, V> map){
-		mMap = map;
-	}
-	public Manager(Set<V> set){
-		mSet = set;
-	}
+	protected abstract Iterable<V> getValues();
+	protected abstract V getNoClone(ObjectKey a);
+	public abstract boolean contains(V obj);
+	public abstract void remove(V obj);
+	public abstract void add(V obj);
+	
 	/*TODO: FAZER COPIA?*/
-	public void add(V obj){
-		if (obj instanceof ObjectKey && mMap != null){
-			mMap.put(((ObjectKey) obj).getKey(),obj);
-		}else if (mSet != null){
-			mSet.add(obj);
-		}
-	}
-	@SuppressWarnings("unchecked")
-	public Iterator<V> iterator(Comparator<V> order){
-		TreeSet<V> res = new TreeSet<V>(order);
-		Iterable<V> ite = (mMap != null) ? mMap.values() : mSet ;
-		for (V value : ite) {
-			try {
-				res.add((V) ((Clonable) value).clone());
-			} catch (Exception e) {
-				throw new RuntimeException("Clone not supported");
-			}
-		}
-		return res.iterator();
-	}
-	@SuppressWarnings("unchecked")
-	public Iterator<V> iterator(){
-		ArrayList<V> res = new ArrayList<V>();
-		Iterable<V> ite = (mMap != null) ? mMap.values() : mSet ;
-		for (V value : ite) {
-			try {
-				res.add((V) ((Clonable) value).clone());
-			} catch (Exception e) {
-				throw new RuntimeException("Clone not supported");
-			}
-		}
-		return res.iterator();
-	}
 	
-	@SuppressWarnings("unchecked")
+//	{
+//		if (obj instanceof ObjectKey && mMap != null){
+//			mMap.put(((ObjectKey) obj).getKey(),obj);
+//		}else if (mSet != null){
+//			mSet.add(obj);
+//		}
+//	}
+	
+	
+	public Iterator<V> iterator(Comparator<V> order){
+		Collection<V> res = (order == null) ?  new ArrayList<V>() :  new TreeSet<V>(order);
+		Iterable<V> ite = getValues();
+		for (V value : ite) {
+			res.add(cloneV(value));
+			
+		}
+		return res.iterator();
+	}
+
+	public Iterator<V> iterator(){
+		return iterator(null);
+	}
+
 	public Collection<V> collection(){
 		ArrayList<V> res = new ArrayList<V>();
-		Iterable<V> ite = (mMap != null) ? mMap.values() : mSet ;
-		for (V value : ite) {
-			try {
-				res.add((V) ((Clonable) value).clone());
-			} catch (Exception e) {
-				throw new RuntimeException("Clone not supported");
-			}
+		Iterator<V> ite = iterator();
+		
+		while(ite.hasNext()){
+			res.add(ite.next());
 		}
 		return res;
 	}
-	
 	public V get(ObjectKey a){
-		return mMap.get(a.getKey());
+		V v = getNoClone(a);
+		return  cloneV(v);
 	}
 	
-	public void remove(V obj){
-		if (obj instanceof ObjectKey && mMap != null){
-			mMap.remove((ObjectKey) obj);
-		}else if (mSet != null){
-			mSet.remove(obj);
+	@SuppressWarnings("unchecked")
+	protected V cloneV (V aux){
+		try {
+			return((V) ((ObjectClonable) aux).clone());
+		} catch (Exception e) {
+			throw new RuntimeException("Clone not supported");
 		}
 	}
-	
-	public boolean contains(V obj){
-		if (obj instanceof ObjectKey && mMap != null){
-			return mMap.get((ObjectKey) obj) != null;
-		}else if (mSet != null){
-			return mSet.contains(obj);
-		}
-		return false;
-	}
-	
 }

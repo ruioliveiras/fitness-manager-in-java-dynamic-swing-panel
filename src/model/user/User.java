@@ -13,7 +13,8 @@ import java.util.HashSet;
 import java.util.TreeSet;
 
 import core.util.Manager;
-import model.Clonable;
+import core.util.ManagerSet;
+import model.ObjectClonable;
 import model.ObjectKey;
 import model.activity.Activity;
 import model.activity.ActivityComparatorByDate;
@@ -22,7 +23,7 @@ import model.activity.Ciclismo;
 /*
  * Classe com informacao dos utilizadores.
  */
-public class User implements ObjectKey,Clonable{
+public class User implements ObjectKey,ObjectClonable{
     private String email;
     private String nome;
     private String password;
@@ -34,7 +35,7 @@ public class User implements ObjectKey,Clonable{
     private Permissoes permissoes;
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
-    private Manager<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
+    private ManagerSet<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
     private Manager<Activity> actividadesUser;
     private TreeSet<Activity> treeActividadesUser;
 
@@ -56,9 +57,13 @@ public class User implements ObjectKey,Clonable{
         this.desportoFavorito = "";
         this.permissoes = Permissoes.Guest;
         this.fcr = 0;
-        this.amigos = new Manager<String>(new HashSet<String>());
+        this.amigos = new ManagerSet<String>(new HashSet<String>());
         this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
-        this.actividadesUser = new Manager<Activity>(this.treeActividadesUser);
+        this.actividadesUser = new ManagerSet<Activity>(this.treeActividadesUser);
+    }
+    public User(String email){
+    	this();
+    	this.email = email;
     }
     
     public User(String nome, String email, String password, Genero genero, int altura, int peso, 
@@ -75,9 +80,9 @@ public class User implements ObjectKey,Clonable{
                     this.desportoFavorito = desportoFavorito;
                     this.permissoes = permissoes;
                     this.fcr = fcRepouso;
-                    this.amigos = new Manager<String>(new HashSet<String>());
+                    this.amigos = new ManagerSet<String>(new HashSet<String>());
                     this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
-                    this.actividadesUser = new Manager<Activity>(this.treeActividadesUser);
+                    this.actividadesUser = new ManagerSet<Activity>(this.treeActividadesUser);
                }
                 
     public User(User u){
@@ -91,11 +96,11 @@ public class User implements ObjectKey,Clonable{
         this.desportoFavorito = u.desportoFavorito;
         this.permissoes = u.permissoes;
         this.fcr = u.getFreqCardio();
-        this.amigos = new Manager<String>(new HashSet<String>(u.amigosManager().collection()));
+        this.amigos = new ManagerSet<String>(new HashSet<String>(u.amigosManager().collection()));
         
         this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
         this.treeActividadesUser.addAll(u.atividadesManager().collection());
-        this.actividadesUser = new Manager<Activity>(this.treeActividadesUser);
+        this.actividadesUser = new ManagerSet<Activity>(this.treeActividadesUser);
     }
     
       /*

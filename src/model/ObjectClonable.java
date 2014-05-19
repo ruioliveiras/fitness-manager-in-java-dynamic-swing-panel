@@ -1,5 +1,5 @@
 package model;
 
-public interface Clonable {
+public interface ObjectClonable {
 	public Object clone();
 }
