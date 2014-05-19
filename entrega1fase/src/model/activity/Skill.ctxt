@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Skill()
+comment1.params=time\ weather\ hearthRate\ date\ points\ maxTrick
+comment1.target=Skill(long,\ Weather,\ int,\ java.util.GregorianCalendar,\ int,\ int)
+comment2.params=act
+comment2.target=Skill(Skill)
+comment3.params=points
+comment3.target=void\ setPoints(int)
+comment4.params=
+comment4.target=int\ getPoints()
+comment5.params=maxTrick
+comment5.target=void\ setMaxTrick(int)
+comment6.params=
+comment6.target=int\ getMaxTrick()
+comment7.params=
+comment7.target=java.lang.String\ getPointName()
+comment7.text=Faz\ sentido???
+comment8.params=obj
+comment8.target=boolean\ equals(java.lang.Object)
+comment8.text=Return\ "Goal"\ "points"\ etc..
+comment9.params=
+comment9.target=int\ hashCode()
+comment9.text=TODO\:\ IMPLEMENTAR\ toString??
+numComments=10

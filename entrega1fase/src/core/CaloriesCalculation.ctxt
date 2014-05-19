@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.params=a\ u
+comment0.target=int\ calcCaloriesHR(model.activity.Activity,\ model.user.User)
+comment0.text=\n\ Calories\ burn\ calculation\ -\ based\ on\ HR\ *******ATENTION\ -\ NEEDS\ TESTING*****\n\ @param\ u\ user\ from\ User\ classe,\ namely\ {gender,\ weight,\ height,\ age,\ at\ rest\ heart\ rate}\n\ @return\ net\ calories\ burn\ [kcal]\n
+comment1.params=a\ u
+comment1.target=int\ calcCaloriesMET(model.activity.Activity,\ model.user.User)
+comment1.text=\n\ Calories\ burn\ calculation\ -\ based\ on\ MET\ *******ATENTION\ -\ NEEDS\ TESTING*****\n\ @param\ u\ user\ from\ User\ classe,\ namely\ {gender,\ weight,\ height,\ age}\n\ @return\ calories\ burn\ [kcal]\n
+comment2.params=a\ u
+comment2.target=int\ calcCalories(model.activity.Activity,\ model.user.User)
+comment2.text=\n\ Calories\ burn\ calculation\ -\ based\ on\ MET\ or\ HR\ *******ATENTION\ -\ NEEDS\ TESTING*****\n\ @param\ u\ user\ from\ User\ classe,\ namely\ {gender,\ weight,\ height,\ age,\ hrr}\n\ @return\ calories\ burn\ [kcal]\n
+numComments=3

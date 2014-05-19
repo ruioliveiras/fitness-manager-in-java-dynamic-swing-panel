@@ -1,6 +1,7 @@
 package model.activity;
 import java.util.GregorianCalendar;
-
+import model.Clonable;
+import model.user.User;
 import model.ObjectClonable;
 import core.util.Util;
 
@@ -76,7 +77,9 @@ public abstract class Activity implements ObjectClonable {
     public abstract double getMET(); /*for calories*/
     public  abstract Object clone();
     
-    
+    public int calculateCalories(User u) {
+	    return core.CaloriesCalculation.calcCalories(this, u);
+	}
     
     /*Object statements*/
     @Override
