@@ -2,43 +2,36 @@ package view.main;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import core.FormUtils.FormAttr;
+import core.FormUtils.FormButtons;
+import core.FormUtils.FormListHandle;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import view.FormUtils;
-import view.FormUtils.FormAttr;
-import view.FormUtils.FormButtons;
 
-public abstract class PanelListToolBar extends PanelToolBar implements ActionListener,ListModel<String>, ListSelectionListener {
+public abstract class PanelListToolBar extends PanelToolBar implements ListModel<String>, FormListHandle {
 		
-	
+	private ListSelectionListener mListListener;
 	private ArrayList<ListDataListener> mListModelListeners = new ArrayList<ListDataListener>(); 
 	private List<String> mString;
-	protected FormUtils.FormAttr mAttrs;
-	protected FormUtils.FormButtons mButtons;
-	
-	public PanelListToolBar(
-			FormAttr attrs,
-			FormButtons buttons){
-		super();
 		
-		mAttrs = attrs;
-		mButtons = buttons;	
+	public PanelListToolBar(
+			FormAttr[] attrs,
+			FormButtons[] buttons){
+		super(attrs,buttons);
+		
+		
 	}
 	
 	
@@ -64,35 +57,21 @@ public abstract class PanelListToolBar extends PanelToolBar implements ActionLis
 	
 
 	@Override
-	protected JPanel builToolbar() {
-		JPanel tool = new JPanel();
-		
-		for(int i =0;i<mButtons.size();i++){
-			JButton b = mButtons.getButton(i);
-			b.addActionListener(this);
-			tool.add(b);
-		}
-	
-
-		return tool;
+	protected JPanel builToolbar(JPanel p) {
+		return super.builToolbar(p);
 	}
 
 	@Override
-	protected JPanel builWorkSpace() {
-		JPanel panel = new JPanel();
+	protected JPanel builWorkSpace(JPanel panel) {
 		JPanel actForm;
 		JList<String> activities;
 		
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
-		actForm = new JPanel();
-		actForm.setPreferredSize(new Dimension(mWidth , (int) (mHeight * 0.3)));
-		for(int i =0;i<mAttrs.size();i++){
-			FormUtils.addLine(actForm, mAttrs.getLabel(i), mAttrs.getField(i), mAttrs.getWidth(i));
-		}
+		actForm = super.builWorkSpace(new JPanel());
 
 		activities = new JList<String>(this);
-		activities.addListSelectionListener(this);
+		if (mListListener != null) activities.addListSelectionListener(mListListener);
 		JScrollPane listScroller = new JScrollPane(activities);
         listScroller.setPreferredSize(new Dimension(mWidth,(int) (mHeight * 0.7)));
         listScroller.setBorder(BorderFactory.createLineBorder(Color.BLUE,1,true));
@@ -105,13 +84,11 @@ public abstract class PanelListToolBar extends PanelToolBar implements ActionLis
 	}
 
 
-	/** Implements ActionListener (each option button)  ##################*/
-	@Override
-	public abstract void actionPerformed(ActionEvent arg0);
-
 	/** Implements ListSelectionListener (Activitie list click) ##################*/
 	@Override
-	public abstract void valueChanged(ListSelectionEvent arg0);
+	public void addListListener(ListSelectionListener lis) {
+		mListListener = lis;
+	}
 
 
 

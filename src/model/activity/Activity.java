@@ -1,8 +1,8 @@
 package model.activity;
 import java.util.GregorianCalendar;
-
 import model.Clonable;
 import model.user.User;
+import model.ObjectClonable;
 import core.util.Util;
 
 
@@ -23,7 +23,7 @@ import core.util.Util;
  */
 
 
-public abstract class Activity implements Clonable {
+public abstract class Activity implements ObjectClonable {
     private GregorianCalendar mDate;
     private long mDuration; /*activity duration [ms]*/
     private Weather mWeather;

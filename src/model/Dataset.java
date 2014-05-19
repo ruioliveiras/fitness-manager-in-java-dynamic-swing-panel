@@ -4,11 +4,12 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import core.util.Manager;
 import model.activity.Basquetebol;
 import model.user.Genero;
 import model.user.Permissoes;
 import model.user.User;
+import core.util.Manager;
+import core.util.ManagerMap;
 
 
 public class Dataset {
@@ -17,16 +18,24 @@ public class Dataset {
 	private Manager<User> mUsers;
 	
 	public Dataset() {
-		mUsers = new Manager<User>(new HashMap<Object, User>());
+		mUsers = new ManagerMap<User>(new HashMap<Object, User>());
 	}
 	
 	public Dataset(Manager<User> users){
 		this();
+		Object a,b;
 		Iterator<User> ite = users.iterator();
+		Iterator<User> ite2 = users.iterator();
+		
+		for (int i = 0; ite.hasNext(); a =ite.next(),b =ite2.next()) {
+			
+		}
+		
 		while(ite.hasNext()){
 			mUsers.add(ite.next());
 		}
 	}
+	
 	public Dataset(Dataset users){
 		this(users.userManager());
 	}
@@ -57,7 +66,32 @@ public class Dataset {
 		
 	};
 	
+	static test foo;
+	
+	interface test{
+		public void dooo(int a);
+	}
+	
 	public static void main(String[] args) {
+		final 
+		
+		 Runnable r = new Runnable(){
+		        @Override
+		        public void run() {
+		            foo = new test() {
+						
+						@Override
+						public void dooo(int a) {
+							System.out.println("a: "+a + "inside listener:" + Thread.currentThread().getId());
+							
+						}
+					};
+		        }
+
+		    };
+		    Thread t = new Thread(r);
+		    
+		    
 		Dataset a = new Dataset();
 		User rui = new User("RUI Oliveira", "rui96pedro@hotmaail.com", "123", Genero.Masculino, 120, 87, 11, 10, 1994, "Natação", Permissoes.Admin, 0);
 		User rui2 = new User("RUI Camposinhos", "ruiCamposinho@gmail.co.uk", "123", Genero.Masculino, 120, 87, 11, 10, 1994, "Basquetebol", Permissoes.Admin, 0);

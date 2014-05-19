@@ -1,108 +1,150 @@
 package view.main.panel;
 
 
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
+import javax.swing.WindowConstants;
 
-import view.FormUtils;
-import view.Listeners;
-import view.FormUtils.FormAttr;
-import view.Listeners.ListenerPanelProfile;
+import core.FormUtils.FormAttr;
+import core.FormUtils.FormButtons;
 import view.main.PanelToolBar;
 
 
 
-public class PanelProfile extends PanelToolBar implements ActionListener{
-	
-	private static enum Attr implements FormUtils.FormAttr{
-		EMAIL		("E-Mail",new JTextField()),
-		PASS		("Password",new JPasswordField()),
-		NAME      ("Nome",new JTextField()),
-		SEXO      ("Genero",new JTextField()),
-		ALTURA    ("Altura",new JTextField()),
-		PESO      ("Peso",new JTextField()),
-		NASCIMENTO("Data Nascimento",new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"))),
-		PREFERIDO ("Desporto Favorito",new JTextField());
- 
-		private String label;
-		private JTextComponent text;
+public class PanelProfile extends PanelToolBar {
+
+	public enum FormButtonEnum implements FormButtons{
+		EDITAR		("Editar","Salvar");
+
+		private String eText1;
+		private String eText2;
 		
-		Attr(String l,JTextComponent m){
-			label = l;
-			text = m;
+		private FormButtonEnum(String s1,String s2) {
+			eText1 = s1;
+			eText2 = s2;
 		}
 		
-		@Override
-		public String getLabel(int i)		 {return Attr.values()[i].label;}
-		@Override
-		public JTextComponent getField(int i){return Attr.values()[i].text;}
-		@Override
-		public int getWidth(int i)			{return	200;}
-		@Override 
-		public int size() 		  			{return Attr.values().length;}
 		
-		
-		public String getText()				{return text.getText();}
-		public void setText(String str)		{text.setText(str);}
+		@Override
+		public int getIndex() {	return ordinal();}
+
+		@Override
+		public String text1() {	return eText1;}
+
+		@Override
+		public String text2() {	return eText2;}
 		
 	}
 	
-	private JPanel mWork;
-	private ListenerPanelProfile mListener;
-	
-	public PanelProfile(ListenerPanelProfile listeners) {
-		super();
+	public enum FormAttEnum implements FormAttr{
+		EMAIL		("E-Mail",JTextField.class),
+		PASS		("Password",JPasswordField.class),
+		NAME    	("Nome", JTextField.class),
+		SEXO      	("Genero", JTextField.class),
+		ALTURA    	("Altura", JTextField.class),
+		PESO      	("Peso", JTextField.class),
+		PREFERIDO 	("Desporto Favorito", JTextField.class),
+		NASCIMENTO	("Data Nascimento", JFormattedTextField.class){
+			@Override
+			public Constructor<? extends JComponent> getComponetConstructor() {
+				try {return JFormattedTextField.class.getConstructor(Format.class);} 
+				catch (NoSuchMethodException | SecurityException e) 
+				{e.printStackTrace();return null;}
+			}
+		};
 		
-		mListener = listeners;			
-	}
-	
-	
-	@Override
-	protected JPanel builWorkSpace() {
-		mWork = new JPanel();
-		mWork.setLayout(new GridLayout(0,2,10,10));
 		
-		for (Attr a: Attr.values()){
-			addLine(a.label,a.text,250);	
+		private String eName;
+		private Class<? extends JComponent> eClass;
+		
+		FormAttEnum(String name,Class<? extends JComponent> _class){
+			eName = name;
+			eClass = _class;
 		}
-		return mWork;
+
+		@Override
+		public String getName() {return eName;}
+
+		@Override
+		public Class<? extends JComponent> getComponetClass() 
+			{return eClass;}
+		
+		@Override
+		public Constructor<? extends JComponent> getComponetConstructor() {
+			try {return eClass.getConstructor();} 
+			catch (NoSuchMethodException | SecurityException e) 
+			{e.printStackTrace();return null;}
+		}
+	
+
+		@Override
+		public int getIndex() {return ordinal();}		
+	}
+
+	
+	
+	
+	public PanelProfile() {
+		super(FormAttEnum.values(),FormButtonEnum.values());
+		init();
 	}
 	
-	private void addLine(String label,JTextComponent inst,int colums){
-		FormUtils.addLine(mWork, label, inst, colums);
-		inst.setEnabled(false);
+	
+
+	
+	private void init(){
+		mJButtons = new JButton[FormButtonEnum.values().length];
+		for (FormButtonEnum b : FormButtonEnum.values()) {
+			mJButtons[b.ordinal()] = new JButton();
+		}
 		
+		mJComponets = new JComponent[FormAttEnum.values().length];
+		try {
+			/*General Cases*/
+			for (FormAttEnum e : FormAttEnum.values()) {
+				if (e.getComponetConstructor().getParameterTypes().length == 0){
+					mJComponets[e.ordinal()] = e.getComponetConstructor().newInstance();
+				}
+			}
+			/*Specific Cases*/
+			mJComponets[FormAttEnum.NASCIMENTO.ordinal()] = FormAttEnum.NASCIMENTO.getComponetConstructor()
+					.newInstance(new SimpleDateFormat("dd/MM/yyyy"));
+		
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException
+				| InvocationTargetException e1) {
+			System.err.println("ERRO DE INSTANCIAção, ");
+			e1.printStackTrace();
+		}
 	}
 
 
-	@Override
-	protected JPanel builToolbar() {
-		JPanel tool = new JPanel();
+
+
+	public static void main(String[] args) {
+		JFrame frame = new JFrame();
+		frame.setTitle("Login------");
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);		
+		JPanel panel = new JPanel();
 		
-		JButton b = new JButton("unLock");
-		b.addActionListener(this);
-			
-		tool.add(b);
-		return tool;
-	}
-
-
-	@Override
-	public void actionPerformed(ActionEvent obj) {
+		PanelProfile pro = new PanelProfile();
+		pro.loadIn(panel);
 		
+		frame.getContentPane().add(panel);
+		
+		frame.pack();
+		frame.setVisible(true);
 	}
-
-
-
 	
 
 	

@@ -1,30 +1,30 @@
 package view.main.panel;
 
+import java.awt.GridLayout;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import core.FormUtils.FormAttr;
 import core.FormUtils.FormButtons;
-import view.main.PanelListToolBar;
+import view.main.PanelToolBar;
 
-public class PanelEvents extends PanelListToolBar{
 
+public class PanelLogin extends PanelToolBar {
+
+	
+	
 	public enum FormButtonEnum implements FormButtons{
-		ADERIR		("Aderir",""),
-		CRIAR_SALVAR("Criar","Salvar"),
-		EDITAR		("Editar","Salvar"),
-		INICIAR		("Iniciar","");
-
+		ENTRAR		("Entrar",""),
+		REGISTAR	("Registar","");
+		
 		private String eText1;
 		private String eText2;
 		
@@ -44,19 +44,11 @@ public class PanelEvents extends PanelListToolBar{
 		public String text2() {	return eText2;}
 		
 	}
-
+	
 	public enum FormAttEnum implements FormAttr{
-		NOME		("Nome",JTextField.class),
-		NUM_PARTI	("Nº participantes",JTextField.class),
-		DATA_FIM	("Fim Inscrição",JFormattedTextField.class){
-			@Override
-			public Constructor<? extends JComponent> getComponetConstructor() {
-				try {return JFormattedTextField.class.getConstructor(Format.class);} 
-				catch (NoSuchMethodException | SecurityException e) 
-				{e.printStackTrace();return null;}
-			}
-		};
-		
+		EMAIL		("E-Mail",JTextField.class),
+		PASS		("Password",JPasswordField.class);
+				
 		private String eName;
 		private Class<? extends JComponent> eClass;
 		
@@ -82,18 +74,28 @@ public class PanelEvents extends PanelListToolBar{
 
 		@Override
 		public int getIndex() {return ordinal();}		
+	
 	}
+	
+	
 
-	//new SimpleDateFormat("dd/MM/yyyy")
 	
 	
-	public PanelEvents() {
+	
+	public PanelLogin() {
 		super(FormAttEnum.values(),FormButtonEnum.values());
 		init();
 	}
 	
 	
-
+	@Override
+	public JPanel loadIn(JPanel in){
+		return super.loadIn(in);
+	}
+	@Override
+	protected JPanel builWorkSpace(JPanel actForm){
+		return super.builWorkSpace(new JPanel(new GridLayout(0, 2, 10, 10)));
+	}
 	
 	private void init(){
 		mJButtons = new JButton[FormButtonEnum.values().length];
@@ -109,9 +111,6 @@ public class PanelEvents extends PanelListToolBar{
 					mJComponets[e.ordinal()] = e.getComponetConstructor().newInstance();
 				}
 			}
-			/*Specific Cases*/
-			mJComponets[FormAttEnum.DATA_FIM.ordinal()] = FormAttEnum.DATA_FIM.getComponetConstructor()
-					.newInstance(new SimpleDateFormat("dd/MM/yyyy"));
 		
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException
@@ -120,9 +119,6 @@ public class PanelEvents extends PanelListToolBar{
 			e1.printStackTrace();
 		}
 	}
-
-
-
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -138,13 +134,8 @@ public class PanelEvents extends PanelListToolBar{
 		frame.pack();
 		frame.setVisible(true);
 	}
-		
-
-
-	
 
 	
 	
-
 
 }
