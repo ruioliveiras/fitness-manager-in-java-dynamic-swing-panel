@@ -19,18 +19,18 @@ Projeto segue a arquitetura de MVC Model-View-Controller
 
 **TODO (de acordo com reuniao de dia 05/05/2014):**
 
-- Ver TODOs especificos nos ficheiros .java
+- Ver TODOs especificos nos ficheiros .java --- DONE
 
--Classe de conjunto de Users (rede social)
+-Classe de conjunto de Users (rede social) --- MANAGER???
 
--Classe Calendario (cada User deve ter um calendario de actividades - requisito!)
+-Classe Calendario (cada User deve ter um calendario de actividades - requisito!) --- DONE (actividadesUser + actividadesEntre)
 
--Classes especializadas de cada actividade em particular
+-Classes especializadas de cada actividade em particular --- DONE (completar)
 
--Recordes (ref. facebook Oliveira)
+-Recordes (ref. facebook Oliveira) --- falta comparar recordes
 
 -Package eventos: Classe Evento + Classe Simulacao
 
--Classe Evento: {Conjuto Users, Actividade, Categoria, Data evento, Data inscricao, Nome, pre-requisito inscricao (long tempo/distancia), numero maximo de participantes}
+-Classe Evento: {Conjunto Users, Actividade, Categoria, Data evento, Data inscricao, Nome, pre-requisito inscricao (long tempo/distancia), numero maximo de participantes}
 
--Classe DataSet: {HashMap Users, HashMap Eventos, ...}
+-Classe DataSet: {HashMap Users, HashMap Eventos, ...} --- DONE (80%)

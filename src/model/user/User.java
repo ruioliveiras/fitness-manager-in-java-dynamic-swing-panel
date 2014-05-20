@@ -62,8 +62,8 @@ public class User implements ObjectKey,ObjectClonable{
         this.actividadesUser = new ManagerSet<Activity>(this.treeActividadesUser);
     }
     public User(String email){
-    	this();
-    	this.email = email;
+        this();
+        this.email = email;
     }
     
     public User(String nome, String email, String password, Genero genero, int altura, int peso, 
@@ -140,16 +140,21 @@ public class User implements ObjectKey,ObjectClonable{
     /*
      * Getttes not direct (with calculation)
      */
-    //ESTA A CALCULAR BEM???? TEM QUE LER A DATA COMPLETA PARA CALCULAR O NUMERO DE ANOS
-    public int getIdade(){        
-        GregorianCalendar agora = new GregorianCalendar();
-        return agora.get(Calendar.YEAR) - this.dataNascimento.get(Calendar.YEAR);
+    public int getIdade(){
+       GregorianCalendar agora = new GregorianCalendar();
+       int idade = agora.get(Calendar.YEAR) - this.dataNascimento.get(Calendar.YEAR);
+       int idade_mes = this.dataNascimento.get(Calendar.MONTH) - (agora.get(Calendar.MONTH) + 1);//jan = 0 !!!
+       int idade_dia = this.dataNascimento.get(Calendar.DAY_OF_MONTH) - agora.get(Calendar.DAY_OF_MONTH);
+       if(idade_mes > 0) return (idade - 1);
+       if((idade_mes == 0) && (idade_dia > 0)) return (idade - 1);
+       
+       return idade;
     }
     
     public double getForma(){
         /*WIP*/
         //return 0.0;
-        throw new RuntimeException("DO NOT IMPLEMENT YET, IMPLEENT BEFORE USER IT");
+        throw new RuntimeException("DO NOT IMPLEMENT YET, IMPLEENT BEFORE USER IT");//atencao nao fazer I/O aqui!!!
     }
     
     public Manager<String> amigosManager(){return this.amigos;}    
