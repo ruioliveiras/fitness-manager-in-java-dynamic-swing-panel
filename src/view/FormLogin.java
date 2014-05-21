@@ -12,39 +12,44 @@ import view.main.panel.PanelLogin;
 
 
 
-public class ViewLogin {
+public class FormLogin {
 	private final static int SIZE_WIDTH 	= 400;
 	private final static int SIZE_HEIGHT 	= 200;
 	private PanelLogin mLogin;
-
-	public ViewLogin(){
+	private JFrame mFrame;
+	
+	public FormLogin(){
 		 mLogin = new PanelLogin();
 	}
 	
 	public void show(){
-		JFrame frame = new JFrame();
+		mFrame = new JFrame();
 		JPanel panel = new JPanel();
 		
-		frame.setTitle("Login------");
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);		
+		mFrame.setTitle("Login |-----  Fitness UM -----|");
+		mFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);		
 		
 		panel.setPreferredSize(new Dimension(SIZE_WIDTH, SIZE_HEIGHT));
 		mLogin.loadIn(panel);
-		frame.getContentPane().add(panel);
+		mFrame.getContentPane().add(panel);
 		
-		frame.pack();
-		frame.setVisible(true);
+		mFrame.pack();
+		mFrame.setVisible(true);
 	}
 
 
 
 	public static void main(String[] args){
-		ViewLogin f = new ViewLogin();
+		FormLogin f = new FormLogin();
 		f.show();
 	}
 
 	public FormHandle getHandler(){
 		return mLogin;
+	}
+
+	public void hide() {
+		mFrame.setVisible(false);
 	}
 
 	

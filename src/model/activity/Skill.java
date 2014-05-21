@@ -5,6 +5,10 @@ import java.util.GregorianCalendar;
 import model.Record;
 
 public abstract class Skill extends Activity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/*Resultado do contest? */
 	private int mPoints;
 	private int mMaxTrick;

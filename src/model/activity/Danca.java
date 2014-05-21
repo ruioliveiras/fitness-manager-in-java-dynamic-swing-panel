@@ -4,6 +4,11 @@ package model.activity;
 
 public class Danca extends Ludic {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public String getName() {
 		return "Dança";

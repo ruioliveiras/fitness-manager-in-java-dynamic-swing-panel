@@ -4,6 +4,7 @@
 
 package model.user;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -23,8 +24,12 @@ import model.activity.Ciclismo;
 /*
  * Classe com informacao dos utilizadores.
  */
-public class User implements ObjectKey,ObjectClonable{
-    private String email;
+public class User implements ObjectKey,ObjectClonable,Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String email;
     private String nome;
     private String password;
     private Genero genero;
@@ -35,7 +40,7 @@ public class User implements ObjectKey,ObjectClonable{
     private Permissoes permissoes;
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
-    private ManagerSet<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
+    private Manager<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
     private Manager<Activity> actividadesUser;
     private TreeSet<Activity> treeActividadesUser;
 
@@ -175,7 +180,7 @@ public class User implements ObjectKey,ObjectClonable{
          return res;
     }
 
-    private Manager.OnManagerAdd<Activity> mListenerBeforeAdd = new Manager.OnManagerAdd<Activity>() {
+    private transient Manager.OnManagerAdd<Activity> mListenerBeforeAdd = new Manager.OnManagerAdd<Activity>() {
 		@Override
 		public boolean beforeAdd(Activity obj) {
 	        addRecord(obj);

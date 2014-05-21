@@ -6,6 +6,10 @@ import model.Record;
 import core.util.Util;
 
 public abstract class Distance extends Activity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int mDistance;
 	private int mMaxSpeed;
    

@@ -1,4 +1,5 @@
 package model.activity;
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 
 import model.user.User;
@@ -24,8 +25,12 @@ import core.util.Util;
  */
 
 
-public abstract class Activity implements ObjectClonable {
-    private GregorianCalendar mDate;
+public abstract class Activity implements ObjectClonable,Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private GregorianCalendar mDate;
     private long mDuration; /*activity duration [ms]*/
     private Weather mWeather;
     private int mHearthRate;/*heart rate [1/min] - for calorie burn calculation*/

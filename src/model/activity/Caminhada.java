@@ -6,6 +6,11 @@ package model.activity;
 
 public class Caminhada extends Distance{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public String getName() {
 		return "Caminhada";

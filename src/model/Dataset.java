@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -12,10 +13,11 @@ import model.user.Genero;
 import model.user.Permissoes;
 import model.user.User;
 import core.util.Manager;
+import core.util.Manager.ObjectDontExistException;
 import core.util.ManagerMap;
 
 
-public class Dataset {
+public class Dataset implements Serializable{
 
 	
 	private Manager<User> mUsers;
@@ -48,12 +50,6 @@ public class Dataset {
 	}
 	
 
-	
-	
-	
-
-	
-	
 	public final static Comparator<User> ORDER_USER_ALFA = new Comparator<User>() {
 		
 		@Override
@@ -84,14 +80,20 @@ public class Dataset {
 		Natacao nata1 = new Natacao(70 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
 		Natacao nata2 = new Natacao(60 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
 		Natacao nata3 = new Natacao(50 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
-		rui.addActivityRecord(nata1);
-		rui.addActivityRecord(nata2);
-		rui.addActivityRecord(nata3);
+		rui.atividadesManager().add(nata1);
+		rui.atividadesManager().add(nata2);
+		rui.atividadesManager().add(nata3);
 		test.setEmail("rui96pedro@hotmaail.com");
 		a.userManager().add(rui2);
 		a.userManager().add(rui);
-		User b = a.userManager().get(test);
-		System.out.print("SUSSES" + b.getNome());
+		User b;
+		try {
+			b = a.userManager().get(test);
+			System.out.print("SUSSES" + b.getNome());
+		} catch (ObjectDontExistException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 //	public final static Class<?>[] sActivitys = {Ciclismo.class,Basquetebol.class};  

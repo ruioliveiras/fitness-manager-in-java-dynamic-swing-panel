@@ -5,6 +5,11 @@ import model.user.User;
 
 public class WindSurf extends Distance {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public String getName() {
 		return "WindSurf";

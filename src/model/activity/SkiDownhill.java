@@ -4,6 +4,11 @@ package model.activity;
 
 public class SkiDownhill extends Distance {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public String getName() {
 		return "Ski DownHill";

@@ -5,6 +5,10 @@ import java.util.Set;
 import model.ObjectKey;
 
 public class ManagerSet<V> extends Manager<V>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Set<V> mSet;
 
 	public ManagerSet( Set<V> set) {

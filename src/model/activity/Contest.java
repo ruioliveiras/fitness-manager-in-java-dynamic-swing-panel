@@ -5,6 +5,11 @@ import java.util.GregorianCalendar;
 import model.Record;
 
 public abstract class Contest extends Activity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	static public enum Result {WIN,LOSE,DRAW};
 	
 	/*Resultado do contest? */

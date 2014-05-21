@@ -8,6 +8,11 @@ import core.util.Util;
 public abstract class Altimetry extends Distance {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public enum Attr implements Record.enumAttr {
 		ALTURA("Altura");
 

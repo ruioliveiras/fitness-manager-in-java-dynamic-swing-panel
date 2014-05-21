@@ -1,6 +1,7 @@
 package core.util;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -11,9 +12,13 @@ import model.ObjectClonable;
 import model.ObjectKey;
 
 
-public abstract class Manager<V>{
+public abstract class Manager<V> implements Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private OnManagerAdd<V> mAddListener;
 	
 	public Manager() {
@@ -74,22 +79,43 @@ public abstract class Manager<V>{
 		}
 		return res;
 	}
-	public V get(ObjectKey a){
+	public V get(ObjectKey a) throws ObjectDontExistException{
 		V v = getNoClone(a);
+		if (v == null)
+			throw new ObjectDontExistException("Object '" + a.toString() + "' ");
 		return  cloneV(v);
 	}
 	
 	@SuppressWarnings("unchecked")
 	protected V cloneV (V aux){
+		Object obj;
 		try {
-			return((V) ((ObjectClonable) aux).clone());
+			obj = ((ObjectClonable) aux).clone();
+			if (obj == null){
+				throw new NullPointerException("Clone return null? "+aux.getClass());
+			}
+			return((V) obj);
 		} catch (Exception e) {
-			throw new RuntimeException("Clone not supported");
+			throw new RuntimeException("Clone not supported "+ aux.getClass());
 		}
 	}
 	
 	
-	public interface OnManagerAdd<V>{
+	public interface OnManagerAdd<V> extends Serializable{
 		public boolean beforeAdd(V obj);
+	}
+	public static class ObjectDontExistException extends Exception implements Serializable{
+		private static final long serialVersionUID = 1L;
+
+		public ObjectDontExistException() {
+			super();
+		}
+
+		public ObjectDontExistException(String message) {
+			super(message);
+		}
+		
+		
+		
 	}
 }

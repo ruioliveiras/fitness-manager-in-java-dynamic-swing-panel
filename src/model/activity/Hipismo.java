@@ -4,6 +4,11 @@ package model.activity;
 
 public class Hipismo extends Skill {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public String getName() {
 		return "Hipismo";

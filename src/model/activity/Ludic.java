@@ -5,6 +5,11 @@ import model.Record;
 
 public abstract class Ludic extends Activity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public enum Attr implements Record.enumAttr {
 		TEMPO("Tempo");
 

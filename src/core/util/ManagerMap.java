@@ -5,6 +5,10 @@ import java.util.Map;
 import model.ObjectKey;
 
 public class ManagerMap<V> extends Manager<V>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Map<Object, V> mMap;
 
 	public ManagerMap(Map<Object, V> map) {

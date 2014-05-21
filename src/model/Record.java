@@ -1,7 +1,5 @@
 package model;
 
-import model.Record.enumAttr;
-import model.activity.Activity;
 
 public interface Record {
 	public interface enumAttr{
