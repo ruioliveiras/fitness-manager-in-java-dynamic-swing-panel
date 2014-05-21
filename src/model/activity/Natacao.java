@@ -1,24 +1,31 @@
 package model.activity;
 
+import java.util.GregorianCalendar;
+
 
 
 public class Natacao extends Distance {
+
+	public Natacao() {
+		super();
+	}
+
+
+	public Natacao(Natacao act) {
+		super(act);
+	}
+
+
+	public Natacao(long time, Weather weather, int hearthRate,
+			GregorianCalendar date, int distance, int maxSpeed) {
+		super(time, weather, hearthRate, date, distance, maxSpeed);
+	}
 
 	@Override
 	public String getName() {
 		return "Natação";
 	}
 
-	@Override
-	public int getRecordSize() {
-		return 0;
-	}
-
-	@Override
-	public int compareRecord(Activity otherActivity,int recordType) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public int getIntensidade() {
@@ -27,14 +34,12 @@ public class Natacao extends Distance {
 
 	@Override
 	public double getMET() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public Object clone() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Natacao(this);
 	}
 
 }

@@ -1,8 +1,9 @@
 package model.activity;
 import java.util.GregorianCalendar;
-import model.Clonable;
+
 import model.user.User;
 import model.ObjectClonable;
+import model.Record;
 import core.util.Util;
 
 
@@ -71,11 +72,48 @@ public abstract class Activity implements ObjectClonable {
     
     /*abstract things*/
     public abstract String getName();
-    public abstract int getRecordSize();
-    public abstract int compareRecord(Activity otherActivity,int recordType);
+
     public abstract int getIntensidade();
     public abstract double getMET(); /*for calories*/
     public  abstract Object clone();
+    
+    /*Record*/
+    public abstract int getRecordSize();
+    public abstract int get(int iAttr);
+    protected abstract int getStat(int recordType); 
+    protected int getStat(Record a){
+    	int value = Integer.MAX_VALUE;
+    	if (a.getFixed() != null){
+    		/*Means that a has fixed element, is similar?*/
+    		value = this.get(a.getFixed().ordinal());/*get real ordinal*/
+    	}
+    	if ((value == Integer.MAX_VALUE) || (a.similar(value))){
+    		return get(a.getMov().getAttrType());
+    	}else{
+    		return -1;
+    	}
+    }
+	/**
+	 * O this será o novo, o otherActivity será o actual. Assim quando não existir nenhum faz-se compareRercord(null,ac); 
+	 * 
+	 * return será: -1 (<0) se o this for menor, ou seja ignorar
+	 * 				0 (==0) se o this for igual alterar
+	 *        será +1 (>0) se o this for "maior"/"melhor", alterar 
+	 */
+	
+	public int compareRecord(Activity otherActivity,int recordType) {
+		int sThis,sOther = 0;
+		sThis  = this.getStat(recordType);
+		
+		if (sThis < 0){
+			return -1;
+		}
+		if(otherActivity != null){
+			sOther = otherActivity.getStat(recordType); 
+		}
+		return sThis - sOther;
+	}
+    
     
     public int calculateCalories(User u) {
 	    return core.CaloriesCalculation.calcCalories(this, u);
@@ -95,9 +133,5 @@ public abstract class Activity implements ObjectClonable {
         return Util.CalcHashCode((int) mDuration, mWeather.hashCode(),mHearthRate);
     }
 
-    
-   
-    
-  
 
 }

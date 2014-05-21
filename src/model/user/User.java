@@ -170,10 +170,11 @@ public class User implements ObjectKey,ObjectClonable{
          return res;
     }
 
+    //*Falta CLone*///
     public void addActivityRecord(Activity a){
-        Activity aClone = (Activity) a.clone();
-        actividadesUser.add(aClone);
-        addRecord(aClone);
+      //  Activity aClone = (Activity) a.clone();
+    	actividadesUser.add(a);
+        addRecord(a);
     }
     
     private void addRecord(Activity activity){
@@ -190,9 +191,9 @@ public class User implements ObjectKey,ObjectClonable{
         
         numRecords = activity.getRecordSize();
         for (int i=0;i<numRecords;i++){
-            record = actualRecords.get(i);
-            if (record == null || activity.compareRecord(record,i) > 0){
-                actualRecords.put(activity.getRecordSize(), activity);
+            record = actualRecords.get(i); /*record can be null, but compareRecord admits null activities*/
+            if (activity.compareRecord(record,i) >= 0){
+                actualRecords.put(i, activity);
             }
         }
     }
@@ -229,5 +230,6 @@ public class User implements ObjectKey,ObjectClonable{
     public Object getKey() {
         return getEmail();
     } 
+
     
 }

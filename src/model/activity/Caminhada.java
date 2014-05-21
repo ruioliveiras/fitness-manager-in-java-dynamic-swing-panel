@@ -3,21 +3,12 @@ package model.activity;
 
 
 
+
 public class Caminhada extends Distance{
-    @Override
+	
+	@Override
 	public String getName() {
 		return "Caminhada";
-	}
-
-	@Override
-	public int getRecordSize() {
-		return 0;
-	}
-
-	@Override
-	public int compareRecord(Activity otherActivity,int recordType) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
