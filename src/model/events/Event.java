@@ -1,14 +1,17 @@
 package model.events;
 
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 
+import core.util.Manager;
+import core.util.ManagerSet;
 import model.ObjectClonable;
 import model.activity.Activity;
 
 
 //-Classe Evento: {Conjuto Users, Actividade, Categoria, Data evento, Data inscricao, Nome, pre-requisito inscricao (long tempo/distancia), numero maximo de participantes}
 
-public class Event implements ObjectClonable  {
+public class Event implements ObjectClonable {
 	/*Set de strings (email)*/
 	private String mName;
 	private Activity mActivity;
@@ -17,6 +20,8 @@ public class Event implements ObjectClonable  {
 	private GregorianCalendar mEndDate;
 	private int mPreRequisite;
 	private int mMaxNumUsers;
+	private ManagerSet<String> mUsers;
+	
 
 	public Event() {
 		mName = "";
@@ -26,6 +31,7 @@ public class Event implements ObjectClonable  {
 		mEndDate = new GregorianCalendar();
 		mPreRequisite = -1;
 		mMaxNumUsers = -1;
+		mUsers = new ManagerSet<String>(mListenerBeforeAdd, new HashSet<String>());
 	}
 	public Event(String name, Activity activity, int recordType,
 			GregorianCalendar eventDate, GregorianCalendar endDate,
@@ -37,6 +43,7 @@ public class Event implements ObjectClonable  {
 		mEndDate = endDate;
 		mPreRequisite = preRequisite;
 		mMaxNumUsers = maxNumUsers;
+		mUsers = new ManagerSet<String>(mListenerBeforeAdd,new HashSet<String>());
 	}
 	public Event(Event e){
 		this(e.getName(),e.getActivity(),e.getRecord(),e.getEventDate(),e.getEndDate(),e.getPreRequisite(),e.getMaxNumUsers());
@@ -85,8 +92,21 @@ public class Event implements ObjectClonable  {
 	public void setMaxNumUsers(int mMaxNumUsers) {
 		this.mMaxNumUsers = mMaxNumUsers;
 	}
+	
+	public Manager<String> getUserManager(){
+		return mUsers;
+	}
 
 	public Object clone(){
 		return new Event(this);
 	}
+	
+	
+	private Manager.OnManagerAdd<String> mListenerBeforeAdd = new Manager.OnManagerAdd<String>() {
+		@Override
+		public boolean beforeAdd(String obj) {
+			
+			return true;
+		}
+	};
 }

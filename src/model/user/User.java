@@ -82,7 +82,7 @@ public class User implements ObjectKey,ObjectClonable{
                     this.fcr = fcRepouso;
                     this.amigos = new ManagerSet<String>(new HashSet<String>());
                     this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
-                    this.actividadesUser = new ManagerSet<Activity>(this.treeActividadesUser);
+                    this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd,this.treeActividadesUser);
                }
                 
     public User(User u){
@@ -100,7 +100,7 @@ public class User implements ObjectKey,ObjectClonable{
         
         this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
         this.treeActividadesUser.addAll(u.atividadesManager().collection());
-        this.actividadesUser = new ManagerSet<Activity>(this.treeActividadesUser);
+        this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd,this.treeActividadesUser);
     }
     
       /*
@@ -175,13 +175,13 @@ public class User implements ObjectKey,ObjectClonable{
          return res;
     }
 
-    //*Falta CLone*///
-    public void addActivityRecord(Activity a){
-      //  Activity aClone = (Activity) a.clone();
-    	actividadesUser.add(a);
-        addRecord(a);
-    }
-    
+    private Manager.OnManagerAdd<Activity> mListenerBeforeAdd = new Manager.OnManagerAdd<Activity>() {
+		@Override
+		public boolean beforeAdd(Activity obj) {
+	        addRecord(obj);
+			return true;
+		}
+	};
     private void addRecord(Activity activity){
         HashMap<Integer, Activity> actualRecords = recordes.get(activity.getClass());
         int numRecords;

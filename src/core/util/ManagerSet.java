@@ -8,10 +8,15 @@ public class ManagerSet<V> extends Manager<V>{
 	private Set<V> mSet;
 
 	public ManagerSet( Set<V> set) {
+		super();
 		set.clear();
 		mSet = set;
 	}
-
+	public ManagerSet(Manager.OnManagerAdd<V> listener, Set<V> set) {
+		super(listener);
+		set.clear();
+		mSet = set;
+	}
 
 	@Override
 	protected Iterable<V> getValues() {
@@ -42,8 +47,14 @@ public class ManagerSet<V> extends Manager<V>{
 	}
 
 	@Override
-	public void add(V obj) {
-		mSet.add(cloneV(obj));	
+	public boolean add(V obj) {
+		if (super.add(obj)){
+			mSet.add(cloneV(obj));
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 
 

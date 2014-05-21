@@ -14,11 +14,31 @@ import model.ObjectKey;
 public abstract class Manager<V>{
 
 	
+	private OnManagerAdd<V> mAddListener;
+	
+	public Manager() {
+		mAddListener = null;
+	}
+	
+	public Manager(OnManagerAdd<V> addListener){
+		setAddListener(addListener);
+	}
+	
+	public void setAddListener (OnManagerAdd<V> addListener){
+		mAddListener = addListener;
+	}
 	protected abstract Iterable<V> getValues();
 	protected abstract V getNoClone(ObjectKey a);
 	public abstract boolean contains(V obj);
 	public abstract void remove(V obj);
-	public abstract void add(V obj);
+	public boolean add(V obj){
+		boolean  res = true;
+		if (mAddListener != null){
+			res = mAddListener.beforeAdd(obj);
+		}
+		return res;
+	}
+	
 	
 	/*TODO: FAZER COPIA?*/
 	
@@ -66,5 +86,10 @@ public abstract class Manager<V>{
 		} catch (Exception e) {
 			throw new RuntimeException("Clone not supported");
 		}
+	}
+	
+	
+	public interface OnManagerAdd<V>{
+		public boolean beforeAdd(V obj);
 	}
 }
