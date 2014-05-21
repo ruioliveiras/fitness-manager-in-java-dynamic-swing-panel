@@ -35,7 +35,7 @@ public enum Weather {
 	public enum WeatherSun{
 		SUN(10),
 		SUNNY(7),
-		CLOUY(3),
+		CLOUD(3),
 		RAIN(0);
 	
 		private int mLvl;

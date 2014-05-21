@@ -9,7 +9,7 @@ import model.activity.Activity;
 //-Classe Evento: {Conjuto Users, Actividade, Categoria, Data evento, Data inscricao, Nome, pre-requisito inscricao (long tempo/distancia), numero maximo de participantes}
 
 public class Event implements ObjectClonable  {
-
+	/*Set de strings (email)*/
 	private String mName;
 	private Activity mActivity;
 	private int mRecordType; /*An event is about a Activity with his record type, like: Run 100m*/
