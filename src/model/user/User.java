@@ -132,7 +132,7 @@ public class User implements ObjectKey,ObjectClonable{
     public void setFreqCardio(int fcr)      {this.fcr=fcr;}
       
     public void setDataNascimento(int ano, int mes, int dia)
-                          {this.dataNascimento = new GregorianCalendar(ano, mes, dia);}
+                          {this.dataNascimento = new GregorianCalendar(ano, mes-1, dia);}//jan = 0 !!!
     public void setDesportoFavorito(String desporto){this.desportoFavorito = desporto;}
     public void setPermissoes(Permissoes permissoes){this.permissoes = permissoes;}
     public void setGenero(Genero genero)              {this.genero=genero;}
@@ -143,7 +143,7 @@ public class User implements ObjectKey,ObjectClonable{
     public int getIdade(){
        GregorianCalendar agora = new GregorianCalendar();
        int idade = agora.get(Calendar.YEAR) - this.dataNascimento.get(Calendar.YEAR);
-       int idade_mes = this.dataNascimento.get(Calendar.MONTH) - (agora.get(Calendar.MONTH) + 1);//jan = 0 !!!
+       int idade_mes = this.dataNascimento.get(Calendar.MONTH) - (agora.get(Calendar.MONTH));
        int idade_dia = this.dataNascimento.get(Calendar.DAY_OF_MONTH) - agora.get(Calendar.DAY_OF_MONTH);
        if(idade_mes > 0) return (idade - 1);
        if((idade_mes == 0) && (idade_dia > 0)) return (idade - 1);
