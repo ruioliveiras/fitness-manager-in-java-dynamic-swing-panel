@@ -76,7 +76,7 @@ public class User implements ObjectKey,ObjectClonable{
                     this.peso = peso;
                     this.genero = genero;
                     this.recordes = new HashMap<Class<?>, HashMap<Integer, Activity>>();
-                    this.dataNascimento = new GregorianCalendar(anoNascimento, mesNascimento, diaNascimento);
+                    this.dataNascimento = new GregorianCalendar(anoNascimento, mesNascimento-1, diaNascimento);
                     this.desportoFavorito = desportoFavorito;
                     this.permissoes = permissoes;
                     this.fcr = fcRepouso;
