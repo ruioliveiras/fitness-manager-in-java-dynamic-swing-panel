@@ -4,7 +4,12 @@ package model.activity;
 
 
 public class Remo extends Distance{
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
 	public String getName() {
 		return "Remo";
 	}

@@ -1,18 +1,23 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import model.activity.Basquetebol;
+import model.activity.Natacao;
+import model.activity.Weather;
 import model.user.Genero;
 import model.user.Permissoes;
 import model.user.User;
 import core.util.Manager;
+import core.util.Manager.ObjectDontExistException;
 import core.util.ManagerMap;
 
 
-public class Dataset {
+public class Dataset implements Serializable{
 
 	
 	private Manager<User> mUsers;
@@ -45,12 +50,6 @@ public class Dataset {
 	}
 	
 
-	
-	
-	
-
-	
-	
 	public final static Comparator<User> ORDER_USER_ALFA = new Comparator<User>() {
 		
 		@Override
@@ -74,36 +73,27 @@ public class Dataset {
 	}
 	
 	public static void main(String[] args) {
-		final 
-		
-		 Runnable r = new Runnable(){
-		        @Override
-		        public void run() {
-		            foo = new test() {
-						
-						@Override
-						public void dooo(int a) {
-							System.out.println("a: "+a + "inside listener:" + Thread.currentThread().getId());
-							
-						}
-					};
-		        }
-
-		    };
-		    Thread t = new Thread(r);
-		    
-		    
 		Dataset a = new Dataset();
 		User rui = new User("RUI Oliveira", "rui96pedro@hotmaail.com", "123", Genero.Masculino, 120, 87, 11, 10, 1994, "Natação", Permissoes.Admin, 0);
 		User rui2 = new User("RUI Camposinhos", "ruiCamposinho@gmail.co.uk", "123", Genero.Masculino, 120, 87, 11, 10, 1994, "Basquetebol", Permissoes.Admin, 0);
 		User test = new User();
-		Basquetebol a1 = new Basquetebol();
-		rui.addActivityRecord(a1);
+		Natacao nata1 = new Natacao(70 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
+		Natacao nata2 = new Natacao(60 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
+		Natacao nata3 = new Natacao(50 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
+		rui.atividadesManager().add(nata1);
+		rui.atividadesManager().add(nata2);
+		rui.atividadesManager().add(nata3);
 		test.setEmail("rui96pedro@hotmaail.com");
 		a.userManager().add(rui2);
 		a.userManager().add(rui);
-		User b = a.userManager().get(test);
-		System.out.print("SUSSES" + b.getNome());
+		User b;
+		try {
+			b = a.userManager().get(test);
+			System.out.print("SUSSES" + b.getNome());
+		} catch (ObjectDontExistException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 //	public final static Class<?>[] sActivitys = {Ciclismo.class,Basquetebol.class};  

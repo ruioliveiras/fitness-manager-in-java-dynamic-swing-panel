@@ -4,6 +4,11 @@ package model.activity;
 
 public class Badminton extends Individual {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public String getName() {
 		return "Badminton";

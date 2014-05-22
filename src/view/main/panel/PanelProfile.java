@@ -36,13 +36,13 @@ public class PanelProfile extends PanelToolBar {
 		
 		
 		@Override
-		public int getIndex() {	return ordinal();}
+		public int getIndex() {return ordinal();}
 
 		@Override
-		public String text1() {	return eText1;}
+		public String text1() {return eText1;}
 
 		@Override
-		public String text2() {	return eText2;}
+		public String text2() {return eText2;}
 		
 	}
 	

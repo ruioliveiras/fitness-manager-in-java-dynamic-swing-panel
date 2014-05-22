@@ -1,7 +1,10 @@
 package model.events;
 
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 
+import core.util.Manager;
+import core.util.ManagerSet;
 import model.ObjectClonable;
 import model.activity.Activity;
 
@@ -16,6 +19,7 @@ public abstract class Event implements ObjectClonable  {
     private GregorianCalendar mEndDate;
     private int mPreRequisite;
     private int mMaxNumUsers;
+    private ManagerSet<String> mUsers;
 
     public Event() {
         mName = "";
@@ -24,6 +28,7 @@ public abstract class Event implements ObjectClonable  {
         mEndDate = new GregorianCalendar();
         mPreRequisite = -1;
         mMaxNumUsers = -1;
+        mUsers = new ManagerSet<String>(mListenerBeforeAdd, new HashSet<String>());
     }
     public Event(String name, Activity activity, GregorianCalendar eventDate,
                     GregorianCalendar endDate, int preRequisite, int maxNumUsers) {
@@ -33,6 +38,7 @@ public abstract class Event implements ObjectClonable  {
         mEndDate = endDate;
         mPreRequisite = preRequisite;
         mMaxNumUsers = maxNumUsers;
+        mUsers = new ManagerSet<String>(mListenerBeforeAdd, new HashSet<String>());
     }
 
     public Event(Event e){
@@ -78,6 +84,10 @@ public abstract class Event implements ObjectClonable  {
         this.mMaxNumUsers = mMaxNumUsers;
     }
     
+    public Manager<String> getUserManager(){
+		return mUsers;
+	}
+	
     public boolean equals(Object obj){
       if(this == obj) return true; 
       if((obj == null) || (this.getClass() != obj.getClass())) return false;
@@ -90,4 +100,11 @@ public abstract class Event implements ObjectClonable  {
     public abstract Object clone();
     
     public abstract String toString();
+    	private Manager.OnManagerAdd<String> mListenerBeforeAdd = new Manager.OnManagerAdd<String>() {
+		@Override
+		public boolean beforeAdd(String obj) {
+			
+			return true;
+		}
+	};
 }

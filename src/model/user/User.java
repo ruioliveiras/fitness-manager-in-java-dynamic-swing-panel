@@ -4,6 +4,7 @@
 
 package model.user;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -23,8 +24,12 @@ import model.activity.Ciclismo;
 /*
  * Classe com informacao dos utilizadores.
  */
-public class User implements ObjectKey,ObjectClonable{
-    private String email;
+public class User implements ObjectKey,ObjectClonable,Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String email;
     private String nome;
     private String password;
     private Genero genero;
@@ -35,7 +40,7 @@ public class User implements ObjectKey,ObjectClonable{
     private Permissoes permissoes;
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
-    private ManagerSet<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
+    private Manager<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
     private Manager<Activity> actividadesUser;
     private TreeSet<Activity> treeActividadesUser;
 
@@ -82,7 +87,7 @@ public class User implements ObjectKey,ObjectClonable{
                     this.fcr = fcRepouso;
                     this.amigos = new ManagerSet<String>(new HashSet<String>());
                     this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
-                    this.actividadesUser = new ManagerSet<Activity>(this.treeActividadesUser);
+                    this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd,this.treeActividadesUser);
                }
                 
     public User(User u){
@@ -100,7 +105,7 @@ public class User implements ObjectKey,ObjectClonable{
         
         this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
         this.treeActividadesUser.addAll(u.atividadesManager().collection());
-        this.actividadesUser = new ManagerSet<Activity>(this.treeActividadesUser);
+        this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd,this.treeActividadesUser);
     }
     
       /*
@@ -175,12 +180,13 @@ public class User implements ObjectKey,ObjectClonable{
          return res;
     }
 
-    public void addActivityRecord(Activity a){
-        Activity aClone = (Activity) a.clone();
-        actividadesUser.add(aClone);
-        addRecord(aClone);
-    }
-    
+    private transient Manager.OnManagerAdd<Activity> mListenerBeforeAdd = new Manager.OnManagerAdd<Activity>() {
+		@Override
+		public boolean beforeAdd(Activity obj) {
+	        addRecord(obj);
+			return true;
+		}
+	};
     private void addRecord(Activity activity){
         HashMap<Integer, Activity> actualRecords = recordes.get(activity.getClass());
         int numRecords;
@@ -195,9 +201,9 @@ public class User implements ObjectKey,ObjectClonable{
         
         numRecords = activity.getRecordSize();
         for (int i=0;i<numRecords;i++){
-            record = actualRecords.get(i);
-            if (record == null || activity.compareRecord(record,i) > 0){
-                actualRecords.put(activity.getRecordSize(), activity);
+            record = actualRecords.get(i); /*record can be null, but compareRecord admits null activities*/
+            if (activity.compareRecord(record,i) >= 0){
+                actualRecords.put(i, activity);
             }
         }
     }
@@ -234,5 +240,6 @@ public class User implements ObjectKey,ObjectClonable{
     public Object getKey() {
         return getEmail();
     } 
+
     
 }
