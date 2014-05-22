@@ -31,7 +31,7 @@ public class User implements ObjectKey,ObjectClonable{
     private int altura; /*cm*/
     private int peso; /*kg*/
     private GregorianCalendar dataNascimento;
-    private String desportoFavorito;
+    private String desportoFavorito;/*TODO: necessario forçar uso dos nomes das actividades? -> getSimpleName()?*/
     private Permissoes permissoes;
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/

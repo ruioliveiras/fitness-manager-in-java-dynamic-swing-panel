@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.params=
+comment0.target=EventIndivContest()
+comment1.params=name\ activity\ eventDate\ endDate\ preRequisite\ maxNumUsers\ type
+comment1.target=EventIndivContest(java.lang.String,\ model.activity.Activity,\ java.util.GregorianCalendar,\ java.util.GregorianCalendar,\ int,\ int,\ ContestType)
+comment2.params=e
+comment2.target=EventIndivContest(EventIndivContest)
+comment3.params=
+comment3.target=ContestType\ getContestType()
+comment4.params=type
+comment4.target=void\ setContestType(ContestType)
+comment5.params=
+comment5.target=java.util.List\ getGames()
+comment5.text=TODO\:\ list\ of\ all\ games\ between\ users
+comment6.params=obj
+comment6.target=boolean\ equals(java.lang.Object)
+comment7.params=
+comment7.target=java.lang.String\ toString()
+comment8.params=
+comment8.target=int\ hashCode()
+comment9.params=
+comment9.target=java.lang.Object\ clone()
+numComments=10
