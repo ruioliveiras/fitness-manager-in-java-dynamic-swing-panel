@@ -55,7 +55,7 @@ public abstract class Distance extends Activity {
 		@Override
 		public int getAttrType() {return ordinal();}
 	}
-
+	
 
 	public enum MyRecords implements Record{
     	MENOR_TEMPO40000("Menor tempo 40km",Attr.TEMPO,Attr.DISTANCIA,40000),

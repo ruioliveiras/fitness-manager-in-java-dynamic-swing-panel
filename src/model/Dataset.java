@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import model.activity.Basquetebol;
+import model.activity.Distance;
 import model.activity.Natacao;
 import model.activity.Weather;
 import model.user.Genero;
@@ -74,8 +75,11 @@ public class Dataset implements Serializable{
 	
 	public static void main(String[] args) {
 		Dataset a = new Dataset();
-		User rui = new User("RUI Oliveira", "rui96pedro@hotmaail.com", "123", Genero.Masculino, 120, 87, 11, 10, 1994, "Natação", Permissoes.Admin, 0);
-		User rui2 = new User("RUI Camposinhos", "ruiCamposinho@gmail.co.uk", "123", Genero.Masculino, 120, 87, 11, 10, 1994, "Basquetebol", Permissoes.Admin, 0);
+		User rui = new User("RUI Oliveira", "rui96pedro@hotmaail.com", "123", Genero.Masculino, 120, 87, 11, 10, 1994, new Natacao(), Permissoes.Admin, 0);
+		User rui2 = new User("RUI Camposinhos", "ruiCamposinho@gmail.co.uk", "123", Genero.Masculino, 120, 87, 11, 10, 1994, new Natacao(), Permissoes.Admin, 0);
+		
+
+		
 		User test = new User();
 		Natacao nata1 = new Natacao(70 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
 		Natacao nata2 = new Natacao(60 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
@@ -83,6 +87,8 @@ public class Dataset implements Serializable{
 		rui.atividadesManager().add(nata1);
 		rui.atividadesManager().add(nata2);
 		rui.atividadesManager().add(nata3);
+
+		rui2.getRecord(Natacao.class, Natacao.MyRecords.MAXSPEED.getrecordType());
 		test.setEmail("rui96pedro@hotmaail.com");
 		a.userManager().add(rui2);
 		a.userManager().add(rui);

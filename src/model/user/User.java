@@ -20,6 +20,7 @@ import model.ObjectKey;
 import model.activity.Activity;
 import model.activity.ActivityComparatorByDate;
 import model.activity.Ciclismo;
+import model.activity.Natacao;
 
 /*
  * Classe com informacao dos utilizadores.
@@ -36,7 +37,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     private int altura; /*cm*/
     private int peso; /*kg*/
     private GregorianCalendar dataNascimento;
-    private String desportoFavorito;
+    private Activity desportoFavorito;
     private Permissoes permissoes;
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
@@ -59,7 +60,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
         this.peso = 0;
         this.dataNascimento = new GregorianCalendar();
         this.recordes = new HashMap<Class<?>, HashMap<Integer, Activity>>();
-        this.desportoFavorito = "";
+        this.desportoFavorito = new Natacao();
         this.permissoes = Permissoes.Guest;
         this.fcr = 0;
         this.amigos = new ManagerSet<String>(new HashSet<String>());
@@ -73,7 +74,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     
     public User(String nome, String email, String password, Genero genero, int altura, int peso, 
                 int diaNascimento, int mesNascimento, int anoNascimento, 
-                String desportoFavorito, Permissoes permissoes, int fcRepouso){
+                Activity desportoFavorito, Permissoes permissoes, int fcRepouso){
                     this.nome = nome;
                     this.email = email;
                     this.password = password;
@@ -120,7 +121,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     public int getFreqCardio()  {return this.fcr;}
     
     public GregorianCalendar getDataNascimento(){return this.dataNascimento;}
-    public String getDesportoFavorito()         {return this.desportoFavorito;}
+    public Activity getDesportoFavorito()         {return (Activity) this.desportoFavorito.clone();}
     
     public Permissoes getPermissoes()           {return this.permissoes;}
     public Genero getGenero()                   {return this.genero;}
@@ -138,7 +139,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
       
     public void setDataNascimento(int ano, int mes, int dia)
                           {this.dataNascimento = new GregorianCalendar(ano, mes-1, dia);}//jan = 0 !!!
-    public void setDesportoFavorito(String desporto){this.desportoFavorito = desporto;}
+    public void setDesportoFavorito(Activity desporto){this.desportoFavorito = (Activity) desporto.clone();}
     public void setPermissoes(Permissoes permissoes){this.permissoes = permissoes;}
     public void setGenero(Genero genero)              {this.genero=genero;}
         
@@ -165,6 +166,9 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     public Manager<String> amigosManager(){return this.amigos;}    
     public Manager<Activity> atividadesManager(){return this.actividadesUser;}    
     
+    public Activity getRecord(Class<? extends Activity> classe,int recordType){
+    	return recordes.get(classe).get(recordType);
+    }
     
     
     public Set<Activity> actividadesEntre(GregorianCalendar dataInferior, GregorianCalendar dataSuperior){
