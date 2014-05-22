@@ -11,98 +11,96 @@ import model.activity.Activity;
 
 //-Classe Evento: {Conjuto Users, Actividade, Categoria, Data evento, Data inscricao, Nome, pre-requisito inscricao (long tempo/distancia), numero maximo de participantes}
 
-public class Event implements ObjectClonable {
-	/*Set de strings (email)*/
-	private String mName;
-	private Activity mActivity;
-	private int mRecordType; /*An event is about a Activity with his record type, like: Run 100m*/
-	private GregorianCalendar mEventDate;
-	private GregorianCalendar mEndDate;
-	private int mPreRequisite;
-	private int mMaxNumUsers;
-	private ManagerSet<String> mUsers;
-	
+public abstract class Event implements ObjectClonable  {
+    /*Set de strings (email)*/
+    private String mName;
+    private Activity mActivity;/*usar String com nome do tipo de Actividade?*/
+    private GregorianCalendar mEventDate;
+    private GregorianCalendar mEndDate;
+    private int mPreRequisite;
+    private int mMaxNumUsers;
+    private ManagerSet<String> mUsers;
 
-	public Event() {
-		mName = "";
-		mActivity = null;
-		mRecordType = -1;
-		mEventDate = new GregorianCalendar();
-		mEndDate = new GregorianCalendar();
-		mPreRequisite = -1;
-		mMaxNumUsers = -1;
-		mUsers = new ManagerSet<String>(mListenerBeforeAdd, new HashSet<String>());
-	}
-	public Event(String name, Activity activity, int recordType,
-			GregorianCalendar eventDate, GregorianCalendar endDate,
-			int preRequisite, int maxNumUsers) {
-		mName = name;
-		mActivity = activity;
-		mRecordType = recordType;
-		mEventDate = eventDate;
-		mEndDate = endDate;
-		mPreRequisite = preRequisite;
-		mMaxNumUsers = maxNumUsers;
-		mUsers = new ManagerSet<String>(mListenerBeforeAdd,new HashSet<String>());
-	}
-	public Event(Event e){
-		this(e.getName(),e.getActivity(),e.getRecord(),e.getEventDate(),e.getEndDate(),e.getPreRequisite(),e.getMaxNumUsers());
-	}
-	
+    public Event() {
+        mName = "";
+        mActivity = null;
+        mEventDate = new GregorianCalendar();
+        mEndDate = new GregorianCalendar();
+        mPreRequisite = -1;
+        mMaxNumUsers = -1;
+        mUsers = new ManagerSet<String>(mListenerBeforeAdd, new HashSet<String>());
+    }
+    public Event(String name, Activity activity, GregorianCalendar eventDate,
+                    GregorianCalendar endDate, int preRequisite, int maxNumUsers) {
+        mName = name;
+        mActivity = activity;
+        mEventDate = eventDate;
+        mEndDate = endDate;
+        mPreRequisite = preRequisite;
+        mMaxNumUsers = maxNumUsers;
+        mUsers = new ManagerSet<String>(mListenerBeforeAdd, new HashSet<String>());
+    }
 
-	public String getName() {
-		return mName;
-	}
-	public void setName(String mName) {
-		this.mName = mName;
-	}
-	public Activity getActivity() {
-		return mActivity;
-	}
-	public void setActivity(Activity mActivity) {
-		this.mActivity = mActivity;
-	}
-	public int getRecord() {
-		return mRecordType;
-	}
-	public void setRecord(int mRecord) {
-		this.mRecordType = mRecord;
-	}
-	public GregorianCalendar getEventDate() {
-		return mEventDate;
-	}
-	public void setEventDate(GregorianCalendar mEventDate) {
-		this.mEventDate = mEventDate;
-	}
-	public GregorianCalendar getEndDate() {
-		return mEndDate;
-	}
-	public void setEndDate(GregorianCalendar mEndDate) {
-		this.mEndDate = mEndDate;
-	}
-	public int getPreRequisite() {
-		return mPreRequisite;
-	}
-	public void setPreRequisite(int mPreRequisite) {
-		this.mPreRequisite = mPreRequisite;
-	}
-	public int getMaxNumUsers() {
-		return mMaxNumUsers;
-	}
-	public void setMaxNumUsers(int mMaxNumUsers) {
-		this.mMaxNumUsers = mMaxNumUsers;
-	}
-	
-	public Manager<String> getUserManager(){
+    public Event(Event e){
+        this(e.getName(),e.getActivity(),e.getEventDate(),e.getEndDate(),e.getPreRequisite(),e.getMaxNumUsers());
+    }
+    
+
+    public String getName() {
+        return mName;
+    }
+    public void setName(String mName) {
+        this.mName = mName;
+    }
+    public Activity getActivity() {
+        return mActivity;
+    }
+    public void setActivity(Activity mActivity) {
+        this.mActivity = mActivity;
+    }
+    
+    public GregorianCalendar getEventDate() {
+        return mEventDate;
+    }
+    public void setEventDate(GregorianCalendar mEventDate) {
+        this.mEventDate = mEventDate;
+    }
+    public GregorianCalendar getEndDate() {
+        return mEndDate;
+    }
+    public void setEndDate(GregorianCalendar mEndDate) {
+        this.mEndDate = mEndDate;
+    }
+    public int getPreRequisite() {
+        return mPreRequisite;
+    }
+    public void setPreRequisite(int mPreRequisite) {
+        this.mPreRequisite = mPreRequisite;
+    }
+    public int getMaxNumUsers() {
+        return mMaxNumUsers;
+    }
+    public void setMaxNumUsers(int mMaxNumUsers) {
+        this.mMaxNumUsers = mMaxNumUsers;
+    }
+    
+    public Manager<String> getUserManager(){
 		return mUsers;
 	}
-
-	public Object clone(){
-		return new Event(this);
-	}
 	
-	
-	private Manager.OnManagerAdd<String> mListenerBeforeAdd = new Manager.OnManagerAdd<String>() {
+    public boolean equals(Object obj){
+      if(this == obj) return true; 
+      if((obj == null) || (this.getClass() != obj.getClass())) return false;
+      Event e = (Event) obj;
+      return this.mName.equals(e.getName()) && this.mEventDate.equals(e.getEventDate());
+    }
+    
+    public abstract int hashCode();
+    
+    public abstract Object clone();
+    
+    public abstract String toString();
+    	private Manager.OnManagerAdd<String> mListenerBeforeAdd = new Manager.OnManagerAdd<String>() {
 		@Override
 		public boolean beforeAdd(String obj) {
 			
