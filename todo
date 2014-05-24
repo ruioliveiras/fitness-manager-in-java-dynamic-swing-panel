@@ -1,16 +1,20 @@
-MET nas atividades feitas pelo Oliveiras         |
+forma - done
+MET+intensidade nas atividades - ?         |
 Implementar tostring como abstrato, e nas Subclass|
-Implementar Clone nas subclass      |
-Excepçoes 							^
-Escrita e leitura de ficheiros		|
+Implementar Clone nas subclass      ?
+apagar metodo compareRecord e getRecordSize nas actividades concretas ?
+Estatisticas
 ____________________________________|
 
 ______________________________
-RUI Olivera: comparar recordes
-acaber de implementar recordes
-adicionar set<user>	
+RUI Olivera: comparar recordes - done
+acaber de implementar recordes - done
+adicionar set<user> - done
+addFriend - done	
+Excepçoes - later - done
+Escrita e leitura de ficheiros - done
 
 |
 Camposinhos
-Corrigir idades
-Simulaçoos
+Corrigir idades - done
+Simulaçoos: 80% falta criar metodo realizaEvento para os dois casos distintos

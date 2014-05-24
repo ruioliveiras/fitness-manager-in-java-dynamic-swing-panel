@@ -1,2 +1,8 @@
 #BlueJ class context
-numComments=0
+comment0.params=recordType
+comment0.target=int\ getStat(int)
+comment1.params=iAttr
+comment1.target=int\ get(int)
+comment2.params=
+comment2.target=int\ getRecordSize()
+numComments=3

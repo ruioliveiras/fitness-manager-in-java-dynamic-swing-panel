@@ -1,6 +1,7 @@
 package model.user;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import model.activity.Activity;
 
 
 public class Estatisticas
@@ -14,6 +15,11 @@ public class Estatisticas
     int getCaloriesByMonth(User usr, GregorianCalendar data); 
     int getCaloriesByYear(User usr, int year);
     int getCaloriesByYear(User usr, GregorianCalendar data);
+    
+    int getPtsByMonth(User usr, int month, Class<? extends Activity> category);
+    int getPtsByMonth(User usr, GregorianCalendar data, Class<? extends Activity> category); 
+    int getPtsByYear(User usr, int year, Class<? extends Activity> category);
+    int getPtsByYear(User usr, GregorianCalendar data, Class<? extends Activity> category);
     
     /**
      * @return time in hours

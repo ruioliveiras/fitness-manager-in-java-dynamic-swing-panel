@@ -12,5 +12,5 @@ comment4.target=java.lang.String\ getPointName()
 comment5.params=
 comment5.target=double\ getMET()
 comment6.params=
-comment6.target=java.lang.Object\ clone()
+comment6.target=Activity\ clone()
 numComments=7

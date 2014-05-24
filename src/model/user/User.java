@@ -168,6 +168,10 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     	return recordes.get(classe).get(recordType);
     }
     
+    public long getRecordValue(Class<? extends Activity> classe,int recordType){
+        return getRecord(classe, recordType).get(recordType);
+    }
+    
     
     public Set<Activity> actividadesEntre(GregorianCalendar dataInferior, GregorianCalendar dataSuperior){
          Set<Activity> res = new TreeSet<Activity>(new ActivityComparatorByDate());

@@ -49,7 +49,8 @@ public class EventDistance extends Event {
     public String toString(){
         StringBuilder stringb = new StringBuilder();
         stringb.append("Nome: " + this.getName() + "\n");
-        stringb.append("Distancia(m): " + this.getEventDistance() + "\n");
+        stringb.append("Actividade: " + this.getActivity().getName() + "\n");
+        stringb.append("Distancia(m): " + this.getActivity() + "\n");
         stringb.append("Data: " + this.getEventDate().toString() + "\n");
         return stringb.toString();
     }

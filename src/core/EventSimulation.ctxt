@@ -1,2 +1,6 @@
 #BlueJ class context
-numComments=0
+comment0.params=u\ category\ recordType\ w
+comment0.target=long\ getSimulationDistance(model.user.User,\ java.lang.Class,\ int,\ model.activity.Weather)
+comment1.params=u\ category\ recordType\ w\ stages
+comment1.target=java.util.List\ getFullSimulationDistance(model.user.User,\ java.lang.Class,\ int,\ model.activity.Weather,\ int)
+numComments=2
