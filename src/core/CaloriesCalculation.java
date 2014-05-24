@@ -1,5 +1,5 @@
 package core;
-
+e
 import model.activity.Activity;
 import model.user.Genero;
 import model.user.User;

@@ -10,5 +10,5 @@ comment3.target=int\ getIntensidade()
 comment4.params=
 comment4.target=double\ getMET()
 comment5.params=
-comment5.target=java.lang.Object\ clone()
+comment5.target=Activity\ clone()
 numComments=6
