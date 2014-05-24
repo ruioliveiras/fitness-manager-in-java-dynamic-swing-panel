@@ -9,6 +9,10 @@ public class Snowboard extends Skill {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Snowboard(Snowboard act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Snowboard";
@@ -27,7 +31,7 @@ public class Snowboard extends Skill {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 119;
 	}
 	
 	@Override
@@ -42,9 +46,8 @@ public class Snowboard extends Skill {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Snowboard clone() {
+		return new Snowboard(this);
 	}
 
 }

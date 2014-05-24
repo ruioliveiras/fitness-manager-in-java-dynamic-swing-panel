@@ -9,6 +9,10 @@ public class Mergulho extends Ludic {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Mergulho(Mergulho act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Mergulho";
@@ -27,7 +31,7 @@ public class Mergulho extends Ludic {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 90;
 	}
 
 	@Override
@@ -36,8 +40,7 @@ public class Mergulho extends Ludic {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Mergulho clone() {
+		return new Mergulho(this);
 	}
 }

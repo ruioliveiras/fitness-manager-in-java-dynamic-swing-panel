@@ -9,6 +9,10 @@ public class Esgrima extends Individual {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Esgrima(Esgrima act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Esgrima";
@@ -27,7 +31,7 @@ public class Esgrima extends Individual {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 105;
 	}
 	
 	@Override
@@ -42,9 +46,8 @@ public class Esgrima extends Individual {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Esgrima clone() {
+		return new Esgrima(this);
 	}
 
 }

@@ -9,6 +9,10 @@ public class Danca extends Ludic {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Danca(Danca act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Dança";
@@ -27,7 +31,7 @@ public class Danca extends Ludic {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 81;
 	}
 	
 	@Override
@@ -36,9 +40,8 @@ public class Danca extends Ludic {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Danca clone() {
+		return new Danca(this);
 	}
 
 }

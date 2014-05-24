@@ -9,6 +9,10 @@ public class Corrida extends Altimetry {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Corrida(Corrida act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Corrida";
@@ -27,7 +31,7 @@ public class Corrida extends Altimetry {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 90;
 	}
 	
 	@Override
@@ -36,9 +40,8 @@ public class Corrida extends Altimetry {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Corrida clone() {
+		return new Corrida(this);
 	}
 
 }

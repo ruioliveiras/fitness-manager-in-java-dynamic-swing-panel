@@ -9,6 +9,10 @@ public class Raguebi extends Collective {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Raguebi(Raguebi act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Râguebi";
@@ -38,14 +42,12 @@ public class Raguebi extends Collective {
 
 	@Override
 	public double getMET() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 6.3;
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Raguebi clone() {
+		return new Raguebi(this);
 	}
 
 }

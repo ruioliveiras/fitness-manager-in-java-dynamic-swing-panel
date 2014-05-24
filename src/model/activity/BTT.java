@@ -9,6 +9,10 @@ public class BTT extends Altimetry{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public BTT(BTT act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "BTT";
@@ -27,7 +31,7 @@ public class BTT extends Altimetry{
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 74;
 	}
 	
 	@Override
@@ -36,8 +40,7 @@ public class BTT extends Altimetry{
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public BTT clone() {
+		return new BTT(this);
 	}
 }

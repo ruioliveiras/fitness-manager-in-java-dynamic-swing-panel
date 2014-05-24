@@ -3,44 +3,45 @@ package model.activity;
 
 
 public class Ginasio extends Ludic {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
+    public Ginasio(Ginasio act){
+        super(act);
+    }
+    
+    @Override
+    public String getName() {
+        return "Ginasio";
+    }
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    @Override
+    public int getRecordSize() {
+        return 0;
+    }
 
-	@Override
-	public String getName() {
-		return "Ginasio";
-	}
+    @Override
+    public int compareRecord(Activity otherActivity,int recordType) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public int getRecordSize() {
-		return 0;
-	}
+    @Override
+    public int getIntensidade() {
+        return 126;
+    }
 
-	@Override
-	public int compareRecord(Activity otherActivity,int recordType) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public double getMET() {
+        return 5.0;
+    }
 
-	@Override
-	public int getIntensidade() {
-		return 100;
-	}
+    @Override
+    public Ginasio clone() {
+        return new Ginasio(this);
+    }
 
-	@Override
-	public double getMET() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
+    
 }
