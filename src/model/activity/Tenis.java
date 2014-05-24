@@ -9,6 +9,10 @@ public class Tenis extends Individual {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Tenis(Tenis act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Tenis";
@@ -27,7 +31,7 @@ public class Tenis extends Individual {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 86;
 	}
 
 	@Override
@@ -41,9 +45,8 @@ public class Tenis extends Individual {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Tenis clone() {
+		return new Tenis(this);
 	}
 
 }

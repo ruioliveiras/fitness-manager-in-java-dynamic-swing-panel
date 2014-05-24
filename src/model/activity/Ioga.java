@@ -9,6 +9,10 @@ public class Ioga extends Ludic {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Ioga(Ioga act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Ioga";
@@ -27,7 +31,7 @@ public class Ioga extends Ludic {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 158;
 	}
 	
 	@Override
@@ -36,9 +40,8 @@ public class Ioga extends Ludic {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Ioga clone() {
+		return new Ioga(this);
 	}
 
 }

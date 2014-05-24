@@ -9,6 +9,10 @@ public class Remo extends Distance{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Remo(Remo act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Remo";
@@ -27,7 +31,7 @@ public class Remo extends Distance{
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 109;
 	}
 	
 	@Override
@@ -36,8 +40,7 @@ public class Remo extends Distance{
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Remo clone() {
+		return new Remo(this);
 	}
 }

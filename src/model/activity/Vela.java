@@ -9,6 +9,10 @@ public class Vela extends Distance {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Vela(Vela act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Vela";
@@ -27,7 +31,7 @@ public class Vela extends Distance {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 210;
 	}
 	
 	@Override
@@ -36,9 +40,8 @@ public class Vela extends Distance {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Vela clone() {
+		return new Vela(this);
 	}
 
 }

@@ -9,6 +9,10 @@ public class Golfe extends Skill {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Golfe(Golfe act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Golfe";
@@ -27,7 +31,7 @@ public class Golfe extends Skill {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 131;
 	}
 
 	@Override
@@ -37,14 +41,12 @@ public class Golfe extends Skill {
 
 	@Override
 	public double getMET() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 4.8;
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Golfe clone() {
+		return new Golfe(this);
 	}
 
 }
