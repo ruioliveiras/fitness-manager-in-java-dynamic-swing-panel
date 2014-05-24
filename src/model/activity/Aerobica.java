@@ -1,5 +1,7 @@
 package model.activity;
 
+import java.util.GregorianCalendar;
+
 
 
 public class Aerobica extends Ludic {
@@ -9,7 +11,17 @@ public class Aerobica extends Ludic {
      */
     private static final long serialVersionUID = 1L;
 
-    public Aerobica(Aerobica act){
+    public Aerobica() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Aerobica(long time, Weather weather, int hRate,
+			GregorianCalendar date) {
+		super(time, weather, hRate, date);
+		// TODO Auto-generated constructor stub
+	}
+
+	public Aerobica(Aerobica act){
         super(act);
     }
     
@@ -18,16 +30,7 @@ public class Aerobica extends Ludic {
         return "Aeróbica";
     }
 
-    @Override
-    public int getRecordSize() {
-        return 0;
-    }
-
-    @Override
-    public int compareRecord(Activity otherActivity,int recordType) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+ 
 
     @Override
     public int getIntensidade() {

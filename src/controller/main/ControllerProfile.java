@@ -26,8 +26,7 @@ public class ControllerProfile {
 	
 	public ControllerProfile(FormHandle handler, User user) {
 		mHandler = handler; 
-		mUser = user;
-		setComponentsEnable(false);
+		mUser = user; 
 		initListeners();
 		initValues();
 	}

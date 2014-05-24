@@ -9,16 +9,9 @@ public class Pilates extends Ludic {
 		return "Pilates";
 	}
 
-	@Override
-	public int getRecordSize() {
-		return 0;
-	}
+ 
 
-	@Override
-	public int compareRecord(Activity otherActivity,int recordType) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+ 
 
 	@Override
 	public int getIntensidade() {

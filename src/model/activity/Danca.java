@@ -1,5 +1,7 @@
 package model.activity;
 
+import java.util.GregorianCalendar;
+
 
 
 public class Danca extends Ludic {
@@ -13,21 +15,24 @@ public class Danca extends Ludic {
         super(act);
     }
 	
+	public Danca() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Danca(long time, Weather weather, int hRate, GregorianCalendar date) {
+		super(time, weather, hRate, date);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String getName() {
 		return "Dança";
 	}
 
-	@Override
-	public int getRecordSize() {
-		return 0;
-	}
+ 
 
-	@Override
-	public int compareRecord(Activity otherActivity,int recordType) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+ 
 
 	@Override
 	public int getIntensidade() {

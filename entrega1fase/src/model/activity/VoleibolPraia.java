@@ -9,16 +9,9 @@ public class VoleibolPraia extends Collective {
 		return "Voleibol de Praia";
 	}
 
-	@Override
-	public int getRecordSize() {
-		return 0;
-	}
+ 
 
-	@Override
-	public int compareRecord(Activity otherActivity,int recordType) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+ 
 
 	@Override
 	public int getIntensidade() {

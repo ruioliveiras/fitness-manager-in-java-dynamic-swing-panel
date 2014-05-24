@@ -1,5 +1,7 @@
 package model.activity;
 
+import java.util.GregorianCalendar;
+
 
 
 public class Escalada extends Ludic {
@@ -13,21 +15,25 @@ public class Escalada extends Ludic {
         super(act);
     }
 	
+	public Escalada() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Escalada(long time, Weather weather, int hRate,
+			GregorianCalendar date) {
+		super(time, weather, hRate, date);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String getName() {
 		return "Escalada";
 	}
 
-	@Override
-	public int getRecordSize() {
-		return 0;
-	}
+ 
 
-	@Override
-	public int compareRecord(Activity otherActivity,int recordType) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+ 
 
 	@Override
 	public int getIntensidade() {

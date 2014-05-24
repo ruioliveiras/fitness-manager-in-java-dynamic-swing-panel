@@ -1,5 +1,7 @@
 package model.activity;
 
+import java.util.GregorianCalendar;
+
 import model.user.User;
 
 
@@ -14,21 +16,23 @@ public class WindSurf extends Distance {
         super(act);
     }
 
-    @Override
+    public WindSurf() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public WindSurf(long time, Weather weather, int hearthRate,
+			GregorianCalendar date, int distance, int maxSpeed) {
+		super(time, weather, hearthRate, date, distance, maxSpeed);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
     public String getName() {
         return "WindSurf";
     }
 
-    @Override
-    public int getRecordSize() {
-        return 0;
-    }
-
-    @Override
-    public int compareRecord(Activity otherActivity,int recordType) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+ 
 
     @Override
     public int getIntensidade() {
@@ -43,7 +47,7 @@ public class WindSurf extends Distance {
 
     @Override
     public WindSurf clone() {
-        new WindSurf(this);
+        return new WindSurf(this);
     }
 
 }

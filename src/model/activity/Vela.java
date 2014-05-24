@@ -1,5 +1,7 @@
 package model.activity;
 
+import java.util.GregorianCalendar;
+
 
 
 public class Vela extends Distance {
@@ -13,21 +15,25 @@ public class Vela extends Distance {
         super(act);
     }
 	
+	public Vela() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Vela(long time, Weather weather, int hearthRate,
+			GregorianCalendar date, int distance, int maxSpeed) {
+		super(time, weather, hearthRate, date, distance, maxSpeed);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String getName() {
 		return "Vela";
 	}
 
-	@Override
-	public int getRecordSize() {
-		return 0;
-	}
+ 
 
-	@Override
-	public int compareRecord(Activity otherActivity,int recordType) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+ 
 
 	@Override
 	public int getIntensidade() {

@@ -17,8 +17,7 @@ public class ControllerActivitys {
 	public ControllerActivitys(FormHandle handler,User user) {
 		mHandler = (FormListHandle) handler;
 		mUser = user;
-		mHandler.addString(mUser.atividadesManager().collection());
-		setComponentsEnable(false);
+		mHandler.addStringAll(mUser.atividadesManager().collection()); 
 		initListeners();
 	}
 	
@@ -40,7 +39,6 @@ public class ControllerActivitys {
 			}
 
 		});
-		
 	}
 	
 	private void saveProfileChanges() {

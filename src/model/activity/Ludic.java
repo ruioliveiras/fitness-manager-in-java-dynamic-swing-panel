@@ -1,10 +1,24 @@
 package model.activity;
 
+import java.util.GregorianCalendar;
+
 import model.Record;
 
 
 public abstract class Ludic extends Activity {
 
+	
+	
+	
+	public Ludic() {
+		super();
+	}
+	public Ludic(Activity act) {
+		super(act);
+	}
+	public Ludic(long time, Weather weather, int hRate, GregorianCalendar date) {
+		super(time, weather, hRate, date);
+	}
 	/**
 	 * 
 	 */

@@ -1,5 +1,7 @@
 package model.activity;
 
+import java.util.GregorianCalendar;
+
 
 
 public class Voleibol extends Collective {
@@ -13,21 +15,25 @@ public class Voleibol extends Collective {
         super(act);
     }
 	
+	public Voleibol() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Voleibol(long time, Weather weather, int hRate,
+			GregorianCalendar date, int pointRival, int pointTeam, Result result) {
+		super(time, weather, hRate, date, pointRival, pointTeam, result);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String getName() {
 		return "Voleibol";
 	}
 
-	@Override
-	public int getRecordSize() {
-		return 0;
-	}
+ 
 
-	@Override
-	public int compareRecord(Activity otherActivity,int recordType) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+ 
 
 	@Override
 	public int getIntensidade() {

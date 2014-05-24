@@ -11,6 +11,9 @@ public class Natacao extends Distance {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Natacao() {
+	}
+	
 	public Natacao(Natacao act) {
 		super(act);
 	}

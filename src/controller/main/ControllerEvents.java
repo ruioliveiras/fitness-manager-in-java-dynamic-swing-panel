@@ -12,8 +12,7 @@ public class ControllerEvents {
 	
 	
 	public ControllerEvents(FormHandle handler) {
-		mHandler = handler; 
-		setComponentsEnable(false);
+		mHandler = handler;  
 		initListeners();
 	}
 	

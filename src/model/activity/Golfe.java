@@ -1,5 +1,7 @@
 package model.activity;
 
+import java.util.GregorianCalendar;
+
 
 
 public class Golfe extends Skill {
@@ -13,21 +15,25 @@ public class Golfe extends Skill {
         super(act);
     }
 	
+	public Golfe() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Golfe(long time, Weather weather, int hearthRate,
+			GregorianCalendar date, int points, int maxTrick) {
+		super(time, weather, hearthRate, date, points, maxTrick);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String getName() {
 		return "Golfe";
 	}
 
-	@Override
-	public int getRecordSize() {
-		return 0;
-	}
+ 
 
-	@Override
-	public int compareRecord(Activity otherActivity,int recordType) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+ 
 
 	@Override
 	public int getIntensidade() {

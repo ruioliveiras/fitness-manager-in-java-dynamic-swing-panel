@@ -12,8 +12,7 @@ public class ControllerStats {
 	private FormHandle mHandler;
 	
 	public ControllerStats(FormHandle handler) {
-		mHandler = handler; 
-		setComponentsEnable(false);
+		mHandler = handler;  
 		initListeners();
 	}
 	

@@ -35,8 +35,8 @@ public abstract class PanelListToolBar extends PanelToolBar implements ListModel
 		
 	}
 	
-	public void addString(Collection<Object> str){
-		mString.addAll(str);
+	public void addStringAll(Collection<?> str){
+		mString = new ArrayList<Object>(str);
 		callListDataListener_ActionAdd();
 	}
 	
@@ -50,8 +50,8 @@ public abstract class PanelListToolBar extends PanelToolBar implements ListModel
 		callListDataListener_ActionAdd();
 	}
 	
-	public JPanel load(JPanel panel,List<Object> strings){
-		mString = strings;
+	public JPanel load(JPanel panel){
+		
 		return super.loadIn(panel);
 	}
 	

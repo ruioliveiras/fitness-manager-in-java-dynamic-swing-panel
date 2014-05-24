@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionListener;
 
 
@@ -43,7 +42,7 @@ public class FormUtils {
 	
 	public static interface FormListHandle extends FormHandle {
 		public void addListListener(ListSelectionListener lis);	
-		public void addString(Collection<Object> str);
+		public void addStringAll(Collection<?> str);
 		public void addString(Object str);
 		public void editString(int index,String str);
 	}
