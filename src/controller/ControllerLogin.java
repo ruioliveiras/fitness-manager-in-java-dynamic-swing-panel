@@ -133,6 +133,13 @@ public class ControllerLogin{
 				register();
 			}
 		});
+		mHandler.addButtonListener(FormButtonEnum.CLEAN, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Main.clean();
+			}
+		});
 	}
 
 }

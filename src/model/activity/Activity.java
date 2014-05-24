@@ -84,10 +84,11 @@ public abstract class Activity implements ObjectClonable,Serializable {
     
     /*Record*/
     public abstract int getRecordSize();
-    public abstract int get(int iAttr);
-    protected abstract int getStat(int recordType); 
-    protected int getStat(Record a){
-    	int value = Integer.MAX_VALUE;
+    public abstract long get(int iAttr);
+    public abstract void correct(int iAttr);
+    protected abstract long getStat(int recordType); 
+    protected long getStat(Record a){
+    	long value = Integer.MAX_VALUE;
     	if (a.getFixed() != null){
     		/*Means that a has fixed element, is similar?*/
     		value = this.get(a.getFixed().ordinal());/*get real ordinal*/
@@ -106,8 +107,8 @@ public abstract class Activity implements ObjectClonable,Serializable {
 	 *        será +1 (>0) se o this for "maior"/"melhor", alterar 
 	 */
 	
-	public int compareRecord(Activity otherActivity,int recordType) {
-		int sThis,sOther = 0;
+	public long compareRecord(Activity otherActivity,int recordType) {
+		long sThis,sOther = 0;
 		sThis  = this.getStat(recordType);
 		
 		if (sThis < 0){

@@ -147,7 +147,7 @@ public class Main {
 	      }catch(ClassNotFoundException c){
 	         c.printStackTrace();
 	      }
-	      if (d != null){
+	      if (d != null && d.userManager().collection().size() > 0){
 	    	  sDataSet = d;
 	      }else{
 	    	  loadSample();
@@ -155,18 +155,22 @@ public class Main {
 	}
 	
 	public static void loadSample(){
-		User rui = new User("RUI Oliveira", "rui96pedro@hotmaail.com", "123", Genero.Masculino, 120, 87, 11, 10, 1994, new Natacao(), Permissoes.Admin, 0);
+		User rui = new User("RUI Oliveira", "rui96pedro@hotmail.com", "123", Genero.Masculino, 120, 87, 11, 10, 1994, new Natacao(), Permissoes.Admin, 0);
 		User rui2 = new User("RUI Camposinhos", "ruiCamposinho@gmail.co.uk", "123", Genero.Masculino, 120, 87, 11, 10, 1994, new Natacao(), Permissoes.Admin, 0);
-		Natacao nata1 = new Natacao(70 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
-		Natacao nata2 = new Natacao(60 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
-		Natacao nata3 = new Natacao(50 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
+		Natacao nata1 = new Natacao(70 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),150,-1);
+		//Natacao nata2 = new Natacao(60 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
+		//Natacao nata3 = new Natacao(50 * 1000,Weather.INDOOR,-1,new GregorianCalendar(),100,-1);
 		rui.atividadesManager().add(nata1);
-		rui.atividadesManager().add(nata2);
-		rui.atividadesManager().add(nata3);
+		//rui.atividadesManager().add(nata2);
+		//rui.atividadesManager().add(nata3);
 		
 		sDataSet= new Dataset();
 		sDataSet.userManager().add(rui2);
 		sDataSet.userManager().add(rui);
+	}
+	public static void clean() {
+		loadSample();
+		save();
 	}
 	
 

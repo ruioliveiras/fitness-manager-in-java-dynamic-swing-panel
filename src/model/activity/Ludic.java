@@ -40,7 +40,7 @@ public abstract class Ludic extends Activity {
 		@Override
 		public enumAttr getFixed() {return eFix;}
 		@Override
-		public boolean similar(int value) 
+		public boolean similar(long value) 
 			{return (Math.abs(value - eValue) < eValue/2);}
 		@Override
 		public enumAttr getMov() {return eMov;}
@@ -48,13 +48,15 @@ public abstract class Ludic extends Activity {
 		public int getrecordType() {return ordinal();}
 		@Override
 		public String getName() {return eName;}
+		@Override
+		public long getValue() {return eValue;}
     }
     
-    public int getStat(int recordType) {
+    public long getStat(int recordType) {
     	MyRecords a = MyRecords.values()[recordType];
     	return super.getStat(a);
 	}
-    public int get(int iAttr) {
+    public long get(int iAttr) {
     	Attr a = Attr.values()[iAttr];
 
     	switch (a) {
@@ -62,7 +64,10 @@ public abstract class Ludic extends Activity {
     	default:		return -1;
     	}
 	} 
-    
+    @Override
+    public void correct(int recordType) {
+    	//Don't need to correct nothing
+	} 
     @Override
 	public int getRecordSize() {
 		return MyRecords.values().length;

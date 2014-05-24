@@ -66,6 +66,9 @@ public class FormMain implements ActionListener, ListSelectionListener{
 	}
 
 
+	public void setFriends(String [] friends){
+		mFriends.setListData(friends);
+	}
 
 	public void show(){
 
@@ -193,11 +196,7 @@ public class FormMain implements ActionListener, ListSelectionListener{
 
 	}
 
-	public static void main(String[] args){
-		String arr[] = {"RUI","PEDRO"};
-		FormMain f = new FormMain("Oliveiras",arr);
-		f.show();
-	}
+
 
 
 	public interface MainListener{

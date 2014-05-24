@@ -11,7 +11,8 @@ public interface Record {
 	
 	public int ordinal();
 	public int getrecordType();
-	public boolean similar(int value);
+	public long getValue();
+	public boolean similar(long value);
 	public enumAttr getFixed();
 	public enumAttr getMov();
 	public String getName();

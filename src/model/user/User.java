@@ -183,6 +183,8 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     }
 
     private transient Manager.OnManagerAdd<Activity> mListenerBeforeAdd = new Manager.OnManagerAdd<Activity>() {
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		public boolean beforeAdd(Activity obj) {
 	        addRecord(obj);
@@ -205,9 +207,14 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
         for (int i=0;i<numRecords;i++){
             record = actualRecords.get(i); /*record can be null, but compareRecord admits null activities*/
             if (activity.compareRecord(record,i) >= 0){
-                actualRecords.put(i, activity);
+                Activity rec = activity.clone();
+                rec.correct(i);
+            	actualRecords.put(i, rec);
             }
         }
+    }
+    public void addAmigo(String email){
+    	amigos.add(email);
     }
     
     

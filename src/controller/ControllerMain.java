@@ -30,7 +30,8 @@ public class ControllerMain implements MainListener{
 		
 		Collection<String> co = user.amigosManager().collection();
 		int size = co.size();
-		mViewMain = new FormMain(user.getNome(),co.toArray(new String[size]));		
+		mViewMain = new FormMain(user.getNome(),co.toArray(new String[size]));
+		mViewMain.setListener(this);
 		mUserCopy = user;
 		
 		mControllerProfile = new ControllerProfile(mViewMain.getHandlerProfile(),mUserCopy);
@@ -45,9 +46,15 @@ public class ControllerMain implements MainListener{
 	@Override
 	public void addFriend(String email) {
 		try {
-			Main.getDataSet().userManager().get(new User(email));
-			Main.getDataSet().userManager().add(mUserCopy);
-			throw new RuntimeErrorException(new Error("check if add subestitui"));
+			
+			User u =Main.getDataSet().userManager().get(new User(email));
+			mUserCopy.addAmigo(u.getEmail());
+			Main.getDataSet().userManager().edit(mUserCopy);
+			mUserCopy = Main.getDataSet().userManager().get(mUserCopy);
+			
+			Collection<String> co = mUserCopy.amigosManager().collection();
+			int size = co.size();
+			mViewMain.setFriends(co.toArray(new String[size]));
 		} catch (ObjectDontExistException e) {
 			JOptionPane.showMessageDialog(null, "Email não existe");
 		}
@@ -63,11 +70,6 @@ public class ControllerMain implements MainListener{
 		
 	}
 
-	public static void main(String[] args) {
-		ControllerLogin cl = new ControllerLogin();
-		cl.start();
-
-	}
 
 
 }

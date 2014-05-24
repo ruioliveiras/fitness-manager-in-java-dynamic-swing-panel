@@ -23,7 +23,8 @@ public class PanelLogin extends PanelToolBar {
 	
 	public enum FormButtonEnum implements FormButtons{
 		ENTRAR		("Entrar",""),
-		REGISTAR	("Registar","");
+		REGISTAR	("Registar",""),
+		CLEAN	("Clean data","");
 		
 		private String eText1;
 		private String eText2;

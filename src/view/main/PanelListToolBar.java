@@ -3,6 +3,7 @@ package view.main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -24,7 +25,7 @@ public abstract class PanelListToolBar extends PanelToolBar implements ListModel
 		
 	private ListSelectionListener mListListener;
 	private ArrayList<ListDataListener> mListModelListeners = new ArrayList<ListDataListener>(); 
-	private List<String> mString;
+	private List<Object> mString;
 		
 	public PanelListToolBar(
 			FormAttr[] attrs,
@@ -34,18 +35,22 @@ public abstract class PanelListToolBar extends PanelToolBar implements ListModel
 		
 	}
 	
+	public void addString(Collection<Object> str){
+		mString.addAll(str);
+		callListDataListener_ActionAdd();
+	}
 	
-	public void AddString(String str){
+	public void addString(Object str){
 		mString.add(str);
 		callListDataListener_ActionAdd();
 	}
 	
-	public void EditString(int index,String str){
+	public void editString(int index,String str){
 		mString.set(index, str);
 		callListDataListener_ActionAdd();
 	}
 	
-	public JPanel load(JPanel panel,List<String> strings){
+	public JPanel load(JPanel panel,List<Object> strings){
 		mString = strings;
 		return super.loadIn(panel);
 	}
@@ -100,7 +105,7 @@ public abstract class PanelListToolBar extends PanelToolBar implements ListModel
 	
 	@Override
 	public String getElementAt(int index) {
-		return mString.get(index);
+		return mString.get(index).toString();
 	}
 	
 	@Override

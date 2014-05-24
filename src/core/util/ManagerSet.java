@@ -13,7 +13,8 @@ public class ManagerSet<V> extends Manager<V>{
 
 	public ManagerSet( Set<V> set) {
 		super();
-		set.clear();
+		if(mSet != null)
+			mSet.clear();
 		mSet = set;
 	}
 	public ManagerSet(Manager.OnManagerAdd<V> listener, Set<V> set) {

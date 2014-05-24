@@ -72,7 +72,7 @@ public abstract class Distance extends Activity {
     	
 		private Record.enumAttr eFix;
 		private Record.enumAttr eMov;
-		private int eValue;
+		private long eValue;
 		private String eName;
 
 		MyRecords(String name,Record.enumAttr var,Record.enumAttr fixo,int value){
@@ -84,7 +84,7 @@ public abstract class Distance extends Activity {
 		@Override
 		public enumAttr getFixed() {return eFix;}
 		@Override
-		public boolean similar(int value) 
+		public boolean similar(long value) 
 			{return (Math.abs(value - eValue) < eValue/2);}
 		@Override
 		public enumAttr getMov() {return eMov;}
@@ -92,21 +92,36 @@ public abstract class Distance extends Activity {
 		public int getrecordType() {return ordinal();}
 		@Override
 		public String getName() {return eName;}
+		@Override
+		public long getValue() {
+			return eValue;
+		}
     }
+	
 	@Override
-    public int getStat(int recordType) {
+    public long getStat(int recordType) {
     	MyRecords a = MyRecords.values()[recordType];
     	return super.getStat(a);
 	}
     @Override
-    public int get(int iAttr) {
+    public long get(int iAttr) {
     	Attr a = Attr.values()[iAttr];
 
     	switch (a) {
     	case DISTANCIA: return getDistance();
     	case SPEED:  	return getMaxSpeed();
-    	case TEMPO:     return (int) (getDuration() / (1000) ); //* seconds
+    	case TEMPO:     return (int) (getDuration() ); //* seconds
     	default:		return -1;
+    	}
+	}
+    
+    @Override
+    public void correct(int recordType) {
+    	MyRecords a = MyRecords.values()[recordType];
+    	if (a == MyRecords.MAXSPEED)
+    		return;
+    	if (a.getMov() == Attr.DISTANCIA){
+    		setDuration((getDuration() * a.getValue() )/mDistance);
     	}
 	} 
     

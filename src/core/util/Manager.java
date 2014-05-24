@@ -42,6 +42,10 @@ public abstract class Manager<V> implements Serializable{
 			res = mAddListener.beforeAdd(obj);
 		}
 		return res;
+	}	
+	public boolean edit(V obj){
+		remove(obj);
+		return add(obj);
 	}
 	
 	
@@ -89,13 +93,20 @@ public abstract class Manager<V> implements Serializable{
 	@SuppressWarnings("unchecked")
 	protected V cloneV (V aux){
 		Object obj;
+		
 		try {
-			obj = ((ObjectClonable) aux).clone();
-			if (obj == null){
-				throw new NullPointerException("Clone return null? "+aux.getClass());
-			}
+			if (aux instanceof String){
+				obj = aux;
+				return (V) obj;
+			}else{
+				obj = ((ObjectClonable) aux).clone();
+				if (obj == null){
+					throw new NullPointerException("Clone return null? "+aux.getClass());
+				}
 			return((V) obj);
+			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RuntimeException("Clone not supported "+ aux.getClass());
 		}
 	}

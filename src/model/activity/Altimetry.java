@@ -49,7 +49,7 @@ public abstract class Altimetry extends Distance {
 		@Override
 		public enumAttr getFixed() {return eFix;}
 		@Override
-		public boolean similar(int value) 
+		public boolean similar(long value) 
 			{return (Math.abs(value - eValue) < eValue/2);}
 		@Override
 		public enumAttr getMov() {return eMov;}
@@ -57,10 +57,14 @@ public abstract class Altimetry extends Distance {
 		public int getrecordType() {return ordinal() + Distance.MyRecords.values().length;}
 		@Override
 		public String getName() {return eName;}
+		@Override
+		public long getValue() {
+			return eValue;
+		}
     }
     
     
-    public int getStat(int recordType) {
+    public long getStat(int recordType) {
     	if (recordType < super.getRecordSize()){
     		return super.getStat(recordType);
     	}else{
@@ -68,12 +72,40 @@ public abstract class Altimetry extends Distance {
     		return getStat(a);
     	}
 	}
-    
+    @Override
+    public long get(int iAttr) {
+    	if (iAttr < Distance.Attr.values().length)
+    		return super.get(iAttr);
+
+    	Attr a = Attr.values()[iAttr - Distance.Attr.values().length];
+
+    	switch (a) {
+    	case ALTURA: return getAscendent()-getDescendent();
+    	default:		return -1;
+    	}
+
+	}
+    @Override
+    public void correct(int recordType) {
+    	if (recordType < super.getRecordSize()){
+    		super.correct(recordType);
+    		return;
+    	}
+    	
+    	MyRecords a = MyRecords.values()[recordType];
+    	if (a == MyRecords.MAIOR_ALTURA)
+    		return;
+    	if (a.getMov() == Attr.ALTURA){
+    		setDuration((getDuration() * a.getValue() )/(getAscendent()-getDescendent()));		
+    		//a.getValue == getAcendt - getDescendent;
+    		setAscendent((int) (a.getValue() + getDescendent()));
+    	}
+	} 
 
     /*activity*/
 	@Override 
-	public int compareRecord(Activity otherActivity,int recordType) {
-		int sThis,sOther = 0;
+	public long compareRecord(Activity otherActivity,int recordType) {
+		long sThis,sOther = 0;
 		sThis  = this.getStat(recordType);
 		
 		if (sThis < 0){

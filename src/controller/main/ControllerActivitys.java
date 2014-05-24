@@ -3,16 +3,21 @@ package controller.main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import model.user.User;
 import view.main.panel.PanelActivities.FormAttEnum;
 import view.main.panel.PanelActivities.FormButtonEnum;
 import core.FormUtils.FormHandle;
+import core.FormUtils.FormListHandle;
 
 public class ControllerActivitys {
-	private FormHandle mHandler;
+	private FormListHandle mHandler;
+	private User mUser;
 	
 	
-	public ControllerActivitys(FormHandle handler) {
-		mHandler = handler; 
+	public ControllerActivitys(FormHandle handler,User user) {
+		mHandler = (FormListHandle) handler;
+		mUser = user;
+		mHandler.addString(mUser.atividadesManager().collection());
 		setComponentsEnable(false);
 		initListeners();
 	}
@@ -34,9 +39,8 @@ public class ControllerActivitys {
 			
 			}
 
-			
 		});
-
+		
 	}
 	
 	private void saveProfileChanges() {

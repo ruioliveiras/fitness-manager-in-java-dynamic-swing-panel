@@ -4,11 +4,13 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionListener;
 
 
@@ -40,7 +42,10 @@ public class FormUtils {
 	}
 	
 	public static interface FormListHandle extends FormHandle {
-		public void addListListener(ListSelectionListener lis);
+		public void addListListener(ListSelectionListener lis);	
+		public void addString(Collection<Object> str);
+		public void addString(Object str);
+		public void editString(int index,String str);
 	}
 	
 
