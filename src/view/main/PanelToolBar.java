@@ -77,6 +77,7 @@ public abstract class PanelToolBar implements FormHandle{
 				actForm.setPreferredSize(new Dimension(mWidth , (int) (mHeight * 0.3)));
 		for(int i =0;i<mAttrs.length;i++){
 			FormUtils.addLine(actForm, mAttrs[i].getName(), getComponent(mAttrs[i]),200);
+			getComponent(mAttrs[i]).setEnabled(false);
 		}
 		return actForm;
 	}

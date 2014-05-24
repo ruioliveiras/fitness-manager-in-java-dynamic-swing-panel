@@ -111,6 +111,14 @@ public class Main {
 		}
 		throw new ActivityNameDontExistException();
 	}
+	public static String[] getActivitiesNames() {
+		String[] array = new String[sActivivitys.length];
+		
+		for (int i = 0; i < sActivivitys.length; i++) {
+			array[i] = sActivivitys[i].getName();
+		}
+		return array;
+	}
 	
 	public static void main(String[] args) {
 		System.out.println("Hello World!!");

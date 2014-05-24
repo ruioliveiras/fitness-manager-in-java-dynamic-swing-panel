@@ -3,6 +3,10 @@ package controller.main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+
+import controller.Main;
 import model.user.User;
 import view.main.panel.PanelActivities.FormAttEnum;
 import view.main.panel.PanelActivities.FormButtonEnum;
@@ -22,12 +26,13 @@ public class ControllerActivitys {
 	}
 	
 	
+	@SuppressWarnings("rawtypes")
 	private void initListeners(){
 		mHandler.addButtonListener(FormButtonEnum.EDITAR, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				boolean isEdit = mHandler.getTextIndex(FormButtonEnum.EDITAR) == 0; 
+				boolean isEdit = mHandler.getTextIndex(FormButtonEnum.EDITAR) == 1; 
 				setComponentsEnable(isEdit); // enable if isEdit
 				if (isEdit){
 					mHandler.setText2(FormButtonEnum.EDITAR);
@@ -39,6 +44,9 @@ public class ControllerActivitys {
 			}
 
 		});
+		JComboBox<?> a = (JComboBox<?>) mHandler.getComponent(FormAttEnum.COMBO);
+		a.setModel(new DefaultComboBoxModel(Main.getActivitiesNames()));
+		a.setEnabled(true);
 	}
 	
 	private void saveProfileChanges() {

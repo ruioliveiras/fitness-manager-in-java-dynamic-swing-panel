@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -41,7 +42,9 @@ public class PanelActivities extends PanelListToolBar {
 	}
 
 	public enum FormAttEnum implements FormAttr{
-		EMAIL		("E-Mail",JTextField.class);
+		COMBO	("E-Mail", JComboBox.class),
+		T1		("E-1",JTextField.class),
+		T2		("E-2",JTextField.class);
 		
 		private String eName;
 		private Class<? extends JComponent> eClass;
@@ -102,26 +105,6 @@ public class PanelActivities extends PanelListToolBar {
 			e1.printStackTrace();
 		}
 	}
-
-
-
-
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.setTitle("Login------");
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);		
-		JPanel panel = new JPanel();
-		
-		PanelProfile pro = new PanelProfile();
-		pro.loadIn(panel);
-		
-		frame.getContentPane().add(panel);
-		
-		frame.pack();
-		frame.setVisible(true);
-	}
-
-
 
 
 
