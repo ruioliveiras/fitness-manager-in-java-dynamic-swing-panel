@@ -36,7 +36,7 @@ public class Caiaque extends Distance{
 	}
 
 	@Override
-	public Object clone() {
+	public Activity clone() {
 		// TODO Auto-generated method stub
 		return null;
 	}

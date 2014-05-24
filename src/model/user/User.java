@@ -26,10 +26,8 @@ import model.activity.Natacao;
  * Classe com informacao dos utilizadores.
  */
 public class User implements ObjectKey,ObjectClonable,Serializable{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 1848764924127290251L;
 	private String email;
     private String nome;
     private String password;

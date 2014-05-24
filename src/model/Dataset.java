@@ -6,8 +6,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import model.activity.Basquetebol;
-import model.activity.Distance;
 import model.activity.Natacao;
 import model.activity.Weather;
 import model.user.Genero;
@@ -19,8 +17,8 @@ import core.util.ManagerMap;
 
 
 public class Dataset implements Serializable{
+	private static final long serialVersionUID = -2526376303734576085L;
 
-	
 	private Manager<User> mUsers;
 	
 	public Dataset() {
@@ -29,14 +27,7 @@ public class Dataset implements Serializable{
 	
 	public Dataset(Manager<User> users){
 		this();
-		Object a,b;
 		Iterator<User> ite = users.iterator();
-		Iterator<User> ite2 = users.iterator();
-		
-		for (int i = 0; ite.hasNext(); a =ite.next(),b =ite2.next()) {
-			
-		}
-		
 		while(ite.hasNext()){
 			mUsers.add(ite.next());
 		}
@@ -102,7 +93,11 @@ public class Dataset implements Serializable{
 		
 	}
 	
-//	public final static Class<?>[] sActivitys = {Ciclismo.class,Basquetebol.class};  
+
+	
+	
+	
+//  public final static Class<?>[] sActivitys = {Ciclismo.class,Basquetebol.class,Nata};  
 //	public static void teste(){
 //		boolean t = Activity.class.isAssignableFrom(sActivitys[0]);
 //		Activity a;

@@ -43,7 +43,7 @@ public class Natacao extends Distance {
 	}
 
 	@Override
-	public Object clone() {
+	public Activity clone() {
 		return new Natacao(this);
 	}
 

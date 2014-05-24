@@ -31,6 +31,7 @@ public class FormUtils {
 	public static interface FormHandle{
 		public JComponent getComponent(FormAttr a);
 		public String getValue(FormAttr a);
+		public void setValue(FormAttr a,Object value);
 		public JButton getButton(FormButtons a);
 		public void addButtonListener(FormButtons a,ActionListener lis);
 		public void setText1(FormButtons a);

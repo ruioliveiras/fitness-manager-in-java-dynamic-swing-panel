@@ -9,12 +9,12 @@ import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
 
+import model.activity.Activity;
 import model.user.Genero;
 import model.user.Permissoes;
 import model.user.User;
 import view.FormLogin;
 import view.FormRegister;
-import view.main.panel.PanelLogin.FormAttEnum;
 import view.main.panel.PanelLogin.FormButtonEnum;
 import view.main.panel.PanelProfile;
 import core.FormUtils.FormHandle;
@@ -49,10 +49,11 @@ public class ControllerLogin{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String email,nome,password,desportoFavorito;
+				String email,nome,password;
 				int altura,peso;
 				Genero genero;
 				Calendar date;
+				Activity desportoFavorito;
 				
 				try {
 					email = mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.EMAIL);
@@ -60,8 +61,9 @@ public class ControllerLogin{
 					password = mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.PASS);
 					altura = Integer.parseInt(mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.ALTURA));
 					peso =  Integer.parseInt(mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.PESO));
-					desportoFavorito = mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.PREFERIDO);
-
+					String despAux = mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.PREFERIDO);
+					desportoFavorito = Main.getActivity(despAux);
+					
 					char g =  mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.SEXO).toLowerCase().charAt(0); 
 					genero = (g == 'm' ) ? Genero.Masculino : (g == 'f') ? Genero.Feminino : Genero.Desconhecido; 
 
@@ -73,7 +75,13 @@ public class ControllerLogin{
 					JOptionPane.showMessageDialog(null, "Data de Nascimento com formato invalido");
 					/*Dont save*/
 					return; 
-				}catch (NumberFormatException e) {
+				}catch (ActivityNameDontExistException e) {
+					JOptionPane.showMessageDialog(null, "Desporto não existe");
+					return;
+				}catch (StringIndexOutOfBoundsException e) {
+					JOptionPane.showMessageDialog(null, "Introduzir sexo");
+					return;
+				} catch (NumberFormatException e) {
 					JOptionPane.showMessageDialog(null, "Números incorrectos");
 					return;
 				}catch (NullPointerException e){
@@ -90,6 +98,7 @@ public class ControllerLogin{
 				User u = new User(nome, email, password, genero, altura, peso, 
 						date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH), date.get(Calendar.YEAR), desportoFavorito, Permissoes.User, 0);
 				Main.getDataSet().userManager().add(u);
+				Main.save();
 				mViewRegister.hide();
 			}
 		});
@@ -100,16 +109,17 @@ public class ControllerLogin{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String email = mHandler.getValue(FormAttEnum.EMAIL);
+				/*String email = mHandler.getValue(FormAttEnum.EMAIL);
 				String pass = mHandler.getValue(FormAttEnum.PASS);
-				User user;
+				User user;*/
 				try {
-					user = Main.getDataSet().userManager().get(new User(email));
+					/*user = Main.getDataSet().userManager().get(new User(email));
 					if (user != null && user.getPassword().equals(pass)){
 						loginOK(user);
 					}else{
 						JOptionPane.showMessageDialog(null, "Invalid pass or email");
-					}
+					}*/
+					loginOK(Main.getDataSet().userManager().get(new User("rui96pedro@hotmail.com")));
 				} catch (ObjectDontExistException e) {
 					JOptionPane.showMessageDialog(null, "Email don't exist");
 				}
@@ -125,9 +135,4 @@ public class ControllerLogin{
 		});
 	}
 
-	public static void main(String[] args) {
-		ControllerLogin cl = new ControllerLogin();
-		cl.start();
-		
-	}
 }

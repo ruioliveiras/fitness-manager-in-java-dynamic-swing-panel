@@ -6,11 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.management.RuntimeErrorException;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
@@ -24,11 +26,12 @@ import view.main.panel.PanelProfile;
 import view.main.panel.PanelRecords;
 
 
-public class ViewMain implements ActionListener, ListSelectionListener{
+public class FormMain implements ActionListener, ListSelectionListener{
 	private final static String TXT_PERFIL  		= "Perfil";
 	private final static String TXT_ACTIVIDADES  	= "Actividades";
 	private final static String TXT_RECORDES	  	= "Recordes";
 	private final static String TXT_EVENTOS  		= "Eventos";
+	private final static String TXT_ADDDFRIEND 		= "Adicionar Amigo";
 	private final static int SIZE_WIDTH 	= 900;
 	private final static int SIZE_HEIGHT 	= 600;
 
@@ -41,15 +44,16 @@ public class ViewMain implements ActionListener, ListSelectionListener{
 	private PanelActivities mActivities;
 	private PanelEvents mEvents;
 	private PanelRecords mRecords;
+	private MainListener mListener; 
 
-	public ViewMain(){
+	public FormMain(){
 		mProfile = new PanelProfile();
 		mActivities = new PanelActivities();
 		mEvents = new PanelEvents();
 		mRecords = new PanelRecords();
 	}
 
-	public ViewMain(String title,String[] friends){
+	public FormMain(String title,String[] friends){
 		this();
 		mTitle = title;
 		mFriends = new JList<String>(friends);
@@ -79,6 +83,8 @@ public class ViewMain implements ActionListener, ListSelectionListener{
 		/*	 JComponent panel = new ButtonBarFactoryExample().buildPanel();*/
 	}
 	
+	public void setListener(MainListener listerner){mListener = listerner;}
+	
 	public FormHandle getHandlerProfile(){
 		return mProfile;
 	}
@@ -91,7 +97,10 @@ public class ViewMain implements ActionListener, ListSelectionListener{
 	public FormHandle getHandlerRecords(){
 		return mRecords;
 	}
-
+	public FormHandle getHandlerStats(){
+		throw new RuntimeErrorException(new Error("Not implement yet"));
+	}
+	
 	protected JPanel buildMain(){
 		JPanel jPanel = new JPanel();
 		JPanel  aux= new JPanel();
@@ -101,7 +110,6 @@ public class ViewMain implements ActionListener, ListSelectionListener{
 		listScroller.setPreferredSize(new Dimension((int) (SIZE_WIDTH  * 0.3), SIZE_HEIGHT));
 		listScroller.setBorder(BorderFactory.createLineBorder(Color.BLUE,1,true));
 		jPanel.add(listScroller);
-
 
 		JButton button = new JButton(TXT_ACTIVIDADES);
 		button.addActionListener(this);
@@ -139,7 +147,9 @@ public class ViewMain implements ActionListener, ListSelectionListener{
 		button.addActionListener(this);
 		panel.add(button);
 
-
+		button = new JButton(TXT_ADDDFRIEND);
+		button.addActionListener(this);
+		panel.add(button);
 
 		return panel;
 	}
@@ -166,6 +176,12 @@ public class ViewMain implements ActionListener, ListSelectionListener{
 			ArrayList<String> ola3 = new ArrayList<String>();ola3.add("OLA");
 			mEvents.load(mIFrame, ola3);
 			break;
+		case TXT_ADDDFRIEND:
+			   String email = JOptionPane.showInputDialog(null,
+			  "Adicionar Amigo","Email do Amigo",JOptionPane.QUESTION_MESSAGE);
+			   if (mListener != null)
+				   mListener.addFriend(email);
+			break;
 		default:
 			break;
 		}
@@ -179,10 +195,14 @@ public class ViewMain implements ActionListener, ListSelectionListener{
 
 	public static void main(String[] args){
 		String arr[] = {"RUI","PEDRO"};
-		ViewMain f = new ViewMain("Oliveiras",arr);
+		FormMain f = new FormMain("Oliveiras",arr);
 		f.show();
 	}
 
+
+	public interface MainListener{
+		public void addFriend(String email);
+	}
 
 
 

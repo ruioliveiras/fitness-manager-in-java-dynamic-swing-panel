@@ -26,10 +26,10 @@ import core.util.Util;
 
 
 public abstract class Activity implements ObjectClonable,Serializable {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+
+
+	private static final long serialVersionUID = -4202759185512132598L;
 	private GregorianCalendar mDate;
     private long mDuration; /*activity duration [ms]*/
     private Weather mWeather;
@@ -80,7 +80,7 @@ public abstract class Activity implements ObjectClonable,Serializable {
 
     public abstract int getIntensidade();
     public abstract double getMET(); /*for calories*/
-    public  abstract Object clone();
+    public  abstract Activity clone();
     
     /*Record*/
     public abstract int getRecordSize();

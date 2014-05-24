@@ -43,7 +43,7 @@ public class Surf extends Skill {
 	}
 
 	@Override
-	public Object clone() {
+	public Activity clone() {
 		// TODO Auto-generated method stub
 		return null;
 	}

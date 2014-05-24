@@ -92,7 +92,15 @@ public abstract class PanelToolBar implements FormHandle{
 		return "";
 	}
 
-
+	@Override
+	public void setValue(FormAttr a,Object obj) {
+		JComponent c = getComponent(a);
+		if (c instanceof JTextField && obj instanceof String){
+			((JTextField)c).setText((String) obj);;
+		}
+	
+	}
+	
 	@Override
 	public JComponent getComponent(FormAttr a) {
 		return  mJComponets[a.getIndex()];
