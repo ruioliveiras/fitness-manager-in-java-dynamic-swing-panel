@@ -27,7 +27,7 @@ public class Tenis extends Individual {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 86;
 	}
 
 	@Override

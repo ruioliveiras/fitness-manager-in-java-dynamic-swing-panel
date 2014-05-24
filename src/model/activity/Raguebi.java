@@ -38,8 +38,7 @@ public class Raguebi extends Collective {
 
 	@Override
 	public double getMET() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 6.3;
 	}
 
 	@Override

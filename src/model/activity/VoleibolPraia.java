@@ -27,7 +27,7 @@ public class VoleibolPraia extends Collective {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 79;
 	}
 	
 	@Override

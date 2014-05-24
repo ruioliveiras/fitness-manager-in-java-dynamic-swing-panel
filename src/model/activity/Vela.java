@@ -27,7 +27,7 @@ public class Vela extends Distance {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 210;
 	}
 	
 	@Override

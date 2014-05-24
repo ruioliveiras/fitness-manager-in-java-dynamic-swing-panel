@@ -27,7 +27,7 @@ public class Remo extends Distance{
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 109;
 	}
 	
 	@Override

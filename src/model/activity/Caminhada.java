@@ -18,7 +18,7 @@ public class Caminhada extends Distance{
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 180;
 	}
 	
 	@Override

@@ -27,7 +27,7 @@ public class Caiaque extends Distance{
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 126;
 	}
 	
 	@Override

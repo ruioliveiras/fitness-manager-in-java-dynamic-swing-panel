@@ -27,7 +27,7 @@ public class Danca extends Ludic {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 81;
 	}
 	
 	@Override

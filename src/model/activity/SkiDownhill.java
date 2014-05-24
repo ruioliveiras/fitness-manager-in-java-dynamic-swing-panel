@@ -27,13 +27,12 @@ public class SkiDownhill extends Distance {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 119;
 	}
 
 	@Override
 	public double getMET() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 5.3;
 	}
 
 	@Override

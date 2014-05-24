@@ -27,7 +27,7 @@ public class Ioga extends Ludic {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 158;
 	}
 	
 	@Override

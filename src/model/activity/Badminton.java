@@ -27,7 +27,7 @@ public class Badminton extends Individual {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 115;
 	}
 	
 	@Override

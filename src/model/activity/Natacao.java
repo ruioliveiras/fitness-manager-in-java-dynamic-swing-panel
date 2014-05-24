@@ -34,12 +34,12 @@ public class Natacao extends Distance {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 109;
 	}
 
 	@Override
 	public double getMET() {
-		return 0;
+		return 5.8;
 	}
 
 	@Override

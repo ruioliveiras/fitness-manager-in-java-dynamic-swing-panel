@@ -27,7 +27,7 @@ public class Surf extends Skill {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 210;
 	}
 
 	@Override
@@ -38,8 +38,7 @@ public class Surf extends Skill {
 
 	@Override
 	public double getMET() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 3.0;
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class ArtesMarciais extends Individual {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 61;
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class Ginastica extends Skill {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 166;
 	}
 	
 	@Override

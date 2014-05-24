@@ -27,7 +27,7 @@ public class Hoquei extends Collective {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 81;
 	}
 
 	@Override
@@ -37,8 +37,7 @@ public class Hoquei extends Collective {
 
 	@Override
 	public double getMET() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 7.9;
 	}
 
 	@Override

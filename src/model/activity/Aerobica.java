@@ -27,7 +27,7 @@ public class Aerobica extends Ludic {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 86;
 	}
 
 	@Override

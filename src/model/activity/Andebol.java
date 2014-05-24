@@ -27,7 +27,7 @@ public class Andebol extends Collective {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 79;
 	}
 	
 	@Override

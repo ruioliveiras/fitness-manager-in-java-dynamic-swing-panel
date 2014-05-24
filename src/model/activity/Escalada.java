@@ -27,7 +27,7 @@ public class Escalada extends Ludic {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 79;
 	}
 
 	@Override

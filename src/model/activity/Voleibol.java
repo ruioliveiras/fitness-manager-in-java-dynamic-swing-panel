@@ -27,7 +27,7 @@ public class Voleibol extends Collective {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 158;
 	}
 
 	@Override
@@ -38,8 +38,7 @@ public class Voleibol extends Collective {
 
 	@Override
 	public double getMET() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 4.0;
 	}
 
 	@Override

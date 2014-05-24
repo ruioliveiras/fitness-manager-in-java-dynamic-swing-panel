@@ -27,7 +27,7 @@ public class BTT extends Altimetry{
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 74;
 	}
 	
 	@Override

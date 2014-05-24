@@ -27,7 +27,7 @@ public class CorridaOrientacao extends Distance {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 70;
 	}
 	
 	@Override

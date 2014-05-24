@@ -27,7 +27,7 @@ public class TenisMesa extends Individual {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 158;
 	}
 
 	@Override
@@ -38,8 +38,7 @@ public class TenisMesa extends Individual {
 
 	@Override
 	public double getMET() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 4.8;
 	}
 
 	@Override

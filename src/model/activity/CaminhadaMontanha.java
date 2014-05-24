@@ -27,13 +27,12 @@ public class CaminhadaMontanha extends Altimetry {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 105;
 	}
 
 	@Override
 	public double getMET() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 6.0;
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class Esgrima extends Individual {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 105;
 	}
 	
 	@Override

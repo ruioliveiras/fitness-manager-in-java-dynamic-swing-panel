@@ -27,7 +27,7 @@ public class Golfe extends Skill {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 131;
 	}
 
 	@Override
@@ -37,8 +37,7 @@ public class Golfe extends Skill {
 
 	@Override
 	public double getMET() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 4.8;
 	}
 
 	@Override

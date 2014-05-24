@@ -27,7 +27,7 @@ public class Skate extends Skill {
 
 	@Override
 	public int getIntensidade() {
-		return 100;
+		return 90;
 	}
 	
 	@Override
