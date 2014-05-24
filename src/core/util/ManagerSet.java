@@ -61,6 +61,9 @@ public class ManagerSet<V> extends Manager<V>{
 		}
 		
 	}
+	public int getSize() {
+		return mSet.size();
+	}
 
 
 }

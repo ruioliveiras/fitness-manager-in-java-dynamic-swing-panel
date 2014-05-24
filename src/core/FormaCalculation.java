@@ -1,8 +1,11 @@
 package core;
 import model.activity.Activity;
 import model.user.User;
+
 import java.lang.Math;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 /**
  * Write a description of class FormaCalculation here.

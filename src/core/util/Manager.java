@@ -47,7 +47,8 @@ public abstract class Manager<V> implements Serializable{
 		remove(obj);
 		return add(obj);
 	}
-	
+	public abstract int getSize();
+
 	
 	/*TODO: FAZER COPIA?*/
 	

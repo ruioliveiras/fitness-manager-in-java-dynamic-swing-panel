@@ -26,9 +26,9 @@ public class EventContest extends Event{
     }
     
     public EventContest(String name, Activity activity, GregorianCalendar eventDate,
-                    GregorianCalendar endDate, int preRequisite, int maxNumUsers,
+                    GregorianCalendar endDate, long preRequisite, int maxNumUsers, int recordType,
                     int games, int victoryPts, int drawPts, int lossPts) {
-        super(name, activity, eventDate, endDate, preRequisite, maxNumUsers);
+        super(name, activity, eventDate, endDate, preRequisite, maxNumUsers,recordType);
         this.mNum = games;
         this.mPointsVic = victoryPts;
         this.mPointsDraw = drawPts;
@@ -112,4 +112,10 @@ public class EventContest extends Event{
     public Object clone(){
         return new EventContest(this);
     }
+
+	@Override
+	public List<?> realizaEvento() {
+		
+		return null;
+	}
 }
