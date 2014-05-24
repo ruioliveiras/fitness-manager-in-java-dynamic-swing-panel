@@ -9,6 +9,10 @@ public class Futebol extends Collective {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Futebol(Futebol act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Futebol";
@@ -41,9 +45,8 @@ public class Futebol extends Collective {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Futebol clone() {
+		return new Futebol(this);
 	}
 
 }

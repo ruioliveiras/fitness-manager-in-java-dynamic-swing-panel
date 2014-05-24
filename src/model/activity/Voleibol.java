@@ -9,6 +9,10 @@ public class Voleibol extends Collective {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Voleibol(Voleibol act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Voleibol";
@@ -42,9 +46,8 @@ public class Voleibol extends Collective {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Voleibol clone() {
+		return new Voleibol(this);
 	}
 
 }

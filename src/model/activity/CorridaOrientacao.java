@@ -9,6 +9,10 @@ public class CorridaOrientacao extends Distance {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public CorridOrientacao(CorridaOrientacao act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Corrida de Orientação";
@@ -36,9 +40,8 @@ public class CorridaOrientacao extends Distance {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public CorridaOrientacao clone() {
+		return new CorridaOrientacao(this);
 	}
 
 }

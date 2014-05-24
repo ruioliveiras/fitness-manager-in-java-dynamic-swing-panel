@@ -8,6 +8,10 @@ public class Ginasio extends Ludic {
      */
     private static final long serialVersionUID = 1L;
     
+    public Ginasio(Ginasio act){
+        super(act);
+    }
+    
     @Override
     public String getName() {
         return "Ginasio";
@@ -35,9 +39,8 @@ public class Ginasio extends Ludic {
     }
 
     @Override
-    public Activity clone() {
-        // TODO Auto-generated method stub
-        return null;
+    public Ginasio clone() {
+        return new Ginasio(this);
     }
 
     

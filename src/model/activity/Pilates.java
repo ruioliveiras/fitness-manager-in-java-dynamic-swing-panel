@@ -9,6 +9,10 @@ public class Pilates extends Ludic {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Pilates(Pilates act){
+        super(act);
+    }
+    
 	@Override
 	public String getName() {
 		return "Pilates";
@@ -36,9 +40,8 @@ public class Pilates extends Ludic {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Pilates clone(){
+		return new Pilates(this);
 	}
 
 	

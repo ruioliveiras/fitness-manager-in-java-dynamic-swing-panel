@@ -9,6 +9,10 @@ public class SkiTT extends Altimetry {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public SkiTT(SkiTT act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Ski de fundo";
@@ -36,9 +40,8 @@ public class SkiTT extends Altimetry {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public SkiTT clone() {
+		return new SkiTT(this);
 	}
 
 }

@@ -9,6 +9,10 @@ public class ArtesMarciais extends Individual {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public ArtesMarciais(ArtesMarciais act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Artes Marciais";
@@ -41,9 +45,8 @@ public class ArtesMarciais extends Individual {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArtesMarciais clone() {
+		return new ArtesMarciais(this);
 	}
 
 }

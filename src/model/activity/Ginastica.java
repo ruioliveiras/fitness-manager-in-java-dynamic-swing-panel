@@ -9,6 +9,10 @@ public class Ginastica extends Skill {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Ginastica(Ginastica act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Ginástica Olímpica";
@@ -42,9 +46,8 @@ public class Ginastica extends Skill {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Ginastica clone() {
+		return new Ginastica(this);
 	}
 
 }

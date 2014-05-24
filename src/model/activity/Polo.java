@@ -9,6 +9,10 @@ public class Polo extends Collective {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Polo(Polo act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Polo";
@@ -41,9 +45,8 @@ public class Polo extends Collective {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Polo clone() {
+		return new Polo(this);
 	}
 
 }

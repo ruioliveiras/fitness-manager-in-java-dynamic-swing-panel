@@ -9,6 +9,10 @@ public class Squash extends Individual {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Squash(Squash act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Squash";
@@ -42,9 +46,8 @@ public class Squash extends Individual {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Squash clone() {
+		return new Squash(this);
 	}
 
 }

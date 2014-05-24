@@ -9,6 +9,10 @@ public class Basquetebol extends Collective {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Basquetebol(Basquetebol act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Basquetebol";
@@ -41,9 +45,8 @@ public class Basquetebol extends Collective {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Basquetebol clone() {
+		return new Basquetebol(this);
 	}
 
 }

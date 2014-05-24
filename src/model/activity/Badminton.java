@@ -9,6 +9,10 @@ public class Badminton extends Individual {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Badminton(Badminton act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Badminton";
@@ -42,9 +46,8 @@ public class Badminton extends Individual {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Badminton clone() {
+		return new Badminton(this);
 	}
 
 }

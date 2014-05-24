@@ -9,6 +9,10 @@ public class Caiaque extends Distance{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Caiaque(Caiaque act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Caiaque";
@@ -36,8 +40,7 @@ public class Caiaque extends Distance{
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Caiaque clone() {
+		return new Caiaque(this);
 	}
 }

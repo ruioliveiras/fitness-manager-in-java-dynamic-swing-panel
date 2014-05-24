@@ -9,6 +9,10 @@ public class Skate extends Skill {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Skate(Skate act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Skate";
@@ -42,9 +46,8 @@ public class Skate extends Skill {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Skate clone() {
+		return new Skate(this);
 	}
 
 }

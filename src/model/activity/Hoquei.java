@@ -9,6 +9,10 @@ public class Hoquei extends Collective {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Hoquei(Hoquei act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Hoquei";
@@ -41,9 +45,8 @@ public class Hoquei extends Collective {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Hoquei clone() {
+		return new Hoquei(this);
 	}
 
 }

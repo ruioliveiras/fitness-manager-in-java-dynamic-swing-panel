@@ -11,11 +11,6 @@ public class Natacao extends Distance {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public Natacao() {
-		super();
-	}
-
-
 	public Natacao(Natacao act) {
 		super(act);
 	}
@@ -43,7 +38,7 @@ public class Natacao extends Distance {
 	}
 
 	@Override
-	public Activity clone() {
+	public Natacao clone() {
 		return new Natacao(this);
 	}
 

@@ -9,6 +9,10 @@ public class CaminhadaMontanha extends Altimetry {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public CaminhadaMontanha(CaminhadaMontanha act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Caminhada Montanha";
@@ -36,9 +40,8 @@ public class CaminhadaMontanha extends Altimetry {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public CaminhadaMontanha clone() {
+		return new CaminhadaMontanha(this);
 	}
 
 }

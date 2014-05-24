@@ -9,6 +9,10 @@ public class Escalada extends Ludic {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Escalada(Escalada act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Escalada";
@@ -36,8 +40,7 @@ public class Escalada extends Ludic {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Escalada clone() {
+		return new Escalada(this);
 	}
 }

@@ -9,6 +9,10 @@ public class Ciclismo extends Altimetry {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Ciclismo(Ciclismo act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Ciclismo";
@@ -36,9 +40,8 @@ public class Ciclismo extends Altimetry {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Ciclismo clone() {
+		return new Ciclismo(this);
 	}
 
 }

@@ -9,6 +9,10 @@ public class Hipismo extends Skill {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public Hipismo(Hipismo act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Hipismo";
@@ -42,9 +46,8 @@ public class Hipismo extends Skill {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public Hipismo clone() {
+		return new Hipismo(this);
 	}
 
 }

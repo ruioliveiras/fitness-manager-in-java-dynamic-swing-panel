@@ -9,6 +9,10 @@ public class TenisMesa extends Individual {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public TenisMesa(TenisMesa act){
+        super(act);
+    }
+	
 	@Override
 	public String getName() {
 		return "Tenis Mesa";
@@ -42,9 +46,8 @@ public class TenisMesa extends Individual {
 	}
 
 	@Override
-	public Activity clone() {
-		// TODO Auto-generated method stub
-		return null;
+	public TenisMesa clone() {
+		return new TenisMesa(this);
 	}
 
 }
