@@ -15,7 +15,7 @@ import model.user.User;
 
 public abstract class Event implements ObjectClonable  {
     private String mName;
-    private Activity mActivity;/*usar String com nome do tipo de Actividade?*/
+    private Activity mActivity;/**ATENCAO: weather do Evento dentro da activity?*/
     private int mRecordType;
     private GregorianCalendar mEventDate;
     private GregorianCalendar mEndDate;

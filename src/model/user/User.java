@@ -21,6 +21,7 @@ import model.activity.Activity;
 import model.activity.ActivityComparatorByDate;
 import model.activity.Ciclismo;
 import model.activity.Natacao;
+import core.FormaCalculation;
 
 /*
  * Classe com informacao dos utilizadores.
@@ -156,9 +157,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     }
     
     public double getForma(){
-        /*WIP*/
-        //return 0.0;
-        throw new RuntimeException("DO NOT IMPLEMENT YET, IMPLEENT BEFORE USER IT");//atencao nao fazer I/O aqui!!!
+        return FormaCalculation.getForma(this);
     }
     
     public Manager<String> amigosManager(){return this.amigos;}    

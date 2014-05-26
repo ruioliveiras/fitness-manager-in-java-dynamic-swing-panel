@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+
 public class EventSimulation {
     
     static private long getSimulationDistance(User u, Class<? extends Activity> category,

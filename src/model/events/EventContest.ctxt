@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.params=
 comment0.target=EventContest()
-comment1.params=name\ activity\ eventDate\ endDate\ preRequisite\ maxNumUsers\ games\ victoryPts\ drawPts\ lossPts
-comment1.target=EventContest(java.lang.String,\ model.activity.Activity,\ java.util.GregorianCalendar,\ java.util.GregorianCalendar,\ int,\ int,\ int,\ int,\ int,\ int)
+comment1.params=name\ activity\ eventDate\ endDate\ preRequisite\ maxNumUsers\ recordType\ games\ victoryPts\ drawPts\ lossPts
+comment1.target=EventContest(java.lang.String,\ model.activity.Activity,\ java.util.GregorianCalendar,\ java.util.GregorianCalendar,\ long,\ int,\ int,\ int,\ int,\ int,\ int)
 comment10.params=lossPts
 comment10.target=void\ setLossPts(int)
 comment11.params=
@@ -16,6 +16,8 @@ comment14.params=
 comment14.target=int\ hashCode()
 comment15.params=
 comment15.target=java.lang.Object\ clone()
+comment16.params=
+comment16.target=java.util.List\ realizaEvento()
 comment2.params=e
 comment2.target=EventContest(EventContest)
 comment3.params=
@@ -32,4 +34,4 @@ comment8.params=drawPts
 comment8.target=void\ setDrawPts(int)
 comment9.params=
 comment9.target=int\ getLossPts()
-numComments=16
+numComments=17
