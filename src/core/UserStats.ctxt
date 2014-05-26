@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=usr\ startDate\ endDate
+comment0.target=int\ getDistanceStats(model.user.User,\ java.util.GregorianCalendar,\ java.util.GregorianCalendar)
+comment1.params=usr\ startDate\ endDate
+comment1.target=int\ getCaloriesStats(model.user.User,\ java.util.GregorianCalendar,\ java.util.GregorianCalendar)
+comment2.params=usr\ startDate\ endDate
+comment2.target=double\ getWorkoutStats(model.user.User,\ java.util.GregorianCalendar,\ java.util.GregorianCalendar)
+comment2.text=\n\ @return\ time\ in\ hours\n
+comment3.params=usr\ category
+comment3.target=int\ getPtsFromLastYear(model.user.User,\ java.lang.Class)
+comment3.text=\n\ points\ only\ for\ simulation\ purpose\n
+numComments=4

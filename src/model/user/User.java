@@ -42,6 +42,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
     private Manager<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
+    private Manager<String> convitesAmigos; /*emails de amigos: convites*/
     private Manager<Activity> actividadesUser;
     private TreeSet<Activity> treeActividadesUser;
 
@@ -64,7 +65,8 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
         this.permissoes = Permissoes.Guest;
         this.fcr = 0;
         this.amigos = new ManagerSet<String>(new HashSet<String>());
-        this.treeActividadesUser = new TreeSet<Activity>();
+        this.convitesAmigos = new ManagerSet<String>(new HashSet<String>());
+        this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
         this.actividadesUser = new ManagerSet<Activity>(this.treeActividadesUser);
     }
     public User(String email){
@@ -87,6 +89,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     	this.permissoes = permissoes;
     	this.fcr = fcRepouso;
     	this.amigos = new ManagerSet<String>(new HashSet<String>());
+    	this.convitesAmigos = new ManagerSet<String>(new HashSet<String>());
     	this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
     	this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd,this.treeActividadesUser);
     }
@@ -103,6 +106,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     	this.permissoes = u.permissoes;
     	this.fcr = u.getFreqCardio();
     	this.amigos = new ManagerSet<String>(new HashSet<String>(u.amigosManager().collection()));
+    	this.convitesAmigos = new ManagerSet<String>(new HashSet<String>(u.convitesManager().collection()));
 
     	this.recordes = new HashMap<Class<?>, HashMap<Integer, Activity>>();
     	if (u.recordes != null){
@@ -115,7 +119,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     			Iterator<Integer> _iteRecType = hashMap.keySet().iterator();
     			Iterator<Activity> _iteAct = hashMap.values().iterator();
 
-    			hashMap = new HashMap<>(); /*using hashMap to Add */
+    			hashMap = new HashMap<Integer, Activity>(); /*using hashMap to Add */
     			this.recordes.put(_class,hashMap);
     			while(_iteRecType.hasNext()){
     				hashMap.put(_iteRecType.next(),_iteAct.next().clone());
@@ -178,10 +182,11 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     }
     
     public double getForma(){
-        return FormaCalculation.getForma(this);
+        return FormaCalculation.calculaForma(this);
     }
     
-    public Manager<String> amigosManager(){return this.amigos;}    
+    public Manager<String> amigosManager(){return this.amigos;}
+    public Manager<String> convitesManager(){return this.convitesAmigos;} 
     public Manager<Activity> atividadesManager(){return this.actividadesUser;}    
     
     public Activity getRecord(Class<? extends Activity> classe,int recordType){

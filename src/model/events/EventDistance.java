@@ -68,20 +68,4 @@ public class EventDistance extends Event {
     public Object clone(){
         return new EventDistance(this);
     }
-
-    @Override
-    public List<List<Long>> realizaEvento() {
-        /*PERGUNTAR OLIVEIRA - percorrer Users?, associar Users aos resultados criados?
-        List<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
-        int stages = (this.getRecordType() > 1000) ? this.getRecordType()/1000 : 1;
-        
-        for(String uName : this.getUserManager()){
-            result.add(core.EventSimulation.getFullSimulationDistance(this.getUserManager().getNoClone(uName),
-                        this.getActivity().getClass(), this.getRecordType(), this.getActivity().getWeather(), stages));
-        }
-
-        return result;
-        */
-       return null;
-    }
 }
