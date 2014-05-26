@@ -99,6 +99,10 @@ public abstract class Activity implements ObjectClonable,Serializable {
     		return -1;
     	}
     }
+    public long getRecordTypeValue(int recordType){
+    	return getStat(recordType);
+    }
+    
 	/**
 	 * O this será o novo, o otherActivity será o actual. Assim quando não existir nenhum faz-se compareRercord(null,ac); 
 	 * 

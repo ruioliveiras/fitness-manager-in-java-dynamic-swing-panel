@@ -13,13 +13,11 @@ public class ManagerMap<V> extends Manager<V>{
 
 	public ManagerMap(Map<Object, V> map) {
 		super();
-		map.clear();
 		mMap = map;
 	}
 
 	public ManagerMap(Manager.OnManagerAdd<V> listener ,Map<Object, V> map) {
 		super(listener);
-		map.clear();
 		mMap = map;
 	}
 

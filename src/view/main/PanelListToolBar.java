@@ -50,14 +50,12 @@ public abstract class PanelListToolBar extends PanelToolBar implements ListModel
 		callListDataListener_ActionAdd();
 	}
 	
-	public JPanel load(JPanel panel){
-		
-		return super.loadIn(panel);
-	}
-	
 	@Override
 	public JPanel loadIn(JPanel panel){
-		throw new NotImplementedException();
+		JPanel rs = super.loadIn(panel);
+		mWork = (JPanel) mWork.getComponent(0);
+		
+		return rs;
 	}
 	
 

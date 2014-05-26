@@ -3,11 +3,13 @@ package view.main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -26,7 +28,8 @@ public abstract class PanelToolBar implements FormHandle{
 	protected FormButtons[] mButtons;
 	protected JComponent[] mJComponets;
 	protected JButton[] mJButtons;
-	
+	protected JPanel mTool;
+	protected JPanel mWork;
 	
 	public PanelToolBar() {}
 
@@ -46,16 +49,18 @@ public abstract class PanelToolBar implements FormHandle{
 		mPanel.removeAll();
 		mPanel.setLayout(new BoxLayout(mPanel, BoxLayout.PAGE_AXIS));
 		
-		JPanel tool = builToolbar(new JPanel());
-		JPanel work = builWorkSpace(new JPanel());
+		JPanel work = new JPanel();
 		
-		tool.setPreferredSize(new Dimension(mWidth, TOOL_BAR_SIZE));
-		tool.setBorder(BorderFactory.createLineBorder(Color.BLUE,1,true));
-		work.setPreferredSize(new Dimension((int)(mWidth * 0.98), (int) (0.98 * mHeight - TOOL_BAR_SIZE) ));
-		work.setBorder(BorderFactory.createLineBorder(Color.BLUE,1,true));
+		mTool = builToolbar(new JPanel());
+		mWork = builWorkSpace(work);
 		
-		mPanel.add(tool);
-		mPanel.add(work);
+		mTool.setPreferredSize(new Dimension(mWidth, TOOL_BAR_SIZE));
+		mTool.setBorder(BorderFactory.createLineBorder(Color.BLUE,1,true));
+		mWork.setPreferredSize(new Dimension((int)(mWidth * 0.98), (int) (0.98 * mHeight - TOOL_BAR_SIZE) ));
+		mWork.setBorder(BorderFactory.createLineBorder(Color.BLUE,1,true));
+		
+		mPanel.add(mTool);
+		mPanel.add(mWork);
 		
 		mPanel.revalidate();
 		return mPanel;
@@ -74,7 +79,7 @@ public abstract class PanelToolBar implements FormHandle{
 		return tool;
 	}
 	protected JPanel builWorkSpace(JPanel actForm){
-				actForm.setPreferredSize(new Dimension(mWidth , (int) (mHeight * 0.3)));
+		actForm.setPreferredSize(new Dimension(mWidth , (int) (mHeight * 0.3)));
 		for(int i =0;i<mAttrs.length;i++){
 			FormUtils.addLine(actForm, mAttrs[i].getName(), getComponent(mAttrs[i]),200);
 			getComponent(mAttrs[i]).setEnabled(false);
@@ -105,6 +110,10 @@ public abstract class PanelToolBar implements FormHandle{
 	@Override
 	public JComponent getComponent(FormAttr a) {
 		return  mJComponets[a.getIndex()];
+	}
+	@Override
+	public JLabel getLabel(FormAttr a) {
+		return (JLabel) mWork.getComponent( a.getIndex() * 2);
 	}
 
 

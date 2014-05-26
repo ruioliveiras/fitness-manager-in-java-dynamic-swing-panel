@@ -45,7 +45,7 @@ public abstract class Distance extends Activity {
 
 
 	public enum Attr implements Record.enumAttr {
-		TEMPO("Tempo"),DISTANCIA("Distancia"),SPEED("Velocidade");
+		TIME("Tempo"),DISTANCE("Distancia"),SPEED("Velocidade");
 
 		private String eName;
 		Attr(String name){eName = name;}
@@ -58,16 +58,16 @@ public abstract class Distance extends Activity {
 	
 
 	public enum MyRecords implements Record{
-    	MENOR_TEMPO40000("Menor tempo 40km",Attr.TEMPO,Attr.DISTANCIA,40000),
-    	MENOR_TEMPO20000("Menor tempo 20km",Attr.TEMPO,Attr.DISTANCIA,20000),
-    	MENOR_TEMPO10000("Menor tempo 10km",Attr.TEMPO,Attr.DISTANCIA,10000),
-    	MENOR_TEMPO5000 ("Menor tempo 5km",Attr.TEMPO,Attr.DISTANCIA,5000),
-    	MENOR_TEMPO3000 ("Menor tempo 3km",Attr.TEMPO,Attr.DISTANCIA,3000),
-    	MENOR_TEMPO2000 ("Menor tempo 2km",Attr.TEMPO,Attr.DISTANCIA,2000),
-    	MENOR_TEMPO1000 ("Menor tempo 1km",Attr.TEMPO,Attr.DISTANCIA,1000),
-    	MENOR_TEMPO500  ("Menor tempo 500m",Attr.TEMPO,Attr.DISTANCIA,500),
-    	MENOR_TEMPO200  ("Menor tempo 200m",Attr.TEMPO,Attr.DISTANCIA,200),
-    	MENOR_TEMPO100  ("Menor tempo 100m",Attr.TEMPO,Attr.DISTANCIA,100),
+    	MENOR_TEMPO40000("Menor tempo 40km",Attr.TIME,Attr.DISTANCE,40000),
+    	MENOR_TEMPO20000("Menor tempo 20km",Attr.TIME,Attr.DISTANCE,20000),
+    	MENOR_TEMPO10000("Menor tempo 10km",Attr.TIME,Attr.DISTANCE,10000),
+    	MENOR_TEMPO5000 ("Menor tempo 5km",Attr.TIME,Attr.DISTANCE,5000),
+    	MENOR_TEMPO3000 ("Menor tempo 3km",Attr.TIME,Attr.DISTANCE,3000),
+    	MENOR_TEMPO2000 ("Menor tempo 2km",Attr.TIME,Attr.DISTANCE,2000),
+    	MENOR_TEMPO1000 ("Menor tempo 1km",Attr.TIME,Attr.DISTANCE,1000),
+    	MENOR_TEMPO500  ("Menor tempo 500m",Attr.TIME,Attr.DISTANCE,500),
+    	MENOR_TEMPO200  ("Menor tempo 200m",Attr.TIME,Attr.DISTANCE,200),
+    	MENOR_TEMPO100  ("Menor tempo 100m",Attr.TIME,Attr.DISTANCE,100),
     	MAXSPEED  		("Maior Velocidade",Attr.SPEED);
     	
 		private Record.enumAttr eFix;
@@ -108,9 +108,9 @@ public abstract class Distance extends Activity {
     	Attr a = Attr.values()[iAttr];
 
     	switch (a) {
-    	case DISTANCIA: return getDistance();
+    	case DISTANCE: return getDistance();
     	case SPEED:  	return getMaxSpeed();
-    	case TEMPO:     return (int) (getDuration() ); //* seconds
+    	case TIME:     return (int) (getDuration() ); //* seconds
     	default:		return -1;
     	}
 	}
@@ -120,7 +120,7 @@ public abstract class Distance extends Activity {
     	MyRecords a = MyRecords.values()[recordType];
     	if (a == MyRecords.MAXSPEED)
     		return;
-    	if (a.getMov() == Attr.DISTANCIA){
+    	if (a.getMov() == Attr.DISTANCE){
     		setDuration((getDuration() * a.getValue() )/mDistance);
     	}
 	} 

@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
@@ -73,38 +74,58 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     public User(String nome, String email, String password, Genero genero, int altura, int peso, 
                 int diaNascimento, int mesNascimento, int anoNascimento, 
                 Activity desportoFavorito, Permissoes permissoes, int fcRepouso){
-                    this.nome = nome;
-                    this.email = email;
-                    this.password = password;
-                    this.altura = altura;
-                    this.peso = peso;
-                    this.genero = genero;
-                    this.recordes = new HashMap<Class<?>, HashMap<Integer, Activity>>();
-                    this.dataNascimento = new GregorianCalendar(anoNascimento, mesNascimento-1, diaNascimento);
-                    this.desportoFavorito = desportoFavorito;
-                    this.permissoes = permissoes;
-                    this.fcr = fcRepouso;
-                    this.amigos = new ManagerSet<String>(new HashSet<String>());
-                    this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
-                    this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd,this.treeActividadesUser);
-               }
-                
+    	this.nome = nome;
+    	this.email = email;
+    	this.password = password;
+    	this.altura = altura;
+    	this.peso = peso;
+    	this.genero = genero;
+    	this.recordes = new HashMap<Class<?>, HashMap<Integer, Activity>>();
+    	this.dataNascimento = new GregorianCalendar(anoNascimento, mesNascimento-1, diaNascimento);
+    	this.desportoFavorito = desportoFavorito;
+    	this.permissoes = permissoes;
+    	this.fcr = fcRepouso;
+    	this.amigos = new ManagerSet<String>(new HashSet<String>());
+    	this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
+    	this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd,this.treeActividadesUser);
+    }
+
     public User(User u){
-        this.nome = u.getNome();
-        this.email = u.getEmail();
-        this.password = u.getPassword();
-        this.altura = u.getAltura();
-        this.peso = u.getPeso();
-        this.genero = u.getGenero();
-        this.dataNascimento = (GregorianCalendar) u.getDataNascimento().clone();
-        this.desportoFavorito = u.desportoFavorito;
-        this.permissoes = u.permissoes;
-        this.fcr = u.getFreqCardio();
-        this.amigos = new ManagerSet<String>(new HashSet<String>(u.amigosManager().collection()));
-        
-        this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
-        this.treeActividadesUser.addAll(u.atividadesManager().collection());
-        this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd,this.treeActividadesUser);
+    	this.nome = u.getNome();
+    	this.email = u.getEmail();
+    	this.password = u.getPassword();
+    	this.altura = u.getAltura();
+    	this.peso = u.getPeso();
+    	this.genero = u.getGenero();
+    	this.dataNascimento = (GregorianCalendar) u.getDataNascimento().clone();
+    	this.desportoFavorito = u.desportoFavorito;
+    	this.permissoes = u.permissoes;
+    	this.fcr = u.getFreqCardio();
+    	this.amigos = new ManagerSet<String>(new HashSet<String>(u.amigosManager().collection()));
+
+    	this.recordes = new HashMap<Class<?>, HashMap<Integer, Activity>>();
+    	if (u.recordes != null){
+    		Iterator<Class<?>> iteClass = u.recordes.keySet().iterator();
+    		Iterator<HashMap<Integer, Activity>> iteCateg = u.recordes.values().iterator();
+    		while(iteClass.hasNext()){
+    			Class<?> _class = iteClass.next();
+    			HashMap<Integer, Activity> hashMap = iteCateg.next();
+
+    			Iterator<Integer> _iteRecType = hashMap.keySet().iterator();
+    			Iterator<Activity> _iteAct = hashMap.values().iterator();
+
+    			hashMap = new HashMap<>(); /*using hashMap to Add */
+    			this.recordes.put(_class,hashMap);
+    			while(_iteRecType.hasNext()){
+    				hashMap.put(_iteRecType.next(),_iteAct.next().clone());
+    			}
+    		}
+    	}
+
+
+    	this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
+    	this.treeActividadesUser.addAll(u.atividadesManager().collection());
+    	this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd,this.treeActividadesUser);
     }
     
       /*
