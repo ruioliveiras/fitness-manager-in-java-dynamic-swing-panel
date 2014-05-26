@@ -103,13 +103,24 @@ public class Main {
 	public static String getActivityName(int index){return sActivivitys[index].getName();} 
 	public static Activity getActivity(int index){return sActivivitys[index].clone();}
 	public static Activity getActivity(String name) throws ActivityNameDontExistException{
+		return getActivity(getActivityIndex(name));
+	}
+	public static int getActivityIndex(String name) throws ActivityNameDontExistException{
 		
 		for (int i = 0; i < sActivivitys.length; i++) {
 			if (sActivivitys[i].getName().equals(name)){
-				return sActivivitys[i].clone();
+				return i;
 			}		
 		}
 		throw new ActivityNameDontExistException();
+	}
+	public static String[] getActivitiesNames() {
+		String[] array = new String[sActivivitys.length];
+		
+		for (int i = 0; i < sActivivitys.length; i++) {
+			array[i] = sActivivitys[i].getName();
+		}
+		return array;
 	}
 	
 	public static void main(String[] args) {

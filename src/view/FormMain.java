@@ -169,15 +169,15 @@ public class FormMain implements ActionListener, ListSelectionListener{
 			break;
 		case TXT_ACTIVIDADES:
 			ArrayList<Object> ola1 = new ArrayList<Object>();ola1.add("OLA");
-			mActivities.load(mIFrame);
+			mActivities.loadIn(mIFrame);
 			break;
 		case TXT_RECORDES:
 			ArrayList<Object> ola2 = new ArrayList<Object>();ola2.add("OLA");
-			mRecords.load(mIFrame);
+			mRecords.loadIn(mIFrame);
 			break;
 		case TXT_EVENTOS:
 			ArrayList<Object> ola3 = new ArrayList<Object>();ola3.add("OLA");
-			mEvents.load(mIFrame);
+			mEvents.loadIn(mIFrame);
 			break;
 		case TXT_ADDDFRIEND:
 			   String email = JOptionPane.showInputDialog(null,

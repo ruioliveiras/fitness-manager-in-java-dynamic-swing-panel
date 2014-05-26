@@ -4,12 +4,14 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import model.activity.Contest;
 import core.FormUtils.FormAttr;
 import core.FormUtils.FormButtons;
 import view.main.PanelListToolBar;
@@ -41,7 +43,26 @@ public class PanelActivities extends PanelListToolBar {
 	}
 
 	public enum FormAttEnum implements FormAttr{
-		EMAIL		("E-Mail",JTextField.class);
+		COMBO		("E-Mail", JComboBox.class),
+		TIME		("Time",JTextField.class),
+		HEARTH		("Pulsação",JTextField.class),
+		TEMPO		("Tempo",JComboBox.class),
+		DATE		("Date",JTextField.class), 
+		//DISTANCE:
+		DISTANCE	("Distancia [m]",JTextField.class),
+		MAXSPEED 	("Vel. Maxima",JTextField.class),
+		//altemetria
+		ASCENDENT	("Ascendente [m]",JTextField.class),
+		DESCENDET	("Descendente [m]",JTextField.class),
+		MINALT	("Min Altura [m]",JTextField.class),
+		MAXALT	("Max Altura [m]",JTextField.class),
+		//CONTEST
+		POINTRIVAL	("Equipa",JTextField.class),
+		POINTTEAM	("Oponente",JTextField.class),
+		//SKILL
+		MAXPOINT	("Max trik",JTextField.class),
+		POINTS		("Pontos",JTextField.class);
+		
 		
 		private String eName;
 		private Class<? extends JComponent> eClass;
@@ -103,27 +124,7 @@ public class PanelActivities extends PanelListToolBar {
 		}
 	}
 
-
-
-
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.setTitle("Login------");
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);		
-		JPanel panel = new JPanel();
-		
-		PanelProfile pro = new PanelProfile();
-		pro.loadIn(panel);
-		
-		frame.getContentPane().add(panel);
-		
-		frame.pack();
-		frame.setVisible(true);
-	}
-
-
-
-
+	
 
 
 

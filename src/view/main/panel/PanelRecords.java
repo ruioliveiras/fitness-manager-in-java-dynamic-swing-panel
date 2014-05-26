@@ -111,20 +111,4 @@ public class PanelRecords extends PanelListToolBar {
 
 
 
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.setTitle("Login------");
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);		
-		JPanel panel = new JPanel();
-		
-		PanelProfile pro = new PanelProfile();
-		pro.loadIn(panel);
-		
-		frame.getContentPane().add(panel);
-		
-		frame.pack();
-		frame.setVisible(true);
-	}
-
-
 }
