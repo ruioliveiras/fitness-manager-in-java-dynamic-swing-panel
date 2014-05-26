@@ -18,6 +18,4 @@ comment7.params=
 comment7.target=int\ hashCode()
 comment8.params=
 comment8.target=java.lang.Object\ clone()
-comment9.params=
-comment9.target=java.util.List\ realizaEvento()
-numComments=10
+numComments=9

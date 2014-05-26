@@ -7,58 +7,30 @@ import model.activity.Activity;
 /**TODO++++++++++++++++++*/
 public class UserStats
 {
-    static public int getDistanceByMonth(User usr, int month){
-        return 0;
-    }
-    static public int getDistanceByMonth(User usr, GregorianCalendar data){
-        return 0;
-    }
-    static public int getDistanceByYear(User usr, int year){
-        return 0;
-    }
-    static public int getDistanceByYear(User usr, GregorianCalendar data){
+    static public int getDistanceStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
         return 0;
     }
     
-    static public int getCaloriesByMonth(User usr, int month){
-        return 0;
-    }
-    static public int getCaloriesByMonth(User usr, GregorianCalendar data){
-        return 0;
-    } 
-    static public int getCaloriesByYear(User usr, int year){
-        return 0;
-    }
-    static public int getCaloriesByYear(User usr, GregorianCalendar data){
-        return 0;
-    }
-    
-    static public int getPtsByMonth(User usr, int month, Class<? extends Activity> category){
-        return 0;
-    }
-    static public int getPtsByMonth(User usr, GregorianCalendar data, Class<? extends Activity> category){
-        return 0;
-    } 
-    static public int getPtsByYear(User usr, int year, Class<? extends Activity> category){
-        return 0;
-    }
-    static public int getPtsByYear(User usr, GregorianCalendar data, Class<? extends Activity> category){
+    static public int getCaloriesStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
         return 0;
     }
     
     /**
      * @return time in hours
      */
-    static public double getWorkoutTimeByMonth(User usr, int month){
+    static public double getWorkoutStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
         return 0.0;
     }
-    static public double getWorkoutTimeByMonth(User usr, GregorianCalendar data){
-        return 0.0;
-    } 
-    static public double getWorkoutTimeByYear(User usr, int year){
-        return 0.0;
-    }
-    static public double getWorkoutTimeByYear(User usr, GregorianCalendar data){
-        return 0.0;
+    
+    /**
+     * points only for simulation purpose
+     */
+    static public int getPtsFromLastYear(User usr, Class<? extends Activity> category){
+        /*data agora*/
+        GregorianCalendar endDate = new GregorianCalendar();
+        /*data um ano antes*/
+        GregorianCalendar startDate = new GregorianCalendar(endDate.YEAR - 1, endDate.MONTH, endDate.DAY_OF_MONTH);
+
+        return 0;
     }
 }

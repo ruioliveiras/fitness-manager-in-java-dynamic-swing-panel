@@ -1,6 +1,7 @@
 package model.events;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.ArrayList;
 import model.activity.Activity;
 import core.util.Util;
 
@@ -75,9 +76,15 @@ public class EventContest extends Event{
         this.mPointsLoss = lossPts;
     }
     
-    /*TODO: list of all games between users*/
-    public List<String> getGames(){
-        return null;
+    public List<ContestPair> getGames(){
+        List<ContestPair> games = new ArrayList<ContestPair>();        
+        for(String u1 : this.getUserManager().collection()){
+            for(String u2 : this.getUserManager().collection()){
+                if(u1 != u2)
+                    for(int i=0; i < this.mNum; i++) games.add(new ContestPair(u1,u2));
+            }
+        }
+        return games;
     }
     
     @Override 

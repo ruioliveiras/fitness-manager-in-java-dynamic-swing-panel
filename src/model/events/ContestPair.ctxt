@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=
+comment0.target=ContestPair()
+comment1.params=user1\ user2
+comment1.target=ContestPair(java.lang.String,\ java.lang.String)
+comment2.params=
+comment2.target=java.lang.String\ getFstUser()
+comment3.params=
+comment3.target=java.lang.String\ getSndUser()
+comment4.params=user1
+comment4.target=void\ setFstUser(java.lang.String)
+comment5.params=user2
+comment5.target=void\ setSndUser(java.lang.String)
+numComments=6

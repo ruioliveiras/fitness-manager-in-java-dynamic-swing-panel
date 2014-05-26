@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import model.events.ContestPair;
 
 
 public class EventSimulation {
@@ -50,7 +51,7 @@ public class EventSimulation {
     }
     
     /**list of all partial stage timings for all Users*/
-    public List<List<Long>> executeEventDistance(Set<User> users, Distance act, int recordType) {
+    static public List<List<Long>> executeEventDistance(Set<User> users, Distance act, int recordType) {
         Weather w = act.getWeather();
         List<List<Long>> result = new ArrayList<List<Long>>();
         long eventDistance = act.getRecordTypeValue(recordType);
@@ -63,7 +64,7 @@ public class EventSimulation {
         return result;
     }
     /**calculation of the final time for all users*/
-    public List<Long> eventDistanceResults(List<List<Long>> lst) {
+    static private List<Long> eventDistanceResults(List<List<Long>> lst) {
         List<Long> result = new ArrayList<Long>();
         long accum;
         for(List<Long> l : lst){
@@ -83,12 +84,21 @@ public class EventSimulation {
      * @return <0 se user 1 vence; =0 se empatam; ou >0 se user 2 vence
      */
     static public int getSimulationContest(User u1, User u2, Class<? extends Contest> category){
-        GregorianCalendar agora = new GregorianCalendar();
-        int user1Pts = UserStats.getPtsByYear(u1, agora, category);
-        int user2Pts = UserStats.getPtsByYear(u1, agora, category);
+        int user1Pts = UserStats.getPtsFromLastYear(u1, category);
+        int user2Pts = UserStats.getPtsFromLastYear(u1, category);
         double user1RndFact = 1 + (Math.random() - 0.50);
         double user2RndFact = 1 + (Math.random() - 0.50);
         return (int) (user2RndFact*user2Pts - user1RndFact*user1Pts);
     }
+   
+    /*NAO PODE SER COM STRINGS!
+    static public List<Integer> getFullSimulationContest(List<ContestPair> lst, Class<? extends Contest> category){
+        List<Integer> results = new ArrayList<Integer>();
+        
+        for(ContestPair p : lst)
+            results.add(getSimulationContest(p.getFstUser(), p.getSndUser(), category));
+        return results;
+    }
+    */
 
 }
