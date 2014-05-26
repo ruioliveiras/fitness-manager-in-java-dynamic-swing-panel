@@ -112,10 +112,4 @@ public class EventContest extends Event{
     public Object clone(){
         return new EventContest(this);
     }
-
-	@Override
-	public List<?> realizaEvento() {
-		
-		return null;
-	}
 }

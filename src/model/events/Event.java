@@ -124,6 +124,4 @@ public abstract class Event implements ObjectClonable  {
             return true;
         }
     };
-    
-    public abstract List<?> realizaEvento();
 }

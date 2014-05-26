@@ -1,9 +1,13 @@
 package core;
 
 import model.activity.Activity;
+import model.activity.Distance;
+import model.activity.Contest;
 import model.activity.Weather;
 import model.user.User;
+import model.events.Event;
 import model.user.Estatisticas;
+import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -11,10 +15,11 @@ import java.util.GregorianCalendar;
 
 public class EventSimulation {
     
-    static private long getSimulationDistance(User u, Class<? extends Activity> category,
-                                                int recordType, Weather w, int stages) {
+    static private long getSimulationDistance(User u, Distance act,
+                                                int recordType, int stages) {
+        Weather w = act.getWeather();                                           
         double rndFact = 1 + (Math.random() - 0.50);
-        double prsBest = (double) (u.getRecordValue(category, recordType))/stages; /*tempo por intervalo, Ex:por km*/
+        double prsBest = (double) (u.getRecordValue(act.getClass(), recordType))/stages; /*tempo por intervalo, Ex:por km*/
         double fitnessFact = u.getForma();
         double weatherFact = (double) Math.min(0.1, (double) w.getLvl()/20);
         long result;
@@ -24,21 +29,37 @@ public class EventSimulation {
             result = (long) (rndFact * prsBest * fitnessFact * weatherFact);
         }
         return result;
-        /**TODO - adicionar os resultados como novas actividades*/
+        /**TODO - adicionar automaticamente os resultados como novas actividades do User?*/
     }
     
-    static public List<Long> getFullSimulationDistance(User u, Class<? extends Activity> category, 
-                                                int recordType, Weather w, int stages) {
+    static public List<Long> getFullSimulationDistance(User u, Distance act, 
+                                                int recordType, int stages) {
+        Weather w = act.getWeather(); 
         List<Long> result = new ArrayList<Long>(stages);
         boolean desistiu = false;
         long oneResult;
 
         for(int i=0; (i < stages) && !desistiu; i++){
-            oneResult = getSimulationDistance(u, category, recordType, w, stages);
+            oneResult = getSimulationDistance(u, act, recordType, stages);
             result.add(oneResult);
             if(oneResult == Long.MAX_VALUE) desistiu = true;
         }
         return result;             
+    }
+    
+    public List<List<Long>> executeEventDistance(Set<User> users, Distance act, int recordType) {
+        /*PERGUNTAR OLIVEIRA - percorrer Users?, associar Users aos resultados criados?*/
+        Weather w = act.getWeather();
+        List<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+        long eventDistance = act.getRecordTypeValue(recordType);
+        int stages = (eventDistance > 1000) ? eventDistance/1000 : 1;
+        
+        for(User u : users){
+            result.add(getFullSimulationDistance(u, act.getClass(), 
+                        recordType, w, stages));
+        }
+
+        return result;
     }
     
     /**
@@ -48,7 +69,7 @@ public class EventSimulation {
      * @param category categoria da actividade
      * @return <0 se user 1 vence; =0 se empatam; ou >0 se user 2 vence
      */
-    static public int getSimulationContest(User u1, User u2, Class<? extends Activity> category){
+    static public int getSimulationContest(User u1, User u2, Class<? extends Contest> category){
         GregorianCalendar agora = new GregorianCalendar();
         int user1Pts = getPtsByYear(u1, agora, category);
         int user2Pts = getPtsByYear(u1, agora, category);
