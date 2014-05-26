@@ -17,23 +17,17 @@ public class Futebol extends Collective {
 	
 	public Futebol() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Futebol(long time, Weather weather, int hRate,
 			GregorianCalendar date, int pointRival, int pointTeam, Result result) {
 		super(time, weather, hRate, date, pointRival, pointTeam, result);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Futebol";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {
@@ -42,7 +36,7 @@ public class Futebol extends Collective {
 
 	@Override
 	public String getPointName() {
-		return "Pontos";
+		return "Goooolos";
 	}
 	
 	@Override

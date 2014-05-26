@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class Badminton extends Individual {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Badminton(Badminton act){
@@ -17,13 +13,11 @@ public class Badminton extends Individual {
 	
 	public Badminton() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Badminton(long time, Weather weather, int hRate,
 			GregorianCalendar date, int pointRival, int pointTeam, Result result) {
 		super(time, weather, hRate, date, pointRival, pointTeam, result);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -32,9 +26,6 @@ public class Badminton extends Individual {
 	}
 
  
-
- 
-
 	@Override
 	public int getIntensidade() {
 		return 115;
@@ -42,8 +33,7 @@ public class Badminton extends Individual {
 	
 	@Override
 	public String getPointName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Pontos";
 	}
 	
 	@Override

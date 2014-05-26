@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class Natacao extends Distance {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Natacao() {

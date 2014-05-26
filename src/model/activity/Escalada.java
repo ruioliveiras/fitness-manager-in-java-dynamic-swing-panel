@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class Escalada extends Ludic {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Escalada(Escalada act){
@@ -17,23 +13,17 @@ public class Escalada extends Ludic {
 	
 	public Escalada() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Escalada(long time, Weather weather, int hRate,
 			GregorianCalendar date) {
 		super(time, weather, hRate, date);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Escalada";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {

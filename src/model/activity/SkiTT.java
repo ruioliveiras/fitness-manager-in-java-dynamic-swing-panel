@@ -3,10 +3,6 @@ package model.activity;
 
 
 public class SkiTT extends Altimetry {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public SkiTT(SkiTT act){
@@ -17,10 +13,6 @@ public class SkiTT extends Altimetry {
 	public String getName() {
 		return "Ski de fundo";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {

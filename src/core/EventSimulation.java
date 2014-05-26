@@ -86,17 +86,20 @@ public class EventSimulation {
     static public int getSimulationContest(User u1, User u2, Class<? extends Contest> category){
         int user1Pts = UserStats.getPtsFromLastYear(u1, category);
         int user2Pts = UserStats.getPtsFromLastYear(u1, category);
-        double user1RndFact = 1 + (Math.random() - 0.50);
-        double user2RndFact = 1 + (Math.random() - 0.50);
-        return (int) (user2RndFact*user2Pts - user1RndFact*user1Pts);
+        double rnd1 = 1 + (Math.random() - 0.50);
+        double rnd2 = 1 + (Math.random() - 0.50);
+        return (int) (rnd2*user2Pts - rnd1*user1Pts);
     }
    
-    /*NAO PODE SER COM STRINGS!
+    /*FAZER ISTO NO CONTROLLER
     static public List<Integer> getFullSimulationContest(List<ContestPair> lst, Class<? extends Contest> category){
         List<Integer> results = new ArrayList<Integer>();
         
-        for(ContestPair p : lst)
-            results.add(getSimulationContest(p.getFstUser(), p.getSndUser(), category));
+        for(ContestPair p : lst){
+            User usr1 = new User(p.getFstUser());
+            User usr2 = new User(p.getSndUser());
+            results.add(EventSimulation.getSimulationContest(usr1, usr2, category));
+        }
         return results;
     }
     */

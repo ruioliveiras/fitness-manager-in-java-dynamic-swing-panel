@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class Hipismo extends Skill {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Hipismo(Hipismo act){
@@ -17,13 +13,11 @@ public class Hipismo extends Skill {
 	
 	public Hipismo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Hipismo(long time, Weather weather, int hearthRate,
 			GregorianCalendar date, int points, int maxTrick) {
 		super(time, weather, hearthRate, date, points, maxTrick);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -31,9 +25,6 @@ public class Hipismo extends Skill {
 		return "Hipismo";
 	}
 
- 
-
- 
 
 	@Override
 	public int getIntensidade() {
@@ -42,8 +33,7 @@ public class Hipismo extends Skill {
 	
 	@Override
 	public String getPointName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Pontos";
 	}
 	
 	@Override

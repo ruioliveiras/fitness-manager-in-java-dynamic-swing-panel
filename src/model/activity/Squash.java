@@ -17,23 +17,17 @@ public class Squash extends Individual {
 	
 	public Squash() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Squash(long time, Weather weather, int hRate,
 			GregorianCalendar date, int pointRival, int pointTeam, Result result) {
 		super(time, weather, hRate, date, pointRival, pointTeam, result);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Squash";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {
@@ -42,8 +36,7 @@ public class Squash extends Individual {
 	
 	@Override
 	public String getPointName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Pontos";
 	}
 	
 	@Override

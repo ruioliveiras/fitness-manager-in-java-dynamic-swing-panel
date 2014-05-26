@@ -1,8 +1,16 @@
 #BlueJ class context
-comment0.params=recordType
-comment0.target=int\ getStat(int)
-comment1.params=iAttr
-comment1.target=int\ get(int)
-comment2.params=
-comment2.target=int\ getRecordSize()
-numComments=3
+comment0.params=
+comment0.target=Ludic()
+comment1.params=act
+comment1.target=Ludic(Activity)
+comment2.params=time\ weather\ hRate\ date
+comment2.target=Ludic(long,\ Weather,\ int,\ java.util.GregorianCalendar)
+comment3.params=recordType
+comment3.target=long\ getStat(int)
+comment4.params=iAttr
+comment4.target=long\ get(int)
+comment5.params=recordType
+comment5.target=void\ correct(int)
+comment6.params=
+comment6.target=int\ getRecordSize()
+numComments=7

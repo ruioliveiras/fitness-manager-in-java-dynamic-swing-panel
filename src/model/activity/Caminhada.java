@@ -19,13 +19,11 @@ public class Caminhada extends Distance{
 
     public Caminhada() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Caminhada(long time, Weather weather, int hearthRate,
 			GregorianCalendar date, int distance, int maxSpeed) {
 		super(time, weather, hearthRate, date, distance, maxSpeed);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

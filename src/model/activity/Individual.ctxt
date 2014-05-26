@@ -1,2 +1,6 @@
 #BlueJ class context
-numComments=0
+comment0.params=
+comment0.target=Individual()
+comment1.params=act
+comment1.target=Individual(Contest)
+numComments=2

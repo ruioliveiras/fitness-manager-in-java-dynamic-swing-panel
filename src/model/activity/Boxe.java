@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class Boxe extends Individual {
-
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     public Boxe(Boxe act){
@@ -17,21 +13,17 @@ public class Boxe extends Individual {
     
     public Boxe() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Boxe(long time, Weather weather, int hRate, GregorianCalendar date,
 			int pointRival, int pointTeam, Result result) {
 		super(time, weather, hRate, date, pointRival, pointTeam, result);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
     public String getName() {
         return "Boxe";
     }
-
- 
 
     @Override
     public int getIntensidade() {

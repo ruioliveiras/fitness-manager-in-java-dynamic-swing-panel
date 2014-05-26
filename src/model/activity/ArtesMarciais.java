@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class ArtesMarciais extends Individual {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public ArtesMarciais(ArtesMarciais act){
@@ -17,23 +13,17 @@ public class ArtesMarciais extends Individual {
 	
 	public ArtesMarciais() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public ArtesMarciais(long time, Weather weather, int hRate,
 			GregorianCalendar date, int pointRival, int pointTeam, Result result) {
 		super(time, weather, hRate, date, pointRival, pointTeam, result);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Artes Marciais";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {
@@ -42,7 +32,7 @@ public class ArtesMarciais extends Individual {
 
 	@Override
 	public String getPointName() {
-		return "Pontos";
+		return "Nº Hits";
 	}
 	
 	@Override

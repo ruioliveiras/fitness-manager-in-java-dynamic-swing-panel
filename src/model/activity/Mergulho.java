@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class Mergulho extends Ludic {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Mergulho(Mergulho act){
@@ -17,23 +13,17 @@ public class Mergulho extends Ludic {
 	
 	public Mergulho() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Mergulho(long time, Weather weather, int hRate,
 			GregorianCalendar date) {
 		super(time, weather, hRate, date);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Mergulho";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {
