@@ -5,7 +5,7 @@ import model.user.User;
 import java.lang.Math;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.Set;
 
 /**
  * Write a description of class FormaCalculation here.
@@ -19,7 +19,7 @@ public class FormaCalculation{
     static double MAX_FORMA = 1.0;
     static double MIN_FORMA = 0.1;
     
-    private double calculaPesoPonderadoInicial(){
+    private static double calculaPesoPonderadoInicial(){
         int i=0;
         double coef = 0.0;
         
@@ -30,20 +30,20 @@ public class FormaCalculation{
         return MAX_FORMA/coef;
     }
     
-    public double getForma(User u){
+    public static double calculaForma(User u){
         double formaFinal = 0.0;
         GregorianCalendar hoje = new GregorianCalendar();
         GregorianCalendar diaMaisAfastado = new GregorianCalendar();
-        diaMaisAfastado.add(GregorianCalendar.DAY_OF_MONTH, -DIAS_RELEVANTES);
+        diaMaisAfastado.add(GregorianCalendar.DAY_OF_MONTH, -DIAS_RELEVANTES);/**"-" antes tem significado???*/
         
-        TreeSet<Activity> actividades = u.actividadesEntre(diaMiasAfastado, hoje);
+        Set<Activity> actividades = u.actividadesEntre(diaMaisAfastado, hoje);
         Iterator<Activity> it = actividades.iterator();
         
         double pesoPonderado = calculaPesoPonderadoInicial();
         
         while(it.hasNext()){
             Activity actActual = it.next();
-            formaFinal += (act.Actual.getDuration_inMinutes()/actActual.getIntensidade()) * pesoPonderado;
+            formaFinal += (actActual.getDuration_inMinutes()/actActual.getIntensidade()) * pesoPonderado;
             pesoPonderado *= (1+TAXA);
         }
         

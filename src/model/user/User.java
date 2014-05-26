@@ -115,7 +115,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     			Iterator<Integer> _iteRecType = hashMap.keySet().iterator();
     			Iterator<Activity> _iteAct = hashMap.values().iterator();
 
-    			hashMap = new HashMap<>(); /*using hashMap to Add */
+    			hashMap = new HashMap<Integer, Activity>(); /*using hashMap to Add */
     			this.recordes.put(_class,hashMap);
     			while(_iteRecType.hasNext()){
     				hashMap.put(_iteRecType.next(),_iteAct.next().clone());
@@ -178,7 +178,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     }
     
     public double getForma(){
-        return FormaCalculation.getForma(this);
+        return FormaCalculation.calculaForma(this);
     }
     
     public Manager<String> amigosManager(){return this.amigos;}    
