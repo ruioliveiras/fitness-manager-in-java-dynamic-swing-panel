@@ -51,7 +51,8 @@ public class ManagerSet<V> extends Manager<V>{
 	@Override
 	public boolean add(V obj) {
 		if (super.add(obj)){
-			mSet.add(cloneV(obj));
+			V a = cloneV(obj);
+			mSet.add(a);
 			return true;
 		}else{
 			return false;

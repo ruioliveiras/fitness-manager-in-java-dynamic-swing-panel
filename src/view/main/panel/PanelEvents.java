@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import core.FormUtils;
 import core.FormUtils.FormAttr;
 import core.FormUtils.FormButtons;
 import view.main.PanelListToolBar;
@@ -84,7 +85,7 @@ public class PanelEvents extends PanelListToolBar{
 		public int getIndex() {return ordinal();}		
 	}
 
-	//new SimpleDateFormat("dd/MM/yyyy")
+	//new SimpleDateFormat(FormUtils.DATA_PATTERM)
 	
 	
 	public PanelEvents() {
@@ -111,7 +112,7 @@ public class PanelEvents extends PanelListToolBar{
 			}
 			/*Specific Cases*/
 			mJComponets[FormAttEnum.DATA_FIM.ordinal()] = FormAttEnum.DATA_FIM.getComponetConstructor()
-					.newInstance(new SimpleDateFormat("dd/MM/yyyy"));
+					.newInstance(new SimpleDateFormat(FormUtils.DATA_PATTERM));
 		
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException

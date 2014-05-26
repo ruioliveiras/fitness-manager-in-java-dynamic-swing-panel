@@ -36,8 +36,8 @@ public class ControllerMain implements MainListener{
 		
 		mControllerProfile = new ControllerProfile(mViewMain.getHandlerProfile(),mUserCopy);
 		mControllerActivitys = new ControllerActivitys(mViewMain.getHandlerActivities(),mUserCopy);
-		mControllerEvents = new ControllerEvents(mViewMain.getHandlerEvents());
-		mControllerRecords = new ControllerRecords(mViewMain.getHandlerRecords());
+		mControllerEvents = new ControllerEvents(mViewMain.getHandlerEvents(),mUserCopy);
+		mControllerRecords = new ControllerRecords(mViewMain.getHandlerRecords(),mUserCopy);
 	//	mControllerStats = new ControllerStats(mViewMain.getHandlerStats());
 		
 		initListeners();

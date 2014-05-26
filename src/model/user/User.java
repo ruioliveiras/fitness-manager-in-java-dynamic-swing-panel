@@ -64,7 +64,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
         this.permissoes = Permissoes.Guest;
         this.fcr = 0;
         this.amigos = new ManagerSet<String>(new HashSet<String>());
-        this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
+        this.treeActividadesUser = new TreeSet<Activity>();
         this.actividadesUser = new ManagerSet<Activity>(this.treeActividadesUser);
     }
     public User(String email){

@@ -30,7 +30,7 @@ public class PanelProfile extends PanelToolBar implements ActionListener{
 		SEXO      ("Genero",new JTextField()),
 		ALTURA    ("Altura",new JTextField()),
 		PESO      ("Peso",new JTextField()),
-		NASCIMENTO("Data Nascimento",new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"))),
+		NASCIMENTO("Data Nascimento",new JFormattedTextField(new SimpleDateFormat(FormUtils.DATA_PATTERM))),
 		PREFERIDO ("Desporto Favorito",new JTextField());
  
 		private String label;

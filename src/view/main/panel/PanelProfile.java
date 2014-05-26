@@ -15,6 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import core.FormUtils;
 import core.FormUtils.FormAttr;
 import core.FormUtils.FormButtons;
 import view.main.PanelToolBar;
@@ -118,7 +119,7 @@ public class PanelProfile extends PanelToolBar {
 			}
 			/*Specific Cases*/
 			mJComponets[FormAttEnum.NASCIMENTO.ordinal()] = FormAttEnum.NASCIMENTO.getComponetConstructor()
-					.newInstance(new SimpleDateFormat("dd/MM/yyyy"));
+					.newInstance(new SimpleDateFormat(FormUtils.DATA_PATTERM));
 		
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException

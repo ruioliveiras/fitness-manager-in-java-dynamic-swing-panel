@@ -19,7 +19,7 @@ import core.FormUtils.FormButtons;
 import core.FormUtils.FormHandle;
 
 public abstract class PanelToolBar implements FormHandle{
-	private static final int TOOL_BAR_SIZE = 50;
+	protected static int TOOL_BAR_SIZE = 50;
 	
 	protected int mWidth;
 	protected int mHeight;

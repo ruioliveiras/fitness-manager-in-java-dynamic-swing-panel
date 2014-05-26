@@ -54,7 +54,7 @@ public class PanelEvents extends PanelListToolBar{
 	public enum Attr implements FormUtils.FormAttr{
 		NOME		(500,"Nome",new JTextField()),
 		NUM_PARTI	(50,"Nº participantes",new JTextField()),
-		DATA_FIM	(100,"Fim Inscrição",new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy")));
+		DATA_FIM	(100,"Fim Inscrição",new JFormattedTextField(new SimpleDateFormat(FormUtils.DATA_PATTERM)));
  
 		private String label;
 		private JTextComponent text;

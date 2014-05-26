@@ -43,7 +43,7 @@ public class PanelActivities extends PanelListToolBar {
 	}
 
 	public enum FormAttEnum implements FormAttr{
-		COMBO		("E-Mail", JComboBox.class),
+		COMBO		("", JComboBox.class),
 		TIME		("Time",JTextField.class),
 		HEARTH		("Pulsação",JTextField.class),
 		TEMPO		("Tempo",JComboBox.class),

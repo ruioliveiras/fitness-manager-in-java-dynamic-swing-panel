@@ -83,6 +83,7 @@ public abstract class Activity implements ObjectClonable,Serializable {
     public  abstract Activity clone();
     
     /*Record*/
+    public abstract String getRecordToString(int recordType);
     public abstract int getRecordSize();
     public abstract long get(int iAttr);
     public abstract void correct(int iAttr);
