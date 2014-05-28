@@ -96,12 +96,12 @@ public abstract class Event implements ObjectClonable  {
         return mUsers;
     }
     
-    public void addUser(User u) {
+    public void addUser(User u) throws AddEventException{
         String userEmail = u.getEmail();
         GregorianCalendar agora = new GregorianCalendar();
-        if(this.mEndDate.compareTo(new GregorianCalendar()) > 0) return;/*data posterior ao limite de inscricao*/
-        if(this.mMaxNumUsers <= this.mUsers.getSize()) return; /*excedeu limite de users*/
-        if(this.mPreRequisite > u.getRecordValue(this.mActivity.getClass(), this.mRecordType)) return; /*nao tem tempo minimo*/
+        if(this.mEndDate.compareTo(new GregorianCalendar()) > 0) throw new AddEventException("Data limite de inscrição!");/*data posterior ao limite de inscricao*/
+        if(this.mMaxNumUsers <= this.mUsers.getSize()) throw new AddEventException("Número máximo de inscrições!"); /*excedeu limite de users*/
+        if(this.mPreRequisite > u.getRecordValue(this.mActivity.getClass(), this.mRecordType)) throw new AddEventException("Não cumpre o pré-requisito!"); /*nao tem tempo minimo*/
         mUsers.add(userEmail);
     }
     
