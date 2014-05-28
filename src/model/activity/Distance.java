@@ -37,9 +37,9 @@ public abstract class Distance extends Activity {
 	public void setMaxSpeed(int maxSpeed){mMaxSpeed = maxSpeed;}
 	public int getMaxSpeed(){return mMaxSpeed;}
 	
-	
+	/*atencao as unidades: m/s!*/
 	public float getVelocity(){
-		return (float)mDistance/ (float)super.getDuration();
+		return (float)mDistance/ (float)getDuration_inSeconds();
 	}
 
 

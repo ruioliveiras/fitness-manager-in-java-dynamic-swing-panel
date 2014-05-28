@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.params=
+comment0.target=model.Dataset\ getDataSet()
+comment1.params=index
+comment1.target=java.lang.String\ getActivityName(int)
+comment10.params=
+comment10.target=void\ clean()
+comment2.params=index
+comment2.target=model.activity.Activity\ getActivity(int)
+comment3.params=name
+comment3.target=model.activity.Activity\ getActivity(java.lang.String)
+comment4.params=name
+comment4.target=int\ getActivityIndex(java.lang.String)
+comment5.params=
+comment5.target=java.lang.String[]\ getActivitiesNames()
+comment6.params=args
+comment6.target=void\ main(java.lang.String[])
+comment7.params=
+comment7.target=void\ save()
+comment8.params=
+comment8.target=void\ load()
+comment9.params=
+comment9.target=void\ loadSample()
+numComments=11

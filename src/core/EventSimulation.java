@@ -25,7 +25,7 @@ public class EventSimulation {
         double fitnessFact = u.getForma();
         double weatherFact = (double) Math.min(0.1, (double) w.getLvl()/20);
         long result;
-        if(Math.random() < 0.01) /*probabilida de de desistir = 1%*/
+        if(Math.random()*20 < 0.01*u.getIdade()) /*probabilida de de desistir proporcional a faixa etaria, 1% para 20 anos*/
             result = Long.MAX_VALUE; /*desistiu => duracao muito elevada*/
         else{
             result = (long) (rndFact * prsBest * fitnessFact * weatherFact);

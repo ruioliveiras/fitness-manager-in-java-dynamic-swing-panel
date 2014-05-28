@@ -52,10 +52,10 @@ public class EventDistance extends Event {
     @Override
     public String toString(){
         StringBuilder stringb = new StringBuilder();
-        stringb.append("Nome: " + this.getName() + "\n");
-        stringb.append("Actividade: " + this.getActivity().getName() + "\n");
-        stringb.append("Distancia(m): " + this.getActivity() + "\n");
-        stringb.append("Data: " + this.getEventDate().toString() + "\n");
+        stringb.append("Nome: " + this.getName());
+        stringb.append(", Actividade: " + this.getActivity().getName());
+        stringb.append(", Distancia(m): " + this.getActivity());
+        stringb.append(", Data: " + this.getEventDate().toString());
         return stringb.toString();
     }
     

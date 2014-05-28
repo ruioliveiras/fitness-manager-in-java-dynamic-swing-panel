@@ -25,6 +25,7 @@ comment6.params=
 comment6.target=int\ getMaxSpeed()
 comment7.params=
 comment7.target=float\ getVelocity()
+comment7.text=atencao\ as\ unidades\:\ m/s\!
 comment8.params=recordType
 comment8.target=long\ getStat(int)
 comment9.params=iAttr

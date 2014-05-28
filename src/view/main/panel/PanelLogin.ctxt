@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=
+comment0.target=PanelLogin()
+comment1.params=in
+comment1.target=javax.swing.JPanel\ loadIn(javax.swing.JPanel)
+comment2.params=actForm
+comment2.target=javax.swing.JPanel\ builWorkSpace(javax.swing.JPanel)
+comment3.params=
+comment3.target=void\ init()
+numComments=4
