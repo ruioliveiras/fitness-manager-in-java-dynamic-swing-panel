@@ -141,10 +141,7 @@ public abstract class Distance extends Activity {
     	sb.append(getName());sb.append(" |- ");sb.append(a.getName());
     	sb.append(" ");
     	Calendar c = Calendar.getInstance();
-    	c.set(Calendar.HOUR_OF_DAY, 0);
-    	c.set(Calendar.MINUTE, 0);
-    	c.set(Calendar.SECOND, 0);
-    	c.set(Calendar.MILLISECOND, 0);
+    	c.set(Calendar.HOUR_OF_DAY, 0); c.set(Calendar.MINUTE, 0); 	c.set(Calendar.SECOND, 0); 	c.set(Calendar.MILLISECOND, 0);
     	c.setTimeInMillis(c.getTimeInMillis() + getDuration());
     	DateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
     	switch (att) {
