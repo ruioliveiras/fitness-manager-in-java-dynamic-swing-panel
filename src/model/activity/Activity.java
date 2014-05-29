@@ -6,6 +6,7 @@ import model.user.User;
 import model.ObjectClonable;
 import model.Record;
 import core.util.Util;
+import java.text.SimpleDateFormat;
 
 
 
@@ -145,10 +146,12 @@ public abstract class Activity implements ObjectClonable,Serializable {
     }
 
     public String toString(){
+        String data = new SimpleDateFormat("dd/MM/yyyy").format(this.getDate().getTime());
+        
         StringBuilder stringb = new StringBuilder();
-        stringb.append("Data: " + this.getDate().toString());
+        stringb.append(data);
         stringb.append(", Categoria: " + this.getName());
-        stringb.append("Duracao(h): " + this.getDuration_inHours());
+        stringb.append(", Duracao(h): " + this.getDuration_inHours());
         stringb.append(", " + this.getWeather().toString());
         return stringb.toString();
     }
