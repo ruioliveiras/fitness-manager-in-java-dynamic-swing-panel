@@ -15,6 +15,8 @@ import javax.swing.event.ListSelectionListener;
 
 public class FormUtils {
 	
+	public static final String DATA_PATTERM = "dd/MM/yyyy-HH:mm";
+	
 	public interface FormButtons{
 		int getIndex();
 		public String text1();
@@ -46,9 +48,13 @@ public class FormUtils {
 		public void addStringAll(Collection<?> str);
 		public void addString(Object str);
 		public void editString(int index,String str);
+		public int getSelectIndex();
+		public void addLoadLisnener(OnPanelLoadLisneter load);
 	}
 	
-
+	public interface OnPanelLoadLisneter{
+		public void load();
+	}
 	
 	public static String[] stringFactory(String ...array){
 		String res[] = new String[array.length];

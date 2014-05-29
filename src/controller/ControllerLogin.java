@@ -17,6 +17,7 @@ import view.FormLogin;
 import view.FormRegister;
 import view.main.panel.PanelLogin.FormButtonEnum;
 import view.main.panel.PanelProfile;
+import core.FormUtils;
 import core.FormUtils.FormHandle;
 import core.util.Manager.ObjectDontExistException;
 
@@ -70,12 +71,12 @@ public class ControllerLogin{
 					String d = mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.NASCIMENTO);
 					date = new GregorianCalendar();
 
-					date.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(d));
+					date.setTime((new SimpleDateFormat(FormUtils.DATA_PATTERM)).parse(d));
 				} catch (ParseException e) {
 					JOptionPane.showMessageDialog(null, "Data de Nascimento com formato invalido");
 					/*Dont save*/
 					return; 
-				}catch (ActivityNameDontExistException e) {
+				}catch (NameDontExistException e) {
 					JOptionPane.showMessageDialog(null, "Desporto não existe");
 					return;
 				}catch (StringIndexOutOfBoundsException e) {

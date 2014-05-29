@@ -1,5 +1,8 @@
 package model.activity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import model.Record;
@@ -110,7 +113,7 @@ public abstract class Distance extends Activity {
     	switch (a) {
     	case DISTANCE: return getDistance();
     	case SPEED:  	return getMaxSpeed();
-    	case TIME:     return (int) (getDuration() ); //* seconds
+    	case TIME:     return (int) (-1) * (getDuration() ); //* seconds
     	default:		return -1;
     	}
 	}
@@ -122,6 +125,7 @@ public abstract class Distance extends Activity {
     		return;
     	if (a.getMov() == Attr.DISTANCE){
     		setDuration((getDuration() * a.getValue() )/mDistance);
+    		setDistance((int) a.getValue());
     	}
 	} 
     
@@ -130,7 +134,26 @@ public abstract class Distance extends Activity {
 		return MyRecords.values().length;
 	}
    
-    
+    public String getRecordToString(int recordType){
+    	MyRecords a = MyRecords.values()[recordType];
+    	Attr att = Attr.values()[a.getMov().getAttrType()];
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getName());sb.append(" |- ");sb.append(a.getName());
+    	sb.append(" ");
+    	Calendar c = Calendar.getInstance();
+    	c.set(Calendar.HOUR_OF_DAY, 0);
+    	c.set(Calendar.MINUTE, 0);
+    	c.set(Calendar.SECOND, 0);
+    	c.set(Calendar.MILLISECOND, 0);
+    	c.setTimeInMillis(c.getTimeInMillis() + getDuration());
+    	DateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
+    	switch (att) {
+    	case SPEED:  	sb.append(getMaxSpeed());sb.append("m/s");break;
+    	case TIME:     	sb.append(df.format(c.getTime()));break;
+    	default:		break;
+    	}
+    	return sb.toString();
+    }
   
 
 	

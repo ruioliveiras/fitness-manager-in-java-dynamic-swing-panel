@@ -85,6 +85,7 @@ public abstract class Activity implements ObjectClonable,Serializable {
     public  abstract Activity clone();
     
     /*Record*/
+    public abstract String getRecordToString(int recordType);
     public abstract int getRecordSize();
     public abstract long get(int iAttr);
     public abstract void correct(int iAttr);
@@ -98,7 +99,7 @@ public abstract class Activity implements ObjectClonable,Serializable {
     	if ((value == Integer.MAX_VALUE) || (a.similar(value))){
     		return get(a.getMov().getAttrType());
     	}else{
-    		return -1;
+    		return Integer.MAX_VALUE;
     	}
     }
     public long getRecordTypeValue(int recordType){
@@ -117,7 +118,7 @@ public abstract class Activity implements ObjectClonable,Serializable {
 		long sThis,sOther = 0;
 		sThis  = this.getStat(recordType);
 		
-		if (sThis < 0){
+		if (sThis  == Integer.MAX_VALUE){
 			return -1;
 		}
 		if(otherActivity != null){

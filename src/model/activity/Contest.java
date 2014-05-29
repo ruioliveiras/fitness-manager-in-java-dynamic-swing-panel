@@ -96,15 +96,35 @@ public abstract class Contest extends Activity {
         return super.getStat(a);
     }
     public long get(int iAttr) {
-        Attr a = Attr.values()[iAttr];
-        switch (a) {
-        case POINT_TEAM: return getPointTeam();
-        case RESULT_DIF: return getPointTeam() - getPointRival();
-        case TEMPO:      return (int) (getDuration() / (1000) ); //* seconds
-        default:
-            return -1;
-        }
-    } 
+    	Attr a = Attr.values()[iAttr];
+    	switch (a) {
+		case POINT_TEAM: return getPointTeam();
+		case RESULT_DIF: return getPointTeam() - getPointRival();
+		case TEMPO: 	 return (int) (-1) * (getDuration() / (1000) ); //* seconds
+		default:
+			return -1;
+    	}
+	} 
+    
+    public String getRecordToString(int recordType){
+    	Record r = MyRecords.values()[recordType];
+    	Attr a = Attr.values()[r.getMov().getAttrType()];
+    	
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getName());sb.append(" |- ");sb.append(a.getName());
+    	sb.append(" ");
+    	
+    	switch (a) {
+		case RESULT_DIF: sb.append(getPointTeam() - getPointRival());sb.append(" ");sb.append(getPointName()); break;
+		case POINT_TEAM: 	sb.append(getPointTeam());sb.append(" ");sb.append(getPointName()); break;
+		default:
+			break;
+    	}
+    	
+    	return sb.toString();
+    }
+    
+
     @Override
     public void correct(int recordType) {
         //Don't need to correct nothing

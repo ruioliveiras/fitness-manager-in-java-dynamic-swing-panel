@@ -2,35 +2,57 @@ package controller.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import model.activity.Activity;
+import model.user.User;
 import view.main.panel.PanelRecords.FormAttEnum;
 import view.main.panel.PanelRecords.FormButtonEnum;
 import core.FormUtils.FormHandle;
+import core.FormUtils.FormListHandle;
 
-public class ControllerRecords {
-
-	private FormHandle mHandler;
+public class ControllerRecords implements ListSelectionListener {
+	private FormListHandle mHandler;
+	private User mUser;
+	private Map<Integer,Activity> mActivitys;
+	private List<String> mActivitysString;
 	
-	public ControllerRecords(FormHandle handler) {
-		mHandler = handler;  
+	public ControllerRecords(FormHandle handler,User user) {
+		mHandler = (FormListHandle) handler;
+		mUser = user;
+		mActivitys = mUser.getRecords();
+		setActivityString(mActivitys);
+		mHandler.addStringAll(mActivitysString); 
 		initListeners();
 	}
 	
+	private void setActivityString(Map<Integer,Activity> hash){
+		mActivitysString = new ArrayList<String>(hash.size());
+		Iterator<Integer> ite = hash.keySet().iterator();
+		for (Activity activity : hash.values()) {
+			mActivitysString.add(activity.getRecordToString(ite.next()));
+		}
+	}
 	
 	private void initListeners(){
-		mHandler.addButtonListener(FormButtonEnum.EDITAR, new ActionListener() {
+		mHandler.addButtonListener(FormButtonEnum.ACTUALIZAR, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				boolean isEdit = mHandler.getTextIndex(FormButtonEnum.EDITAR) == 0; 
+				boolean isEdit = mHandler.getTextIndex(FormButtonEnum.ACTUALIZAR) == 0; 
 				setComponentsEnable(isEdit); // enable if isEdit
 				if (isEdit){
-					mHandler.setText2(FormButtonEnum.EDITAR);
+					mHandler.setText2(FormButtonEnum.ACTUALIZAR);
 				}else{
-					mHandler.setText1(FormButtonEnum.EDITAR);
+					mHandler.setText1(FormButtonEnum.ACTUALIZAR);
 					saveProfileChanges();
-				}
-			
+				}			
 			}
 
 			
@@ -42,9 +64,16 @@ public class ControllerRecords {
 		
 	}
 	
+
 	protected void setComponentsEnable(boolean b){
 		for(FormAttEnum e: FormAttEnum .values()){
 			mHandler.getComponent(e).setEnabled(b);
 		}
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		int index = mHandler.getSelectIndex();
+		
 	}
 }

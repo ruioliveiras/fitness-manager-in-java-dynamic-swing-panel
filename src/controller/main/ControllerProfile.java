@@ -16,8 +16,9 @@ import model.user.User;
 import view.main.panel.PanelProfile;
 import view.main.panel.PanelProfile.FormAttEnum;
 import view.main.panel.PanelProfile.FormButtonEnum;
-import controller.ActivityNameDontExistException;
+import controller.NameDontExistException;
 import controller.Main;
+import core.FormUtils;
 import core.FormUtils.FormHandle;
 
 public class ControllerProfile {
@@ -53,7 +54,7 @@ public class ControllerProfile {
 	}
 	
 	private void initValues(){
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat(FormUtils.DATA_PATTERM);
 		
 		mHandler.setValue(FormAttEnum.NAME, mUser.getNome());
 		mHandler.setValue(FormAttEnum.EMAIL, mUser.getEmail());
@@ -90,12 +91,12 @@ public class ControllerProfile {
 			String d = mHandler.getValue(PanelProfile.FormAttEnum.NASCIMENTO);
 			date = new GregorianCalendar();
 
-			date.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(d));
+			date.setTime((new SimpleDateFormat(FormUtils.DATA_PATTERM)).parse(d));
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Data de Nascimento com formato invalido");
 			/*Dont save*/
 			return; 
-		}catch (ActivityNameDontExistException e) {
+		}catch (NameDontExistException e) {
 			JOptionPane.showMessageDialog(null, "Desporto não existe");
 			return;
 		}catch (StringIndexOutOfBoundsException e) {

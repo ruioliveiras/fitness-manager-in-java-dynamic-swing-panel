@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeSet;
 
 import model.ObjectClonable;
@@ -75,7 +76,7 @@ public abstract class Manager<V> implements Serializable{
 		return iterator(null);
 	}
 
-	public Collection<V> collection(){
+	public List<V> collection(){
 		ArrayList<V> res = new ArrayList<V>();
 		Iterator<V> ite = iterator();
 		

@@ -90,7 +90,7 @@ public abstract class Skill extends Activity {
     	switch (a) {
 		case MAX_TRICK: return getMaxTrick();
 		case POINTS: 	return getPoints();
-    	case TEMPO:     return (int) (getDuration() / (1000) ); //* seconds
+    	case TEMPO:     return (int) (-1) * (getDuration() / (1000) ); //* seconds
     	default:		return -1;
     	}
 	} 
@@ -99,11 +99,27 @@ public abstract class Skill extends Activity {
     	//Don't need to correct nothing
 	} 
     @Override
-	public int getRecordSize() {
-		return MyRecords.values().length;
-	}
+    public int getRecordSize() {
+    	return MyRecords.values().length;
+    }
+    public String getRecordToString(int recordType){
+    	Record r = MyRecords.values()[recordType];
+    	Attr a = Attr.values()[r.getMov().getAttrType()];
+    	
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getName());sb.append(" |- ");sb.append(a.getName());
+    	sb.append(" ");
+    	
+    	switch (a) {
+		case MAX_TRICK: sb.append(getMaxTrick());sb.append(" ");sb.append(getPointName()); break;
+		case POINTS: 	sb.append(getPoints());sb.append(" ");sb.append(getPointName()); break;
+		default:
+			break;
+    	}
+    	
+    	return sb.toString();
+    }
 
-	
 	@Override
 	public boolean equals (Object obj){
 		if(this == obj) return true; 

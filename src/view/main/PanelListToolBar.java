@@ -16,9 +16,12 @@ import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionListener;
 
+import com.sun.org.apache.xpath.internal.axes.OneStepIterator;
+
 import core.FormUtils.FormAttr;
 import core.FormUtils.FormButtons;
 import core.FormUtils.FormListHandle;
+import core.FormUtils.OnPanelLoadLisneter;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class PanelListToolBar extends PanelToolBar implements ListModel<String>, FormListHandle {
@@ -26,15 +29,15 @@ public abstract class PanelListToolBar extends PanelToolBar implements ListModel
 	private ListSelectionListener mListListener;
 	private ArrayList<ListDataListener> mListModelListeners = new ArrayList<ListDataListener>(); 
 	private List<Object> mString;
-		
+	private JList<String> mList;		
+	private OnPanelLoadLisneter mOnLoad;
 	public PanelListToolBar(
 			FormAttr[] attrs,
 			FormButtons[] buttons){
 		super(attrs,buttons);
 		
-		
 	}
-	
+
 	public void addStringAll(Collection<?> str){
 		mString = new ArrayList<Object>(str);
 		callListDataListener_ActionAdd();
@@ -54,7 +57,7 @@ public abstract class PanelListToolBar extends PanelToolBar implements ListModel
 	public JPanel loadIn(JPanel panel){
 		JPanel rs = super.loadIn(panel);
 		mWork = (JPanel) mWork.getComponent(0);
-		
+		if (mOnLoad != null) mOnLoad.load();
 		return rs;
 	}
 	
@@ -67,15 +70,17 @@ public abstract class PanelListToolBar extends PanelToolBar implements ListModel
 	@Override
 	protected JPanel builWorkSpace(JPanel panel) {
 		JPanel actForm;
-		JList<String> activities;
+	
+		
+		
 		
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		actForm = super.builWorkSpace(new JPanel());
 
-		activities = new JList<String>(this);
-		if (mListListener != null) activities.addListSelectionListener(mListListener);
-		JScrollPane listScroller = new JScrollPane(activities);
+		mList = new JList<String>(this);
+		if (mListListener != null) mList.addListSelectionListener(mListListener);
+		JScrollPane listScroller = new JScrollPane(mList);
         listScroller.setPreferredSize(new Dimension(mWidth,(int) (mHeight * 0.7)));
         listScroller.setBorder(BorderFactory.createLineBorder(Color.BLUE,1,true));
 	    
@@ -92,8 +97,13 @@ public abstract class PanelListToolBar extends PanelToolBar implements ListModel
 	public void addListListener(ListSelectionListener lis) {
 		mListListener = lis;
 	}
-
-
+	
+	public int getSelectIndex(){
+		return mList.getSelectedIndex();
+	}
+	public void addLoadLisnener(OnPanelLoadLisneter load){
+		mOnLoad = load;
+	}
 
 	/** Implements ListModel<String> (Activitie list provider) Start ##################*/
 	@Override

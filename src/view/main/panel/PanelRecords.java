@@ -16,12 +16,9 @@ import view.main.PanelListToolBar;
 
 
 public class PanelRecords extends PanelListToolBar {
-
+		
 	public enum FormButtonEnum implements FormButtons{
-		ADERIR		("Aderir",""),
-		CRIAR_SALVAR("Criar","Salvar"),
-		EDITAR		("Editar","Salvar"),
-		INICIAR		("Iniciar","");
+		ACTUALIZAR		("Actualizar","");
 		
 
 		private String eText1;

@@ -1,5 +1,8 @@
 package model.activity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import model.Record;
@@ -85,6 +88,32 @@ public abstract class Ludic extends Activity {
     @Override
 	public int getRecordSize() {
 		return MyRecords.values().length;
-	}
+	} 
+    
+    
+    public String getRecordToString(int recordType){
+    	Record r = MyRecords.values()[recordType];
+    	Attr a = Attr.values()[r.getMov().getAttrType()];
+    	
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getName());sb.append(" |- ");sb.append(a.getName());
+    	sb.append(" ");
+    	
+    	Calendar c = Calendar.getInstance();
+    	c.set(Calendar.HOUR_OF_DAY, 0);
+    	c.set(Calendar.MINUTE, 0);
+    	c.set(Calendar.SECOND, 0);
+    	c.set(Calendar.MILLISECOND, 0);
+    	c.setTimeInMillis(c.getTimeInMillis() + getDuration());
+    	DateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
+    	
+    	switch (a) {
+		case TEMPO:   sb.append(df.format(c.getTime()));break;
+		default:
+			break;
+    	}
+    	
+    	return sb.toString();
+    }
    
 }

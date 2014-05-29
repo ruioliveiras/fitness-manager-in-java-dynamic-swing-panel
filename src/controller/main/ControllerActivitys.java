@@ -6,11 +6,15 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import model.activity.Activity;
 import model.activity.Altimetry;
@@ -21,20 +25,24 @@ import model.activity.Skill;
 import model.user.User;
 import view.main.panel.PanelActivities.FormAttEnum;
 import view.main.panel.PanelActivities.FormButtonEnum;
-import controller.ActivityNameDontExistException;
+import controller.NameDontExistException;
 import controller.Main;
+import core.FormUtils;
 import core.FormUtils.FormHandle;
 import core.FormUtils.FormListHandle;
+import core.FormUtils.OnPanelLoadLisneter;
 
-public class ControllerActivitys {
+public class ControllerActivitys implements ListSelectionListener{
 	private FormListHandle mHandler;
 	private User mUser;
 	private Activity mSelected;
+	private List<Activity> mActivitys;
 	
 	public ControllerActivitys(FormHandle handler,User user) {
 		mHandler = (FormListHandle) handler;
 		mUser = user;
-		mHandler.addStringAll(mUser.atividadesManager().collection()); 
+		mActivitys = mUser.atividadesManager().collection();
+		mHandler.addStringAll(mActivitys); 
 		initListeners();
 	}
 	
@@ -75,6 +83,7 @@ public class ControllerActivitys {
 			}
 
 		});
+		mHandler.addListListener(this);
 		
 		JComboBox<?> a = (JComboBox<?>) mHandler.getComponent(FormAttEnum.COMBO);
 		a.setModel(new DefaultComboBoxModel(Main.getActivitiesNames()));
@@ -84,13 +93,18 @@ public class ControllerActivitys {
 				
 				try {
 					setActivity( Main.getActivity(arg0.getItem().toString()));
-				} catch (ActivityNameDontExistException e) {
+				} catch (NameDontExistException e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		
-		
+		mHandler.addLoadLisnener(new OnPanelLoadLisneter() {
+			@Override
+			public void load() {
+				setActivity(new Ginasio());
+			}
+		});
+
 	}
 	
 	private void setActivity(Activity act){
@@ -115,7 +129,7 @@ public class ControllerActivitys {
 			time.setText(String.valueOf(act.getDuration_inSeconds()));
 			hr.setText(String.valueOf(act.getHeartRate()));
 			//((JTextField) mHandler.getComponent(FormAttEnum.TEMPO))
-			date.setText(new SimpleDateFormat("dd/MM/yyyy").format(act.getDate().getTime()));
+			date.setText(new SimpleDateFormat(FormUtils.DATA_PATTERM).format(act.getDate().getTime()));
 			
 			if (act instanceof Distance){
 				distance.setText(String.valueOf(((Distance) act).getDistance()));
@@ -160,7 +174,7 @@ public class ControllerActivitys {
 			mHandler.getLabel(FormAttEnum.POINTS).setVisible(act instanceof Skill);
 			
 			
-		} catch (ActivityNameDontExistException e) {
+		} catch (NameDontExistException e) {
 			e.printStackTrace();
 		}
 	}
@@ -192,7 +206,7 @@ public class ControllerActivitys {
 			act.setHeartRate(Integer.parseInt( hr.getText()));
 			//((JTextField) mHandler.getComponent(FormAttEnum.TEMPO))
 			GregorianCalendar greg = new GregorianCalendar();
-			greg.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(date.getText()));
+			greg.setTime(new SimpleDateFormat(FormUtils.DATA_PATTERM).parse(date.getText()));
 			act.setDate(greg);
 
 			if (act instanceof Distance){
@@ -219,7 +233,7 @@ public class ControllerActivitys {
 			mUser.atividadesManager().add(act);
 			Main.getDataSet().userManager().add(mUser);
 			Main.save();
-		} catch (ActivityNameDontExistException e) {
+		} catch (NameDontExistException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
 			
@@ -233,5 +247,13 @@ public class ControllerActivitys {
 		for(FormAttEnum e: FormAttEnum .values()){
 			mHandler.getComponent(e).setEnabled(b);
 		}
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		int index = mHandler.getSelectIndex();
+		mSelected = mActivitys.get(index);
+		setActivity(mSelected);
+		
 	}
 }
