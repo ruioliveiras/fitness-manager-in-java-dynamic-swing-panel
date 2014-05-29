@@ -13,4 +13,6 @@ comment5.params=recordType
 comment5.target=void\ correct(int)
 comment6.params=
 comment6.target=int\ getRecordSize()
-numComments=7
+comment7.params=recordType
+comment7.target=java.lang.String\ getRecordToString(int)
+numComments=8

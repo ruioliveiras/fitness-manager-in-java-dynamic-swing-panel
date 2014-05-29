@@ -7,6 +7,8 @@ import model.ObjectClonable;
 import model.Record;
 import core.util.Util;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.text.DateFormat;
 
 
 
@@ -149,10 +151,18 @@ public abstract class Activity implements ObjectClonable,Serializable {
     public String toString(){
         String data = new SimpleDateFormat("dd/MM/yyyy").format(this.getDate().getTime());
         
+        Calendar c = Calendar.getInstance();
+    	c.set(Calendar.HOUR_OF_DAY, 0);
+    	c.set(Calendar.MINUTE, 0);
+    	c.set(Calendar.SECOND, 0);
+    	c.set(Calendar.MILLISECOND, 0);
+    	c.setTimeInMillis(c.getTimeInMillis() + this.getDuration());
+    	DateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
+        
         StringBuilder stringb = new StringBuilder();
         stringb.append(data);
         stringb.append(", Categoria: " + this.getName());
-        stringb.append(", Duracao(h): " + this.getDuration_inHours());
+        stringb.append(", Duracao(h): " + df.format(c.getTime()));
         stringb.append(", " + this.getWeather().toString());
         return stringb.toString();
     }
