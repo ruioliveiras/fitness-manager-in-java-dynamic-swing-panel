@@ -2,18 +2,18 @@ package model.events;
 
 import java.util.GregorianCalendar;
 import java.util.HashSet;
-import java.util.List;
 
-import core.util.Manager;
-import core.util.ManagerSet;
 import model.ObjectClonable;
+import model.ObjectKey;
 import model.activity.Activity;
 import model.user.User;
+import core.util.Manager;
+import core.util.ManagerSet;
 
 
 //-Classe Evento: {Conjuto Users, Actividade, Categoria, Data evento, Data inscricao, Nome, pre-requisito inscricao (long tempo/distancia), numero maximo de participantes}
 
-public abstract class Event implements ObjectClonable  {
+public abstract class Event implements ObjectClonable,ObjectKey {
     private String mName;
     private Activity mActivity;/**ATENCAO: weather do Evento dentro da activity?*/
     private int mRecordType;
@@ -111,13 +111,19 @@ public abstract class Event implements ObjectClonable  {
       Event e = (Event) obj;
       return this.mName.equals(e.getName()) && this.mEventDate.equals(e.getEventDate());
     }
+  
+    
+    public Object getKey(){
+    	return getName();
+    }
     
     public abstract int hashCode();
     
     public abstract Object clone();
     
     public abstract String toString();
-        private Manager.OnManagerAdd<String> mListenerBeforeAdd = new Manager.OnManagerAdd<String>() {
+  
+    private Manager.OnManagerAdd<String> mListenerBeforeAdd = new Manager.OnManagerAdd<String>() {
         @Override
         public boolean beforeAdd(String obj) {
             

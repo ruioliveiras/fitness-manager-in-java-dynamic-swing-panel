@@ -2,7 +2,10 @@ package controller.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -17,17 +20,25 @@ import core.FormUtils.FormListHandle;
 public class ControllerRecords implements ListSelectionListener {
 	private FormListHandle mHandler;
 	private User mUser;
-	private List<Activity> mActivitys;
-	
+	private Map<Integer,Activity> mActivitys;
+	private List<String> mActivitysString;
 	
 	public ControllerRecords(FormHandle handler,User user) {
 		mHandler = (FormListHandle) handler;
 		mUser = user;
 		mActivitys = mUser.getRecords();
-		mHandler.addStringAll(mActivitys); 
+		setActivityString(mActivitys);
+		mHandler.addStringAll(mActivitysString); 
 		initListeners();
 	}
 	
+	private void setActivityString(Map<Integer,Activity> hash){
+		mActivitysString = new ArrayList<String>(hash.size());
+		Iterator<Integer> ite = hash.keySet().iterator();
+		for (Activity activity : hash.values()) {
+			mActivitysString.add(activity.getRecordToString(ite.next()));
+		}
+	}
 	
 	private void initListeners(){
 		mHandler.addButtonListener(FormButtonEnum.ACTUALIZAR, new ActionListener() {
@@ -63,8 +74,6 @@ public class ControllerRecords implements ListSelectionListener {
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		int index = mHandler.getSelectIndex();
-		mSelected = mActivitys.get(index);
-
 		
 	}
 }

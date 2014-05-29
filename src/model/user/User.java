@@ -5,10 +5,12 @@
 package model.user;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
@@ -220,6 +222,21 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
 			return true;
 		}
 	};
+
+	public Map<Integer,Activity> getRecords() {
+		Map<Integer,Activity> res = new HashMap<Integer,Activity>();
+		for (HashMap<Integer, Activity>  hash: recordes.values()) {
+			Iterator<Integer> ite = hash.keySet().iterator();
+			for(Activity act: hash.values()){
+				res.put(ite.next(), act.clone());
+			}
+		}
+		
+		
+		return res;
+	} 
+
+	
     private void addRecord(Activity activity){
         HashMap<Integer, Activity> actualRecords = recordes.get(activity.getClass());
         int numRecords;
@@ -277,7 +294,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     @Override
     public Object getKey() {
         return getEmail();
-    } 
+    }
 
     
 }

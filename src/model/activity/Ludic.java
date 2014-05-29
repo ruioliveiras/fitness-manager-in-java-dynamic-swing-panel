@@ -108,7 +108,7 @@ public abstract class Ludic extends Activity {
     	DateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
     	
     	switch (a) {
-		case TEMPO:   sb.append(df.format(c));break;
+		case TEMPO:   sb.append(df.format(c.getTime()));break;
 		default:
 			break;
     	}

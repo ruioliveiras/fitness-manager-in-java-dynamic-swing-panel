@@ -113,7 +113,7 @@ public abstract class Distance extends Activity {
     	switch (a) {
     	case DISTANCE: return getDistance();
     	case SPEED:  	return getMaxSpeed();
-    	case TIME:     return (int) (getDuration() ); //* seconds
+    	case TIME:     return (int) (-1) * (getDuration() ); //* seconds
     	default:		return -1;
     	}
 	}
@@ -149,7 +149,7 @@ public abstract class Distance extends Activity {
     	DateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
     	switch (att) {
     	case SPEED:  	sb.append(getMaxSpeed());sb.append("m/s");break;
-    	case TIME:     	sb.append(df.format(c));break;
+    	case TIME:     	sb.append(df.format(c.getTime()));break;
     	default:		break;
     	}
     	return sb.toString();

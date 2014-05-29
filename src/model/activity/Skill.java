@@ -90,7 +90,7 @@ public abstract class Skill extends Activity {
     	switch (a) {
 		case MAX_TRICK: return getMaxTrick();
 		case POINTS: 	return getPoints();
-    	case TEMPO:     return (int) (getDuration() / (1000) ); //* seconds
+    	case TEMPO:     return (int) (-1) * (getDuration() / (1000) ); //* seconds
     	default:		return -1;
     	}
 	} 

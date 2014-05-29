@@ -16,7 +16,7 @@ import model.user.User;
 import view.main.panel.PanelProfile;
 import view.main.panel.PanelProfile.FormAttEnum;
 import view.main.panel.PanelProfile.FormButtonEnum;
-import controller.ActivityNameDontExistException;
+import controller.NameDontExistException;
 import controller.Main;
 import core.FormUtils;
 import core.FormUtils.FormHandle;
@@ -96,7 +96,7 @@ public class ControllerProfile {
 			JOptionPane.showMessageDialog(null, "Data de Nascimento com formato invalido");
 			/*Dont save*/
 			return; 
-		}catch (ActivityNameDontExistException e) {
+		}catch (NameDontExistException e) {
 			JOptionPane.showMessageDialog(null, "Desporto não existe");
 			return;
 		}catch (StringIndexOutOfBoundsException e) {

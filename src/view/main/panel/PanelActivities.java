@@ -6,15 +6,11 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
-import model.activity.Contest;
+import view.main.PanelListToolBar;
 import core.FormUtils.FormAttr;
 import core.FormUtils.FormButtons;
-import view.main.PanelListToolBar;
 
 public class PanelActivities extends PanelListToolBar {
 	public enum FormButtonEnum implements FormButtons{

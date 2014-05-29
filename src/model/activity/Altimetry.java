@@ -129,7 +129,7 @@ public abstract class Altimetry extends Distance {
     		if (att.getName().equals(Attr.ALTURA.getName())){
     			sb.append(getMaxAltitude());sb.append("m");
     		}else if (att.getName().equals(Attr.ALTURA.getName())){
-    			sb.append(getMaxSpeed());sb.append(df.format(c));
+    			sb.append(getMaxSpeed());sb.append(df.format(c.getTime()));
     		}
     		return sb.toString();
     	}

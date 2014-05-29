@@ -102,18 +102,22 @@ public class Main {
 	};
 	public static String getActivityName(int index){return sActivivitys[index].getName();} 
 	public static Activity getActivity(int index){return sActivivitys[index].clone();}
-	public static Activity getActivity(String name) throws ActivityNameDontExistException{
+	public static Activity getActivity(String name) throws NameDontExistException{
 		return getActivity(getActivityIndex(name));
 	}
-	public static int getActivityIndex(String name) throws ActivityNameDontExistException{
+	public static int getActivityIndex(String name) throws NameDontExistException{
 		
 		for (int i = 0; i < sActivivitys.length; i++) {
 			if (sActivivitys[i].getName().equals(name)){
 				return i;
 			}		
 		}
-		throw new ActivityNameDontExistException();
+		throw new NameDontExistException();
 	}
+
+	
+	
+	
 	public static String[] getActivitiesNames() {
 		String[] array = new String[sActivivitys.length];
 		
@@ -158,11 +162,17 @@ public class Main {
 	      }catch(ClassNotFoundException c){
 	         c.printStackTrace();
 	      }
-	      if (d != null && d.userManager().collection().size() > 0){
-	    	  sDataSet = d;
-	      }else{
-	    	  loadSample();
-	      }    
+		  try {
+			if (d.userManager().collection().size() > 0){
+				sDataSet = d;
+			}else{
+				loadSample();
+			}
+				
+		} catch (Exception e) {
+			loadSample();
+		}
+    
 	}
 	
 	public static void loadSample(){
@@ -183,7 +193,7 @@ public class Main {
 		loadSample();
 		save();
 	}
-	
+
 
 	
 	

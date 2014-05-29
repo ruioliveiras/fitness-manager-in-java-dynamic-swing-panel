@@ -25,7 +25,7 @@ import model.activity.Skill;
 import model.user.User;
 import view.main.panel.PanelActivities.FormAttEnum;
 import view.main.panel.PanelActivities.FormButtonEnum;
-import controller.ActivityNameDontExistException;
+import controller.NameDontExistException;
 import controller.Main;
 import core.FormUtils;
 import core.FormUtils.FormHandle;
@@ -93,7 +93,7 @@ public class ControllerActivitys implements ListSelectionListener{
 				
 				try {
 					setActivity( Main.getActivity(arg0.getItem().toString()));
-				} catch (ActivityNameDontExistException e) {
+				} catch (NameDontExistException e) {
 					e.printStackTrace();
 				}
 			}
@@ -174,7 +174,7 @@ public class ControllerActivitys implements ListSelectionListener{
 			mHandler.getLabel(FormAttEnum.POINTS).setVisible(act instanceof Skill);
 			
 			
-		} catch (ActivityNameDontExistException e) {
+		} catch (NameDontExistException e) {
 			e.printStackTrace();
 		}
 	}
@@ -233,7 +233,7 @@ public class ControllerActivitys implements ListSelectionListener{
 			mUser.atividadesManager().add(act);
 			Main.getDataSet().userManager().add(mUser);
 			Main.save();
-		} catch (ActivityNameDontExistException e) {
+		} catch (NameDontExistException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
 			

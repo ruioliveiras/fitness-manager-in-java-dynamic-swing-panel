@@ -98,7 +98,7 @@ public abstract class Contest extends Activity {
     	switch (a) {
 		case POINT_TEAM: return getPointTeam();
 		case RESULT_DIF: return getPointTeam() - getPointRival();
-		case TEMPO: 	 return (int) (getDuration() / (1000) ); //* seconds
+		case TEMPO: 	 return (int) (-1) * (getDuration() / (1000) ); //* seconds
 		default:
 			return -1;
     	}

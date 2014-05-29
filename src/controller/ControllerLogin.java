@@ -76,7 +76,7 @@ public class ControllerLogin{
 					JOptionPane.showMessageDialog(null, "Data de Nascimento com formato invalido");
 					/*Dont save*/
 					return; 
-				}catch (ActivityNameDontExistException e) {
+				}catch (NameDontExistException e) {
 					JOptionPane.showMessageDialog(null, "Desporto não existe");
 					return;
 				}catch (StringIndexOutOfBoundsException e) {

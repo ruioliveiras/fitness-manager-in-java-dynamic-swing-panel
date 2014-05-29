@@ -1,18 +1,14 @@
 package model;
 
+
 import java.io.Serializable;
 import java.util.Comparator;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import model.activity.Natacao;
-import model.activity.Weather;
-import model.user.Genero;
-import model.user.Permissoes;
+import model.events.Event;
 import model.user.User;
 import core.util.Manager;
-import core.util.Manager.ObjectDontExistException;
 import core.util.ManagerMap;
 
 
@@ -20,9 +16,12 @@ public class Dataset implements Serializable{
 	private static final long serialVersionUID = -2526376303734576085L;
 
 	private Manager<User> mUsers;
+	private Manager<Event> mEvents;
+
 	
 	public Dataset() {
 		mUsers = new ManagerMap<User>(new HashMap<Object, User>());
+		mEvents = new ManagerMap<Event>(new HashMap<Object, Event>());
 	}
 	
 	public Dataset(Manager<User> users){
@@ -31,6 +30,7 @@ public class Dataset implements Serializable{
 		while(ite.hasNext()){
 			mUsers.add(ite.next());
 		}
+		mEvents = new ManagerMap<Event>(new HashMap<Object, Event>());
 	}
 	
 	public Dataset(Dataset users){
@@ -39,6 +39,9 @@ public class Dataset implements Serializable{
 	
 	public Manager<User> userManager(){
 		return mUsers;
+	}
+	public Manager<Event> eventManager(){
+		return mEvents;
 	}
 	
 
