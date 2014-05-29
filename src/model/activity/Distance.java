@@ -140,18 +140,17 @@ public abstract class Distance extends Activity {
     	StringBuilder sb = new StringBuilder();
     	sb.append(getName());sb.append(" |- ");sb.append(a.getName());
     	sb.append(" ");
-    	Calendar c = Calendar.getInstance();
-    	c.set(Calendar.HOUR_OF_DAY, 0); c.set(Calendar.MINUTE, 0); 	c.set(Calendar.SECOND, 0); 	c.set(Calendar.MILLISECOND, 0);
-    	c.setTimeInMillis(c.getTimeInMillis() + getDuration());
-    	DateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
     	switch (att) {
     	case SPEED:  	sb.append(getMaxSpeed());sb.append("m/s");break;
-    	case TIME:     	sb.append(df.format(c.getTime()));break;
+    	case TIME:     	sb.append(Util.hourFormat(getDuration()));break;
     	default:		break;
     	}
     	return sb.toString();
     }
-  
+    
+//    public String getRecordName(int recordType){
+//    	return ; 
+//    }
 
 	
 	
