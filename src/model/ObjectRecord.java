@@ -4,6 +4,7 @@ import model.activity.Activity;
 
 public interface ObjectRecord {
 	public String getRecordToString(int recordType);
+	//public String getRecordName(int recordType);
 	public int getRecordSize();
 	public long get(int iAttr);
 	public void correct(int iAttr);
@@ -15,16 +16,13 @@ public interface ObjectRecord {
 	
 	
 	public interface Record {
-	
-		public int ordinal();
+	    public int ordinal();
 		public int getrecordType();
 		public long getValue();
 		public boolean similar(long value);
 		public enumAttr getFixed();
 		public enumAttr getMov();
-		public String getName();
-		
-		
+		public String getName();	
 	}
 	
 	public interface enumAttr{
