@@ -5,8 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import model.Record;
-import model.Record.enumAttr;
+import model.ObjectRecord;
 import core.util.Util;
 
 public abstract class Altimetry extends Distance {
@@ -58,7 +57,7 @@ public abstract class Altimetry extends Distance {
 	
 	
 	
-	public enum Attr implements Record.enumAttr {
+	public enum Attr implements ObjectRecord.enumAttr {
 		ALTURA("Altura");
 
 		private String eName;
@@ -79,15 +78,15 @@ public abstract class Altimetry extends Distance {
 		SUBIDA_RAPIDA200("Subida 200m",Distance.Attr.TIME,Attr.ALTURA,200),
 		SUBIDA_RAPIDA50("Subida 50m",Distance.Attr.TIME,Attr.ALTURA,50);
 
-		private Record.enumAttr eFix;
-		private Record.enumAttr eMov;
+		private ObjectRecord.enumAttr eFix;
+		private ObjectRecord.enumAttr eMov;
 		private int eValue;
 		private String eName;
 
-		MyRecords(String name,Record.enumAttr var,Record.enumAttr fixo,int value){
+		MyRecords(String name,ObjectRecord.enumAttr var,ObjectRecord.enumAttr fixo,int value){
 			eName = name;eFix = fixo; eMov = var; eValue = value;
 		}
-		MyRecords(String name,Record.enumAttr var){
+		MyRecords(String name,ObjectRecord.enumAttr var){
 			eName = name;eMov = var;eFix = null;	eValue = -1;
 		}
 

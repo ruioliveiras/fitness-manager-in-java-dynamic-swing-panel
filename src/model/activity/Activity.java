@@ -4,7 +4,8 @@ import java.util.GregorianCalendar;
 
 import model.user.User;
 import model.ObjectClonable;
-import model.Record;
+import model.ObjectRecord;
+import model.ObjectRecord;
 import core.util.Util;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,7 +30,7 @@ import java.text.DateFormat;
  */
 
 
-public abstract class Activity implements ObjectClonable,Serializable {
+public abstract class Activity implements ObjectClonable,ObjectRecord ,Serializable {
 
 
 
@@ -91,8 +92,8 @@ public abstract class Activity implements ObjectClonable,Serializable {
     public abstract int getRecordSize();
     public abstract long get(int iAttr);
     public abstract void correct(int iAttr);
-    protected abstract long getStat(int recordType); 
-    protected long getStat(Record a){
+    public abstract long getStat(int recordType); 
+    public long getStat(Record a){
     	long value = Integer.MAX_VALUE;
     	if (a.getFixed() != null){
     		/*Means that a has fixed element, is similar?*/
@@ -150,19 +151,10 @@ public abstract class Activity implements ObjectClonable,Serializable {
 
     public String toString(){
         String data = new SimpleDateFormat("dd/MM/yyyy").format(this.getDate().getTime());
-        
-        Calendar c = Calendar.getInstance();
-    	c.set(Calendar.HOUR_OF_DAY, 0);
-    	c.set(Calendar.MINUTE, 0);
-    	c.set(Calendar.SECOND, 0);
-    	c.set(Calendar.MILLISECOND, 0);
-    	c.setTimeInMillis(c.getTimeInMillis() + this.getDuration());
-    	DateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
-        
         StringBuilder stringb = new StringBuilder();
         stringb.append(data);
-        stringb.append(", Categoria: " + this.getName());
-        stringb.append(", Duracao(h): " + df.format(c.getTime()));
+        stringb.append(", " + this.getName());
+        stringb.append(", " + Util.hourFormat(this.getDuration()));
         stringb.append(", " + this.getWeather().toString());
         return stringb.toString();
     }

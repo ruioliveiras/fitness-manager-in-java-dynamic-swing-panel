@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.params=recordType
+comment0.target=java.lang.String\ getRecordToString(int)
+comment1.params=
+comment1.target=int\ getRecordSize()
+comment2.params=iAttr
+comment2.target=long\ get(int)
+comment3.params=iAttr
+comment3.target=void\ correct(int)
+comment4.params=recordType
+comment4.target=long\ getStat(int)
+comment5.params=a
+comment5.target=long\ getStat(ObjectRecord.Record)
+comment6.params=recordType
+comment6.target=long\ getRecordTypeValue(int)
+comment7.params=otherActivity\ recordType
+comment7.target=long\ compareRecord(activity.Activity,\ int)
+numComments=8

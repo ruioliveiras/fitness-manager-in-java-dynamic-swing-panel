@@ -2,7 +2,7 @@ package model.activity;
 
 import java.util.GregorianCalendar;
 
-import model.Record;
+import model.ObjectRecord;
 
 public abstract class Contest extends Activity {
     private static final long serialVersionUID = 1L;
@@ -48,7 +48,7 @@ public abstract class Contest extends Activity {
     
     
     
-    public enum Attr implements Record.enumAttr {
+    public enum Attr implements ObjectRecord.enumAttr {
         TEMPO("Tempo"),RESULT_DIF("Diferença de resultado"),POINT_TEAM("Pontos da equipa");
 
         private String eName;
@@ -65,15 +65,15 @@ public abstract class Contest extends Activity {
         BEST_VITORY("Melhor vitoria",Attr.RESULT_DIF),
         MAX_PONTOS("Maior nº pontos",Attr.POINT_TEAM);
         
-        private Record.enumAttr eFix;
-        private Record.enumAttr eMov;
+        private ObjectRecord.enumAttr eFix;
+        private ObjectRecord.enumAttr eMov;
         private int eValue;
         private String eName;
 
-        MyRecords(String name,Record.enumAttr var,Record.enumAttr fixo,int value){
+        MyRecords(String name,ObjectRecord.enumAttr var,ObjectRecord.enumAttr fixo,int value){
             eName = name;eFix = fixo; eMov = var; eValue = value;
         }
-        MyRecords(String name,Record.enumAttr var){
+        MyRecords(String name,ObjectRecord.enumAttr var){
             eName = name;eMov = var;eFix = null;    eValue = -1;
         }
         @Override

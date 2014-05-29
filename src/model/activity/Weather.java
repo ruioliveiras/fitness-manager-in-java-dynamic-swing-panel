@@ -1,6 +1,8 @@
 package model.activity;
 
-public class Weather{
+import java.io.Serializable;
+
+public class Weather implements Serializable{
     private Local mLocal;
     private WeatherSun mSun;
     private WeatherWind mWind;

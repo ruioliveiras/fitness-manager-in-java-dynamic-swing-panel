@@ -1,6 +1,6 @@
 #BlueJ class context
-comment0.params=handler
-comment0.target=ControllerStats(core.FormUtils.FormHandle)
+comment0.params=handler\ user
+comment0.target=ControllerStats(core.FormUtils.FormHandle,\ model.user.User)
 comment1.params=
 comment1.target=void\ initListeners()
 comment2.params=arg0
@@ -9,4 +9,6 @@ comment3.params=
 comment3.target=void\ saveProfileChanges()
 comment4.params=b
 comment4.target=void\ setComponentsEnable(boolean)
-numComments=5
+comment5.params=e
+comment5.target=void\ valueChanged(javax.swing.event.ListSelectionEvent)
+numComments=6

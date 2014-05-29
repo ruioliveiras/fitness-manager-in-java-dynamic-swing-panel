@@ -15,10 +15,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import model.activity.Activity;
-import model.activity.Altimetry;
 import model.activity.Contest;
 import model.activity.Distance;
-import model.activity.Skill;
 import model.events.Event;
 import model.events.EventContest;
 import model.events.EventDistance;
@@ -27,8 +25,8 @@ import model.user.User;
 import view.main.panel.PanelEvents.FormAttEnum;
 import view.main.panel.PanelEvents.FormButtonEnum;
 import controller.EventNotPermited;
-import controller.NameDontExistException;
 import controller.Main;
+import controller.NameDontExistException;
 import core.FormUtils;
 import core.FormUtils.FormHandle;
 import core.FormUtils.FormListHandle;
@@ -91,6 +89,7 @@ public class ControllerEvents implements ListSelectionListener{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				iniciar();
+				//system out println directamente na consola
 			}
 
 			
@@ -212,4 +211,23 @@ public class ControllerEvents implements ListSelectionListener{
 	private void adedir() {
 		
 	}
+	
+	
+	
+	
+	/**
+	 * percorrer users
+	 * 
+	 * mSelected (Evento actual)
+	 * 
+	 * //Chaves dos users do Evento atual
+	 * List<Strings> = mSelected.getUserManager().collection();
+	 * 
+	 * //aceder a todos os users
+	 * List<User> = Main.getDataSet().userManager().collection();
+	 * 
+	 * User = Main.getDataSet().userManager().get(new User("stringKey"));
+	 * 
+	 * 
+	 */
 }
