@@ -7,8 +7,8 @@ public interface ObjectRecord {
 	public int getRecordSize();
 	public long get(int iAttr);
 	public void correct(int iAttr);
-	public long getStat(int recordType); 
-	public long getStat(Record a);
+	abstract long getStat(int recordType); 
+	abstract long getStat(Record a);
 	public long getRecordTypeValue(int recordType);
 	public long compareRecord(Activity otherActivity,int recordType);
 	

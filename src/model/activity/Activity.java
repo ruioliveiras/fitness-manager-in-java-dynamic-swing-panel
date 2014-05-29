@@ -4,7 +4,8 @@ import java.util.GregorianCalendar;
 
 import model.user.User;
 import model.ObjectClonable;
-import model.Record;
+import model.ObjectRecord;
+import model.ObjectRecord;
 import core.util.Util;
 
 
@@ -26,7 +27,7 @@ import core.util.Util;
  */
 
 
-public abstract class Activity implements ObjectClonable,Serializable {
+public abstract class Activity implements ObjectClonable,ObjectRecord ,Serializable {
 
 
 
@@ -88,8 +89,8 @@ public abstract class Activity implements ObjectClonable,Serializable {
     public abstract int getRecordSize();
     public abstract long get(int iAttr);
     public abstract void correct(int iAttr);
-    protected abstract long getStat(int recordType); 
-    protected long getStat(Record a){
+    public abstract long getStat(int recordType); 
+    public long getStat(Record a){
     	long value = Integer.MAX_VALUE;
     	if (a.getFixed() != null){
     		/*Means that a has fixed element, is similar?*/

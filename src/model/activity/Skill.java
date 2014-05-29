@@ -2,7 +2,7 @@ package model.activity;
 
 import java.util.GregorianCalendar;
 
-import model.Record;
+import model.ObjectRecord;
 
 public abstract class Skill extends Activity {
 	/**
@@ -38,7 +38,7 @@ public abstract class Skill extends Activity {
 	
 	public abstract String getPointName(); /*Return "Goal" "points" etc..*/ 
 	
-	public enum Attr implements Record.enumAttr {
+	public enum Attr implements ObjectRecord.enumAttr {
 		TEMPO("Tempo"),POINTS("Pontos"),MAX_TRICK("Melhor truque");
 
 		private String eName;
@@ -55,15 +55,15 @@ public abstract class Skill extends Activity {
     	MAX_TRICK("Melhor Trick",Attr.MAX_TRICK),
     	MAX_PONTOS("Maior Pontos",Attr.POINTS);
     	
-		private Record.enumAttr eFix;
-		private Record.enumAttr eMov;
+		private ObjectRecord.enumAttr eFix;
+		private ObjectRecord.enumAttr eMov;
 		private int eValue;
 		private String eName;
 
-		MyRecords(String name,Record.enumAttr var,Record.enumAttr fixo,int value){
+		MyRecords(String name,ObjectRecord.enumAttr var,ObjectRecord.enumAttr fixo,int value){
 			eName = name;eFix = fixo; eMov = var; eValue = value;
 		}
-		MyRecords(String name,Record.enumAttr var){
+		MyRecords(String name,ObjectRecord.enumAttr var){
 			eName = name;eMov = var;eFix = null;	eValue = -1;
 		}
 		@Override
