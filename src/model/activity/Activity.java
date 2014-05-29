@@ -8,6 +8,7 @@ import model.Record;
 import core.util.Util;
 
 
+
 /**
  * 
  * @author ruioliveiras
@@ -40,7 +41,7 @@ public abstract class Activity implements ObjectClonable,Serializable {
      */
     public Activity() {
         mDuration = 0;
-        mWeather = Weather.INDOOR;
+        mWeather = new Weather();
 
         mHearthRate = 0;
         mDate = new GregorianCalendar();
@@ -144,5 +145,13 @@ public abstract class Activity implements ObjectClonable,Serializable {
         return Util.CalcHashCode((int) mDuration, mWeather.hashCode(),mHearthRate);
     }
 
+    public String toString(){
+        StringBuilder stringb = new StringBuilder();
+        stringb.append("Data: " + this.getDate().toString());
+        stringb.append(", Categoria: " + this.getName());
+        stringb.append("Duracao(h): " + this.getDuration_inHours());
+        stringb.append(", " + this.getWeather().toString());
+        return stringb.toString();
+    }
 
 }

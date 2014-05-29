@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class Hoquei extends Collective {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Hoquei(Hoquei act){
@@ -17,23 +13,17 @@ public class Hoquei extends Collective {
 	
 	public Hoquei() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Hoquei(long time, Weather weather, int hRate,
 			GregorianCalendar date, int pointRival, int pointTeam, Result result) {
 		super(time, weather, hRate, date, pointRival, pointTeam, result);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Hoquei";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {
@@ -42,7 +32,7 @@ public class Hoquei extends Collective {
 
 	@Override
 	public String getPointName() {
-		return "Pontos";
+		return "Golos";
 	}
 
 	@Override

@@ -2,14 +2,8 @@ package model.activity;
 
 import java.util.GregorianCalendar;
 
-import model.user.User;
-
 
 public class WindSurf extends Distance {
-
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     
     public WindSurf(WindSurf act){
@@ -24,7 +18,6 @@ public class WindSurf extends Distance {
 	public WindSurf(long time, Weather weather, int hearthRate,
 			GregorianCalendar date, int distance, int maxSpeed) {
 		super(time, weather, hearthRate, date, distance, maxSpeed);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -41,7 +34,6 @@ public class WindSurf extends Distance {
 
     @Override
     public double getMET() {
-        // TODO Auto-generated method stub
         return 3.0;
     }
 

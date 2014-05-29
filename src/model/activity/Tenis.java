@@ -17,23 +17,17 @@ public class Tenis extends Individual {
 	
 	public Tenis() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Tenis(long time, Weather weather, int hRate, GregorianCalendar date,
 			int pointRival, int pointTeam, Result result) {
 		super(time, weather, hRate, date, pointRival, pointTeam, result);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Tenis";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {

@@ -1,14 +1,16 @@
 #BlueJ class context
-comment0.params=
-comment0.target=java.lang.String\ getName()
+comment0.params=act
+comment0.target=Ginasio(Ginasio)
 comment1.params=
-comment1.target=int\ getRecordSize()
-comment2.params=otherActivity\ recordType
-comment2.target=int\ compareRecord(Activity,\ int)
+comment1.target=Ginasio()
+comment2.params=time\ weather\ hRate\ date
+comment2.target=Ginasio(long,\ Weather,\ int,\ java.util.GregorianCalendar)
 comment3.params=
-comment3.target=int\ getIntensidade()
+comment3.target=java.lang.String\ getName()
 comment4.params=
-comment4.target=double\ getMET()
+comment4.target=int\ getIntensidade()
 comment5.params=
-comment5.target=Activity\ clone()
-numComments=6
+comment5.target=double\ getMET()
+comment6.params=
+comment6.target=Ginasio\ clone()
+numComments=7

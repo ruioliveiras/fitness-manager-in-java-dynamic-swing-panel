@@ -15,12 +15,10 @@ public class Ginastica extends Skill {
 	
 	public Ginastica() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Ginastica(Skill act) {
 		super(act);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -29,9 +27,6 @@ public class Ginastica extends Skill {
 	}
 
  
-
- 
-
 	@Override
 	public int getIntensidade() {
 		return 166;
@@ -39,8 +34,7 @@ public class Ginastica extends Skill {
 	
 	@Override
 	public String getPointName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Pontos";
 	}
 	
 	@Override

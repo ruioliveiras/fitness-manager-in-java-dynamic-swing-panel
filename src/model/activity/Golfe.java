@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class Golfe extends Skill {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Golfe(Golfe act){
@@ -17,23 +13,17 @@ public class Golfe extends Skill {
 	
 	public Golfe() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Golfe(long time, Weather weather, int hearthRate,
 			GregorianCalendar date, int points, int maxTrick) {
 		super(time, weather, hearthRate, date, points, maxTrick);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Golfe";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {

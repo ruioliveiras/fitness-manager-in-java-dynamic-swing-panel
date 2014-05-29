@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class Andebol extends Collective {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Andebol(Andebol act){
@@ -19,7 +15,6 @@ public class Andebol extends Collective {
 	
 	public Andebol() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 
@@ -27,7 +22,6 @@ public class Andebol extends Collective {
 	public Andebol(long time, Weather weather, int hRate,
 			GregorianCalendar date, int pointRival, int pointTeam, Result result) {
 		super(time, weather, hRate, date, pointRival, pointTeam, result);
-		// TODO Auto-generated constructor stub
 	}
 
 
@@ -37,9 +31,6 @@ public class Andebol extends Collective {
 		return "Andebol";
 	}
 
- 
-
- 
 
 	@Override
 	public int getIntensidade() {
@@ -48,8 +39,7 @@ public class Andebol extends Collective {
 	
 	@Override
 	public String getPointName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Golos";
 	}
 	
 	@Override

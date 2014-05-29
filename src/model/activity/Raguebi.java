@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class Raguebi extends Collective {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Raguebi(Raguebi act){
@@ -17,23 +13,17 @@ public class Raguebi extends Collective {
 	
 	public Raguebi() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Raguebi(long time, Weather weather, int hRate,
 			GregorianCalendar date, int pointRival, int pointTeam, Result result) {
 		super(time, weather, hRate, date, pointRival, pointTeam, result);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Râguebi";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {
@@ -42,8 +32,7 @@ public class Raguebi extends Collective {
 
 	@Override
 	public String getPointName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Pontos";
 	}
 
 	@Override

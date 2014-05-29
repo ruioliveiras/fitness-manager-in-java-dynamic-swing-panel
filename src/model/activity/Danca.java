@@ -6,9 +6,6 @@ import java.util.GregorianCalendar;
 
 public class Danca extends Ludic {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Danca(Danca act){
@@ -17,22 +14,16 @@ public class Danca extends Ludic {
 	
 	public Danca() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Danca(long time, Weather weather, int hRate, GregorianCalendar date) {
 		super(time, weather, hRate, date);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Dança";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {

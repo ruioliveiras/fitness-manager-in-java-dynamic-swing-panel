@@ -276,10 +276,10 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     @Override
     public String toString(){
         StringBuilder stringb = new StringBuilder();
-        stringb.append("Nome: " + this.nome + "\n");
-        stringb.append("Email: " + this.email + "\n");
-        stringb.append("Sexo: " + this.genero.name() + "\n");
-        stringb.append("Data Nascimento: " + this.dataNascimento.toString() + "\n");
+        stringb.append("Nome: " + this.nome + ", ");
+        stringb.append("Email: " + this.email + ", ");
+        stringb.append("Sexo: " + this.genero.name() + ", ");
+        stringb.append("Data Nascimento: " + this.dataNascimento.toString());
         return stringb.toString();
     }
 

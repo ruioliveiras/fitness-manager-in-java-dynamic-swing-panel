@@ -3,10 +3,6 @@ package model.activity;
 import java.util.GregorianCalendar;
 
 public abstract class Individual extends Contest {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Individual() {

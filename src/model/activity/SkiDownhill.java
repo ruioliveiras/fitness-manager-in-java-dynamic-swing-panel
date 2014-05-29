@@ -6,9 +6,7 @@ import java.util.GregorianCalendar;
 
 public class SkiDownhill extends Distance {
 
-    /**
-     * 
-     */
+
     private static final long serialVersionUID = 1L;
     
     public SkiDownhill(SkiDownhill act){
@@ -17,21 +15,17 @@ public class SkiDownhill extends Distance {
 
     public SkiDownhill() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public SkiDownhill(long time, Weather weather, int hearthRate,
 			GregorianCalendar date, int distance, int maxSpeed) {
 		super(time, weather, hearthRate, date, distance, maxSpeed);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
     public String getName() {
         return "Ski DownHill";
     }
-
- 
 
     @Override
     public int getIntensidade() {

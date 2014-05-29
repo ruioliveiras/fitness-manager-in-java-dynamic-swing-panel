@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class CaminhadaMontanha extends Altimetry {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public CaminhadaMontanha(CaminhadaMontanha act){
@@ -17,7 +13,6 @@ public class CaminhadaMontanha extends Altimetry {
 	
 	public CaminhadaMontanha() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CaminhadaMontanha(long time, Weather weather, int hearthRate,
@@ -25,17 +20,12 @@ public class CaminhadaMontanha extends Altimetry {
 			int descendent, int minAltitude, int maxAltitude) {
 		super(time, weather, hearthRate, date, distance, maxSpeed, ascendent,
 				descendent, minAltitude, maxAltitude);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Caminhada Montanha";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {

@@ -1,2 +1,12 @@
 #BlueJ class context
-numComments=0
+comment0.params=handler
+comment0.target=ControllerEvents(core.FormUtils.FormHandle)
+comment1.params=
+comment1.target=void\ initListeners()
+comment2.params=arg0
+comment2.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment3.params=
+comment3.target=void\ saveProfileChanges()
+comment4.params=b
+comment4.target=void\ setComponentsEnable(boolean)
+numComments=5

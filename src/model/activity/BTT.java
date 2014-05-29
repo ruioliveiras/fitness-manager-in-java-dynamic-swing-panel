@@ -6,9 +6,6 @@ import java.util.GregorianCalendar;
 
 
 public class BTT extends Altimetry{
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public BTT(BTT act){
@@ -17,7 +14,6 @@ public class BTT extends Altimetry{
 	
 	public BTT() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public BTT(long time, Weather weather, int hearthRate,
@@ -25,17 +21,12 @@ public class BTT extends Altimetry{
 			int descendent, int minAltitude, int maxAltitude) {
 		super(time, weather, hearthRate, date, distance, maxSpeed, ascendent,
 				descendent, minAltitude, maxAltitude);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "BTT";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {

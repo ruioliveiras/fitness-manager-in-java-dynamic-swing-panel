@@ -17,23 +17,17 @@ public class Esgrima extends Individual {
 	
 	public Esgrima() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Esgrima(long time, Weather weather, int hRate,
 			GregorianCalendar date, int pointRival, int pointTeam, Result result) {
 		super(time, weather, hRate, date, pointRival, pointTeam, result);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Esgrima";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {
@@ -42,8 +36,7 @@ public class Esgrima extends Individual {
 	
 	@Override
 	public String getPointName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Pontos";
 	}
 	
 	@Override

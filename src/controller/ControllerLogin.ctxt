@@ -1,2 +1,20 @@
 #BlueJ class context
-numComments=0
+comment0.params=
+comment0.target=ControllerLogin()
+comment1.params=
+comment1.target=void\ start()
+comment2.params=user
+comment2.target=void\ loginOK(model.user.User)
+comment3.params=
+comment3.target=void\ register()
+comment4.params=arg0
+comment4.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment5.params=
+comment5.target=void\ initListeners()
+comment6.params=arg0
+comment6.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment7.params=arg0
+comment7.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment8.params=arg0
+comment8.target=void\ actionPerformed(java.awt.event.ActionEvent)
+numComments=9

@@ -5,20 +5,14 @@ import java.util.GregorianCalendar;
 
 
 public class Aerobica extends Ludic {
-
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     public Aerobica() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Aerobica(long time, Weather weather, int hRate,
 			GregorianCalendar date) {
 		super(time, weather, hRate, date);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Aerobica(Aerobica act){
@@ -29,8 +23,6 @@ public class Aerobica extends Ludic {
     public String getName() {
         return "Aeróbica";
     }
-
- 
 
     @Override
     public int getIntensidade() {

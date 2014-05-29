@@ -1,10 +1,16 @@
 #BlueJ class context
-comment0.params=
-comment0.target=java.lang.String\ getName()
+comment0.params=act
+comment0.target=Caminhada(Caminhada)
 comment1.params=
-comment1.target=int\ getIntensidade()
-comment2.params=
-comment2.target=double\ getMET()
+comment1.target=Caminhada()
+comment2.params=time\ weather\ hearthRate\ date\ distance\ maxSpeed
+comment2.target=Caminhada(long,\ Weather,\ int,\ java.util.GregorianCalendar,\ int,\ int)
 comment3.params=
-comment3.target=Activity\ clone()
-numComments=4
+comment3.target=java.lang.String\ getName()
+comment4.params=
+comment4.target=int\ getIntensidade()
+comment5.params=
+comment5.target=double\ getMET()
+comment6.params=
+comment6.target=Caminhada\ clone()
+numComments=7

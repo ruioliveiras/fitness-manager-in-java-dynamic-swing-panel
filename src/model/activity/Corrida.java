@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class Corrida extends Altimetry {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Corrida(Corrida act){
@@ -17,7 +13,6 @@ public class Corrida extends Altimetry {
 	
 	public Corrida() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Corrida(long time, Weather weather, int hearthRate,
@@ -25,17 +20,12 @@ public class Corrida extends Altimetry {
 			int descendent, int minAltitude, int maxAltitude) {
 		super(time, weather, hearthRate, date, distance, maxSpeed, ascendent,
 				descendent, minAltitude, maxAltitude);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Corrida";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {

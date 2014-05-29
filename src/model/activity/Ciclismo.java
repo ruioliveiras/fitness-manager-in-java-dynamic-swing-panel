@@ -5,10 +5,6 @@ import java.util.GregorianCalendar;
 
 
 public class Ciclismo extends Altimetry {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Ciclismo(Ciclismo act){
@@ -17,7 +13,6 @@ public class Ciclismo extends Altimetry {
 	
 	public Ciclismo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Ciclismo(long time, Weather weather, int hearthRate,
@@ -25,17 +20,12 @@ public class Ciclismo extends Altimetry {
 			int descendent, int minAltitude, int maxAltitude) {
 		super(time, weather, hearthRate, date, distance, maxSpeed, ascendent,
 				descendent, minAltitude, maxAltitude);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		return "Ciclismo";
 	}
-
- 
-
- 
 
 	@Override
 	public int getIntensidade() {
