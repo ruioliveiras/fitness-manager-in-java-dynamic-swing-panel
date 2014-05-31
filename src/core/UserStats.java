@@ -8,18 +8,27 @@ import model.activity.Activity;
 public class UserStats
 {
     static public int getDistanceStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
-        return 0;
+        int totalDist = 0;
+    	for(Activity act : usr.actividadesEntre(startDate, endDate))
+    		if(act instanceof Distance) totalDist += (Distance act).getDistance();
+    	return totalDist;
     }
     
     static public int getCaloriesStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
-        return 0;
+    	int totalCal = 0;
+    	for(Activity act : usr.actividadesEntre(startDate, endDate))
+    		totalCal += act.calculateCalories(usr);
+    	return totalCal;
     }
     
     /**
      * @return time in hours
      */
     static public double getWorkoutStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
-        return 0.0;
+    	int totalTime = 0;
+    	for(Activity act : usr.actividadesEntre(startDate, endDate))
+    		totalTime += act.getDuration_inHours();
+    	return totalTime;
     }
     
     /**
