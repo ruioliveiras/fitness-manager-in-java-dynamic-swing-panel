@@ -25,7 +25,7 @@ public class EventDistance extends Event {
     }
     
     public EventDistance(String name, Activity activity, GregorianCalendar eventDate,
-                    GregorianCalendar endDate, int preRequisite, int maxNumUsers, int recordType, int distance) {
+                    GregorianCalendar endDate, long preRequisite, int maxNumUsers, int recordType, int distance) {
         super(name, activity, eventDate, endDate, preRequisite, maxNumUsers, recordType);
         this.mEventDistance = distance;
     }

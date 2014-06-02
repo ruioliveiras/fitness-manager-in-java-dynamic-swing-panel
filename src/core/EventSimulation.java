@@ -38,7 +38,7 @@ public class EventSimulation {
     }
          
     /**simulation of the all race (several stages) for a User*/
-    static public ArrayList<Long> getFullSimulationDistance(User u, Distance act, 
+    static private ArrayList<Long> getFullSimulationDistance(User u, Distance act, 
                                                 int recordType, int stages) {
         ArrayList<Long> result = new ArrayList<>(stages);
         boolean desistiu = false;
@@ -52,7 +52,7 @@ public class EventSimulation {
         return result;             
     }
     
-    static public Map<String,ArrayList<Long>> getAllResults(Set<User> users, Distance act, 
+    static public Map<String,ArrayList<Long>> getAllResults(List<User> users, Distance act, 
                                                 int recordType, int stages){
         Map<String,ArrayList<Long>> result = new HashMap<>();
         for(User u : users){
@@ -62,10 +62,10 @@ public class EventSimulation {
         return result;
     }
     
-    static public long getStageResult(ArrayList<Long> results, int stage){
+    static private long getStageResult(ArrayList<Long> results, int stage){
         long stageResult = 0;
-        for(Long l : results)
-            stageResult += l;
+        for(int i = 0; i < stage; i++)
+            stageResult = stageResult + results.get(i);
         return stageResult;
     }
     

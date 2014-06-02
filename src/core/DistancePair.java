@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+import core.util.Util;
 
 /**
  * Write a description of class DistancePair here.
@@ -22,5 +23,11 @@ public class DistancePair{
     public void setName(String name){this.mUserName = name;}
     public void setResults(long result){this.mUserResult = result;}
     
+    public String toString(){
+        StringBuilder stringb = new StringBuilder();
+        stringb.append("Nome: " + this.mUserName + ", ");
+        stringb.append("Tempo: " + Util.hourFormat(this.mUserResult));
+        return stringb.toString();
+    }
 
 }

@@ -78,7 +78,7 @@ public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
     public long getPreRequisite() {
         return mPreRequisite;
     }
-    public void setPreRequisite(int preRequisite) {
+    public void setPreRequisite(long preRequisite) {
         this.mPreRequisite = preRequisite;
     }
     public int getMaxNumUsers() {
