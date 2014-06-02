@@ -1,15 +1,12 @@
 package model.activity;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
-import model.user.User;
 import model.ObjectClonable;
 import model.ObjectRecord;
-import model.ObjectRecord;
+import model.user.User;
 import core.util.Util;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.text.DateFormat;
 
 
 

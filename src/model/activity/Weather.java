@@ -3,7 +3,9 @@ package model.activity;
 import java.io.Serializable;
 
 public class Weather implements Serializable{
-    private Local mLocal;
+	private static final long serialVersionUID = -251648773716612805L;
+	
+	private Local mLocal;
     private WeatherSun mSun;
     private WeatherWind mWind;
     
@@ -93,7 +95,7 @@ public class Weather implements Serializable{
       if(this == obj) return true; 
       if((obj == null) || (this.getClass() != obj.getClass())) return false;
       Weather e = (Weather) obj;
-      return this.mLocal.equals(e.getLocal()) && this.mSun.equals(e.getSun()) && this.mWind.equals(e.getWind());
+      return this.mLocal == e.getLocal() || (this.mSun == e.getSun() && this.mWind == e.getWind());
     }
    
     public Object clone(){return new Weather(this);}
@@ -103,7 +105,6 @@ public class Weather implements Serializable{
         if (mLocal.equals(Local.INDOOR)){
             sb.append(mLocal.getName());
         }else{
-            sb.append("Weather: ");
             sb.append(mSun.getName());
             sb.append(", ");
             sb.append(mWind.getName());
@@ -111,4 +112,33 @@ public class Weather implements Serializable{
         
         return sb.toString();
     }
+    
+    
+    private static Weather[] sWeather={
+    	new Weather(Local.INDOOR),
+    	new Weather(WeatherSun.SUN, WeatherWind.WINDLESS),
+    	new Weather(WeatherSun.SUN, WeatherWind.WIND),
+    	new Weather(WeatherSun.SUN, WeatherWind.WINDSTRONG),
+      	new Weather(WeatherSun.CLOUD, WeatherWind.WINDLESS),
+    	new Weather(WeatherSun.CLOUD, WeatherWind.WIND),
+    	new Weather(WeatherSun.CLOUD, WeatherWind.WINDSTRONG),
+      	new Weather(WeatherSun.RAIN, WeatherWind.WINDLESS),
+    	new Weather(WeatherSun.RAIN, WeatherWind.WIND),
+    	new Weather(WeatherSun.RAIN, WeatherWind.WINDSTRONG)
+    };
+    public static Weather[] getWeatherArray(){
+    	return sWeather;
+    }
+    public static Weather getWeatherIndex(int index){
+    	return sWeather[index];
+    }
+    public static int getIndexWeather(Weather weather){
+    	for (int i = 0; i < sWeather.length; i++) {
+			if (weather.equals(sWeather[i])){
+				return i;
+			}
+		}
+    	return -1;
+    }
+    
 }

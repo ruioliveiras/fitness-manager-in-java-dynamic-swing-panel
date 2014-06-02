@@ -119,6 +119,10 @@ public abstract class Skill extends Activity {
     	
     	return sb.toString();
     }
+	public String getRecordName(int recordType){
+		Record a = MyRecords.values()[recordType ];
+		return a.getName();
+    }
 
 	@Override
 	public boolean equals (Object obj){

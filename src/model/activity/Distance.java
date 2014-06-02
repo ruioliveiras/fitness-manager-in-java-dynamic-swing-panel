@@ -1,8 +1,5 @@
 package model.activity;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import model.ObjectRecord;
@@ -161,6 +158,11 @@ public abstract class Distance extends Activity {
 		Distance e = (Distance) obj;
 		return super.equals(obj) && mDistance == e.getDistance();
 	}
+	
+	public String getRecordName(int recordType){
+		Record a = MyRecords.values()[recordType ];
+		return a.getName();
+    }
 	
 	/*TODO: IMPLEMENTAR toString?? */
 	

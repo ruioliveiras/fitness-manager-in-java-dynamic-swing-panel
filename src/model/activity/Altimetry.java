@@ -1,8 +1,5 @@
 package model.activity;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import model.ObjectRecord;
@@ -106,6 +103,14 @@ public abstract class Altimetry extends Distance {
 			return eValue;
 		}
     }
+	public String getRecordName(int recordType){
+	   	if (recordType < super.getRecordSize()){
+    		return super.getRecordToString(recordType);
+    	}else{
+    		Record a = MyRecords.values()[recordType - super.getRecordSize()];
+    		return a.getName();
+    	}
+	}
     public String getRecordToString(int recordType){
     	if (recordType < super.getRecordSize()){
     		return super.getRecordToString(recordType);
@@ -115,20 +120,13 @@ public abstract class Altimetry extends Distance {
     		StringBuilder sb = new StringBuilder();
     		sb.append(getName());sb.append(" |- ");sb.append(a.getName());
     		sb.append(" ");
-    		Calendar c = Calendar.getInstance();
-    		c.set(Calendar.HOUR_OF_DAY, 0);
-    		c.set(Calendar.MINUTE, 0);
-    		c.set(Calendar.SECOND, 0);
-    		c.set(Calendar.MILLISECOND, 0);
-    		c.setTimeInMillis(c.getTimeInMillis() + getDuration());
-    		DateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
+    		
     		enumAttr att = a.getMov();
-
 
     		if (att.getName().equals(Attr.ALTURA.getName())){
     			sb.append(getMaxAltitude());sb.append("m");
     		}else if (att.getName().equals(Attr.ALTURA.getName())){
-    			sb.append(getMaxSpeed());sb.append(df.format(c.getTime()));
+    			sb.append(getMaxSpeed());sb.append(Util.hourFormat(getDuration()));
     		}
     		return sb.toString();
     	}

@@ -31,7 +31,7 @@ public class ControllerProfile {
 		initListeners();
 		initValues();
 	}
-	
+	public void setUser(User user){mUser = user;}
 	
 	private void initListeners(){
 		mHandler.addButtonListener(FormButtonEnum.EDITAR, new ActionListener() {

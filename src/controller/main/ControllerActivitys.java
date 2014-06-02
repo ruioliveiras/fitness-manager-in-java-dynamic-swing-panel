@@ -6,12 +6,12 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -22,15 +22,17 @@ import model.activity.Contest;
 import model.activity.Distance;
 import model.activity.Ginasio;
 import model.activity.Skill;
+import model.activity.Weather;
 import model.user.User;
 import view.main.panel.PanelActivities.FormAttEnum;
 import view.main.panel.PanelActivities.FormButtonEnum;
-import controller.NameDontExistException;
 import controller.Main;
+import controller.NameDontExistException;
 import core.FormUtils;
 import core.FormUtils.FormHandle;
 import core.FormUtils.FormListHandle;
 import core.FormUtils.OnPanelLoadLisneter;
+import core.util.Manager.ObjectDontExistException;
 
 public class ControllerActivitys implements ListSelectionListener{
 	private FormListHandle mHandler;
@@ -45,9 +47,9 @@ public class ControllerActivitys implements ListSelectionListener{
 		mHandler.addStringAll(mActivitys); 
 		initListeners();
 	}
+	public void setUser(User user){mUser = user;}
 	
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initListeners(){
 		mHandler.addButtonListener(FormButtonEnum.EDITAR, new ActionListener() {
 			
@@ -84,7 +86,8 @@ public class ControllerActivitys implements ListSelectionListener{
 
 		});
 		mHandler.addListListener(this);
-		
+		((JComboBox<Weather>) mHandler.getComponent(FormAttEnum.TEMPO)).setModel(new DefaultComboBoxModel<>(Weather.getWeatherArray()));
+
 		JComboBox<?> a = (JComboBox<?>) mHandler.getComponent(FormAttEnum.COMBO);
 		a.setModel(new DefaultComboBoxModel(Main.getActivitiesNames()));
 		a.addItemListener(new ItemListener() {
@@ -101,7 +104,14 @@ public class ControllerActivitys implements ListSelectionListener{
 		mHandler.addLoadLisnener(new OnPanelLoadLisneter() {
 			@Override
 			public void load() {
-				setActivity(new Ginasio());
+				try {
+					mActivitys = Main.getDataSet().userManager().get(mUser).atividadesManager().collection();
+					mHandler.addStringAll(mActivitys); 
+					setActivity(new Ginasio());
+				} catch (ObjectDontExistException e) {
+					JOptionPane.showMessageDialog(null, "Utilizador invalido");
+				}
+				
 			}
 		});
 
@@ -128,7 +138,7 @@ public class ControllerActivitys implements ListSelectionListener{
 			((JComboBox<?>) mHandler.getComponent(FormAttEnum.COMBO)).setSelectedIndex(index);
 			time.setText(String.valueOf(act.getDuration_inSeconds()));
 			hr.setText(String.valueOf(act.getHeartRate()));
-			//((JTextField) mHandler.getComponent(FormAttEnum.TEMPO))
+			((JComboBox<?>) mHandler.getComponent(FormAttEnum.TEMPO)).setSelectedIndex(Weather.getIndexWeather(act.getWeather()));
 			date.setText(new SimpleDateFormat(FormUtils.DATA_PATTERM).format(act.getDate().getTime()));
 			
 			if (act instanceof Distance){
@@ -198,6 +208,7 @@ public class ControllerActivitys implements ListSelectionListener{
 		
 		String actString = ((JComboBox<?>) mHandler.getComponent(FormAttEnum.COMBO)).
 				getSelectedItem().toString();
+		
 		try {
 			act = Main.getActivity(actString);
 			String s = time.getText();
@@ -209,6 +220,8 @@ public class ControllerActivitys implements ListSelectionListener{
 			greg.setTime(new SimpleDateFormat(FormUtils.DATA_PATTERM).parse(date.getText()));
 			act.setDate(greg);
 
+			act.setWeather( Weather.getWeatherIndex(((JComboBox<?>) mHandler.getComponent(FormAttEnum.TEMPO)).getSelectedIndex()));
+			
 			if (act instanceof Distance){
 				((Distance) act).setDistance(Integer.parseInt( distance.getText()));
 				((Distance) act).setMaxSpeed(Integer.parseInt( maxspeed.getText()));

@@ -45,17 +45,17 @@ public class PanelEvents extends PanelListToolBar{
 	}
 
 	public enum FormAttEnum implements FormAttr{
-		NOME		("Nome",JTextField.class),
-		ACTIVITY	("Acitividade",JComboBox.class),
-		NUM_USER	("Nº Users",JTextField.class),
-		RECORD_TYPE	("Tipo",JComboBox.class),
-		REQUISITO	("Requisito",JTextField.class),
-		DISTANCE	("Distancia",JTextField.class),
-		NUM_JOGOS	("Nº jogos",JTextField.class),
-		PONTOS_VIT	("Pontos Vitoria",JTextField.class),
-		PONTOS_EMP	("Pontos Empate",JTextField.class),
-		PONTOS_DER	("Pontos Derrota",JTextField.class),
-		DATA_EVENT	("Data Evento",JFormattedTextField.class){
+		NOME		("Nome",JTextField.class,20),
+		ACTIVITY	("Acitividade",JComboBox.class,15),
+		NUM_USER	("Nº Users",JTextField.class,3),
+		RECORD_TYPE	("Tipo",JComboBox.class,15),
+		REQUISITO	("Requisito",JTextField.class,3),
+		DISTANCE	("Distancia",JTextField.class,3),
+		NUM_JOGOS	("Nº jogos",JTextField.class,3),
+		PONTOS_VIT	("Pontos Vitoria",JTextField.class,3),
+		PONTOS_EMP	("Pontos Empate",JTextField.class,3),
+		PONTOS_DER	("Pontos Derrota",JTextField.class,3),
+		DATA_EVENT	("Data Evento",JFormattedTextField.class,3){
 			@Override
 			public Constructor<? extends JComponent> getComponetConstructor() {
 				try {return JFormattedTextField.class.getConstructor(Format.class);} 
@@ -63,7 +63,7 @@ public class PanelEvents extends PanelListToolBar{
 				{e.printStackTrace();return null;}
 			}
 		},
-		DATA_FIM	("Fim Inscrição",JFormattedTextField.class){
+		DATA_FIM	("Fim Inscrição",JFormattedTextField.class,15){
 			@Override
 			public Constructor<? extends JComponent> getComponetConstructor() {
 				try {return JFormattedTextField.class.getConstructor(Format.class);} 
@@ -74,12 +74,14 @@ public class PanelEvents extends PanelListToolBar{
 		
 		private String eName;
 		private Class<? extends JComponent> eClass;
+		private int eSize;
 		
-		FormAttEnum(String name,Class<? extends JComponent> _class){
+		FormAttEnum(String name,Class<? extends JComponent> _class,int size){
 			eName = name;
 			eClass = _class;
+			eSize = size;
 		}
-
+		
 		@Override
 		public String getName() {return eName;}
 
@@ -122,6 +124,9 @@ public class PanelEvents extends PanelListToolBar{
 			for (FormAttEnum e : FormAttEnum.values()) {
 				if (e.getComponetConstructor().getParameterTypes().length == 0){
 					mJComponets[e.ordinal()] = e.getComponetConstructor().newInstance();
+					try{
+						((JTextField) mJComponets[e.ordinal()]).setColumns(e.eSize);
+					}catch (Exception b){}
 				}
 			}
 			/*Specific Cases*/

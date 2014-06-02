@@ -4,7 +4,7 @@ import model.activity.Activity;
 
 public interface ObjectRecord {
 	public String getRecordToString(int recordType);
-	//public String getRecordName(int recordType);
+	public String getRecordName(int recordType);
 	public int getRecordSize();
 	public long get(int iAttr);
 	public void correct(int iAttr);

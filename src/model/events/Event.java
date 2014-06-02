@@ -1,5 +1,6 @@
 package model.events;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
@@ -13,7 +14,7 @@ import core.util.ManagerSet;
 
 //-Classe Evento: {Conjuto Users, Actividade, Categoria, Data evento, Data inscricao, Nome, pre-requisito inscricao (long tempo/distancia), numero maximo de participantes}
 
-public abstract class Event implements ObjectClonable,ObjectKey {
+public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
     private String mName;
     private Activity mActivity;/**ATENCAO: weather do Evento dentro da activity?*/
     private int mRecordType;

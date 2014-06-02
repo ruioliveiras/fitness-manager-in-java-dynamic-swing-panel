@@ -1,23 +1,33 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.management.RuntimeErrorException;
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListModel;
 import javax.swing.WindowConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.JToggleButton;
 
 import core.FormUtils.FormHandle;
 import view.main.panel.PanelActivities;
@@ -53,7 +63,7 @@ public class FormMain implements ActionListener, ListSelectionListener{
 		mRecords = new PanelRecords();
 	}
 
-	public FormMain(String title,String[] friends){
+	public FormMain(String title,ListModel<String>  friends){
 		this();
 		mTitle = title;
 		mFriends = new JList<String>(friends);
@@ -70,6 +80,20 @@ public class FormMain implements ActionListener, ListSelectionListener{
 		mFriends.setListData(friends);
 	}
 
+	public void setFriendsListener(ListSelectionListener listener){
+		mFriends.addListSelectionListener(listener);
+	}
+	public int getFriendsSelected(){
+		return mFriends.getSelectedIndex(); 
+	}
+	
+	public void setListener(MainListener listerner){mListener = listerner;}
+	
+	public void notifyDataChaged(ListModel<String> friends){
+		mFriends.setModel(friends);
+	}
+	
+	
 	public void show(){
 
 
@@ -86,7 +110,7 @@ public class FormMain implements ActionListener, ListSelectionListener{
 		/*	 JComponent panel = new ButtonBarFactoryExample().buildPanel();*/
 	}
 	
-	public void setListener(MainListener listerner){mListener = listerner;}
+
 	
 	public FormHandle getHandlerProfile(){
 		return mProfile;
@@ -201,8 +225,51 @@ public class FormMain implements ActionListener, ListSelectionListener{
 
 	public interface MainListener{
 		public void addFriend(String email);
+		public void acceptInvite(String email);
+		public void refuseInvite(String email);
 	}
 
 
+	public void showPopupInvite(final String email){
+		String title = "Convite "+ email;
+		final JFrame frame = new JFrame(title);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Container contentPane = frame.getContentPane();
 
+		JToggleButton acceptButton = new JToggleButton("Aceitar");
+		contentPane.add(acceptButton, BorderLayout.NORTH);
+
+		JToggleButton refuseButton = new JToggleButton("Não Aceitar");
+		contentPane.add(refuseButton, BorderLayout.CENTER);
+
+		JToggleButton cancelButton = new JToggleButton("Cancelar");
+		contentPane.add(cancelButton, BorderLayout.SOUTH);
+
+		acceptButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mListener.acceptInvite(email);
+			}
+		});
+		refuseButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mListener.refuseInvite(email);
+			}
+		});
+		cancelButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 frame.setVisible(false);
+	             frame.dispose();
+			}
+		});
+
+
+		frame.setSize(300, 125);
+		frame.setVisible(true);
+	}
 }

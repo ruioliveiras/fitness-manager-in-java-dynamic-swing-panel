@@ -115,5 +115,8 @@ public abstract class Ludic extends Activity {
     	
     	return sb.toString();
     }
-   
+	public String getRecordName(int recordType){
+		Record a = MyRecords.values()[recordType ];
+		return a.getName();
+    }
 }

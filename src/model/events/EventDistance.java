@@ -1,11 +1,8 @@
 package model.events;
 import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.ArrayList;
 
 import model.activity.Activity;
 import core.util.Util;
-import core.EventSimulation;
 
 
 /**
@@ -15,9 +12,16 @@ import core.EventSimulation;
 public class EventDistance extends Event {
     private int mEventDistance;/*An event is about a Activity with his record type, like: Run 10000m*/
     
+    
+    
     public EventDistance() {
         super();
         this.mEventDistance = -1;
+    }
+    
+    public EventDistance(Activity activity){
+    	super();
+    	setActivity(activity);
     }
     
     public EventDistance(String name, Activity activity, GregorianCalendar eventDate,

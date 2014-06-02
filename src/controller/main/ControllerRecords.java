@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -14,8 +15,11 @@ import model.activity.Activity;
 import model.user.User;
 import view.main.panel.PanelRecords.FormAttEnum;
 import view.main.panel.PanelRecords.FormButtonEnum;
+import controller.Main;
 import core.FormUtils.FormHandle;
 import core.FormUtils.FormListHandle;
+import core.FormUtils.OnPanelLoadLisneter;
+import core.util.Manager.ObjectDontExistException;
 
 public class ControllerRecords implements ListSelectionListener {
 	private FormListHandle mHandler;
@@ -31,6 +35,7 @@ public class ControllerRecords implements ListSelectionListener {
 		mHandler.addStringAll(mActivitysString); 
 		initListeners();
 	}
+	public void setUser(User user){mUser = user;}
 	
 	private void setActivityString(Map<Integer,Activity> hash){
 		mActivitysString = new ArrayList<String>(hash.size());
@@ -57,6 +62,19 @@ public class ControllerRecords implements ListSelectionListener {
 
 			
 		});
+		mHandler.addLoadLisnener(new OnPanelLoadLisneter() {
+			
+			@Override
+			public void load() {
+				try {
+					mActivitys = Main.getDataSet().userManager().get(mUser).getRecords();
+				} catch (ObjectDontExistException e) {
+					JOptionPane.showMessageDialog(null, "Utilizador invalido");
+				}
+				setActivityString(mActivitys);
+				mHandler.addStringAll(mActivitysString);
+			}
+		});
 
 	}
 	
@@ -73,7 +91,7 @@ public class ControllerRecords implements ListSelectionListener {
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		int index = mHandler.getSelectIndex();
+		
 		
 	}
 }

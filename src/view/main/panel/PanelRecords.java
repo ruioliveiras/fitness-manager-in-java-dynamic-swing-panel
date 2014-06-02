@@ -1,5 +1,6 @@
 package view.main.panel;
 
+import java.awt.Dimension;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -42,14 +43,16 @@ public class PanelRecords extends PanelListToolBar {
 	}
 
 	public enum FormAttEnum implements FormAttr{
-		EMAIL		("E-Mail",JTextField.class);
+		EMAIL		("E-Mail",JTextField.class,100);
 		
 		private String eName;
 		private Class<? extends JComponent> eClass;
+		private int eSize;
 		
-		FormAttEnum(String name,Class<? extends JComponent> _class){
+		FormAttEnum(String name,Class<? extends JComponent> _class,int size){
 			eName = name;
 			eClass = _class;
+			eSize = size;
 		}
 
 		@Override

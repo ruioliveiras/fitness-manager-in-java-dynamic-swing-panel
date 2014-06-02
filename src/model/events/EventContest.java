@@ -25,6 +25,10 @@ public class EventContest extends Event{
         this.mPointsDraw = 1;
         this.mPointsDraw = 0;
     }
+    public EventContest(Activity activity) {
+        this();
+        setActivity(activity);
+    }
     
     public EventContest(String name, Activity activity, GregorianCalendar eventDate,
                     GregorianCalendar endDate, long preRequisite, int maxNumUsers, int recordType,
