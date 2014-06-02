@@ -3,6 +3,7 @@ import model.user.User;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import model.activity.Activity;
+import model.activity.Distance;
 
 /**TODO++++++++++++++++++*/
 public class UserStats
@@ -10,7 +11,7 @@ public class UserStats
     static public int getDistanceStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
         int totalDist = 0;
     	for(Activity act : usr.actividadesEntre(startDate, endDate))
-    		if(act instanceof Distance) totalDist += (Distance act).getDistance();
+    		if(act instanceof Distance) totalDist += ((Distance) act).getDistance();
     	return totalDist;
     }
     
