@@ -9,4 +9,6 @@ comment3.params=name
 comment3.target=void\ setName(java.lang.String)
 comment4.params=result
 comment4.target=void\ setResults(long)
-numComments=5
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6
