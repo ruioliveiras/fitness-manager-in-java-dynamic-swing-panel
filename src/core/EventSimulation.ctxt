@@ -3,15 +3,16 @@ comment0.params=u\ act\ recordType\ stages
 comment0.target=long\ getSimulationDistance(model.user.User,\ model.activity.Distance,\ int,\ int)
 comment0.text=a\ simulation\ of\ a\ stage\ for\ one\ User,\ Ex\:\ 1km
 comment1.params=u\ act\ recordType\ stages
-comment1.target=java.util.List\ getFullSimulationDistance(model.user.User,\ model.activity.Distance,\ int,\ int)
+comment1.target=java.util.ArrayList\ getFullSimulationDistance(model.user.User,\ model.activity.Distance,\ int,\ int)
 comment1.text=simulation\ of\ the\ all\ race\ (several\ stages)\ for\ a\ User
-comment2.params=users\ act\ recordType
-comment2.target=java.util.List\ executeEventDistance(java.util.Set,\ model.activity.Distance,\ int)
-comment2.text=list\ of\ all\ partial\ stage\ timings\ for\ all\ Users
-comment3.params=lst
-comment3.target=java.util.List\ eventDistanceResults(java.util.List)
-comment3.text=calculation\ of\ the\ final\ time\ for\ all\ users
-comment4.params=u1\ u2\ category
-comment4.target=int\ getSimulationContest(model.user.User,\ model.user.User,\ java.lang.Class)
-comment4.text=\n\ Simula\ uma\ disputa\ entre\ dois\ utilizadores\n\ @param\ u1\ utilizador\ 1\n\ @param\ u2\ utilizador\ 2\n\ @param\ category\ categoria\ da\ actividade\n\ @return\ <0\ se\ user\ 1\ vence;\ \=0\ se\ empatam;\ ou\ >0\ se\ user\ 2\ vence\n
-numComments=5
+comment2.params=users\ act\ recordType\ stages
+comment2.target=java.util.Map\ getAllResults(java.util.Set,\ model.activity.Distance,\ int,\ int)
+comment3.params=results\ stage
+comment3.target=long\ getStageResult(java.util.ArrayList,\ int)
+comment4.params=results\ stage
+comment4.target=java.util.TreeSet\ getStageClassification(java.util.Map,\ int)
+comment4.text=treeSet\ para\ resultados\ ordenados\ por\ etapa(km)
+comment5.params=u1\ u2\ category
+comment5.target=int\ getSimulationContest(model.user.User,\ model.user.User,\ java.lang.Class)
+comment5.text=\n\ Simula\ uma\ disputa\ entre\ dois\ utilizadores\n\ @param\ u1\ utilizador\ 1\n\ @param\ u2\ utilizador\ 2\n\ @param\ category\ categoria\ da\ actividade\n\ @return\ <0\ se\ user\ 1\ vence;\ \=0\ se\ empatam;\ ou\ >0\ se\ user\ 2\ vence\n
+numComments=6

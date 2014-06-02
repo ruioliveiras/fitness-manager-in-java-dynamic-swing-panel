@@ -57,23 +57,23 @@ public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
         this.mName = name;
     }
     public Activity getActivity() {
-        return mActivity;
+        return mActivity.clone();
     }
-    public void setActivity(Activity mActivity) {
-        this.mActivity = mActivity;
+    public void setActivity(Activity activity) {
+        this.mActivity = activity.clone();
     }
     
     public GregorianCalendar getEventDate() {
-        return mEventDate;
+        return (GregorianCalendar) mEventDate.clone();
     }
     public void setEventDate(GregorianCalendar eventDate) {
-        this.mEventDate = eventDate;
+        this.mEventDate = (GregorianCalendar) eventDate.clone();
     }
     public GregorianCalendar getEndDate() {
-        return mEndDate;
+        return (GregorianCalendar) mEndDate.clone();
     }
     public void setEndDate(GregorianCalendar endDate) {
-        this.mEndDate = endDate;
+        this.mEndDate = (GregorianCalendar) endDate.clone();
     }
     public long getPreRequisite() {
         return mPreRequisite;
@@ -94,7 +94,7 @@ public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
         this.mRecordType = recordType;
     }
     public Manager<String> getUserManager(){
-        return mUsers;
+        return mUsers;/*TODO: PERGUNTAR AO OLIVEIRA*/
     }
     
     public void addUser(User u) throws AddEventException{
