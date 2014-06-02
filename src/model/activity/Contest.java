@@ -38,8 +38,8 @@ public abstract class Contest extends Activity {
     public void setPointTeam(int pointTeam){mPointTeam = pointTeam;}
     public int getPointTeam(){return mPointTeam;}
     public void setResult(){
-        if(this.mPointRival == this.mPointRival) mResult = Result.DRAW;
-        else if(this.mPointRival > this.mPointRival) mResult = Result.LOSE;
+        if(this.mPointRival == this.mPointTeam) mResult = Result.DRAW;
+        else if(this.mPointRival > this.mPointTeam) mResult = Result.LOSE;
         else mResult = Result.WIN;
     }
     public Result getResult(){return mResult;}
