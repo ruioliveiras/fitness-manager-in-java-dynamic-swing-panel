@@ -48,7 +48,7 @@ public class ControllerEvents implements ListSelectionListener{
     private User mUser;
     private Event mSelected;
     private List<Event> mEvents;
-    
+    private Permissoes mRight;
     
     public ControllerEvents(FormHandle handler,User user) {
         mHandler = (FormListHandle) handler;
@@ -56,8 +56,14 @@ public class ControllerEvents implements ListSelectionListener{
         mEvents = Main.getDataSet().eventManager().collection();
         mHandler.addStringAll(mEvents); 
         initListeners();
+        mRight = user.getPermissoes();
+		checkRight();
     }
-    public void setUser(User user){mUser = user;}
+    public void setUser(User user,Permissoes p){
+    	mRight = p;
+    	mUser = user;
+    	checkRight();
+    }
     
     private void initListeners(){
         if (mUser.getPermissoes() != Permissoes.Admin){
@@ -143,7 +149,18 @@ public class ControllerEvents implements ListSelectionListener{
         
     }
     
-    
+	private void checkRight(){
+		boolean edit;
+		if (mRight == Permissoes.Admin || mRight == Permissoes.User){
+			edit = true;
+		}else{
+			edit = false;
+		}
+		
+		for(FormButtonEnum e: FormButtonEnum .values()){
+			mHandler.getButton(e).setEnabled(edit);
+		}
+	}
     
     
     private void setEvent(Event event){

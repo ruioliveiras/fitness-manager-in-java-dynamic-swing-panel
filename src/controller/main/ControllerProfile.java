@@ -24,14 +24,22 @@ import core.FormUtils.FormHandle;
 public class ControllerProfile {
 	private FormHandle mHandler;
 	private User mUser;
+	private Permissoes mRight;
 	
 	public ControllerProfile(FormHandle handler, User user) {
 		mHandler = handler; 
 		mUser = user; 
 		initListeners();
 		initValues();
+		mRight = user.getPermissoes();
+		checkRight();
 	}
-	public void setUser(User user){mUser = user;}
+	public void setUser(User user,Permissoes right){
+		mUser = user;
+		mRight = right;
+		initValues();
+		checkRight();
+	}
 	
 	private void initListeners(){
 		mHandler.addButtonListener(FormButtonEnum.EDITAR, new ActionListener() {
@@ -64,7 +72,19 @@ public class ControllerProfile {
 		mHandler.setValue(FormAttEnum.SEXO, mUser.getGenero().toString());
 		mHandler.setValue(FormAttEnum.PREFERIDO, mUser.getDesportoFavorito().getName());
 		mHandler.setValue(FormAttEnum.NASCIMENTO, sdf.format(mUser.getDataNascimento().getTime()).toString());
+	}
+	
+	private void checkRight(){
+		boolean edit;
+		if (mRight == Permissoes.Admin || mRight == Permissoes.User){
+			edit = true;
+		}else{
+			edit = false;
+		}
 		
+		for(FormButtonEnum e: FormButtonEnum .values()){
+			mHandler.getButton(e).setEnabled(edit);
+		}
 	}
 	
 	
