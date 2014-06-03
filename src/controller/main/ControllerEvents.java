@@ -27,6 +27,7 @@ import model.activity.Distance;
 import model.activity.Natacao;
 import model.events.Event;
 import model.events.EventContest;
+import model.events.ContestPair;
 import model.events.EventDistance;
 import model.user.Permissoes;
 import model.user.User;
@@ -42,6 +43,7 @@ import core.FormUtils;
 import core.FormUtils.FormHandle;
 import core.FormUtils.FormListHandle;
 import core.FormUtils.OnPanelLoadLisneter;
+import core.util.Manager.ObjectDontExistException;
 
 public class ControllerEvents implements ListSelectionListener{
     private FormListHandle mHandler;
@@ -310,11 +312,23 @@ public class ControllerEvents implements ListSelectionListener{
     }
     
     private void iniciarDistanceEvent(){
-        List<User> users = Main.getDataSet().userManager().collection();
+        List<String> usersKeys = mSelected.getUserManager().collection();/*ler keys do evento seleccionado*/
+        List<User> users = new ArrayList<>();
         Distance act = (Distance) mSelected.getActivity();
         int recordType = mSelected.getRecordType();
         long eventDistance = act.getValue(act.getRecord(recordType));
         int stages = (eventDistance > 1000) ? (int) eventDistance/1000 : 1;
+        
+        /*adicionar Users atraves das keys*/
+        for(String uKey : usersKeys){
+            try{
+                User aux = Main.getDataSet().userManager().get(new User(uKey));
+                users.add(aux);
+            }
+            catch (ObjectDontExistException e) {
+                 JOptionPane.showMessageDialog(null, "Email não existe");
+            }
+        }
         
         Map<String,ArrayList<Long>> allResults = EventSimulation.getAllResults(users, act, recordType, stages);
         
@@ -327,6 +341,35 @@ public class ControllerEvents implements ListSelectionListener{
     private void iniciarContestEvent(){
         /**TODO*/
     }
+    
+    /**contest simulation*/
+    static public Map<String,Integer> contestTable(List<ContestPair> results){
+        return null;
+    }
+    
+    /*
+    static public List<ContestPair> gamesResults(){
+        List<ContestPair> games = mSelected.getGames();
+        
+        
+        return games;
+    }
+    */
+    
+    /*
+     * static private int getSimulationContest(User u1, User u2, Class<? extends Activity> category)
+     * 
+    static public List<Integer> getFullSimulationContest(List<ContestPair> lst, Class<? extends Contest> category){
+        List<Integer> results = new ArrayList<Integer>();
+        
+        for(ContestPair p : lst){
+            User usr1 = new User(p.getFstUser());
+            User usr2 = new User(p.getSndUser());
+            results.add(EventSimulation.getSimulationContest(usr1, usr2, category));
+        }
+        return results;
+    }
+    */
     
     
     /*print auxiliares*/
@@ -346,9 +389,14 @@ public class ControllerEvents implements ListSelectionListener{
         
     }
     
+
+    
+    
+
+    
     
     /**
-     * percorrer users
+     * @@@ cabula para percorrer users:
      * 
      * mSelected (Evento actual)
      * 
@@ -358,13 +406,8 @@ public class ControllerEvents implements ListSelectionListener{
      * //aceder a todos os users
      * List<User> = Main.getDataSet().userManager().collection();
      * 
+     * //aceder a 1 User
      * User = Main.getDataSet().userManager().get(new User("stringKey"));
-     * 
-     * 
-     * static public Map<String,ArrayList<Long>> getAllResults(List<User> users, Distance act, 
-                                                int recordType, int stages)
-                                                
-       static public TreeSet<DistancePair> getStageClassification(Map<String,ArrayList<Long>> results, int stage)
      * 
      */
 }
