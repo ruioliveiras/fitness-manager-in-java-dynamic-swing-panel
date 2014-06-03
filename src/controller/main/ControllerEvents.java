@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.TreeSet;
+import java.util.Iterator;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -59,12 +61,12 @@ public class ControllerEvents implements ListSelectionListener{
         mHandler.addStringAll(mEvents); 
         initListeners();
         mRight = user.getPermissoes();
-		checkRight();
+        checkRight();
     }
     public void setUser(User user,Permissoes p){
-    	mRight = p;
-    	mUser = user;
-    	checkRight();
+        mRight = p;
+        mUser = user;
+        checkRight();
     }
     
     private void initListeners(){
@@ -151,18 +153,18 @@ public class ControllerEvents implements ListSelectionListener{
         
     }
     
-	private void checkRight(){
-		boolean edit;
-		if (mRight == Permissoes.Admin || mRight == Permissoes.User){
-			edit = true;
-		}else{
-			edit = false;
-		}
-		
-		for(FormButtonEnum e: FormButtonEnum .values()){
-			mHandler.getButton(e).setEnabled(edit);
-		}
-	}
+    private void checkRight(){
+        boolean edit;
+        if (mRight == Permissoes.Admin || mRight == Permissoes.User){
+            edit = true;
+        }else{
+            edit = false;
+        }
+        
+        for(FormButtonEnum e: FormButtonEnum .values()){
+            mHandler.getButton(e).setEnabled(edit);
+        }
+    }
     
     
     private void setEvent(Event event){
@@ -347,8 +349,10 @@ public class ControllerEvents implements ListSelectionListener{
             }
         }
         
+        /*criar map de resultados*/
         Map<String,ArrayList<Long>> allResults = EventSimulation.getAllResults(users, act, recordType, stages);
         
+        /*apresentacao dos resultados por etapa*/
         for(int i = 0; i < stages; i++){
             TreeSet<DistancePair> aux = EventSimulation.getStageClassification(allResults, i);
             printDistanceEvent(aux, i);
@@ -356,37 +360,94 @@ public class ControllerEvents implements ListSelectionListener{
     }
     
     private void iniciarContestEvent(){
-        /**TODO*/
+        List<ContestPair> games = gamesResults();
+        Map<String,Integer> table = contestTable(games);
+        TreeSet<DistancePair> classif = new TreeSet<>();
+        
+        Iterator<String> it = table.keySet().iterator();
+        for(Integer pts : table.values())
+            classif.add(new DistancePair(it.next(),pts));/*atencao mudar o nome de DistancePair*/
+        
+            
+        /*output*/
+        clearScreen();
+        System.out.println(mSelected.toString());
+        
+        /*imprimir jogos*/
+        for(ContestPair g : games)
+            System.out.println(g.toString());
+
+        nextOutput();    
+        /*imprimir tabela ordenada*/
+        System.out.println("--- Tabela Classificativa ---");
+        for(DistancePair p : classif)
+            System.out.println(p.getName() + " --- " + p.getResult());  
     }
     
     /**contest simulation*/
-    static public Map<String,Integer> contestTable(List<ContestPair> results){
-        return null;
+    public Map<String,Integer> contestTable(List<ContestPair> results){
+        Map<String,Integer> table = new HashMap<>();
+        String u1, u2;
+        int u1Pts, u2Pts;
+        
+        for(ContestPair p : results){
+            u1 = p.getFstUser();
+            u2 = p.getSndUser();
+            u1Pts = p.getUser1Pts();
+            u2Pts = p.getUser2Pts();
+            if(!table.containsKey(u1)) table.put(u1, u1Pts);/*primeira insercao*/
+            else table.put(u1, u1Pts + table.get(u1));/*atualizacao dos pontos*/
+            if(!table.containsKey(u2)) table.put(u2, u2Pts);
+            else table.put(u2, u2Pts + table.get(u2));
+        }
+            
+        return table;
     }
     
-    /*
-    static public List<ContestPair> gamesResults(){
-        List<ContestPair> games = mSelected.getGames();
+
+    public List<ContestPair> gamesResults(){
+        /*gerar jogos sem resultados*/
+        List<ContestPair> games = ((EventContest) mSelected).getGames();
+        User u1=null, u2=null;
+        int resultAux, u1Pts, u2Pts;
         
+        /*ler users e criar resultados*/
+        for(ContestPair p : games){
+           String u1Key =  p.getFstUser();
+           String u2Key =  p.getSndUser();
+           try{
+                u1 = Main.getDataSet().userManager().get(new User(u1Key));
+                u2 = Main.getDataSet().userManager().get(new User(u2Key));
+           }
+           catch (ObjectDontExistException e) {
+                 JOptionPane.showMessageDialog(null, "Email não existe");
+                 return null;
+           }
+           /*simula resultado*/
+           resultAux = EventSimulation.getSimulationContest(u1, u2, mSelected.getActivity().getClass());
+           
+           /*atribui pontos em funcao do resultado*/
+           if(resultAux == 0) {
+               u1Pts = u2Pts = ((EventContest) mSelected).getDrawPts();
+               p.setUser1Pts(u1Pts);
+               p.setUser1Pts(u2Pts);
+           }
+           else if(resultAux < 0) {
+               u1Pts = ((EventContest) mSelected).getVicPts();
+               u2Pts = ((EventContest) mSelected).getLossPts();
+               p.setUser1Pts(u1Pts);
+               p.setUser1Pts(u2Pts);
+           }
+           else{
+               u2Pts = ((EventContest) mSelected).getVicPts();
+               u1Pts = ((EventContest) mSelected).getLossPts();
+               p.setUser1Pts(u1Pts);
+               p.setUser1Pts(u2Pts);
+           }
+        }
         
         return games;
     }
-    */
-    
-    /*
-     * static private int getSimulationContest(User u1, User u2, Class<? extends Activity> category)
-     * 
-    static public List<Integer> getFullSimulationContest(List<ContestPair> lst, Class<? extends Contest> category){
-        List<Integer> results = new ArrayList<Integer>();
-        
-        for(ContestPair p : lst){
-            User usr1 = new User(p.getFstUser());
-            User usr2 = new User(p.getSndUser());
-            results.add(EventSimulation.getSimulationContest(usr1, usr2, category));
-        }
-        return results;
-    }
-    */
     
     
     /*print auxiliares*/
@@ -398,7 +459,7 @@ public class ControllerEvents implements ListSelectionListener{
         
         Scanner reader = new Scanner(System.in);
         String c;
-        System.out.println("--- Prima <n> para a próxima ronda ---");
+        System.out.println("--- Prima <n> para mais resultados ---");
         do {
             c = reader.nextLine();
         }

@@ -99,7 +99,7 @@ public class EventSimulation {
      * @param category categoria da actividade
      * @return <0 se user 1 vence; =0 se empatam; ou >0 se user 2 vence
      */
-    static private int getSimulationContest(User u1, User u2, Class<? extends Activity> category){
+    static public int getSimulationContest(User u1, User u2, Class<? extends Activity> category){
         int user1Pts = UserStats.getPtsFromLastYear(u1, category);
         int user2Pts = UserStats.getPtsFromLastYear(u2, category);
         double rnd1 = 1 + (Math.random() - 0.50);
