@@ -85,6 +85,54 @@ public abstract class Activity implements ObjectClonable,ObjectRecord ,Serializa
     public  abstract Activity clone();
     
     /*Record*/
+	public abstract String getRecordToString(Record recordType);
+	public abstract int getRecordSize();
+	public abstract Record getRecord(int index);
+	public abstract long get(EnumAttr iAttr);
+    public abstract boolean isRecordBiggerBetter(Record recordType);
+    public abstract void correct(Record record);
+    
+    public long getValue(Record recordType){
+    	return get(recordType.getMov());
+    }
+    
+    public final long compareRecord(Activity otherActivity,Record recordType) {
+    	long sThis,sOther;
+    	boolean isSimilar = true;
+    	
+    	//1º tem fixo? -> é similar?
+    	if (recordType.getFixed() != null){
+    		sThis  = this.get(recordType.getFixed());
+    		isSimilar = recordType.similar(sThis); 
+    	}
+    	sThis  = this.get(recordType.getMov());
+    	sOther = 0;
+    	if (isSimilar){
+    		
+    		if(otherActivity != null){
+    			sOther = otherActivity.get(recordType.getMov());
+//    			if (!recordType.similar(sOther)){
+//    				return 1; 
+//    			}	
+    		}
+    		if (sOther == 0){
+    			return 1;
+    		}
+    		
+    		if (isRecordBiggerBetter(recordType)){
+    			return sThis - sOther;
+    		}else{
+    			return (Long.MAX_VALUE - sThis) - (Long.MAX_VALUE - sOther);
+    		}
+    	
+    	}
+    	return -1;
+
+		
+	}
+    
+    
+    /*
     public abstract String getRecordToString(int recordType);
     public abstract int getRecordSize();
     public abstract long get(int iAttr);
@@ -93,15 +141,16 @@ public abstract class Activity implements ObjectClonable,ObjectRecord ,Serializa
     public long getStat(Record a){
     	long value = Integer.MAX_VALUE;
     	if (a.getFixed() != null){
-    		/*Means that a has fixed element, is similar?*/
-    		value = this.get(a.getFixed().ordinal());/*get real ordinal*/
+    		//Means that a has fixed element, is similar?
+    		value = this.get(a.getFixed().getAttrType());//get real ordinal
     	}
     	if ((value == Integer.MAX_VALUE) || (a.similar(value))){
     		return get(a.getMov().getAttrType());
     	}else{
-    		return Integer.MAX_VALUE;
+    		return -1;
     	}
     }
+
     public long getRecordTypeValue(int recordType){
     	return getStat(recordType);
     }
@@ -113,20 +162,32 @@ public abstract class Activity implements ObjectClonable,ObjectRecord ,Serializa
 	 * 				0 (==0) se o this for igual alterar
 	 *        será +1 (>0) se o this for "maior"/"melhor", alterar 
 	 */
-	
-	public long compareRecord(Activity otherActivity,int recordType) {
+   /* public abstract boolean isRecordBigger(int recordType);
+	public final long compareRecord(Activity otherActivity,int recordType) {
 		long sThis,sOther = 0;
+		if (this instanceof Ciclismo && recordType == 3){
+			recordType++;
+			recordType--;
+		}
 		sThis  = this.getStat(recordType);
 		
-		if (sThis  == Integer.MAX_VALUE){
+		
+		
+		if (sThis  == Integer.MAX_VALUE || sThis == -1){
 			return -1;
 		}
 		if(otherActivity != null){
 			sOther = otherActivity.getStat(recordType); 
 		}
-		return sThis - sOther;
+		if (isRecordBigger(recordType)){
+			return sThis - sOther;
+		}else{
+			return (Long.MAX_VALUE - sThis) - sOther;
+		}
+		
+		
 	}
-    
+    */
     
     public int calculateCalories(User u) {
 	    return core.CaloriesCalculation.calcCalories(this, u);

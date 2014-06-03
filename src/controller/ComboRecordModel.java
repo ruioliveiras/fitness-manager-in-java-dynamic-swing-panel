@@ -16,7 +16,7 @@ public class ComboRecordModel extends DefaultComboBoxModel<Object>{
 	
 	@Override
 	public Object getElementAt(int index) {
-		return mActivity.getRecordName(index);
+		return mActivity.getRecord(index).getName();
 	}
 
 	@Override

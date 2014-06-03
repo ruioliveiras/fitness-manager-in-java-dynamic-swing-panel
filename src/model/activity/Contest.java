@@ -48,7 +48,7 @@ public abstract class Contest extends Activity {
     
     
     
-    public enum Attr implements ObjectRecord.enumAttr {
+    public enum Attr implements ObjectRecord.EnumAttr {
         TEMPO("Tempo"),RESULT_DIF("Diferença de resultado"),POINT_TEAM("Pontos da equipa");
 
         private String eName;
@@ -65,24 +65,24 @@ public abstract class Contest extends Activity {
         BEST_VITORY("Melhor vitoria",Attr.RESULT_DIF),
         MAX_PONTOS("Maior nº pontos",Attr.POINT_TEAM);
         
-        private ObjectRecord.enumAttr eFix;
-        private ObjectRecord.enumAttr eMov;
+        private ObjectRecord.EnumAttr eFix;
+        private ObjectRecord.EnumAttr eMov;
         private int eValue;
         private String eName;
 
-        MyRecords(String name,ObjectRecord.enumAttr var,ObjectRecord.enumAttr fixo,int value){
+        MyRecords(String name,ObjectRecord.EnumAttr var,ObjectRecord.EnumAttr fixo,int value){
             eName = name;eFix = fixo; eMov = var; eValue = value;
         }
-        MyRecords(String name,ObjectRecord.enumAttr var){
+        MyRecords(String name,ObjectRecord.EnumAttr var){
             eName = name;eMov = var;eFix = null;    eValue = -1;
         }
         @Override
-        public enumAttr getFixed() {return eFix;}
+        public EnumAttr getFixed() {return eFix;}
         @Override
         public boolean similar(long value) 
             {return (Math.abs(value - eValue) < eValue/2);}
         @Override
-        public enumAttr getMov() {return eMov;}
+        public EnumAttr getMov() {return eMov;}
         @Override
         public int getrecordType() {return ordinal();}
         @Override
@@ -91,51 +91,63 @@ public abstract class Contest extends Activity {
         public long getValue() {return eValue;}
     }
     
-    public long getStat(int recordType) {
-        MyRecords a = MyRecords.values()[recordType];
-        return super.getStat(a);
-    }
-    public long get(int iAttr) {
-    	Attr a = Attr.values()[iAttr];
-    	switch (a) {
-		case POINT_TEAM: return getPointTeam();
-		case RESULT_DIF: return getPointTeam() - getPointRival();
-		case TEMPO: 	 return (int) (-1) * (getDuration() / (1000) ); //* seconds
-		default:
+    
+	
+
+	@Override
+	public long get(EnumAttr att){
+	
+		if (att.getName().equals(Attr. POINT_TEAM.getName())){
+			return getPointTeam();
+		}else if (att.getName().equals(Attr.RESULT_DIF.getName())){
+			return getPointTeam();
+		}else if (att.getName().equals(Attr.TEMPO.getName())){
+			return getDuration();
+		}else {
 			return -1;
-    	}
+		}
+	}
+	@Override
+    public boolean isRecordBiggerBetter(Record recordType){
+		EnumAttr att = recordType.getMov();
+		
+		if (att.getName().equals(Attr.POINT_TEAM.getName())){
+			return false;
+		}
+    	return true;
+    }
+	
+    @Override
+    public void correct(Record recordType) {	
+    	//don't need
 	} 
     
-    public String getRecordToString(int recordType){
-    	Record r = MyRecords.values()[recordType];
-    	Attr a = Attr.values()[r.getMov().getAttrType()];
+    @Override
+	public int getRecordSize() {
+		return MyRecords.values().length;
+	}
+   @Override
+    public Record getRecord(int index){
+    	return MyRecords.values()[index];
+    }
+    @Override
+    public String getRecordToString(Record recordType){
+    	EnumAttr att = recordType.getMov();
     	
     	StringBuilder sb = new StringBuilder();
-    	sb.append(getName());sb.append(" |- ");sb.append(a.getName());
+    	sb.append(getName());sb.append(" |- ");sb.append(recordType.getName());
     	sb.append(" ");
-    	
-    	switch (a) {
-		case RESULT_DIF: sb.append(getPointTeam() - getPointRival());sb.append(" ");sb.append(getPointName()); break;
-		case POINT_TEAM: 	sb.append(getPointTeam());sb.append(" ");sb.append(getPointName()); break;
-		default:
-			break;
+    	if (att.getName().equals(Attr.RESULT_DIF.getName())){
+    		sb.append(getPointTeam() - getPointRival());sb.append(" ");sb.append(getPointName());
+    	}else if (att.getName().equals(Attr.POINT_TEAM.getName())){
+    		sb.append(getPointTeam());sb.append(" ");sb.append(getPointName()); 
     	}
     	
     	return sb.toString();
-    }
-	public String getRecordName(int recordType){
-		Record a = MyRecords.values()[recordType ];
-		return a.getName();
-    }
+    }	
+    
+    
 
-    @Override
-    public void correct(int recordType) {
-        //Don't need to correct nothing
-    } 
-    @Override
-    public int getRecordSize() {
-        return MyRecords.values().length;
-    }
     
     @Override
     public boolean equals (Object obj){

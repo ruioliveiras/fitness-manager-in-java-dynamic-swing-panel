@@ -20,6 +20,7 @@ import core.util.Manager;
 import core.util.ManagerSet;
 import model.ObjectClonable;
 import model.ObjectKey;
+import model.ObjectRecord.Record;
 import model.activity.Activity;
 import model.activity.ActivityComparatorByDate;
 import model.activity.Ciclismo;
@@ -191,12 +192,20 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     public Manager<String> convitesManager(){return this.convitesAmigos;} 
     public Manager<Activity> atividadesManager(){return this.actividadesUser;}    
     
-    public Activity getRecord(Class<? extends Activity> classe,int recordType){
+    public Activity getRecord(Class<? extends Activity> classe,int recordType) throws RecordDontExitExeception{
+    	if(recordes.get(classe) == null){
+    		throw new RecordDontExitExeception();
+    	}
+    	if (recordes.get(classe).get(recordType)==null){
+    		throw new RecordDontExitExeception();
+    	}
+    	
     	return recordes.get(classe).get(recordType);
     }
     
-    public long getRecordValue(Class<? extends Activity> classe,int recordType){
-        return getRecord(classe, recordType).get(recordType);
+    public long getRecordValue(Class<? extends Activity> classe,int recordType) throws RecordDontExitExeception{
+        Activity a = getRecord(classe, recordType);
+       	return a.getValue(a.getRecord(recordType));
     }
     
     
@@ -252,9 +261,9 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
         numRecords = activity.getRecordSize();
         for (int i=0;i<numRecords;i++){
             record = actualRecords.get(i); /*record can be null, but compareRecord admits null activities*/
-            if (activity.compareRecord(record,i) >= 0){
+            if (activity.compareRecord(record,activity.getRecord(i)) >= 0){
                 Activity rec = activity.clone();
-                rec.correct(i);
+                rec.correct(activity.getRecord(i));
             	actualRecords.put(i, rec);
             }
         }

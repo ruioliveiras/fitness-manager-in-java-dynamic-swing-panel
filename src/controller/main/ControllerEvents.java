@@ -7,8 +7,12 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeSet;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -32,12 +36,12 @@ import controller.ComboRecordModel;
 import controller.EventNotPermited;
 import controller.Main;
 import controller.NameDontExistException;
+import core.DistancePair;
+import core.EventSimulation;
 import core.FormUtils;
 import core.FormUtils.FormHandle;
 import core.FormUtils.FormListHandle;
 import core.FormUtils.OnPanelLoadLisneter;
-import core.EventSimulation;
-import core.DistancePair;
 
 public class ControllerEvents implements ListSelectionListener{
     private FormListHandle mHandler;
@@ -309,7 +313,7 @@ public class ControllerEvents implements ListSelectionListener{
         List<User> users = Main.getDataSet().userManager().collection();
         Distance act = (Distance) mSelected.getActivity();
         int recordType = mSelected.getRecordType();
-        long eventDistance = act.getRecordTypeValue(recordType);
+        long eventDistance = act.getValue(act.getRecord(recordType));
         int stages = (eventDistance > 1000) ? (int) eventDistance/1000 : 1;
         
         Map<String,ArrayList<Long>> allResults = EventSimulation.getAllResults(users, act, recordType, stages);

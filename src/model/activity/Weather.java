@@ -50,7 +50,7 @@ public class Weather implements Serializable{
     }
     
     public Weather(){
-        this.mLocal = null;
+        this.mLocal = Local.INDOOR;
         this.mSun = null;
         this.mWind = null;
     }
@@ -105,9 +105,11 @@ public class Weather implements Serializable{
         if (mLocal.equals(Local.INDOOR)){
             sb.append(mLocal.getName());
         }else{
-            sb.append(mSun.getName());
-            sb.append(", ");
-            sb.append(mWind.getName());
+        	if (mSun!=null && mWind != null){
+	            sb.append(mSun.getName());
+	            sb.append(", ");
+	            sb.append(mWind.getName());
+        	}
         }
         
         return sb.toString();

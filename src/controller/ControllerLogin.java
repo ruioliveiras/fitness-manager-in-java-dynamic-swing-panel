@@ -15,6 +15,7 @@ import model.user.Permissoes;
 import model.user.User;
 import view.FormLogin;
 import view.FormRegister;
+import view.main.panel.PanelLogin.FormAttEnum;
 import view.main.panel.PanelLogin.FormButtonEnum;
 import view.main.panel.PanelProfile;
 import core.FormUtils;
@@ -36,6 +37,7 @@ public class ControllerLogin{
 	
 	public void start(){
 		mViewLogin.show();
+		setComponentsEnable(true);
 	}
 
 	private void loginOK(User user) {
@@ -110,17 +112,21 @@ public class ControllerLogin{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				/*String email = mHandler.getValue(FormAttEnum.EMAIL);
+				String email = mHandler.getValue(FormAttEnum.EMAIL);
 				String pass = mHandler.getValue(FormAttEnum.PASS);
-				User user;*/
+				User user;
 				try {
-					/*user = Main.getDataSet().userManager().get(new User(email));
-					if (user != null && user.getPassword().equals(pass)){
-						loginOK(user);
+					//autoLogin
+					if (email.equals("")){
+						loginOK(Main.getDataSet().userManager().get(new User("rui96pedro@hotmail.com")));
 					}else{
-						JOptionPane.showMessageDialog(null, "Invalid pass or email");
-					}*/
-					loginOK(Main.getDataSet().userManager().get(new User("rui96pedro@hotmail.com")));
+						user = Main.getDataSet().userManager().get(new User(email));
+						if (user != null && user.getPassword().equals(pass)){
+							loginOK(user);
+						}else{
+							JOptionPane.showMessageDialog(null, "Invalid pass or email");
+						}
+					}
 				} catch (ObjectDontExistException e) {
 					JOptionPane.showMessageDialog(null, "Email don't exist");
 				}
@@ -143,4 +149,10 @@ public class ControllerLogin{
 		});
 	}
 
+	protected void setComponentsEnable(boolean b){
+		for(FormAttEnum e: FormAttEnum .values()){
+			mHandler.getComponent(e).setEnabled(b);
+		}
+	}
+	
 }

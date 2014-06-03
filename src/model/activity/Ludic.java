@@ -1,11 +1,9 @@
 package model.activity;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import model.ObjectRecord;
+import core.util.Util;
 
 
 public abstract class Ludic extends Activity {
@@ -27,7 +25,7 @@ public abstract class Ludic extends Activity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public enum Attr implements ObjectRecord.enumAttr {
+	public enum Attr implements ObjectRecord.EnumAttr {
 		TEMPO("Tempo");
 
 		private String eName;
@@ -43,24 +41,24 @@ public abstract class Ludic extends Activity {
 	public enum MyRecords implements Record{
        	TIME ("Tempo de duracao",Attr.TEMPO);
     	
-		private ObjectRecord.enumAttr eFix;
-		private ObjectRecord.enumAttr eMov;
+		private ObjectRecord.EnumAttr eFix;
+		private ObjectRecord.EnumAttr eMov;
 		private int eValue;
 		private String eName;
 
-		MyRecords(String name,ObjectRecord.enumAttr var,ObjectRecord.enumAttr fixo,int value){
+		MyRecords(String name,ObjectRecord.EnumAttr var,ObjectRecord.EnumAttr fixo,int value){
 			eName = name;eFix = fixo; eMov = var; eValue = value;
 		}
-		MyRecords(String name,ObjectRecord.enumAttr var){
+		MyRecords(String name,ObjectRecord.EnumAttr var){
 			eName = name;eMov = var;eFix = null;	eValue = -1;
 		}
 		@Override
-		public enumAttr getFixed() {return eFix;}
+		public EnumAttr getFixed() {return eFix;}
 		@Override
 		public boolean similar(long value) 
 			{return (Math.abs(value - eValue) < eValue/2);}
 		@Override
-		public enumAttr getMov() {return eMov;}
+		public EnumAttr getMov() {return eMov;}
 		@Override
 		public int getrecordType() {return ordinal();}
 		@Override
@@ -69,54 +67,49 @@ public abstract class Ludic extends Activity {
 		public long getValue() {return eValue;}
     }
     
-    public long getStat(int recordType) {
-    	MyRecords a = MyRecords.values()[recordType];
-    	return super.getStat(a);
-	}
-    public long get(int iAttr) {
-    	Attr a = Attr.values()[iAttr];
 
-    	switch (a) {
-    	case TEMPO:     return (int) (getDuration() / (1000) ); //* seconds
-    	default:		return -1;
-    	}
-	} 
+	
+	@Override
+	public long get(EnumAttr att){
+		if (att.getName().equals(Attr.TEMPO.getName())){
+			return getDuration();
+		}else{
+			return -1;
+		}
+	}
+
+	@Override
+    public boolean isRecordBiggerBetter(Record recordType){
+		return true;
+	}
+	
     @Override
-    public void correct(int recordType) {
-    	//Don't need to correct nothing
+    public void correct(Record recordType) {	
+    	//no need to correct
 	} 
+    
     @Override
 	public int getRecordSize() {
 		return MyRecords.values().length;
-	} 
-    
-    
-    public String getRecordToString(int recordType){
-    	Record r = MyRecords.values()[recordType];
-    	Attr a = Attr.values()[r.getMov().getAttrType()];
+	}
+   @Override
+    public Record getRecord(int index){
+    	return MyRecords.values()[index];
+    }
+   
+    @Override
+    public String getRecordToString(Record recordType){
+    	EnumAttr att = recordType.getMov();
     	
     	StringBuilder sb = new StringBuilder();
-    	sb.append(getName());sb.append(" |- ");sb.append(a.getName());
+    	sb.append(getName());sb.append(" |- ");sb.append(recordType.getName());
     	sb.append(" ");
     	
-    	Calendar c = Calendar.getInstance();
-    	c.set(Calendar.HOUR_OF_DAY, 0);
-    	c.set(Calendar.MINUTE, 0);
-    	c.set(Calendar.SECOND, 0);
-    	c.set(Calendar.MILLISECOND, 0);
-    	c.setTimeInMillis(c.getTimeInMillis() + getDuration());
-    	DateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
-    	
-    	switch (a) {
-		case TEMPO:   sb.append(df.format(c.getTime()));break;
-		default:
-			break;
+    	if (att.getName().equals(Attr.TEMPO.getName())){
+    		sb.append(Util.hourFormat(getDuration()));
     	}
-    	
+
     	return sb.toString();
     }
-	public String getRecordName(int recordType){
-		Record a = MyRecords.values()[recordType ];
-		return a.getName();
-    }
+
 }
