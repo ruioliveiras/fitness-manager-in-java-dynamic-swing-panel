@@ -121,21 +121,39 @@ com repositório privado no bitbucket (\url{https://bitbucket.org/ruiOliveiras94
 
 falar também do Manager, Dataset, ...
 
-\section{Descrição das Classes Principais}
+\section{Diagramas de Classes}
 \label{sec:classes}
 (...)
 A figura (...) apresenta o grafo de dependências dos vários ficheiros de código, obtido através do \emph{BlueJ}.
 
+COLOCAR TABELA EXCEL DAS ACTIVIDADES?
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{diagramaActivities.png}
+\caption{Diagrama com dependências da super classe \emph{Activity}.}
+\label{fig:activityDiagram}
+\end{figure}
+
+\section{Funcionalidades da Aplicação}
+\label{sec:funcionalidades}
+(...)
+Lista de features da aplicação.
+(...)
+
 \chapter{Estruturas de Dados Principais}
 \label{cap:estruturas}
 (...)
-\section{Class User}
+\section{User class}
 \label{sec:user}
 (...)
-\section{Class Activity}
+\section{Activity class}
 \label{sec:activity}
 (...)
-\section{Class Event}
+\section{Record interface}
+\label{sec:interface}
+(...)
+\section{Event class}
 \label{sec:event}
 (...)
 
@@ -280,8 +298,12 @@ No entanto, não é feita uma distribuição equitativa dos pesos pelos dias. Di
 menos peso. Essa “menos influência” é dada por uma taxa (variável TAXA) que representa o decréscimo na forma resultante de ficar 1 dia sem 
 fazer nenhuma actividade. Se \verb!TAXA=0.05!, significa que cada dia que se ande para trás, tem -5\% de influência no cálculo da forma.
 A contribuição para a forma de cada dia é calculado multiplicando o peso desse dia pelo quociente entre o número de minutos que o utilizador 
-fez de uma actividade e o nº de minutos recomendado para essa actividade (nº de minutos recomendado para 1 actividade = Intensidade). 
+fez de uma actividade e o número de minutos recomendado para essa actividade (número de minutos recomendado para 1 actividade = \verb!Intensidade!). 
 Somadas todas as contribuições de cada dia, tem-se a forma final.
+
+\chapter{Estatísticas dos Utilizadores}
+\label{cap:estatisticas}
+(...)
 
 \chapter{Simulação de Eventos}
 \label{cap:simula}
@@ -295,13 +317,7 @@ Somadas todas as contribuições de cada dia, tem-se a forma final.
 \bibliography{relatorio-POO-CamposinhosOliveiraSantos}
 
 \appendix
-\chapter{Documentação do Código}
-\label{anex:doc}
-
 \chapter{Demo da aplicação}
 \label{anex:demo}
-
-
-
 
 \end{document}
