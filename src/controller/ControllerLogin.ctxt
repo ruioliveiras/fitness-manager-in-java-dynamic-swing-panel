@@ -17,4 +17,6 @@ comment7.params=arg0
 comment7.target=void\ actionPerformed(java.awt.event.ActionEvent)
 comment8.params=arg0
 comment8.target=void\ actionPerformed(java.awt.event.ActionEvent)
-numComments=9
+comment9.params=b
+comment9.target=void\ setComponentsEnable(boolean)
+numComments=10

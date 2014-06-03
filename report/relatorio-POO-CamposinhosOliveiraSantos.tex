@@ -74,7 +74,7 @@
 \setlength{\headheight}{15.2pt}
 \fancyhf{} % apagar as configurações actuais
 \fancyfoot[LE,RO]{\thepage}
-\fancyhead[LE,RO]{POO --- FitnessUM --- Grupo XXX.}
+\fancyhead[LE,RO]{POO --- FitnessUM --- Grupo 14}
 \setcounter{page}{0}
 %----------------------------------------------------------------------
 
@@ -102,8 +102,8 @@ De acordo com o enunciado \cite{enunciado}, os principais objectivos definidos p
 
 \chapter{Arquitectura e Descrição da Aplicação}
 \label{cap:arq}
-\section{Organização de Pastas e Ficheiros}
-\label{sec:folders}
+\section{Packages}
+\label{sec:packages}
 (...)
 Model–view–controller (MVC) figura \ref{fig:mvc}.
 (...)
@@ -119,17 +119,42 @@ De forma a manter uma estrutura de pastas partilhada entre os autores e um contr
 foi utilizada a ferramenta open source \emph{GIT} (\url{http://git-scm.com/}), 
 com repositório privado no bitbucket (\url{https://bitbucket.org/ruiOliveiras94/fitnessum-poo}).
 
-\section{Descrição das Classes}
+falar também do Manager, Dataset, ...
+
+\section{Diagramas de Classes}
 \label{sec:classes}
 (...)
 A figura (...) apresenta o grafo de dependências dos vários ficheiros de código, obtido através do \emph{BlueJ}.
 
-\section{Interface com o Utilizador}
-\label{sec:interpretador}
+COLOCAR TABELA EXCEL DAS ACTIVIDADES?
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{diagramaActivities.png}
+\caption{Diagrama com dependências da super classe \emph{Activity}.}
+\label{fig:activityDiagram}
+\end{figure}
+
+\section{Funcionalidades da Aplicação}
+\label{sec:funcionalidades}
+(...)
+Lista de features da aplicação.
 (...)
 
-\chapter{Complexidade e Estruturas de Dados}
-\label{cap:complexidade}
+\chapter{Estruturas de Dados Principais}
+\label{cap:estruturas}
+(...)
+\section{User class}
+\label{sec:user}
+(...)
+\section{Activity class}
+\label{sec:activity}
+(...)
+\section{Record interface}
+\label{sec:interface}
+(...)
+\section{Event class}
+\label{sec:event}
 (...)
 
 \chapter{Cálculo do Consumo de Calorias por Actividade}
@@ -259,6 +284,31 @@ valor corrigido $CMET$ (eq. \ref{eq:CMET}), para mais detalhes ver \url{https://
 CMET = MET \times \frac{3.5 \text{ ml/kg/min}}{RMRCB [\text{ ml/kg/min}]}
 \end{equation}
 
+\chapter{Cálculo da Forma dos Utilizadores}
+\label{cap:forma}
+A forma é um valor de 0 a 1. (Pode ser mudado alterando as variáveis \verb!MAX_FORMA! e \verb!MIN_FORMA!).
+
+O cálculo da forma assume um número de dias nos quais todas as actividades feitas nesse intervalo têm influência para a forma 
+(variável \verb!DIAS_RELEVANTES!). Se \verb!DIAS_RELEVANTES=24!, significa eu só as actividades nos últimos 24 dias têm influência para a forma.  
+Isto serve para simular o facto de só as actividades mais recentes deverem ter influência na forma actual e quanto mais recentes as 
+actividades, maior a influência na forma.
+
+A cada dia é atribuído um ''peso``, o quanto esse dia vai valer para o cálculo final da forma. 
+No entanto, não é feita uma distribuição equitativa dos pesos pelos dias. Dias mais distantes no tempo têm menos influência e portanto, 
+menos peso. Essa “menos influência” é dada por uma taxa (variável TAXA) que representa o decréscimo na forma resultante de ficar 1 dia sem 
+fazer nenhuma actividade. Se \verb!TAXA=0.05!, significa que cada dia que se ande para trás, tem -5\% de influência no cálculo da forma.
+A contribuição para a forma de cada dia é calculado multiplicando o peso desse dia pelo quociente entre o número de minutos que o utilizador 
+fez de uma actividade e o número de minutos recomendado para essa actividade (número de minutos recomendado para 1 actividade = \verb!Intensidade!). 
+Somadas todas as contribuições de cada dia, tem-se a forma final.
+
+\chapter{Estatísticas dos Utilizadores}
+\label{cap:estatisticas}
+(...)
+
+\chapter{Simulação de Eventos}
+\label{cap:simula}
+(...)
+
 \chapter{Conclusões}
 \label{cap:concl}
 (...)
@@ -267,13 +317,7 @@ CMET = MET \times \frac{3.5 \text{ ml/kg/min}}{RMRCB [\text{ ml/kg/min}]}
 \bibliography{relatorio-POO-CamposinhosOliveiraSantos}
 
 \appendix
-\chapter{Documentação do Código}
-\label{anex:doc}
-
 \chapter{Demo da aplicação}
 \label{anex:demo}
-
-
-
 
 \end{document}

@@ -101,7 +101,7 @@ public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
     public void addUser(User u) throws AddEventException{
         String userEmail = u.getEmail();
         GregorianCalendar agora = new GregorianCalendar();
-        if(this.mEndDate.compareTo(new GregorianCalendar()) > 0) throw new AddEventException("Data limite de inscrição!");/*data posterior ao limite de inscricao*/
+        if(this.mEndDate.compareTo(new GregorianCalendar()) < 0) throw new AddEventException("Data limite de inscrição!");/*data posterior ao limite de inscricao*/
         if(this.mMaxNumUsers <= this.mUsers.getSize()) throw new AddEventException("Número máximo de inscrições!"); /*excedeu limite de users*/
        
         try {
