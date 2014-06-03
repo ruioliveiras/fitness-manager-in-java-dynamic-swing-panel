@@ -2,7 +2,9 @@ package model.activity;
 
 import java.util.GregorianCalendar;
 
-import model.ObjectRecord;
+import model.ObjectRecordClass;
+import model.ObjectRecordClass.EnumAttr;
+import model.ObjectRecordClass.Record;
 import core.util.Util;
 
 public abstract class Altimetry extends Distance {
@@ -54,7 +56,7 @@ public abstract class Altimetry extends Distance {
 	
 	
 	
-	public enum Attr implements ObjectRecord.EnumAttr {
+	public enum Attr implements ObjectRecordClass.EnumAttr {
 		ALTURA("Altura");
 
 		private String eName;
@@ -75,15 +77,15 @@ public abstract class Altimetry extends Distance {
 		SUBIDA_RAPIDA200("Subida 200m",Distance.Attr.TIME,Attr.ALTURA,200),
 		SUBIDA_RAPIDA50("Subida 50m",Distance.Attr.TIME,Attr.ALTURA,50);
 
-		private ObjectRecord.EnumAttr eFix;
-		private ObjectRecord.EnumAttr eMov;
+		private ObjectRecordClass.EnumAttr eFix;
+		private ObjectRecordClass.EnumAttr eMov;
 		private int eValue;
 		private String eName;
 
-		MyRecords(String name,ObjectRecord.EnumAttr var,ObjectRecord.EnumAttr fixo,int value){
+		MyRecords(String name,ObjectRecordClass.EnumAttr var,ObjectRecordClass.EnumAttr fixo,int value){
 			eName = name;eFix = fixo; eMov = var; eValue = value;
 		}
-		MyRecords(String name,ObjectRecord.EnumAttr var){
+		MyRecords(String name,ObjectRecordClass.EnumAttr var){
 			eName = name;eMov = var;eFix = null;	eValue = -1;
 		}
 

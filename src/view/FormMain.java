@@ -6,34 +6,28 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.management.RuntimeErrorException;
-import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JToggleButton;
 import javax.swing.ListModel;
 import javax.swing.WindowConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.JToggleButton;
 
-import core.FormUtils.FormHandle;
 import view.main.panel.PanelActivities;
 import view.main.panel.PanelEvents;
 import view.main.panel.PanelProfile;
 import view.main.panel.PanelRecords;
+import core.FormUtils.FormHandle;
 
 
 public class FormMain implements ActionListener, ListSelectionListener{
@@ -107,6 +101,11 @@ public class FormMain implements ActionListener, ListSelectionListener{
 		mFrame.setVisible(true);
 		mFrame.setResizable(false);
 
+		//Profile
+		mIFrame.removeAll();
+		mProfile.loadIn(mIFrame);
+		mIFrame.revalidate();
+		
 		/*	 JComponent panel = new ButtonBarFactoryExample().buildPanel();*/
 	}
 	
@@ -216,6 +215,7 @@ public class FormMain implements ActionListener, ListSelectionListener{
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
+		
 		System.out.println("TESTE:" + e.getFirstIndex());
 
 	}

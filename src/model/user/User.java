@@ -20,7 +20,7 @@ import core.util.Manager;
 import core.util.ManagerSet;
 import model.ObjectClonable;
 import model.ObjectKey;
-import model.ObjectRecord.Record;
+import model.ObjectRecordClass.Record;
 import model.activity.Activity;
 import model.activity.ActivityComparatorByDate;
 import model.activity.Ciclismo;
