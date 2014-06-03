@@ -2,9 +2,9 @@ package model.activity;
 
 import java.util.GregorianCalendar;
 
-import model.ObjectRecord;
-import model.ObjectRecord.EnumAttr;
-import model.ObjectRecord.Record;
+import model.ObjectRecordClass;
+import model.ObjectRecordClass.EnumAttr;
+import model.ObjectRecordClass.Record;
 import core.util.Util;
 
 public abstract class Distance extends Activity {
@@ -46,7 +46,7 @@ public abstract class Distance extends Activity {
 
 
 
-	public enum Attr implements ObjectRecord.EnumAttr {
+	public enum Attr implements ObjectRecordClass.EnumAttr {
 		TIME("Tempo"),DISTANCE("Distancia"),SPEED("Velocidade");
 
 		private String eName;
@@ -74,15 +74,15 @@ public abstract class Distance extends Activity {
     	MENOR_TEMPO100  ("Menor tempo 100m",Attr.TIME,Attr.DISTANCE,100),
     	MAXSPEED  		("Maior Velocidade",Attr.SPEED);
     	
-		private ObjectRecord.EnumAttr eFix;
-		private ObjectRecord.EnumAttr eMov;
+		private ObjectRecordClass.EnumAttr eFix;
+		private ObjectRecordClass.EnumAttr eMov;
 		private long eValue;
 		private String eName;
 
-		MyRecords(String name,ObjectRecord.EnumAttr var,ObjectRecord.EnumAttr fixo,int value){
+		MyRecords(String name,ObjectRecordClass.EnumAttr var,ObjectRecordClass.EnumAttr fixo,int value){
 			eName = name;eFix = fixo; eMov = var; eValue = value;
 		}
-		MyRecords(String name,ObjectRecord.EnumAttr var){
+		MyRecords(String name,ObjectRecordClass.EnumAttr var){
 			eName = name;eMov = var;eFix = null;	eValue = -1;
 		}
 		@Override

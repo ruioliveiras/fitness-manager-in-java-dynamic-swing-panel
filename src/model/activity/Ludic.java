@@ -2,7 +2,9 @@ package model.activity;
 
 import java.util.GregorianCalendar;
 
-import model.ObjectRecord;
+import model.ObjectRecordClass;
+import model.ObjectRecordClass.EnumAttr;
+import model.ObjectRecordClass.Record;
 import core.util.Util;
 
 
@@ -25,7 +27,7 @@ public abstract class Ludic extends Activity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public enum Attr implements ObjectRecord.EnumAttr {
+	public enum Attr implements ObjectRecordClass.EnumAttr {
 		TEMPO("Tempo");
 
 		private String eName;
@@ -41,15 +43,15 @@ public abstract class Ludic extends Activity {
 	public enum MyRecords implements Record{
        	TIME ("Tempo de duracao",Attr.TEMPO);
     	
-		private ObjectRecord.EnumAttr eFix;
-		private ObjectRecord.EnumAttr eMov;
+		private ObjectRecordClass.EnumAttr eFix;
+		private ObjectRecordClass.EnumAttr eMov;
 		private int eValue;
 		private String eName;
 
-		MyRecords(String name,ObjectRecord.EnumAttr var,ObjectRecord.EnumAttr fixo,int value){
+		MyRecords(String name,ObjectRecordClass.EnumAttr var,ObjectRecordClass.EnumAttr fixo,int value){
 			eName = name;eFix = fixo; eMov = var; eValue = value;
 		}
-		MyRecords(String name,ObjectRecord.EnumAttr var){
+		MyRecords(String name,ObjectRecordClass.EnumAttr var){
 			eName = name;eMov = var;eFix = null;	eValue = -1;
 		}
 		@Override

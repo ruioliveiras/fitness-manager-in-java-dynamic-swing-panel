@@ -53,9 +53,10 @@ public class ControllerMain implements MainListener,ListModel<String>{
 	public void addFriend(String email) {
 		try {
 			
-			User u =Main.getDataSet().userManager().get(new User(email));
+			User u = Main.getDataSet().userManager().get(new User(email));
 			u.convitesManager().add(mUserCopy.getEmail());
 			Main.getDataSet().userManager().edit(u);
+			Main.save();
 						
 			Collection<String> co = mUserCopy.amigosManager().collection();
 			int size = co.size();
@@ -95,6 +96,7 @@ public class ControllerMain implements MainListener,ListModel<String>{
 				}
 			}
 		});
+		
 	}
 
 	@Override

@@ -4,7 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 import model.ObjectClonable;
-import model.ObjectRecord;
+import model.ObjectRecordClass;
+import model.ObjectRecordClass.EnumAttr;
+import model.ObjectRecordClass.Record;
 import model.user.User;
 import core.util.Util;
 
@@ -27,7 +29,7 @@ import core.util.Util;
  */
 
 
-public abstract class Activity implements ObjectClonable,ObjectRecord ,Serializable {
+public abstract class Activity implements ObjectClonable,ObjectRecordClass.ObjectRecord ,Serializable {
 
 
 
