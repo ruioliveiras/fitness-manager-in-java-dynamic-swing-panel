@@ -20,22 +20,24 @@ import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 import javax.swing.ListModel;
 import javax.swing.WindowConstants;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import view.main.panel.PanelActivities;
 import view.main.panel.PanelEvents;
 import view.main.panel.PanelProfile;
 import view.main.panel.PanelRecords;
+import controller.ControllerLogin;
+import controller.Main;
 import core.FormUtils.FormHandle;
 
 
-public class FormMain implements ActionListener, ListSelectionListener{
+public class FormMain implements ActionListener{
 	private final static String TXT_PERFIL  		= "Perfil";
 	private final static String TXT_ACTIVIDADES  	= "Actividades";
 	private final static String TXT_RECORDES	  	= "Recordes";
 	private final static String TXT_EVENTOS  		= "Eventos";
 	private final static String TXT_ADDDFRIEND 		= "Adicionar Amigo";
+	private final static String TXT_EXIT 			= "Sair";
 	private final static int SIZE_WIDTH 	= 900;
 	private final static int SIZE_HEIGHT 	= 600;
 
@@ -62,7 +64,6 @@ public class FormMain implements ActionListener, ListSelectionListener{
 		mTitle = title;
 		mFriends = new JList<String>(friends);
 		mFriends.setSize((int) (SIZE_WIDTH * 0.3), SIZE_HEIGHT);
-		mFriends.addListSelectionListener(this);
 
 		mIFrame = new JPanel();
 		mIFrame.setPreferredSize(new Dimension((int) (SIZE_WIDTH * 0.7), (int) (SIZE_HEIGHT - 42)));
@@ -87,6 +88,9 @@ public class FormMain implements ActionListener, ListSelectionListener{
 		mFriends.setModel(friends);
 	}
 	
+	public int getSelectedIndex(){
+		return mFriends.getSelectedIndex();
+	}
 	
 	public void show(){
 
@@ -177,6 +181,10 @@ public class FormMain implements ActionListener, ListSelectionListener{
 		button.addActionListener(this);
 		panel.add(button);
 
+		button = new JButton(TXT_EXIT);
+		button.addActionListener(this);
+		panel.add(button);
+		
 		return panel;
 	}
 
@@ -208,17 +216,19 @@ public class FormMain implements ActionListener, ListSelectionListener{
 			   if (mListener != null)
 				   mListener.addFriend(email);
 			break;
+		case TXT_EXIT:
+			Main.save();
+			mFrame.setVisible(false);
+			mFrame.dispose(); 
+			ControllerLogin login = new ControllerLogin();
+		    login.start();
+			break;
 		default:
 			break;
 		}
 	}
 
-	@Override
-	public void valueChanged(ListSelectionEvent e) {
-		
-		System.out.println("TESTE:" + e.getFirstIndex());
 
-	}
 
 
 
@@ -229,12 +239,17 @@ public class FormMain implements ActionListener, ListSelectionListener{
 		public void refuseInvite(String email);
 	}
 
-
+	private JFrame mPopupInviteFrame; 
 	public void showPopupInvite(final String email){
+		if (mPopupInviteFrame != null){
+			mPopupInviteFrame.setVisible(false);
+			mPopupInviteFrame.dispose();
+		}
+		
 		String title = "Convite "+ email;
-		final JFrame frame = new JFrame(title);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Container contentPane = frame.getContentPane();
+		mPopupInviteFrame = new JFrame(title);
+		mPopupInviteFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		Container contentPane = mPopupInviteFrame.getContentPane();
 
 		JToggleButton acceptButton = new JToggleButton("Aceitar");
 		contentPane.add(acceptButton, BorderLayout.NORTH);
@@ -263,13 +278,13 @@ public class FormMain implements ActionListener, ListSelectionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				 frame.setVisible(false);
-	             frame.dispose();
+				mPopupInviteFrame.setVisible(false);
+				mPopupInviteFrame.dispose();
 			}
 		});
 
 
-		frame.setSize(300, 125);
-		frame.setVisible(true);
+		mPopupInviteFrame.setSize(300, 125);
+		mPopupInviteFrame.setVisible(true);
 	}
 }

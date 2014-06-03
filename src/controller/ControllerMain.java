@@ -11,6 +11,7 @@ import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import model.user.Permissoes;
 import model.user.User;
 import view.FormMain;
 import view.FormMain.MainListener;
@@ -23,6 +24,7 @@ import core.util.Manager.ObjectDontExistException;
 public class ControllerMain implements MainListener,ListModel<String>{
 	private FormMain mViewMain;
 	protected User mUserCopy;
+	private Permissoes mUserPermissoes;
 	
 	private ControllerProfile mControllerProfile;
 	private ControllerActivitys mControllerActivitys;
@@ -73,30 +75,29 @@ public class ControllerMain implements MainListener,ListModel<String>{
 		mViewMain.show();
 	}
 
-	public void changeUser(String email){
-		try {
-			User user = Main.getDataSet().userManager().get(new User(email));
-			mControllerProfile.setUser(user);
-			mControllerActivitys.setUser(user);
-			mControllerEvents.setUser(user);
-			mControllerRecords.setUser(user);		
-		} catch (ObjectDontExistException e) {}
-	}
 	
 	private void initListeners(){
+		
 		mViewMain.setFriendsListener(new ListSelectionListener() {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				int index = mViewMain.getFriendsSelected();
+				int index = mViewMain.getSelectedIndex();
+				if (index == 0){
+					loadUser(mUserCopy.getEmail(),Permissoes.User);
+					return;
+				}
+				index--;
 				if (index < mFriend.size()){
-					changeUser(mFriend.get(index));
+					Permissoes p = (mUserCopy.getPermissoes() == Permissoes.Admin) ? Permissoes.Admin : Permissoes.Guest;
+					loadUser(mFriend.get(index),p);
 				}else{
-					mInvite.get(index - mFriend.size());
+					index = index - mFriend.size();
+					String email = mInvite.get(index);
+					mViewMain.showPopupInvite(email);
 				}
 			}
-		});
-		
+		});			
 	}
 
 	@Override
@@ -106,6 +107,10 @@ public class ControllerMain implements MainListener,ListModel<String>{
 
 	@Override
 	public String getElementAt(int index) {
+		if (index == 0){
+			return "Home";
+		}
+		index--;
 		if (index < mFriend.size())
 			return mFriend.get(index);
 		else
@@ -114,7 +119,7 @@ public class ControllerMain implements MainListener,ListModel<String>{
 
 	@Override
 	public int getSize() {
-		return mFriend.size() + mInvite.size();
+		return mFriend.size() + mInvite.size() + 1;
 	}
 
 	@Override
@@ -122,6 +127,22 @@ public class ControllerMain implements MainListener,ListModel<String>{
 		mListHelper.removeListDataListener(l);
 	}
 
+	
+	private void loadUser(String string,Permissoes p) {
+		try {
+			User friend = Main.getDataSet().userManager().get(new User(string));
+			mControllerProfile.setUser(friend,p);
+			mControllerActivitys.setUser(friend,p);
+			mControllerEvents.setUser(friend,p);
+			mControllerRecords.setUser(friend,p);
+		
+		} catch (ObjectDontExistException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	@Override
 	public void acceptInvite(String email) {
 		try {
@@ -134,6 +155,10 @@ public class ControllerMain implements MainListener,ListModel<String>{
 			mUserCopy.amigosManager().add(email);
 			mUserCopy.convitesManager().remove(email);
 			
+			Main.getDataSet().userManager().edit(mUserCopy);
+			Main.getDataSet().userManager().edit(other);
+			Main.save();
+			
 		} catch (ObjectDontExistException e) {
 			e.printStackTrace();
 		}
@@ -142,8 +167,18 @@ public class ControllerMain implements MainListener,ListModel<String>{
 
 	@Override
 	public void refuseInvite(String email) {
-		// TODO Auto-generated method stub
 		
+		try {
+			mUserCopy = Main.getDataSet().userManager().get(new User(mUserCopy.getEmail()));
+			mUserCopy.convitesManager().remove(email);
+			
+			Main.getDataSet().userManager().edit(mUserCopy);
+			Main.save();
+		} catch (ObjectDontExistException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 	}
 
 	

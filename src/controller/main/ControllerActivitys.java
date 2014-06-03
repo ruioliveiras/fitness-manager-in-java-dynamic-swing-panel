@@ -23,6 +23,7 @@ import model.activity.Distance;
 import model.activity.Ginasio;
 import model.activity.Skill;
 import model.activity.Weather;
+import model.user.Permissoes;
 import model.user.User;
 import view.main.panel.PanelActivities.FormAttEnum;
 import view.main.panel.PanelActivities.FormButtonEnum;
@@ -39,6 +40,7 @@ public class ControllerActivitys implements ListSelectionListener{
 	private User mUser;
 	private Activity mSelected;
 	private List<Activity> mActivitys;
+	private Permissoes mRight;
 	
 	public ControllerActivitys(FormHandle handler,User user) {
 		mHandler = (FormListHandle) handler;
@@ -46,8 +48,16 @@ public class ControllerActivitys implements ListSelectionListener{
 		mActivitys = mUser.atividadesManager().collection();
 		mHandler.addStringAll(mActivitys); 
 		initListeners();
+		mRight = user.getPermissoes();
+		checkRight();
 	}
-	public void setUser(User user){mUser = user;}
+	public void setUser(User user,Permissoes p){
+		mRight = p;
+		mUser = user;
+		mActivitys = mUser.atividadesManager().collection();
+		mHandler.addStringAll(mActivitys);
+		checkRight();
+	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initListeners(){
@@ -115,6 +125,19 @@ public class ControllerActivitys implements ListSelectionListener{
 			}
 		});
 
+	}
+	
+	private void checkRight(){
+		boolean edit;
+		if (mRight == Permissoes.Admin || mRight == Permissoes.User){
+			edit = true;
+		}else{
+			edit = false;
+		}
+		
+		for(FormButtonEnum e: FormButtonEnum .values()){
+			mHandler.getButton(e).setEnabled(edit);
+		}
 	}
 	
 	private void setActivity(Activity act){

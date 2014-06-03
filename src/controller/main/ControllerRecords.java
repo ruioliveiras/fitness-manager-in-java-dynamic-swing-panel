@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import model.activity.Activity;
+import model.user.Permissoes;
 import model.user.User;
 import view.main.panel.PanelRecords.FormAttEnum;
 import view.main.panel.PanelRecords.FormButtonEnum;
@@ -26,6 +27,7 @@ public class ControllerRecords implements ListSelectionListener {
 	private User mUser;
 	private Map<Integer,Activity> mActivitys;
 	private List<String> mActivitysString;
+	private Permissoes mRight;
 	
 	public ControllerRecords(FormHandle handler,User user) {
 		mHandler = (FormListHandle) handler;
@@ -34,8 +36,18 @@ public class ControllerRecords implements ListSelectionListener {
 		setActivityString(mActivitys);
 		mHandler.addStringAll(mActivitysString); 
 		initListeners();
+		mRight = user.getPermissoes();
+		checkRight();
 	}
-	public void setUser(User user){mUser = user;}
+	public void setUser(User user,Permissoes p){
+		mUser = user;
+		mActivitys = mUser.getRecords();
+		setActivityString(mActivitys);
+		mHandler.addStringAll(mActivitysString);
+		mRight = p;
+		checkRight();
+	
+	}
 	
 	private void setActivityString(Map<Integer,Activity> hash){
 		mActivitysString = new ArrayList<String>(hash.size());
@@ -76,6 +88,20 @@ public class ControllerRecords implements ListSelectionListener {
 			}
 		});
 
+	}
+	
+	
+	private void checkRight(){
+		boolean edit;
+		if (mRight == Permissoes.Admin || mRight == Permissoes.User){
+			edit = true;
+		}else{
+			edit = false;
+		}
+		
+		for(FormButtonEnum e: FormButtonEnum .values()){
+			mHandler.getButton(e).setEnabled(edit);
+		}
 	}
 	
 	private void saveProfileChanges() {
