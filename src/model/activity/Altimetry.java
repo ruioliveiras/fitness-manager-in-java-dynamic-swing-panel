@@ -54,7 +54,7 @@ public abstract class Altimetry extends Distance {
 	
 	
 	
-	public enum Attr implements ObjectRecord.enumAttr {
+	public enum Attr implements ObjectRecord.EnumAttr {
 		ALTURA("Altura");
 
 		private String eName;
@@ -75,25 +75,25 @@ public abstract class Altimetry extends Distance {
 		SUBIDA_RAPIDA200("Subida 200m",Distance.Attr.TIME,Attr.ALTURA,200),
 		SUBIDA_RAPIDA50("Subida 50m",Distance.Attr.TIME,Attr.ALTURA,50);
 
-		private ObjectRecord.enumAttr eFix;
-		private ObjectRecord.enumAttr eMov;
+		private ObjectRecord.EnumAttr eFix;
+		private ObjectRecord.EnumAttr eMov;
 		private int eValue;
 		private String eName;
 
-		MyRecords(String name,ObjectRecord.enumAttr var,ObjectRecord.enumAttr fixo,int value){
+		MyRecords(String name,ObjectRecord.EnumAttr var,ObjectRecord.EnumAttr fixo,int value){
 			eName = name;eFix = fixo; eMov = var; eValue = value;
 		}
-		MyRecords(String name,ObjectRecord.enumAttr var){
+		MyRecords(String name,ObjectRecord.EnumAttr var){
 			eName = name;eMov = var;eFix = null;	eValue = -1;
 		}
 
 		@Override
-		public enumAttr getFixed() {return eFix;}
+		public EnumAttr getFixed() {return eFix;}
 		@Override
 		public boolean similar(long value) 
 			{return (Math.abs(value - eValue) < eValue/2);}
 		@Override
-		public enumAttr getMov() {return eMov;}
+		public EnumAttr getMov() {return eMov;}
 		@Override
 		public int getrecordType() {return ordinal() + Distance.MyRecords.values().length;}
 		@Override
@@ -103,92 +103,73 @@ public abstract class Altimetry extends Distance {
 			return eValue;
 		}
     }
-	public String getRecordName(int recordType){
-	   	if (recordType < super.getRecordSize()){
-    		return super.getRecordToString(recordType);
-    	}else{
-    		Record a = MyRecords.values()[recordType - super.getRecordSize()];
-    		return a.getName();
-    	}
-	}
-    public String getRecordToString(int recordType){
-    	if (recordType < super.getRecordSize()){
-    		return super.getRecordToString(recordType);
-    	}else{
-    		Record a = MyRecords.values()[recordType - super.getRecordSize()];
-    		
-    		StringBuilder sb = new StringBuilder();
-    		sb.append(getName());sb.append(" |- ");sb.append(a.getName());
-    		sb.append(" ");
-    		
-    		enumAttr att = a.getMov();
 
-    		if (att.getName().equals(Attr.ALTURA.getName())){
-    			sb.append(getMaxAltitude());sb.append("m");
-    		}else if (att.getName().equals(Attr.ALTURA.getName())){
-    			sb.append(getMaxSpeed());sb.append(Util.hourFormat(getDuration()));
-    		}
-    		return sb.toString();
-    	}
-    }
-    
-    public long getStat(int recordType) {
-    	if (recordType < super.getRecordSize()){
-    		return super.getStat(recordType);
-    	}else{
-    		Record a = MyRecords.values()[recordType - super.getRecordSize()];
-    		return getStat(a);
-    	}
-	}
-    @Override
-    public long get(int iAttr) {
-    	if (iAttr < Distance.Attr.values().length)
-    		return super.get(iAttr);
-
-    	Attr a = Attr.values()[iAttr - Distance.Attr.values().length];
-
-    	switch (a) {
-    	case ALTURA: return getAscendent()-getDescendent();
-    	default:		return -1;
-    	}
-
-	}
-    @Override
-    public void correct(int recordType) {
-    	if (recordType < super.getRecordSize()){
-    		super.correct(recordType);
-    		return;
-    	}
-    	
-    	MyRecords a = MyRecords.values()[recordType];
-    	if (a == MyRecords.MAIOR_ALTURA)
-    		return;
-    	if (a.getMov() == Attr.ALTURA){
-    		setDuration((getDuration() * a.getValue() )/(getAscendent()-getDescendent()));		
-    		//a.getValue == getAcendt - getDescendent;
-    		setAscendent((int) (a.getValue() + getDescendent()));
-    	}
-	} 
-
-    /*activity*/
-	@Override 
-	public long compareRecord(Activity otherActivity,int recordType) {
-		long sThis,sOther = 0;
-		sThis  = this.getStat(recordType);
-		
-		if (sThis < 0){
-			return -1;
-		}
-		if(otherActivity != null){
-			sOther = ((Distance) otherActivity).getStat(recordType); //Check this cast?
-		}
-		return sThis - sOther;
-	}
+	
 	@Override
+	public long get(EnumAttr att){
+		
+		if (att.getName().equals(Attr.ALTURA.getName())){
+			return getAscendent()-getDescendent();
+		}
+		return super.get(att);
+	}
+
+	@Override
+    public boolean isRecordBiggerBetter(Record recordType){
+		if (recordType.getrecordType() < super.getRecordSize()){
+    		return super.isRecordBiggerBetter(recordType);
+    	}
+		//all are biggerbetter
+    	return true;
+    }
+		
+    @Override
+    public void correct(Record recordType) {	
+    	if (recordType.getName().equals(MyRecords.MAIOR_ALTURA.getName()))
+    		return;
+    	if (recordType.getMov().getName().equals(Attr.ALTURA.getName())){
+    		setDuration((getDuration() * recordType.getValue() )/(getAscendent()-getDescendent()));		
+    		//a.getValue == getAcendt - getDescendent;
+    		setAscendent((int) (recordType.getValue() + getDescendent()));
+    		return;
+    	}
+    	super.correct(recordType);
+	} 
+    
+    @Override
 	public int getRecordSize() {
 		return super.getRecordSize() + MyRecords.values().length;
 	}
-	
+   @Override
+    public Record getRecord(int index){
+	   	if (index < super.getRecordSize()){
+	   		return super.getRecord(index);
+	   	}
+    	return MyRecords.values()[index - super.getRecordSize()];
+    }
+    @Override
+    public String getRecordToString(Record recordType){
+    	if (recordType.getrecordType() < super.getRecordSize()){
+    		return super.getRecordToString(recordType);
+    	}
+    	
+    	EnumAttr att = recordType.getMov();
+    	
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getName());sb.append(" |- ");sb.append(recordType.getName());
+    	sb.append(" ");
+    	
+		if (att.getName().equals(Attr.ALTURA.getName())){
+			sb.append(getMaxAltitude());sb.append("m");
+		}else if (att.getName().equals(Attr.ALTURA.getName())){
+			sb.append(getMaxSpeed());sb.append(Util.hourFormat(getDuration()));
+		}
+		return sb.toString();
+    }
+
+ 
+ 
+
 	
 	@Override
 	public boolean equals (Object obj){

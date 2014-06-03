@@ -41,4 +41,7 @@ public class Natacao extends Distance {
 		return new Natacao(this);
 	}
 
+
+
+
 }

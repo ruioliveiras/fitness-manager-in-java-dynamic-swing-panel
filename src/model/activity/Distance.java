@@ -3,6 +3,8 @@ package model.activity;
 import java.util.GregorianCalendar;
 
 import model.ObjectRecord;
+import model.ObjectRecord.EnumAttr;
+import model.ObjectRecord.Record;
 import core.util.Util;
 
 public abstract class Distance extends Activity {
@@ -44,7 +46,7 @@ public abstract class Distance extends Activity {
 
 
 
-	public enum Attr implements ObjectRecord.enumAttr {
+	public enum Attr implements ObjectRecord.EnumAttr {
 		TIME("Tempo"),DISTANCE("Distancia"),SPEED("Velocidade");
 
 		private String eName;
@@ -53,7 +55,9 @@ public abstract class Distance extends Activity {
 		@Override
 		public String getName() {return eName;}
 		@Override
-		public int getAttrType() {return ordinal();}
+		public int getAttrType() {
+			int aux = ordinal(); 
+			return aux;}
 	}
 	
 
@@ -70,24 +74,24 @@ public abstract class Distance extends Activity {
     	MENOR_TEMPO100  ("Menor tempo 100m",Attr.TIME,Attr.DISTANCE,100),
     	MAXSPEED  		("Maior Velocidade",Attr.SPEED);
     	
-		private ObjectRecord.enumAttr eFix;
-		private ObjectRecord.enumAttr eMov;
+		private ObjectRecord.EnumAttr eFix;
+		private ObjectRecord.EnumAttr eMov;
 		private long eValue;
 		private String eName;
 
-		MyRecords(String name,ObjectRecord.enumAttr var,ObjectRecord.enumAttr fixo,int value){
+		MyRecords(String name,ObjectRecord.EnumAttr var,ObjectRecord.EnumAttr fixo,int value){
 			eName = name;eFix = fixo; eMov = var; eValue = value;
 		}
-		MyRecords(String name,ObjectRecord.enumAttr var){
+		MyRecords(String name,ObjectRecord.EnumAttr var){
 			eName = name;eMov = var;eFix = null;	eValue = -1;
 		}
 		@Override
-		public enumAttr getFixed() {return eFix;}
+		public EnumAttr getFixed() {return eFix;}
 		@Override
 		public boolean similar(long value) 
 			{return (Math.abs(value - eValue) < eValue/2);}
 		@Override
-		public enumAttr getMov() {return eMov;}
+		public EnumAttr getMov() {return eMov;}
 		@Override
 		public int getrecordType() {return ordinal();}
 		@Override
@@ -98,6 +102,64 @@ public abstract class Distance extends Activity {
 		}
     }
 	
+	
+	@Override
+	public long get(EnumAttr att){
+	
+		if (att.getName().equals(Attr.DISTANCE.getName())){
+			return getDistance();
+		}else if (att.getName().equals(Attr.SPEED.getName())){
+			return getMaxSpeed();
+		}else if (att.getName().equals(Attr.TIME.getName())){
+			return getDuration();
+		}else {
+			return -1;
+		}
+	}
+	@Override
+    public boolean isRecordBiggerBetter(Record recordType){
+		EnumAttr att = recordType.getMov();
+		
+		if (att.getName().equals(Attr.TIME.getName())){
+			return false;
+		}
+    	return true;
+    }
+	
+    @Override
+    public void correct(Record recordType) {	
+    	if (recordType.getName().equals(MyRecords.MAXSPEED.getName()))
+    		return;
+    	if (recordType.getMov().getName().equals(Attr.DISTANCE.getName())){
+    		setDuration((getDuration() * recordType.getValue() )/mDistance);
+    		setDistance((int) recordType.getValue());
+    	}
+	} 
+    
+    @Override
+	public int getRecordSize() {
+		return MyRecords.values().length;
+	}
+   @Override
+    public Record getRecord(int index){
+    	return MyRecords.values()[index];
+    }
+    @Override
+    public String getRecordToString(Record recordType){
+    	EnumAttr att = recordType.getMov();
+    	
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(getName());sb.append(" |- ");sb.append(recordType.getName());
+    	sb.append(" ");
+    	if (att.getName().equals(Attr.SPEED.getName())){
+    		sb.append(getMaxSpeed());sb.append("m/s");
+    	}else if (att.getName().equals(Attr.TIME.getName())){
+    		sb.append(Util.hourFormat(getDuration()));
+    	}
+
+    	return sb.toString();
+    }
+/*	
 	@Override
     public long getStat(int recordType) {
     	MyRecords a = MyRecords.values()[recordType];
@@ -110,44 +172,27 @@ public abstract class Distance extends Activity {
     	switch (a) {
     	case DISTANCE: return getDistance();
     	case SPEED:  	return getMaxSpeed();
-    	case TIME:     return (int) (-1) * (getDuration() ); //* seconds
+    	case TIME:     return (getDuration() ); //* seconds
     	default:		return -1;
     	}
 	}
     
-    @Override
-    public void correct(int recordType) {
+    //em activity> modificaf
+    public boolean isRecordBigger(int recordType){
     	MyRecords a = MyRecords.values()[recordType];
-    	if (a == MyRecords.MAXSPEED)
-    		return;
-    	if (a.getMov() == Attr.DISTANCE){
-    		setDuration((getDuration() * a.getValue() )/mDistance);
-    		setDistance((int) a.getValue());
+    	Attr attr = Attr.values()[a.getMov().getAttrType()];
+    	
+    	switch (attr) {
+    	case DISTANCE: return true;
+    	case SPEED:  	return true;
+    	case TIME:     return false; //* seconds
+    	default:		return false;
     	}
-	} 
+    	
+    }*/
     
-    @Override
-	public int getRecordSize() {
-		return MyRecords.values().length;
-	}
-   
-    public String getRecordToString(int recordType){
-    	MyRecords a = MyRecords.values()[recordType];
-    	Attr att = Attr.values()[a.getMov().getAttrType()];
-    	StringBuilder sb = new StringBuilder();
-    	sb.append(getName());sb.append(" |- ");sb.append(a.getName());
-    	sb.append(" ");
-    	switch (att) {
-    	case SPEED:  	sb.append(getMaxSpeed());sb.append("m/s");break;
-    	case TIME:     	sb.append(Util.hourFormat(getDuration()));break;
-    	default:		break;
-    	}
-    	return sb.toString();
-    }
+
     
-//    public String getRecordName(int recordType){
-//    	return ; 
-//    }
 
 	
 	

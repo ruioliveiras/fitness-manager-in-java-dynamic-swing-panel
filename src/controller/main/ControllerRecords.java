@@ -41,7 +41,7 @@ public class ControllerRecords implements ListSelectionListener {
 		mActivitysString = new ArrayList<String>(hash.size());
 		Iterator<Integer> ite = hash.keySet().iterator();
 		for (Activity activity : hash.values()) {
-			mActivitysString.add(activity.getRecordToString(ite.next()));
+			mActivitysString.add(activity.getRecordToString(activity.getRecord(ite.next())));
 		}
 	}
 	

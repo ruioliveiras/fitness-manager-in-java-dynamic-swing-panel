@@ -7,6 +7,7 @@ import java.util.HashSet;
 import model.ObjectClonable;
 import model.ObjectKey;
 import model.activity.Activity;
+import model.user.RecordDontExitExeception;
 import model.user.User;
 import core.util.Manager;
 import core.util.ManagerSet;
@@ -102,7 +103,18 @@ public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
         GregorianCalendar agora = new GregorianCalendar();
         if(this.mEndDate.compareTo(new GregorianCalendar()) < 0) throw new AddEventException("Data limite de inscrição!");/*data posterior ao limite de inscricao*/
         if(this.mMaxNumUsers <= this.mUsers.getSize()) throw new AddEventException("Número máximo de inscrições!"); /*excedeu limite de users*/
-        if(this.mPreRequisite > u.getRecordValue(this.mActivity.getClass(), this.mRecordType)) throw new AddEventException("Não cumpre o pré-requisito!"); /*nao tem tempo minimo*/
+       
+        try {
+        	long aux = u.getRecordValue(this.mActivity.getClass(), this.mRecordType);
+        	if (mActivity.isRecordBiggerBetter(mActivity.getRecord(mRecordType))){
+        		if(this.mPreRequisite > aux) throw new AddEventException("Não cumpre o pré-requisito!");
+        	}else{
+        		if(this.mPreRequisite < aux) throw new AddEventException("Não cumpre o pré-requisito!");
+        	}
+			
+		} catch (RecordDontExitExeception e) {
+			throw new AddEventException();
+		} /*nao tem tempo minimo*/
         mUsers.add(userEmail);
     }
     

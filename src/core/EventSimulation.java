@@ -4,8 +4,10 @@ import model.activity.Activity;
 import model.activity.Distance;
 import model.activity.Contest;
 import model.activity.Weather;
+import model.user.RecordDontExitExeception;
 import model.user.User;
 import core.UserStats;
+
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.List;
@@ -13,7 +15,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.GregorianCalendar;
+
 import model.events.ContestPair;
+
 import java.util.Iterator;
 
 
@@ -24,7 +28,12 @@ public class EventSimulation {
                                                 int recordType, int stages) {
         Weather w = act.getWeather();                                           
         double rndFact = 1 + (Math.random() - 0.50);
-        double prsBest = (double) (u.getRecordValue(act.getClass(), recordType))/stages; /*tempo por intervalo, Ex:por km*/
+        double prsBest=0;
+		try {
+			prsBest = (double) (u.getRecordValue(act.getClass(), recordType))/stages;
+		} catch (RecordDontExitExeception e) {
+			e.printStackTrace();
+		} /*tempo por intervalo, Ex:por km*/
         double fitnessFact = u.getForma();
         double weatherFact = (double) Math.min(0.1, (double) w.getLvl()/20);
         long result;

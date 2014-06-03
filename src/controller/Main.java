@@ -167,15 +167,15 @@ public class Main {
         Basquetebol basq5 = new Basquetebol(5000 * 1000, new Weather(Weather.Local.INDOOR), -1,new GregorianCalendar(2013,GregorianCalendar.DECEMBER,10,19,30)
         , 80, 120, Contest.Result.WIN);
         
-        Golfe golfe1 = new Golfe(5000 * 1000, new Weather(Weather.Local.OUTDOOR), -1,new GregorianCalendar(2013,GregorianCalendar.NOVEMBER,23,18,30)
+        Golfe golfe1 = new Golfe(5000 * 1000, new Weather(Weather.WeatherSun.SUN, Weather.WeatherWind.WINDLESS), -1,new GregorianCalendar(2013,GregorianCalendar.NOVEMBER,23,18,30)
         , 30, 40);
-        Golfe golfe2 = new Golfe(2500 * 1000, new Weather(Weather.Local.OUTDOOR), -1,new GregorianCalendar(2014,GregorianCalendar.JUNE,2,14,0)
+        Golfe golfe2 = new Golfe(2500 * 1000, new Weather(Weather.WeatherSun.SUN, Weather.WeatherWind.WINDLESS), -1,new GregorianCalendar(2014,GregorianCalendar.JUNE,2,14,0)
         , 25, 50);
-        Golfe golfe3 = new Golfe(5500 * 1000, new Weather(Weather.Local.OUTDOOR), -1,new GregorianCalendar(2014,GregorianCalendar.MAY,22,14,0)
+        Golfe golfe3 = new Golfe(5500 * 1000, new Weather(Weather.WeatherSun.SUN, Weather.WeatherWind.WINDLESS), -1,new GregorianCalendar(2014,GregorianCalendar.MAY,22,14,0)
         , 35, 60);
-        Golfe golfe4 = new Golfe(3000 * 1000, new Weather(Weather.Local.OUTDOOR), -1,new GregorianCalendar(2013,GregorianCalendar.SEPTEMBER,13,14,0)
+        Golfe golfe4 = new Golfe(3000 * 1000, new Weather(Weather.WeatherSun.SUN, Weather.WeatherWind.WINDLESS), -1,new GregorianCalendar(2013,GregorianCalendar.SEPTEMBER,13,14,0)
         , 40, 45);
-        Golfe golfe5 = new Golfe(7000 * 1000, new Weather(Weather.Local.OUTDOOR), -1,new GregorianCalendar(2014,GregorianCalendar.JANUARY,18,15,0)
+        Golfe golfe5 = new Golfe(7000 * 1000, new Weather(Weather.WeatherSun.SUN, Weather.WeatherWind.WINDLESS), -1,new GregorianCalendar(2014,GregorianCalendar.JANUARY,18,15,0)
         , 33, 40);
         
         Ioga ioga1 = new Ioga(3500 *1000, new Weather(Weather.Local.INDOOR), -1, new GregorianCalendar(2014,GregorianCalendar.APRIL,7,10,0));
@@ -184,23 +184,12 @@ public class Main {
         Ioga ioga4 = new Ioga(2500 *1000, new Weather(Weather.Local.INDOOR), -1, new GregorianCalendar(2014,GregorianCalendar.OCTOBER,30,15,0));
         Ioga ioga5 = new Ioga(1000 *1000, new Weather(Weather.Local.INDOOR), -1, new GregorianCalendar(2014,GregorianCalendar.JANUARY,2,14,30));
         
-        Event ev1 = new EventDistance("Volta a UM", new Ciclismo(), new GregorianCalendar(), new GregorianCalendar(2014,GregorianCalendar.JUNE,3),3600 * 1000
-        ,4, Distance.MyRecords.MENOR_TEMPO5000.getrecordType(), 5000);
-        try{
-        ev1.addUser(u1);
-        ev1.addUser(u2);
-        ev1.addUser(u3);
-        ev1.addUser(u4);
-        }catch(AddEventException e){
-            System.out.println("Excepcao ao adicionar user ao evento:" + e.getMessage());
-        }
+        u1.atividadesManager().add(cicl1);
+        u2.atividadesManager().add(cicl2);
+        u3.atividadesManager().add(cicl3);
+        u4.atividadesManager().add(cicl4);
+        u5.atividadesManager().add(cicl5);
         
-        try{
-        ev1.addUser(u5);
-        }catch(AddEventException e){
-            System.out.println("Excepcao ao adicionar user5 ao evento:" + e.getMessage());
-        }
-
         
         u1.atividadesManager().add(nata1);
         u2.atividadesManager().add(nata2);
@@ -208,12 +197,7 @@ public class Main {
         u4.atividadesManager().add(nata4);
         u5.atividadesManager().add(nata5);
         
-        u1.atividadesManager().add(cicl1);
-        u2.atividadesManager().add(cicl2);
-        u3.atividadesManager().add(cicl3);
-        u4.atividadesManager().add(cicl4);
-        u5.atividadesManager().add(cicl5);
-        
+       
         u1.atividadesManager().add(basq1);
         u2.atividadesManager().add(basq2);
         u3.atividadesManager().add(basq3);
@@ -231,6 +215,23 @@ public class Main {
         u3.atividadesManager().add(ioga3);
         u4.atividadesManager().add(ioga4);
         u5.atividadesManager().add(ioga5);
+       
+        Event ev1 = new EventDistance("Volta a UM", new Ciclismo(), new GregorianCalendar(), new GregorianCalendar(2014,GregorianCalendar.JUNE,3),3600 * 1000
+        ,4, Distance.MyRecords.MENOR_TEMPO5000.getrecordType(), 5000);
+        try{
+        ev1.addUser(u1);
+        ev1.addUser(u2);
+        ev1.addUser(u3);
+        ev1.addUser(u4);
+        }catch(AddEventException e){
+            System.out.println("Excepcao ao adicionar user ao evento:" + e.getMessage());
+        }
+        
+        try{
+        ev1.addUser(u5);
+        }catch(AddEventException e){
+            System.out.println("Excepcao ao adicionar user5 ao evento:" + e.getMessage());
+        }
         
         
         

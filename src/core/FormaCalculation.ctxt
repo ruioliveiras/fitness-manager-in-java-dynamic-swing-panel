@@ -1,6 +1,8 @@
 #BlueJ class context
-comment0.params=
-comment0.target=double\ calculaPesoPonderadoInicial()
-comment1.params=u
-comment1.target=double\ calculaForma(model.user.User)
+comment0.params=u
+comment0.target=double\ calculaForma(model.user.User)
+comment0.text=Calcula\ a\ forma\ de\ um\ user.
+comment1.params=
+comment1.target=double\ calculaPesoPonderadoInicial()
+comment1.text=Calcula\ a\ influencia\ para\ a\ forma\ do\ dia\ mais\ afastado.\r\nSe\ DIAS_RELEVANTES\ \=\ 24\ calcula\ o\ peso\ para\ a\ forma\ do\ dia\ que\ fica\ a\ 24\ dias\ atras.
 numComments=2
