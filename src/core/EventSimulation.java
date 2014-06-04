@@ -29,11 +29,11 @@ public class EventSimulation {
         Weather w = act.getWeather();                                           
         double rndFact = 1 + (Math.random() - 0.50);
         double prsBest=0;
-		try {
-			prsBest = (double) (u.getRecordValue(act.getClass(), recordType))/stages;
-		} catch (RecordDontExitExeception e) {
-			e.printStackTrace();
-		} /*tempo por intervalo, Ex:por km*/
+        try {
+            prsBest = (double) (u.getRecordValue(act.getClass(), recordType))/stages;
+        } catch (RecordDontExitExeception e) {
+            e.printStackTrace();
+        } /*tempo por intervalo, Ex:por km*/
         double fitnessFact = u.getForma();
         double weatherFact = (double) Math.min(0.1, (double) w.getLvl()/20);
         long result;
@@ -90,22 +90,7 @@ public class EventSimulation {
         }
             
         return r;
-    }
-
-    /*CONTROLLER
-    static public List<List<Long>> executeEventDistance(Set<User> users, Distance act, int recordType) {
-        Weather w = act.getWeather();
-        List<List<Long>> result = new ArrayList<List<Long>>();
-        long eventDistance = act.getRecordTypeValue(recordType);
-        int stages = (eventDistance > 1000) ? (int) eventDistance/1000 : 1;
-        
-        for(User u : users){
-            result.add(new ArrayList<Long>(getFullSimulationDistance(u, act, recordType, stages)));
-        }
-
-        return result;
-    }
-    */
+    }   
     
     /**
      * Simula uma disputa entre dois utilizadores
@@ -116,23 +101,10 @@ public class EventSimulation {
      */
     static public int getSimulationContest(User u1, User u2, Class<? extends Activity> category){
         int user1Pts = UserStats.getPtsFromLastYear(u1, category);
-        int user2Pts = UserStats.getPtsFromLastYear(u1, category);
+        int user2Pts = UserStats.getPtsFromLastYear(u2, category);
         double rnd1 = 1 + (Math.random() - 0.50);
         double rnd2 = 1 + (Math.random() - 0.50);
         return (int) (rnd2*user2Pts - rnd1*user1Pts);
-    }
-   
-    /*FAZER ISTO NO CONTROLLER
-    static public List<Integer> getFullSimulationContest(List<ContestPair> lst, Class<? extends Contest> category){
-        List<Integer> results = new ArrayList<Integer>();
-        
-        for(ContestPair p : lst){
-            User usr1 = new User(p.getFstUser());
-            User usr2 = new User(p.getSndUser());
-            results.add(EventSimulation.getSimulationContest(usr1, usr2, category));
-        }
-        return results;
-    }
-    */
+    }      
 
 }

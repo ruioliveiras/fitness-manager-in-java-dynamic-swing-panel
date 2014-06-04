@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -26,6 +28,7 @@ import model.activity.Contest;
 import model.activity.Distance;
 import model.activity.Natacao;
 import model.activity.Weather;
+import model.events.ContestPair;
 import model.events.Event;
 import model.events.EventContest;
 import model.events.EventDistance;
@@ -45,6 +48,7 @@ import core.FormUtils.FormHandle;
 import core.FormUtils.FormListHandle;
 import core.FormUtils.OnPanelLoadLisneter;
 import core.FormUtils.SimpleListener;
+import core.util.Manager.ObjectDontExistException;
 
 public class ControllerEvents{
     private FormListHandle mHandler;
@@ -60,12 +64,12 @@ public class ControllerEvents{
         mHandler.addStringAll(mEvents); 
         initListeners();
         mRight = user.getPermissoes();
-		checkRight();
+        checkRight();
     }
     public void setUser(User user,Permissoes p){
-    	mRight = p;
-    	mUser = user;
-    	checkRight();
+        mRight = p;
+        mUser = user;
+        checkRight();
     }
     
     private void initListeners(){
@@ -160,18 +164,18 @@ public class ControllerEvents{
         
     }
     
-	private void checkRight(){
-		boolean edit;
-		if (mRight == Permissoes.Admin || mRight == Permissoes.User){
-			edit = true;
-		}else{
-			edit = false;
-		}
-		
-		for(FormButtonEnum e: FormButtonEnum .values()){
-			mHandler.getButton(e).setEnabled(edit);
-		}
-	}
+    private void checkRight(){
+        boolean edit;
+        if (mRight == Permissoes.Admin || mRight == Permissoes.User){
+            edit = true;
+        }else{
+            edit = false;
+        }
+        
+        for(FormButtonEnum e: FormButtonEnum .values()){
+            mHandler.getButton(e).setEnabled(edit);
+        }
+    }
     
     
     private void setEvent(Event event){
@@ -347,23 +351,123 @@ public class ControllerEvents{
         nextOutput();
     }
     
-    private void iniciarDistanceEvent(Weather weather){
-        List<User> users = Main.getDataSet().userManager().collection();
+    private void iniciarDistanceEvent(Weather w){
+        List<String> usersKeys = mSelected.getUserManager().collection();/*ler keys do evento seleccionado*/
+        List<User> users = new ArrayList<>();
         Distance act = (Distance) mSelected.getActivity();
         int recordType = mSelected.getRecordType();
         long eventDistance = act.getValue(act.getRecord(recordType));
         int stages = (eventDistance > 1000) ? (int) eventDistance/1000 : 1;
         
+        /*adicionar Users atraves das keys*/
+        for(String uKey : usersKeys){
+            try{
+                User aux = Main.getDataSet().userManager().get(new User(uKey));
+                users.add(aux);
+            }
+            catch (ObjectDontExistException e) {
+                 JOptionPane.showMessageDialog(null, "Email não existe");
+            }
+        }
+        
+        /*criar map de resultados*/
         Map<String,ArrayList<Long>> allResults = EventSimulation.getAllResults(users, act, recordType, stages);
         
+        /*apresentacao dos resultados por etapa*/
         for(int i = 0; i < stages; i++){
             TreeSet<DistancePair> aux = EventSimulation.getStageClassification(allResults, i);
             printDistanceEvent(aux, i);
         }
     }
     
-    private void iniciarContestEvent(Weather weather){
-        /**TODO*/
+    private void iniciarContestEvent(Weather w){
+        List<ContestPair> games = gamesResults();
+        Map<String,Integer> table = contestTable(games);
+        TreeSet<DistancePair> classif = new TreeSet<>();
+        
+        Iterator<String> it = table.keySet().iterator();
+        for(Integer pts : table.values())
+            classif.add(new DistancePair(it.next(),pts));/*atencao mudar o nome de DistancePair*/
+        
+            
+        /*output*/
+        clearScreen();
+        System.out.println(mSelected.toString());
+        
+        /*imprimir jogos*/
+        for(ContestPair g : games)
+            System.out.println(g.toString());
+
+        nextOutput();    
+        /*imprimir tabela ordenada*/
+        System.out.println("--- Tabela Classificativa ---");
+        for(DistancePair p : classif)
+            System.out.println(p.getName() + " --- " + p.getResult());  
+    }
+    
+    /**contest simulation*/
+    public Map<String,Integer> contestTable(List<ContestPair> results){
+        Map<String,Integer> table = new HashMap<>();
+        String u1, u2;
+        int u1Pts, u2Pts;
+        
+        for(ContestPair p : results){
+            u1 = p.getFstUser();
+            u2 = p.getSndUser();
+            u1Pts = p.getUser1Pts();
+            u2Pts = p.getUser2Pts();
+            if(!table.containsKey(u1)) table.put(u1, u1Pts);/*primeira insercao*/
+            else table.put(u1, u1Pts + table.get(u1));/*atualizacao dos pontos*/
+            if(!table.containsKey(u2)) table.put(u2, u2Pts);
+            else table.put(u2, u2Pts + table.get(u2));
+        }
+            
+        return table;
+    }
+    
+
+    public List<ContestPair> gamesResults(){
+        /*gerar jogos sem resultados*/
+        List<ContestPair> games = ((EventContest) mSelected).getGames();
+        User u1=null, u2=null;
+        int resultAux, u1Pts, u2Pts;
+        
+        /*ler users e criar resultados*/
+        for(ContestPair p : games){
+           String u1Key =  p.getFstUser();
+           String u2Key =  p.getSndUser();
+           try{
+                u1 = Main.getDataSet().userManager().get(new User(u1Key));
+                u2 = Main.getDataSet().userManager().get(new User(u2Key));
+           }
+           catch (ObjectDontExistException e) {
+                 JOptionPane.showMessageDialog(null, "Email não existe");
+                 return null;
+           }
+           /*simula resultado*/
+           resultAux = EventSimulation.getSimulationContest(u1, u2, mSelected.getActivity().getClass());
+           
+           /*atribui pontos em funcao do resultado*/
+           if(resultAux == 0) {
+               u1Pts = u2Pts = ((EventContest) mSelected).getDrawPts();
+               p.setUser1Pts(u1Pts);
+               p.setUser1Pts(u2Pts);
+           }
+           else if(resultAux < 0) {
+               u1Pts = ((EventContest) mSelected).getVicPts();
+               u2Pts = ((EventContest) mSelected).getLossPts();
+               p.setUser1Pts(u1Pts);
+               p.setUser1Pts(u2Pts);
+           }
+           else{
+               u2Pts = ((EventContest) mSelected).getVicPts();
+               u1Pts = ((EventContest) mSelected).getLossPts();
+               p.setUser1Pts(u1Pts);
+               p.setUser1Pts(u2Pts);
+           }
+        }
+        
+        return games;
     }
     
     
@@ -376,7 +480,7 @@ public class ControllerEvents{
         
         Scanner reader = new Scanner(System.in);
         String c;
-        System.out.println("--- Prima <n> para a próxima ronda ---");
+        System.out.println("--- Prima <n> para mais resultados ---");
         do {
             c = reader.nextLine();
         }
@@ -384,9 +488,14 @@ public class ControllerEvents{
         
     }
     
+
+    
+    
+
+    
     
     /**
-     * percorrer users
+     * @@@ cabula para percorrer users:
      * 
      * mSelected (Evento actual)
      * 
@@ -396,13 +505,8 @@ public class ControllerEvents{
      * //aceder a todos os users
      * List<User> = Main.getDataSet().userManager().collection();
      * 
+     * //aceder a 1 User
      * User = Main.getDataSet().userManager().get(new User("stringKey"));
-     * 
-     * 
-     * static public Map<String,ArrayList<Long>> getAllResults(List<User> users, Distance act, 
-                                                int recordType, int stages)
-                                                
-       static public TreeSet<DistancePair> getStageClassification(Map<String,ArrayList<Long>> results, int stage)
      * 
      */
 }

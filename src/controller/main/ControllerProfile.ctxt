@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.params=handler\ user
 comment0.target=ControllerProfile(core.FormUtils.FormHandle,\ model.user.User)
-comment1.params=user
-comment1.target=void\ setUser(model.user.User)
+comment1.params=user\ right
+comment1.target=void\ setUser(model.user.User,\ model.user.Permissoes)
 comment2.params=
 comment2.target=void\ initListeners()
 comment3.params=arg0
@@ -10,7 +10,9 @@ comment3.target=void\ actionPerformed(java.awt.event.ActionEvent)
 comment4.params=
 comment4.target=void\ initValues()
 comment5.params=
-comment5.target=void\ saveProfileChanges()
-comment6.params=b
-comment6.target=void\ setComponentsEnable(boolean)
-numComments=7
+comment5.target=void\ checkRight()
+comment6.params=
+comment6.target=void\ saveProfileChanges()
+comment7.params=b
+comment7.target=void\ setComponentsEnable(boolean)
+numComments=8
