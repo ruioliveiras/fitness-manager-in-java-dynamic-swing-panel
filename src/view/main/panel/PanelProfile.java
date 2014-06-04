@@ -22,7 +22,8 @@ import core.FormUtils.FormButtons;
 public class PanelProfile extends PanelToolBar {
 
 	public enum FormButtonEnum implements FormButtons{
-		EDITAR		("Editar","Salvar");
+		EDITAR		("Editar","Salvar"),
+		APAGAR		("ApagarConta","Certeza?");
 
 		private String eText1;
 		private String eText2;

@@ -33,8 +33,8 @@ import core.FormUtils;
 import core.FormUtils.FormHandle;
 import core.FormUtils.FormListHandle;
 import core.FormUtils.OnPanelLoadLisneter;
-import core.util.Util;
 import core.util.Manager.ObjectDontExistException;
+import core.util.Util;
 
 public class ControllerActivitys implements ListSelectionListener{
 	private FormListHandle mHandler;
@@ -52,14 +52,6 @@ public class ControllerActivitys implements ListSelectionListener{
 		mRight = user.getPermissoes();
 		checkRight();
 	}
-	public void setUser(User user,Permissoes p){
-		mRight = p;
-		mUser = user;
-		mActivitys = mUser.atividadesManager().collection();
-		mHandler.addStringAll(mActivitys);
-		checkRight();
-	}
-	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initListeners(){
 		mHandler.addButtonListener(FormButtonEnum.EDITAR, new ActionListener() {
@@ -96,6 +88,23 @@ public class ControllerActivitys implements ListSelectionListener{
 			}
 
 		});
+		mHandler.addButtonListener(FormButtonEnum.APAGAR, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				boolean confirmacao = mHandler.getTextIndex(FormButtonEnum.APAGAR) == 1; 
+				if (confirmacao){
+					mHandler.setText2(FormButtonEnum.APAGAR);
+				}else{
+					mHandler.setText1(FormButtonEnum.APAGAR);
+					apagar();
+					refresh();
+				}
+			
+			}
+
+
+		});
 		mHandler.addListListener(this);
 		((JComboBox<Weather>) mHandler.getComponent(FormAttEnum.TEMPO)).setModel(new DefaultComboBoxModel<>(Weather.getWeatherArray()));
 
@@ -115,32 +124,20 @@ public class ControllerActivitys implements ListSelectionListener{
 		mHandler.addLoadLisnener(new OnPanelLoadLisneter() {
 			@Override
 			public void load() {
-				try {
-					mActivitys = Main.getDataSet().userManager().get(mUser).atividadesManager().collection();
-					mHandler.addStringAll(mActivitys); 
-					setActivity(new Ginasio());
-				} catch (ObjectDontExistException e) {
-					JOptionPane.showMessageDialog(null, "Utilizador invalido");
-				}
+				refresh();
 				
 			}
 		});
 
 	}
 	
-	private void checkRight(){
-		boolean edit;
-		if (mRight == Permissoes.Admin || mRight == Permissoes.User){
-			edit = true;
-		}else{
-			edit = false;
-		}
-		
-		for(FormButtonEnum e: FormButtonEnum .values()){
-			mHandler.getButton(e).setEnabled(edit);
-		}
+	public void setUser(User user,Permissoes p){
+		mRight = p;
+		mUser = user;
+		mActivitys = mUser.atividadesManager().collection();
+		mHandler.addStringAll(mActivitys);
+		checkRight();
 	}
-	
 	private void setActivity(Activity act){
 		try {
 			int index = Main.getActivityIndex(act.getName());
@@ -239,7 +236,6 @@ public class ControllerActivitys implements ListSelectionListener{
 			act = Main.getActivity(actString);
 			String s = time.getText();
 			act.setDuration(Util.hourFormat(s) );
-			String ha = Util.hourFormat(act.getDuration());
 			act.setHeartRate(Integer.parseInt( hr.getText()));
 			//((JTextField) mHandler.getComponent(FormAttEnum.TEMPO))
 			GregorianCalendar greg = new GregorianCalendar();
@@ -272,6 +268,7 @@ public class ControllerActivitys implements ListSelectionListener{
 			mUser.atividadesManager().add(act);
 			Main.getDataSet().userManager().add(mUser);
 			Main.save();
+			refresh();
 		} catch (NameDontExistException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
@@ -281,14 +278,46 @@ public class ControllerActivitys implements ListSelectionListener{
 		}
 
 	}
-	
-	protected void setComponentsEnable(boolean b){
+	private void apagar() {
+		if (mSelected != null){
+			try {
+				mUser = Main.getDataSet().userManager().get(new User(mUser));
+				mUser.atividadesManager().remove(mSelected);
+				Main.getDataSet().userManager().edit(mUser);
+				Main.save();				
+			} catch (ObjectDontExistException e) {}
+			
+		}
+	}
+
+	private void setComponentsEnable(boolean b){
 		for(FormAttEnum e: FormAttEnum .values()){
 			mHandler.getComponent(e).setEnabled(b);
 		}
 		mHandler.getComponent(FormAttEnum.CALORIAS).setEnabled(false);
 	}
 
+	private void refresh(){
+		try {
+			mActivitys = Main.getDataSet().userManager().get(mUser).atividadesManager().collection();
+			mHandler.addStringAll(mActivitys); 
+			setActivity(new Ginasio());
+		} catch (ObjectDontExistException e) {
+			JOptionPane.showMessageDialog(null, "Utilizador invalido");
+		}
+	}
+	private void checkRight(){
+		boolean edit;
+		if (mRight == Permissoes.Admin || mRight == Permissoes.User){
+			edit = true;
+		}else{
+			edit = false;
+		}
+		
+		for(FormButtonEnum e: FormButtonEnum .values()){
+			mHandler.getButton(e).setEnabled(edit);
+		}
+	}
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		int index = mHandler.getSelectIndex();

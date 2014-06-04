@@ -6,25 +6,30 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import model.activity.Activity;
+import model.events.Event;
 import model.user.Genero;
 import model.user.Permissoes;
 import model.user.User;
 import view.main.panel.PanelProfile;
 import view.main.panel.PanelProfile.FormAttEnum;
 import view.main.panel.PanelProfile.FormButtonEnum;
-import controller.NameDontExistException;
 import controller.Main;
+import controller.NameDontExistException;
 import core.FormUtils;
 import core.FormUtils.FormHandle;
+import core.FormUtils.SimpleListener;
+import core.util.Manager.ObjectDontExistException;
 
 public class ControllerProfile {
 	private FormHandle mHandler;
 	private User mUser;
 	private Permissoes mRight;
+	private SimpleListener mOnDeleteAccountListener;
 	
 	public ControllerProfile(FormHandle handler, User user) {
 		mHandler = handler; 
@@ -59,6 +64,25 @@ public class ControllerProfile {
 
 			
 		});
+		mHandler.addButtonListener(FormButtonEnum.APAGAR, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				boolean confirmacao = mHandler.getTextIndex(FormButtonEnum.APAGAR) == 1; 
+				if (confirmacao){
+					mHandler.setText2(FormButtonEnum.APAGAR);
+				}else{
+					mHandler.setText1(FormButtonEnum.APAGAR);
+					apagarConta();
+					if (mOnDeleteAccountListener != null){
+						mOnDeleteAccountListener.action(mUser);
+					}
+				}
+			
+			}
+
+			
+		});
 	}
 	
 	private void initValues(){
@@ -74,9 +98,12 @@ public class ControllerProfile {
 		mHandler.setValue(FormAttEnum.SEXO, mUser.getGenero().toString());
 		mHandler.setValue(FormAttEnum.PREFERIDO, mUser.getDesportoFavorito().getName());
 		mHandler.setValue(FormAttEnum.NASCIMENTO, sdf.format(mUser.getDataNascimento().getTime()).toString());
-
 	}
 	
+	public void addOnDeleteAcount(SimpleListener simpleListener) {
+		mOnDeleteAccountListener = simpleListener;
+		
+	}
 	private void checkRight(){
 		boolean edit;
 		if (mRight == Permissoes.Admin || mRight == Permissoes.User){
@@ -89,10 +116,35 @@ public class ControllerProfile {
 			mHandler.getButton(e).setEnabled(edit);
 		}
 	}
-	
-	
+
+	private void apagarConta(){
+		try {mUser = Main.getDataSet().userManager().get(mUser); 
+
+		//Todos os amigos
+		for(String email:mUser.amigosManager().collection()){
+			User u = Main.getDataSet().userManager().get(new User(email));
+			u.amigosManager().remove(mUser.getEmail());
+			Main.getDataSet().userManager().edit(u);
+		}
+		//Apagar dos Eventos
+		List<Event> levents = Main.getDataSet().eventManager().collection();
+		for (Event event : levents) {
+			if (event.getUserManager().contains(mUser.getEmail()) ){
+				event.getUserManager().remove(mUser.getEmail());
+				Main.getDataSet().eventManager().edit(event);
+			}
+			
+		}
+		Main.getDataSet().userManager().remove(mUser);
+		Main.save();
+		}catch (ObjectDontExistException e) {
+
+
+		}
+	}
+
 	private void saveProfileChanges() {
-		
+
 		String email,nome,password;
 		int altura,peso;
 		Genero genero;

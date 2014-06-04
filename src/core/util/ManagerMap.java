@@ -55,7 +55,7 @@ public class ManagerMap<V> extends Manager<V>{
 		return false;
 			
 	}
-	public int getSize() {
+	public int size() {
 		return mMap.size();
 	}
 
