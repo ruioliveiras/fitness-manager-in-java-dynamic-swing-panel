@@ -33,6 +33,7 @@ import core.FormUtils;
 import core.FormUtils.FormHandle;
 import core.FormUtils.FormListHandle;
 import core.FormUtils.OnPanelLoadLisneter;
+import core.util.Util;
 import core.util.Manager.ObjectDontExistException;
 
 public class ControllerActivitys implements ListSelectionListener{
@@ -146,6 +147,7 @@ public class ControllerActivitys implements ListSelectionListener{
 			JTextField time = (JTextField) mHandler.getComponent(FormAttEnum.TIME);
 			JTextField hr = (JTextField) mHandler.getComponent(FormAttEnum.HEARTH);
 			JTextField date = (JTextField) mHandler.getComponent(FormAttEnum.DATE);
+			JTextField calorias = (JTextField) mHandler.getComponent(FormAttEnum.CALORIAS);
 			JTextField distance = (JTextField) mHandler.getComponent(FormAttEnum.DISTANCE);
 			JTextField maxspeed = (JTextField) mHandler.getComponent(FormAttEnum.MAXSPEED);
 			JTextField asc = (JTextField) mHandler.getComponent(FormAttEnum.ASCENDENT);
@@ -159,10 +161,11 @@ public class ControllerActivitys implements ListSelectionListener{
 			
 			
 			((JComboBox<?>) mHandler.getComponent(FormAttEnum.COMBO)).setSelectedIndex(index);
-			time.setText(String.valueOf(act.getDuration_inSeconds()));
+			time.setText(Util.hourFormat(act.getDuration()));
 			hr.setText(String.valueOf(act.getHeartRate()));
 			((JComboBox<?>) mHandler.getComponent(FormAttEnum.TEMPO)).setSelectedIndex(Weather.getIndexWeather(act.getWeather()));
 			date.setText(new SimpleDateFormat(FormUtils.DATA_PATTERM).format(act.getDate().getTime()));
+			calorias.setText(String.valueOf(act.calculateCalories(mUser)));
 			
 			if (act instanceof Distance){
 				distance.setText(String.valueOf(((Distance) act).getDistance()));
@@ -235,8 +238,8 @@ public class ControllerActivitys implements ListSelectionListener{
 		try {
 			act = Main.getActivity(actString);
 			String s = time.getText();
-			Integer in = Integer.parseInt(s);
-			act.setDuration( in.longValue() * 1000 );
+			act.setDuration(Util.hourFormat(s) );
+			String ha = Util.hourFormat(act.getDuration());
 			act.setHeartRate(Integer.parseInt( hr.getText()));
 			//((JTextField) mHandler.getComponent(FormAttEnum.TEMPO))
 			GregorianCalendar greg = new GregorianCalendar();
@@ -283,6 +286,7 @@ public class ControllerActivitys implements ListSelectionListener{
 		for(FormAttEnum e: FormAttEnum .values()){
 			mHandler.getComponent(e).setEnabled(b);
 		}
+		mHandler.getComponent(FormAttEnum.CALORIAS).setEnabled(false);
 	}
 
 	@Override

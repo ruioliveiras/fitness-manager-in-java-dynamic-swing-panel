@@ -219,7 +219,7 @@ public class Main {
         u4.atividadesManager().add(ioga4);
         u5.atividadesManager().add(ioga5);
        
-        Event ev1 = new EventDistance("Volta a UM", new Ciclismo(), new GregorianCalendar(), new GregorianCalendar(2014,GregorianCalendar.JUNE,3),3600 * 1000
+        Event ev1 = new EventDistance("Volta a UM", new Ciclismo(), new GregorianCalendar(), new GregorianCalendar(2014,GregorianCalendar.JUNE,7),3600 * 1000
         ,4, Distance.MyRecords.MENOR_TEMPO5000.getrecordType(), 5000);
         try{
         ev1.addUser(u1);

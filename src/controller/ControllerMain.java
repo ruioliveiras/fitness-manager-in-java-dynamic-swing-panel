@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;
@@ -24,7 +23,6 @@ import core.util.Manager.ObjectDontExistException;
 public class ControllerMain implements MainListener,ListModel<String>{
 	private FormMain mViewMain;
 	protected User mUserCopy;
-	private Permissoes mUserPermissoes;
 	
 	private ControllerProfile mControllerProfile;
 	private ControllerActivitys mControllerActivitys;
@@ -32,10 +30,10 @@ public class ControllerMain implements MainListener,ListModel<String>{
 	private ControllerRecords mControllerRecords;
 	private List<String> mFriend;
 	private List<String> mInvite;
-	private DefaultListModel<String> mListHelper;
+	private List<ListDataListener> mListHelper;
 	
 	public ControllerMain(User user){
-		mListHelper = new DefaultListModel<>();
+		mListHelper = new ArrayList<>();
 		mFriend = new ArrayList<>( user.amigosManager().collection());
 		mInvite  = new ArrayList<>( user.convitesManager().collection());
 	
@@ -83,6 +81,10 @@ public class ControllerMain implements MainListener,ListModel<String>{
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				int index = mViewMain.getSelectedIndex();
+				if (index < 0){
+					return;
+				}
+				
 				if (index == 0){
 					loadUser(mUserCopy.getEmail(),Permissoes.User);
 					return;
@@ -92,17 +94,20 @@ public class ControllerMain implements MainListener,ListModel<String>{
 					Permissoes p = (mUserCopy.getPermissoes() == Permissoes.Admin) ? Permissoes.Admin : Permissoes.Guest;
 					loadUser(mFriend.get(index),p);
 				}else{
+
 					index = index - mFriend.size();
 					String email = mInvite.get(index);
-					mViewMain.showPopupInvite(email);
+					mViewMain.showPopupInvite(email);	
+
 				}
+
 			}
 		});			
 	}
 
 	@Override
 	public void addListDataListener(ListDataListener l) {
-		mListHelper.addListDataListener(l);
+		mListHelper.add(l);
 	}
 
 	@Override
@@ -124,7 +129,7 @@ public class ControllerMain implements MainListener,ListModel<String>{
 
 	@Override
 	public void removeListDataListener(ListDataListener l) {
-		mListHelper.removeListDataListener(l);
+		mListHelper.remove(l);
 	}
 
 	
@@ -148,6 +153,7 @@ public class ControllerMain implements MainListener,ListModel<String>{
 		try {
 			User other;
 			
+				
 			other = Main.getDataSet().userManager().get(new User(email));
 			other.amigosManager().add(mUserCopy.getEmail());
 			
@@ -159,6 +165,13 @@ public class ControllerMain implements MainListener,ListModel<String>{
 			Main.getDataSet().userManager().edit(other);
 			Main.save();
 			
+
+			mFriend = new ArrayList<>( mUserCopy.amigosManager().collection());
+			mInvite  = new ArrayList<>( mUserCopy.convitesManager().collection());
+			mViewMain.notifyDataChaged(this);
+//			for (ListDataListener l : mListHelper) {
+//				l.
+//			}
 		} catch (ObjectDontExistException e) {
 			e.printStackTrace();
 		}
@@ -169,11 +182,16 @@ public class ControllerMain implements MainListener,ListModel<String>{
 	public void refuseInvite(String email) {
 		
 		try {
+			
 			mUserCopy = Main.getDataSet().userManager().get(new User(mUserCopy.getEmail()));
 			mUserCopy.convitesManager().remove(email);
 			
 			Main.getDataSet().userManager().edit(mUserCopy);
 			Main.save();
+
+			mFriend = new ArrayList<>( mUserCopy.amigosManager().collection());
+			mInvite  = new ArrayList<>( mUserCopy.convitesManager().collection());
+			mViewMain.notifyDataChaged(this);
 		} catch (ObjectDontExistException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

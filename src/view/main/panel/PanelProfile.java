@@ -9,16 +9,13 @@ import java.text.SimpleDateFormat;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
+import view.main.PanelToolBar;
 import core.FormUtils;
 import core.FormUtils.FormAttr;
 import core.FormUtils.FormButtons;
-import view.main.PanelToolBar;
 
 
 
@@ -48,29 +45,33 @@ public class PanelProfile extends PanelToolBar {
 	}
 	
 	public enum FormAttEnum implements FormAttr{
-		EMAIL		("E-Mail",JTextField.class),
-		PASS		("Password",JPasswordField.class),
-		NAME    	("Nome", JTextField.class),
-		SEXO      	("Genero", JTextField.class),
-		ALTURA    	("Altura", JTextField.class),
-		PESO      	("Peso", JTextField.class),
-		PREFERIDO 	("Desporto Favorito", JTextField.class),
-		NASCIMENTO	("Data Nascimento", JFormattedTextField.class){
+		EMAIL		("E-Mail",JTextField.class,26),
+		PASS		("Password",JPasswordField.class,15),
+		NAME    	("Nome", JTextField.class,30),
+		SEXO      	("Genero", JTextField.class,15),
+		ALTURA    	("Altura", JTextField.class,4),
+		PESO      	("Peso", JTextField.class,4),
+		FREQ      	("Fr/card.", JTextField.class,4),
+		PREFERIDO 	("Desporto Favorito", JTextField.class,15),
+		NASCIMENTO	("Data Nascimento", JFormattedTextField.class,15){
 			@Override
 			public Constructor<? extends JComponent> getComponetConstructor() {
 				try {return JFormattedTextField.class.getConstructor(Format.class);} 
 				catch (NoSuchMethodException | SecurityException e) 
 				{e.printStackTrace();return null;}
 			}
-		};
+		},
+		FORMA      	("Forma", JTextField.class,4);
 		
 		
 		private String eName;
 		private Class<? extends JComponent> eClass;
+		private int eSize;
 		
-		FormAttEnum(String name,Class<? extends JComponent> _class){
+		FormAttEnum(String name,Class<? extends JComponent> _class,int tamanho){
 			eName = name;
 			eClass = _class;
+			eSize = tamanho;
 		}
 
 		@Override
@@ -115,6 +116,9 @@ public class PanelProfile extends PanelToolBar {
 			for (FormAttEnum e : FormAttEnum.values()) {
 				if (e.getComponetConstructor().getParameterTypes().length == 0){
 					mJComponets[e.ordinal()] = e.getComponetConstructor().newInstance();
+					try{
+						((JTextField) mJComponets[e.ordinal()]).setColumns(e.eSize);
+					}catch (Exception b){}
 				}
 			}
 			/*Specific Cases*/

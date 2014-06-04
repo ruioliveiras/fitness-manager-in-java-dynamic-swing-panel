@@ -39,33 +39,36 @@ public class PanelActivities extends PanelListToolBar {
 	}
 
 	public enum FormAttEnum implements FormAttr{
-		COMBO		("", JComboBox.class),
-		TIME		("Time",JTextField.class),
-		HEARTH		("Pulsação",JTextField.class),
-		TEMPO		("Tempo",JComboBox.class),
-		DATE		("Date",JTextField.class), 
+		COMBO		("Activividade", JComboBox.class,10),
+		TIME		("Time",JTextField.class,10),
+		HEARTH		("Pulsação",JTextField.class,7),
+		TEMPO		("Tempo",JComboBox.class,15),
+		DATE		("Date",JTextField.class,10), 
+		CALORIAS	("Calorias",JTextField.class,10), 
 		//DISTANCE:
-		DISTANCE	("Distancia [m]",JTextField.class),
-		MAXSPEED 	("Vel. Maxima",JTextField.class),
+		DISTANCE	("Distancia [m]",JTextField.class,4),
+		MAXSPEED 	("Vel. Maxima",JTextField.class,4),
 		//altemetria
-		ASCENDENT	("Ascendente [m]",JTextField.class),
-		DESCENDET	("Descendente [m]",JTextField.class),
-		MINALT	("Min Altura [m]",JTextField.class),
-		MAXALT	("Max Altura [m]",JTextField.class),
+		ASCENDENT	("Ascendente [m]",JTextField.class,4),
+		DESCENDET	("              Descendente [m]",JTextField.class,4),
+		MINALT		("Min Altura [m]",JTextField.class,4),
+		MAXALT		("Max Altura [m]",JTextField.class,4),
 		//CONTEST
-		POINTRIVAL	("Equipa",JTextField.class),
-		POINTTEAM	("Oponente",JTextField.class),
+		POINTRIVAL	("Equipa",JTextField.class,4),
+		POINTTEAM	("           Oponente",JTextField.class,4),
 		//SKILL
-		MAXPOINT	("Max trik",JTextField.class),
-		POINTS		("Pontos",JTextField.class);
+		MAXPOINT	("Max trik",JTextField.class,4),
+		POINTS		("            Pontos",JTextField.class,4);
 		
 		
 		private String eName;
 		private Class<? extends JComponent> eClass;
+		private int eSize;
 		
-		FormAttEnum(String name,Class<? extends JComponent> _class){
+		FormAttEnum(String name,Class<? extends JComponent> _class,int size){
 			eName = name;
 			eClass = _class;
+			eSize = size;
 		}
 
 		@Override
@@ -110,6 +113,9 @@ public class PanelActivities extends PanelListToolBar {
 			for (FormAttEnum e : FormAttEnum.values()) {
 				if (e.getComponetConstructor().getParameterTypes().length == 0){
 					mJComponets[e.ordinal()] = e.getComponetConstructor().newInstance();
+					try{
+						((JTextField) mJComponets[e.ordinal()]).setColumns(e.eSize);
+					}catch (Exception b){}
 				}
 			}
 		} catch (InstantiationException | IllegalAccessException

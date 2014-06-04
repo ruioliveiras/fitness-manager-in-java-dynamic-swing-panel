@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.management.RuntimeErrorException;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -85,6 +86,8 @@ public class FormMain implements ActionListener{
 	public void setListener(MainListener listerner){mListener = listerner;}
 	
 	public void notifyDataChaged(ListModel<String> friends){
+		mFriends.removeAll();
+		mFriends.setModel(new DefaultComboBoxModel<String>());
 		mFriends.setModel(friends);
 	}
 	
@@ -265,6 +268,8 @@ public class FormMain implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mListener.acceptInvite(email);
+				mPopupInviteFrame.setVisible(false);
+				mPopupInviteFrame.dispose();
 			}
 		});
 		refuseButton.addActionListener(new ActionListener() {
@@ -272,6 +277,8 @@ public class FormMain implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mListener.refuseInvite(email);
+				mPopupInviteFrame.setVisible(false);
+				mPopupInviteFrame.dispose();
 			}
 		});
 		cancelButton.addActionListener(new ActionListener() {

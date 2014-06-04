@@ -69,9 +69,12 @@ public class ControllerProfile {
 		mHandler.setValue(FormAttEnum.PASS, mUser.getPassword());
 		mHandler.setValue(FormAttEnum.ALTURA, String.valueOf(mUser.getAltura()));
 		mHandler.setValue(FormAttEnum.PESO, String.valueOf(mUser.getPeso()));
+		mHandler.setValue(FormAttEnum.FREQ, String.valueOf(mUser.getFreqCardio()));
+		mHandler.setValue(FormAttEnum.FORMA, String.valueOf(mUser.getForma()));
 		mHandler.setValue(FormAttEnum.SEXO, mUser.getGenero().toString());
 		mHandler.setValue(FormAttEnum.PREFERIDO, mUser.getDesportoFavorito().getName());
 		mHandler.setValue(FormAttEnum.NASCIMENTO, sdf.format(mUser.getDataNascimento().getTime()).toString());
+
 	}
 	
 	private void checkRight(){
@@ -147,5 +150,6 @@ public class ControllerProfile {
 		for(FormAttEnum e: FormAttEnum .values()){
 			mHandler.getComponent(e).setEnabled(b);
 		}
+		mHandler.getComponent(PanelProfile.FormAttEnum.FORMA).setEnabled(false);
 	}
 }

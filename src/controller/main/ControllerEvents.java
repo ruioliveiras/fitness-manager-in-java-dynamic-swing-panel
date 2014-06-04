@@ -25,11 +25,13 @@ import model.activity.Activity;
 import model.activity.Contest;
 import model.activity.Distance;
 import model.activity.Natacao;
+import model.activity.Weather;
 import model.events.Event;
 import model.events.EventContest;
 import model.events.EventDistance;
 import model.user.Permissoes;
 import model.user.User;
+import view.main.panel.PanelEvents;
 import view.main.panel.PanelEvents.FormAttEnum;
 import view.main.panel.PanelEvents.FormButtonEnum;
 import controller.ComboRecordModel;
@@ -42,8 +44,9 @@ import core.FormUtils;
 import core.FormUtils.FormHandle;
 import core.FormUtils.FormListHandle;
 import core.FormUtils.OnPanelLoadLisneter;
+import core.FormUtils.SimpleListener;
 
-public class ControllerEvents implements ListSelectionListener{
+public class ControllerEvents{
     private FormListHandle mHandler;
     private User mUser;
     private Event mSelected;
@@ -104,22 +107,30 @@ public class ControllerEvents implements ListSelectionListener{
             }
         });
         mHandler.addButtonListener(FormButtonEnum.INICIAR, new ActionListener() {   
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                iniciar();
-                //system out println directamente na consola
-            }   
+        	@Override
+        	public void actionPerformed(ActionEvent arg0) {
+        		iniciar();
+        	}   
         });
         mHandler.addLoadLisnener(new OnPanelLoadLisneter() {
-            
-            @Override
-            public void load() {
-                mEvents.clear();
-                mEvents.addAll(Main.getDataSet().eventManager().collection());
-                setEvent(new EventDistance(new Natacao()));
-            }
+
+        	@Override
+        	public void load() {
+        		mEvents.clear();
+        		mEvents.addAll(Main.getDataSet().eventManager().collection());
+        		setEvent(new EventDistance(new Natacao()));
+        	}
         });
-        
+
+        mHandler.addListListener(new ListSelectionListener() {
+
+        	@Override
+        	public void valueChanged(ListSelectionEvent e) {
+        		int index = mHandler.getSelectIndex();
+        		mSelected = mEvents.get(index);
+        	}
+        });
+
         @SuppressWarnings("unchecked")
         final JComboBox<Object> activityCombo = (JComboBox<Object>) mHandler.getComponent(FormAttEnum.ACTIVITY);
         activityCombo.setModel(new DefaultComboBoxModel<Object>(Main.getActivitiesNames()));
@@ -298,18 +309,28 @@ public class ControllerEvents implements ListSelectionListener{
         }
     }
 
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-        int index = mHandler.getSelectIndex();
-        mSelected = mEvents.get(index);
-    }
+   
     
     
     private void iniciar() {
-        if(mSelected.getActivity() instanceof Distance)
-            iniciarDistanceEvent();
-        else
-            iniciarContestEvent();
+    	((PanelEvents) mHandler).showPopupEvent(new SimpleListener() {
+			
+			@Override
+			public Object action(Object o) {
+				Weather weather = (Weather) o;
+				
+				if(mSelected.getActivity() instanceof Distance)
+		            iniciarDistanceEvent(weather);
+		        else
+		            iniciarContestEvent(weather);
+				
+				
+				return null;
+			}
+		});
+    	
+    	
+    
     }
     
     private void adedir() {
@@ -326,7 +347,7 @@ public class ControllerEvents implements ListSelectionListener{
         nextOutput();
     }
     
-    private void iniciarDistanceEvent(){
+    private void iniciarDistanceEvent(Weather weather){
         List<User> users = Main.getDataSet().userManager().collection();
         Distance act = (Distance) mSelected.getActivity();
         int recordType = mSelected.getRecordType();
@@ -341,7 +362,7 @@ public class ControllerEvents implements ListSelectionListener{
         }
     }
     
-    private void iniciarContestEvent(){
+    private void iniciarContestEvent(Weather weather){
         /**TODO*/
     }
     

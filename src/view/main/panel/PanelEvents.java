@@ -1,20 +1,29 @@
 package view.main.panel;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
+import model.activity.Weather;
 import view.main.PanelListToolBar;
 import core.FormUtils;
 import core.FormUtils.FormAttr;
 import core.FormUtils.FormButtons;
+import core.FormUtils.SimpleListener;
 
 public class PanelEvents extends PanelListToolBar{
 
@@ -148,7 +157,41 @@ public class PanelEvents extends PanelListToolBar{
 
 	
 
-	
+	private JFrame mPopupInviteFrame; 
+	public void showPopupEvent(final SimpleListener action){
+		if (mPopupInviteFrame != null){
+			mPopupInviteFrame.setVisible(false);
+			mPopupInviteFrame.dispose();
+		}
+		
+		String title = "Selecionar Tempo";
+		mPopupInviteFrame = new JFrame(title);
+		mPopupInviteFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		Container contentPane = mPopupInviteFrame.getContentPane();
+
+		final JComboBox<Weather> weather = new JComboBox<>();
+		weather.setModel(new DefaultComboBoxModel<Weather>(Weather.getWeatherArray()));
+		contentPane.add(weather, BorderLayout.CENTER);
+
+		JToggleButton accept = new JToggleButton("Iniciar");
+		contentPane.add(accept, BorderLayout.SOUTH);
+
+		accept.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Weather a = (Weather) weather.getSelectedItem();
+				action.action(a);
+				mPopupInviteFrame.setVisible(false);
+				mPopupInviteFrame.dispose();
+			}
+		});
+
+
+
+		mPopupInviteFrame.setSize(300, 125);
+		mPopupInviteFrame.setVisible(true);
+	}
 	
 
 

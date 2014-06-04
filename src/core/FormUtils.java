@@ -28,7 +28,9 @@ public class FormUtils {
 		public String getName(); 
 		public Class<? extends JComponent> getComponetClass();
 		public Constructor<? extends JComponent> getComponetConstructor();
-
+	}
+	public interface SimpleListener{
+		public Object action(Object o);
 	}
 	
 	public static interface FormHandle{
