@@ -18,6 +18,7 @@ import controller.main.ControllerActivitys;
 import controller.main.ControllerEvents;
 import controller.main.ControllerProfile;
 import controller.main.ControllerRecords;
+import core.FormUtils;
 import core.util.Manager.ObjectDontExistException;
 
 public class ControllerMain implements MainListener,ListModel<String>{
@@ -75,6 +76,20 @@ public class ControllerMain implements MainListener,ListModel<String>{
 
 	
 	private void initListeners(){
+		
+		mControllerProfile.addOnDeleteAcount(new FormUtils.SimpleListener() {
+			
+			@Override
+			public Object action(Object o) {
+				if (mUserCopy.getPermissoes() != Permissoes.Admin){
+					mViewMain.dismiss();
+				}else{
+					mFriend.remove(((User) o).getEmail());
+					mViewMain.notifyDataChaged(ControllerMain.this);
+				}
+				return null;
+			}
+		});
 		
 		mViewMain.setFriendsListener(new ListSelectionListener() {
 			

@@ -30,6 +30,7 @@ public class PanelEvents extends PanelListToolBar{
 	public enum FormButtonEnum implements FormButtons{
 		ADERIR		("Aderir",""),
 		CRIAR_SALVAR("Criar","Salvar"),
+		APAGAR		("Apagar","Certeza?"),
 		EDITAR		("Editar","Salvar"),
 		INICIAR		("Iniciar","");
 
@@ -56,7 +57,8 @@ public class PanelEvents extends PanelListToolBar{
 	public enum FormAttEnum implements FormAttr{
 		NOME		("Nome",JTextField.class,20),
 		ACTIVITY	("Acitividade",JComboBox.class,15),
-		NUM_USER	("Nº Users",JTextField.class,3),
+		NUM_USER_ACT("Nº Users",JTextField.class,3),
+		NUM_USER	("/",JTextField.class,3),
 		RECORD_TYPE	("Tipo",JComboBox.class,15),
 		REQUISITO	("Requisito",JTextField.class,3),
 		DISTANCE	("Distancia",JTextField.class,3),

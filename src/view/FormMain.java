@@ -115,7 +115,10 @@ public class FormMain implements ActionListener{
 		
 		/*	 JComponent panel = new ButtonBarFactoryExample().buildPanel();*/
 	}
-	
+	public void dismiss() {
+		mFrame.setVisible(false);
+		mFrame.dispose();
+	}
 
 	
 	public FormHandle getHandlerProfile(){
@@ -216,7 +219,7 @@ public class FormMain implements ActionListener{
 		case TXT_ADDDFRIEND:
 			   String email = JOptionPane.showInputDialog(null,
 			  "Adicionar Amigo","Email do Amigo",JOptionPane.QUESTION_MESSAGE);
-			   if (mListener != null)
+			   if (email != null && mListener != null)
 				   mListener.addFriend(email);
 			break;
 		case TXT_EXIT:
@@ -294,4 +297,6 @@ public class FormMain implements ActionListener{
 		mPopupInviteFrame.setSize(300, 125);
 		mPopupInviteFrame.setVisible(true);
 	}
+
+
 }

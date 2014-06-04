@@ -134,11 +134,11 @@ public class Main {
         
         User u1 = new User("RUI Oliveira", "rui96pedro@hotmail.com", "123", Genero.Masculino, 120, 87, 11, 10, 1994, new Natacao(), Permissoes.Admin, 0);      
         User u2 = new User("RUI Camposinhos", "ruiCamposinho@gmail.co.uk", "123", Genero.Masculino, 120, 87, 11, 10, 1994, new Natacao(), Permissoes.Admin, 0);
-        User u3 = new User("Joao Mendes", "joaomendes@gmail.com", "123", Genero.Masculino, 135, 70, 1, 7, 1991, new Andebol(), Permissoes.User, 0);
-        User u4 = new User("Ana Sousa", "anasousa@gmail.com", "123", Genero.Feminino, 140, 60, 7, 2, 1989, new Corrida(), Permissoes.User, 0);
+        User u3 = new User("Joao Mendes", "B", "123", Genero.Masculino, 135, 70, 1, 7, 1991, new Andebol(), Permissoes.User, 0);
+        User u4 = new User("Ana Sousa", "A", "123", Genero.Feminino, 140, 60, 7, 2, 1989, new Corrida(), Permissoes.User, 0);
         User u5 = new User("Carlos Silva", "carlossilva@gmail.com", "123", Genero.Masculino, 150, 75, 3, 10, 1988, new Golfe(), Permissoes.User, 0);
         
-        u1.convitesManager().add(u5.getEmail());
+        u1.convitesManager().add(u3.getEmail());
         u1.convitesManager().add(u4.getEmail());
         u1.convitesManager().add(u5.getEmail());
         

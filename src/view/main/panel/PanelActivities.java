@@ -16,7 +16,7 @@ public class PanelActivities extends PanelListToolBar {
 	public enum FormButtonEnum implements FormButtons{
 		CRIAR_SALVAR("Criar","Salvar"),
 		EDITAR		("Editar","Salvar"),
-		APAGAR		("Apagar","");
+		APAGAR		("Apagar","Certeza?");
 
 		private String eText1;
 		private String eText2;

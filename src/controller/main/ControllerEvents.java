@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeSet;
 
+import javax.security.auth.Refreshable;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -28,6 +29,7 @@ import model.activity.Contest;
 import model.activity.Distance;
 import model.activity.Natacao;
 import model.activity.Weather;
+import model.events.AddEventException;
 import model.events.ContestPair;
 import model.events.Event;
 import model.events.EventContest;
@@ -51,141 +53,142 @@ import core.FormUtils.SimpleListener;
 import core.util.Manager.ObjectDontExistException;
 
 public class ControllerEvents{
-    private FormListHandle mHandler;
-    private User mUser;
-    private Event mSelected;
-    private List<Event> mEvents;
-    private Permissoes mRight;
-    
-    public ControllerEvents(FormHandle handler,User user) {
-        mHandler = (FormListHandle) handler;
-        mUser = user;
-        mEvents = Main.getDataSet().eventManager().collection();
-        mHandler.addStringAll(mEvents); 
-        initListeners();
-        mRight = user.getPermissoes();
-        checkRight();
-    }
-    public void setUser(User user,Permissoes p){
-        mRight = p;
-        mUser = user;
-        checkRight();
-    }
-    
-    private void initListeners(){
-        if (mUser.getPermissoes() != Permissoes.Admin){
-            mHandler.getButton(FormButtonEnum.EDITAR).setEnabled(false);
-            mHandler.getButton(FormButtonEnum.CRIAR_SALVAR).setEnabled(false);
-            mHandler.getButton(FormButtonEnum.INICIAR).setEnabled(false);
-        }
-        mHandler.addButtonListener(FormButtonEnum.ADERIR, new ActionListener() {    
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                adedir();
-            }
-        });
-        mHandler.addButtonListener(FormButtonEnum.EDITAR, new ActionListener() {    
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                boolean isEdit = mHandler.getTextIndex(FormButtonEnum.EDITAR) == 1; 
-                setComponentsEnable(isEdit); // enable if isEdit
-                if (isEdit){
-                    mHandler.setText2(FormButtonEnum.EDITAR);
-                }else{
-                    mHandler.setText1(FormButtonEnum.EDITAR);
-                    saveProfileChanges();
-                }
-            }
-        });
-        mHandler.addButtonListener(FormButtonEnum.CRIAR_SALVAR, new ActionListener() {  
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                boolean isEdit = mHandler.getTextIndex(FormButtonEnum.CRIAR_SALVAR) == 1; 
-                setComponentsEnable(isEdit); // enable if isEdit
-                if (isEdit){
-                    mHandler.setText2(FormButtonEnum.CRIAR_SALVAR);
-                }else{
-                    mHandler.setText1(FormButtonEnum.CRIAR_SALVAR);
-                    saveProfileChanges();
-                }
-            }
-        });
-        mHandler.addButtonListener(FormButtonEnum.INICIAR, new ActionListener() {   
-        	@Override
-        	public void actionPerformed(ActionEvent arg0) {
-        		iniciar();
-        	}   
-        });
-        mHandler.addLoadLisnener(new OnPanelLoadLisneter() {
+	private FormListHandle mHandler;
+	private User mUser;
+	private Event mSelected;
+	private List<Event> mEvents;
+	private Permissoes mRight;
 
-        	@Override
-        	public void load() {
-        		mEvents.clear();
-        		mEvents.addAll(Main.getDataSet().eventManager().collection());
-        		setEvent(new EventDistance(new Natacao()));
-        	}
-        });
+	public ControllerEvents(FormHandle handler,User user) {
+		mHandler = (FormListHandle) handler;
+		mUser = user;
+		mEvents = Main.getDataSet().eventManager().collection();
+		mHandler.addStringAll(mEvents); 
+		initListeners();
+		mRight = user.getPermissoes();
+		checkRight();
+	}
+	public void setUser(User user,Permissoes p){
+		mRight = p;
+		mUser = user;
+		checkRight();
+	}
 
-        mHandler.addListListener(new ListSelectionListener() {
+	private void initListeners(){
+		if (mUser.getPermissoes() != Permissoes.Admin){
+			mHandler.getButton(FormButtonEnum.EDITAR).setEnabled(false);
+			mHandler.getButton(FormButtonEnum.CRIAR_SALVAR).setEnabled(false);
+			mHandler.getButton(FormButtonEnum.INICIAR).setEnabled(false);
+		}
+		mHandler.addButtonListener(FormButtonEnum.ADERIR, new ActionListener() {    
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				aderir();
+			}
+		});
+		mHandler.addButtonListener(FormButtonEnum.EDITAR, new ActionListener() {    
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				boolean isEdit = mHandler.getTextIndex(FormButtonEnum.EDITAR) == 1; 
+				setComponentsEnable(isEdit); // enable if isEdit
+				if (isEdit){
+					mHandler.setText2(FormButtonEnum.EDITAR);
+				}else{
+					mHandler.setText1(FormButtonEnum.EDITAR);
+					saveEventChanges();
+				}
+			}
+		});
+		mHandler.addButtonListener(FormButtonEnum.APAGAR, new ActionListener() {    
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				boolean confirmacao = mHandler.getTextIndex(FormButtonEnum.APAGAR) == 1; 
+				if (confirmacao){
+					mHandler.setText2(FormButtonEnum.APAGAR);
+				}else{
+					mHandler.setText1(FormButtonEnum.APAGAR);
+					apagarEvent();
+				}
+			}
 
-        	@Override
-        	public void valueChanged(ListSelectionEvent e) {
-        		int index = mHandler.getSelectIndex();
-        		mSelected = mEvents.get(index);
-        	}
-        });
+		});
+		mHandler.addButtonListener(FormButtonEnum.CRIAR_SALVAR, new ActionListener() {  
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				boolean isEdit = mHandler.getTextIndex(FormButtonEnum.CRIAR_SALVAR) == 1; 
+				setComponentsEnable(isEdit); // enable if isEdit
+				if (isEdit){
+					mHandler.setText2(FormButtonEnum.CRIAR_SALVAR);
+				}else{
+					mHandler.setText1(FormButtonEnum.CRIAR_SALVAR);
+					saveEventChanges();
+				}
+			}
+		});
+		mHandler.addButtonListener(FormButtonEnum.INICIAR, new ActionListener() {   
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				iniciar();
+			}   
+		});
+		mHandler.addLoadLisnener(new OnPanelLoadLisneter() {
 
-        @SuppressWarnings("unchecked")
-        final JComboBox<Object> activityCombo = (JComboBox<Object>) mHandler.getComponent(FormAttEnum.ACTIVITY);
-        activityCombo.setModel(new DefaultComboBoxModel<Object>(Main.getActivitiesNames()));
-        activityCombo.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {  
-                
-                try {
-                    Activity a = Main.getActivity(activityCombo.getSelectedIndex());
-                    if (a.getName().equals(mSelected.getActivity().getName())){
-                        return;
-                    }
-                    if (a instanceof Distance){
-                        setEvent(new EventDistance(a));
-                    }else if (a instanceof Contest){
-                        setEvent(new EventContest(a));
-                    }else{
-                        throw new  EventNotPermited();
-                    }
-                    
-                    
-                } catch (EventNotPermited e) {
-                    JOptionPane.showMessageDialog(null, "Evento não Permitido");
-                }
-            }
-        });
-        
-    }
-    
-    private void checkRight(){
-        boolean edit;
-        if (mRight == Permissoes.Admin || mRight == Permissoes.User){
-            edit = true;
-        }else{
-            edit = false;
-        }
-        
-        for(FormButtonEnum e: FormButtonEnum .values()){
-            mHandler.getButton(e).setEnabled(edit);
-        }
-    }
-    
-    
-    private void setEvent(Event event){
-        mSelected = event;
-        
-        JTextField nome = (JTextField) mHandler.getComponent(FormAttEnum.NOME);
-        JTextField dateEvent = (JTextField) mHandler.getComponent(FormAttEnum.DATA_EVENT);
-        JTextField dateFim = (JTextField) mHandler.getComponent(FormAttEnum.DATA_FIM);
-        JTextField requisito = (JTextField) mHandler.getComponent(FormAttEnum.REQUISITO);
-        JTextField nUser = (JTextField) mHandler.getComponent(FormAttEnum.NUM_USER);
+			@Override
+			public void load() {
+				mEvents.clear();
+				mEvents.addAll(Main.getDataSet().eventManager().collection());
+				setEvent(new EventDistance(new Natacao()));
+			}
+		});
+
+		mHandler.addListListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int index = mHandler.getSelectIndex();
+				mSelected = mEvents.get(index);
+				setEvent(mSelected);
+			}
+
+		});
+
+		@SuppressWarnings("unchecked")
+		final JComboBox<Object> activityCombo = (JComboBox<Object>) mHandler.getComponent(FormAttEnum.ACTIVITY);
+		activityCombo.setModel(new DefaultComboBoxModel<Object>(Main.getActivitiesNames()));
+		activityCombo.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {  
+
+				try {
+					Activity a = Main.getActivity(activityCombo.getSelectedIndex());
+					if (a.getName().equals(mSelected.getActivity().getName())){
+						return;
+					}
+					if (a instanceof Distance){
+						setEvent(new EventDistance(a));
+					}else if (a instanceof Contest){
+						setEvent(new EventContest(a));
+					}else{
+						throw new  EventNotPermited();
+					}
+
+
+				} catch (EventNotPermited e) {
+					JOptionPane.showMessageDialog(null, "Evento não Permitido");
+				}
+			}
+		});
+
+	}
+
+	private void setEvent(Event event){
+		mSelected = event;
+
+		JTextField nome = (JTextField) mHandler.getComponent(FormAttEnum.NOME);
+		JTextField dateEvent = (JTextField) mHandler.getComponent(FormAttEnum.DATA_EVENT);
+		JTextField dateFim = (JTextField) mHandler.getComponent(FormAttEnum.DATA_FIM);
+		JTextField requisito = (JTextField) mHandler.getComponent(FormAttEnum.REQUISITO);
+		JTextField nUser = (JTextField) mHandler.getComponent(FormAttEnum.NUM_USER);
         JComboBox<?> activitys = (JComboBox<?>) mHandler.getComponent(FormAttEnum.ACTIVITY);
         @SuppressWarnings("unchecked")
         JComboBox<Object> records = (JComboBox<Object>) mHandler.getComponent(FormAttEnum.RECORD_TYPE);
@@ -201,14 +204,17 @@ public class ControllerEvents{
         dateFim.setText(new SimpleDateFormat(FormUtils.DATA_PATTERM).format(event.getEndDate().getTime()));
         requisito.setText(String.valueOf(event.getPreRequisite()));
         nUser.setText(String.valueOf(event.getMaxNumUsers()));
+        mHandler.setValue(FormAttEnum.NUM_USER_ACT,String.valueOf(event.getUserManager().size()));
         records.setModel(new ComboRecordModel(event.getActivity()));
         
         try {
             activitys.setSelectedIndex(Main.getActivityIndex(event.getActivity().getName()));
         } catch (NameDontExistException e1) {
         }
-
-
+        if (event.getRecordType() > 0){
+        	records.setSelectedIndex(event.getRecordType());	
+        }
+        
         if (event instanceof EventDistance){
             EventDistance e = (EventDistance) event;
             distance.setText(String.valueOf(e.getEventDistance()));
@@ -242,7 +248,7 @@ public class ControllerEvents{
     
     
     
-    private void saveProfileChanges() {
+    private void saveEventChanges() {
         try {
             Event event;
             //int index = Main.getEventIndex(event.getName());
@@ -260,33 +266,34 @@ public class ControllerEvents{
             JTextField pEmp = (JTextField) mHandler.getComponent(FormAttEnum.PONTOS_EMP);
             JTextField pDer = (JTextField) mHandler.getComponent(FormAttEnum.PONTOS_DER);   
             
-            String name = nome.getName();
+            String name = nome.getText();
             GregorianCalendar eventDate = new GregorianCalendar();  
             GregorianCalendar endDate = new GregorianCalendar();   
             int preRequisite = Integer.parseInt(requisito.getText());
             int maxNumUsers = Integer.parseInt(nUser.getText());
             int recordType = records.getSelectedIndex();
-            int distancia = Integer.parseInt(dist.getText());
-            int games = Integer.parseInt(njogos.getText());
-            int victoryPts = Integer.parseInt(pVit.getText());
-            int drawPts = Integer.parseInt(pEmp.getText());
-            int lossPts = Integer.parseInt(pDer.getText());
+          
             
             eventDate.setTime(new SimpleDateFormat(FormUtils.DATA_PATTERM).parse(dateEvent.getText()));
             endDate.setTime(new SimpleDateFormat(FormUtils.DATA_PATTERM).parse(dateFim.getText()));
-            
+
             Activity activity = Main.getActivity(activitys  .getSelectedIndex());
             if (activity instanceof Distance){
-                event = new EventDistance(name, activity, eventDate, endDate, preRequisite, maxNumUsers, recordType, distancia);
+            	int distancia = Integer.parseInt(dist.getText());
+            	event = new EventDistance(name, activity, eventDate, endDate, preRequisite, maxNumUsers, recordType, distancia);
             }else if (activity instanceof Contest){
-                event = new EventContest(name, activity, eventDate, endDate, preRequisite, maxNumUsers, recordType, games, victoryPts, drawPts, lossPts);
+            	int games = Integer.parseInt(njogos.getText());
+            	int victoryPts = Integer.parseInt(pVit.getText());
+            	int drawPts = Integer.parseInt(pEmp.getText());
+            	int lossPts = Integer.parseInt(pDer.getText());
+            	event = new EventContest(name, activity, eventDate, endDate, preRequisite, maxNumUsers, recordType, games, victoryPts, drawPts, lossPts);
             }else{
-                throw new  EventNotPermited();
+            	throw new  EventNotPermited();
             }
-    
+
             Main.getDataSet().eventManager().add(event);
             Main.save();    
-            
+
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(null, "Data com formato invalido");
             return; 
@@ -307,13 +314,46 @@ public class ControllerEvents{
         }
     }
 
-    protected void setComponentsEnable(boolean b){
+    private void checkRight(){
+	    boolean isAdmin = mRight == Permissoes.Admin;
+	    boolean isUser = mRight == Permissoes.User; 
+	
+	    
+	    mHandler.getButton(FormButtonEnum.ADERIR).setEnabled(isUser || isAdmin); 
+	    mHandler.getButton(FormButtonEnum.CRIAR_SALVAR).setEnabled(isAdmin);
+	    mHandler.getButton(FormButtonEnum.EDITAR).setEnabled(isAdmin);
+	    mHandler.getButton(FormButtonEnum.APAGAR).setEnabled(isAdmin);
+	    mHandler.getButton(FormButtonEnum.INICIAR).setEnabled(isAdmin);
+	    
+	}
+	protected void setComponentsEnable(boolean b){
         for(FormAttEnum e: FormAttEnum .values()){
             mHandler.getComponent(e).setEnabled(b);
         }
+        mHandler.getComponent(FormAttEnum.NUM_USER_ACT).setEnabled(false);
+         
     }
 
-   
+
+	private void apagarEvent() {
+		Main.getDataSet().eventManager().remove(mSelected);
+		Main.save();
+	}
+
+	private void refresh(){
+		
+	}
+	
+	private void aderir() {
+		try {
+        	mSelected.getUserManager().size();
+			mSelected.addUser(mUser);
+			Main.getDataSet().eventManager().add(mSelected);
+			Main.save();
+		} catch (AddEventException e) {
+			JOptionPane.showMessageDialog(null, "Não pode Aderir");
+		}
+    }
     
     
     private void iniciar() {
@@ -332,14 +372,10 @@ public class ControllerEvents{
 				return null;
 			}
 		});
-    	
-    	
-    
+
     }
-    
-    private void adedir() {
-        
-    }
+
+
     
     
     private void printDistanceEvent(TreeSet<DistancePair> results, int stage){
