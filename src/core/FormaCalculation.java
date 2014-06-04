@@ -1,3 +1,5 @@
+
+
 package core;
 import model.activity.Activity;
 import model.user.User;
@@ -28,13 +30,17 @@ public class FormaCalculation{
         Set<Activity> actividades = u.actividadesEntre(diaMaisAfastado, hoje);
         Iterator<Activity> it = actividades.iterator();
         
-        double pesoPonderado = calculaPesoPonderadoInicial();
+        double pesoPonderadoInicial = calculaPesoPonderadoInicial();
         
         /*Para cada actividade feita nos dias que interessam para a forma, calcular o seu peso para a forma total e somar.*/
         while(it.hasNext()){
             Activity actActual = it.next();
-            formaFinal += (actActual.getDuration_inMinutes()/actActual.getIntensidade()) * pesoPonderado;
-            pesoPonderado *= (1+TAXA);
+            GregorianCalendar dataActividade = actActual.getDate();
+            int diasPassados = diasEntre(dataActividade, hoje);
+            int expoente = DIAS_RELEVANTES - diasPassados -1;
+            double taxaParaDia = Math.pow(1.0+TAXA, expoente);
+            double peso_do_dia = pesoPonderadoInicial*taxaParaDia;
+            formaFinal += (actActual.getDuration_inMinutes()/actActual.getIntensidade()) * peso_do_dia;
         }
         
         /*Artefacto para garantir que o valor dado para a forma se encontra dentro dos limites estabelecidos.*/
@@ -55,6 +61,11 @@ public class FormaCalculation{
         }
         
         return MAX_FORMA/coef;
+    }
+    
+    private static int diasEntre(GregorianCalendar dataAntes, GregorianCalendar dataDepois){
+        long diff = dataDepois.getTimeInMillis() - dataAntes.getTimeInMillis();
+        return (int) diff/(1000*60*60*24);
     }
     
 }

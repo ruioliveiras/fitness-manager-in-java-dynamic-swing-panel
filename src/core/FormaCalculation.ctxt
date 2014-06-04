@@ -5,4 +5,6 @@ comment0.text=Calcula\ a\ forma\ de\ um\ user.
 comment1.params=
 comment1.target=double\ calculaPesoPonderadoInicial()
 comment1.text=Calcula\ a\ influencia\ para\ a\ forma\ do\ dia\ mais\ afastado.\r\nSe\ DIAS_RELEVANTES\ \=\ 24\ calcula\ o\ peso\ para\ a\ forma\ do\ dia\ que\ fica\ a\ 24\ dias\ atras.
-numComments=2
+comment2.params=dataAntes\ dataDepois
+comment2.target=int\ diasEntre(java.util.GregorianCalendar,\ java.util.GregorianCalendar)
+numComments=3
