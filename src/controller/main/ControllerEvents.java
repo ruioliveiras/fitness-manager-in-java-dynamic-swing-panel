@@ -96,6 +96,7 @@ public class ControllerEvents{
 				}else{
 					mHandler.setText1(FormButtonEnum.EDITAR);
 					saveEventChanges();
+					refresh();
 				}
 			}
 		});
@@ -108,9 +109,9 @@ public class ControllerEvents{
 				}else{
 					mHandler.setText1(FormButtonEnum.APAGAR);
 					apagarEvent();
+					refresh();
 				}
 			}
-
 		});
 		mHandler.addButtonListener(FormButtonEnum.CRIAR_SALVAR, new ActionListener() {  
 			@Override
