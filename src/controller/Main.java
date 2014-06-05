@@ -186,6 +186,13 @@ public class Main {
         Ioga ioga3 = new Ioga(5000 *1000, new Weather(Weather.Local.INDOOR), -1, new GregorianCalendar(2014,GregorianCalendar.SEPTEMBER,26,17,0));
         Ioga ioga4 = new Ioga(2500 *1000, new Weather(Weather.Local.INDOOR), -1, new GregorianCalendar(2014,GregorianCalendar.OCTOBER,30,15,0));
         Ioga ioga5 = new Ioga(1000 *1000, new Weather(Weather.Local.INDOOR), -1, new GregorianCalendar(2014,GregorianCalendar.JANUARY,2,14,30));
+      
+        u1.atividadesManager().add(basq1);
+        u2.atividadesManager().add(basq2);
+        u3.atividadesManager().add(basq3);
+        u4.atividadesManager().add(basq4);
+        u5.atividadesManager().add(basq5);
+        
         
         u1.atividadesManager().add(cicl1);
         u2.atividadesManager().add(cicl2);
@@ -200,12 +207,7 @@ public class Main {
         u4.atividadesManager().add(nata4);
         u5.atividadesManager().add(nata5);
         
-       
-        u1.atividadesManager().add(basq1);
-        u2.atividadesManager().add(basq2);
-        u3.atividadesManager().add(basq3);
-        u4.atividadesManager().add(basq4);
-        u5.atividadesManager().add(basq5);
+      
         
         u1.atividadesManager().add(golfe1);
         u2.atividadesManager().add(golfe2);

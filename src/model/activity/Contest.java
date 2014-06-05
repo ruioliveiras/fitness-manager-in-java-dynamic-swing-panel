@@ -113,9 +113,9 @@ public abstract class Contest extends Activity {
     public boolean isRecordBiggerBetter(Record recordType){
 		EnumAttr att = recordType.getMov();
 		
-		if (att.getName().equals(Attr.POINT_TEAM.getName())){
-			return false;
-		}
+//		if (att.getName().equals(Attr.POINT_TEAM.getName())){
+//			return false;
+//		}
     	return true;
     }
 	

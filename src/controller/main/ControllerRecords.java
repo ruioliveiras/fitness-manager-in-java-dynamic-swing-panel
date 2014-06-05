@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ import core.util.Manager.ObjectDontExistException;
 public class ControllerRecords implements ListSelectionListener {
 	private FormListHandle mHandler;
 	private User mUser;
-	private Map<Integer,Activity> mActivitys;
+	private Map<Class<?>, HashMap<Integer, Activity>> mActivitys;
 	private List<String> mActivitysString;
 	private Permissoes mRight;
 	
@@ -42,7 +43,7 @@ public class ControllerRecords implements ListSelectionListener {
 		mHandler = (FormListHandle) handler;
 		mUser = user;
 		mActivitys = mUser.getRecords();
-		setActivityString(mActivitys);
+		setActivityString();
 		mHandler.addStringAll(mActivitysString); 
 		initListeners();
 		mRight = user.getPermissoes();
@@ -53,19 +54,22 @@ public class ControllerRecords implements ListSelectionListener {
 	public void setUser(User user,Permissoes p){
 		mUser = user;
 		mActivitys = mUser.getRecords();
-		setActivityString(mActivitys);
+		setActivityString();
 		mHandler.addStringAll(mActivitysString);
 		mRight = p;
 		checkRight();
 	
 	}
 	
-	private void setActivityString(Map<Integer,Activity> hash){
-		mActivitysString = new ArrayList<String>(hash.size());
-		Iterator<Integer> ite = hash.keySet().iterator();
-		for (Activity activity : hash.values()) {
-			mActivitysString.add(activity.getRecordToString(activity.getRecord(ite.next())));
+	private void setActivityString(){
+		mActivitysString = new ArrayList<String>(mActivitys.values().size());
+		for(HashMap<Integer, Activity> hash: mActivitys.values()){	
+			Iterator<Integer> ite = hash.keySet().iterator();
+			for (Activity activity : hash.values()) {
+				mActivitysString.add(activity.getRecordToString(activity.getRecord(ite.next())));
+			}
 		}
+	
 	}
 	
 	private void initListeners(){
@@ -89,7 +93,7 @@ public class ControllerRecords implements ListSelectionListener {
 				} catch (ObjectDontExistException e) {
 					JOptionPane.showMessageDialog(null, "Utilizador invalido");
 				}
-				setActivityString(mActivitys);
+				setActivityString();
 				mHandler.addStringAll(mActivitysString);
 			}
 		});

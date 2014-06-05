@@ -5,27 +5,24 @@
 package model.user;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashSet;
 import java.util.TreeSet;
 
-import core.util.Manager;
-import core.util.ManagerSet;
 import model.ObjectClonable;
 import model.ObjectKey;
-import model.ObjectRecordClass.Record;
 import model.activity.Activity;
 import model.activity.ActivityComparatorByDate;
 import model.activity.Ciclismo;
 import model.activity.Natacao;
 import core.FormaCalculation;
+import core.util.Manager;
+import core.util.ManagerSet;
 
 /*
  * Classe com informacao dos utilizadores.
@@ -112,23 +109,9 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     	this.convitesAmigos = new ManagerSet<String>(new HashSet<String>(u.convitesManager().collection()));
 
     	this.recordes = new HashMap<Class<?>, HashMap<Integer, Activity>>();
-    	if (u.recordes != null){
-    		Iterator<Class<?>> iteClass = u.recordes.keySet().iterator();
-    		Iterator<HashMap<Integer, Activity>> iteCateg = u.recordes.values().iterator();
-    		while(iteClass.hasNext()){
-    			Class<?> _class = iteClass.next();
-    			HashMap<Integer, Activity> hashMap = iteCateg.next();
 
-    			Iterator<Integer> _iteRecType = hashMap.keySet().iterator();
-    			Iterator<Activity> _iteAct = hashMap.values().iterator();
+    	recordes = u.getRecords();
 
-    			hashMap = new HashMap<Integer, Activity>(); /*using hashMap to Add */
-    			this.recordes.put(_class,hashMap);
-    			while(_iteRecType.hasNext()){
-    				hashMap.put(_iteRecType.next(),_iteAct.next().clone());
-    			}
-    		}
-    	}
 
 
     	this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
@@ -232,18 +215,39 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
 		}
 	};
 
-	public Map<Integer,Activity> getRecords() {
-		Map<Integer,Activity> res = new HashMap<Integer,Activity>();
-		for (HashMap<Integer, Activity>  hash: recordes.values()) {
-			Iterator<Integer> ite = hash.keySet().iterator();
-			for(Activity act: hash.values()){
-				res.put(ite.next(), act.clone());
+	public Map<Class<?>, HashMap<Integer, Activity>> getRecords(){
+	    Map<Class<?>, HashMap<Integer, Activity>> res = new HashMap<Class<?>, HashMap<Integer,Activity>>();
+		Iterator<Class<?>> iteClass = recordes.keySet().iterator();
+		Iterator<HashMap<Integer, Activity>> iteCateg = recordes.values().iterator();
+		while(iteClass.hasNext()){
+			Class<?> _class = iteClass.next();
+			HashMap<Integer, Activity> hashMap = iteCateg.next();
+
+			Iterator<Integer> _iteRecType = hashMap.keySet().iterator();
+			Iterator<Activity> _iteAct = hashMap.values().iterator();
+
+			hashMap = new HashMap<Integer, Activity>(); /*using hashMap to Add */
+			res.put(_class,hashMap);
+			while(_iteRecType.hasNext()){
+				hashMap.put(_iteRecType.next(),_iteAct.next().clone());
 			}
 		}
-		
-		
 		return res;
-	} 
+	}
+	
+	
+//	public Map<Integer,Activity> getRecords() {
+//		Map<Integer,Activity> res = new HashMap<Integer,Activity>();
+//		for (HashMap<Integer, Activity>  hash: recordes.values()) {
+//			Iterator<Integer> ite = hash.keySet().iterator();
+//			for(Activity act: hash.values()){
+//				res.put(ite.next(), act.clone());
+//			}
+//		}
+//		
+//		
+//		return res;
+//	} 
 
 	
     private void addRecord(Activity activity){
