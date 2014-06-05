@@ -60,7 +60,7 @@ public class EventDistance extends Event {
         stringb.append("Nome: " + this.getName());
         stringb.append(", Actividade: " + this.getActivity().getName());
         stringb.append(", Distancia(m): " + this.getActivity());
-        stringb.append(", Data: " + this.getEventDate().toString());
+        stringb.append(", Data: " + Util.dateFormat_only(this.getEventDate()));
         return stringb.toString();
     }
     

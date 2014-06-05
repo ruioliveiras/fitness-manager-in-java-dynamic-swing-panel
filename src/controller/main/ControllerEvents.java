@@ -395,7 +395,7 @@ public class ControllerEvents{
         List<User> users = new ArrayList<>();
         Distance act = (Distance) mSelected.getActivity();
         int recordType = mSelected.getRecordType();
-        long eventDistance = act.getValue(act.getRecord(recordType));
+        long eventDistance = act.getRecord(recordType).getValue();
         int stages = (eventDistance > 1000) ? (int) eventDistance/1000 : 1;
         
         /*adicionar Users atraves das keys*/

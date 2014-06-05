@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.text.Normalizer.Form;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -117,11 +118,8 @@ public class ControllerRecords implements ListSelectionListener {
 			mHandler.setValue(PanelRecords.FormAttEnum.DISTANCIA,
 					String.valueOf(UserStats.getDistanceStats(mUser, d1, d2)));
 		
-			mHandler.setValue(PanelRecords.FormAttEnum.PONTOS,
-					"NOT IMPLEMENTED");
-		
-			mHandler.setValue(PanelRecords.FormAttEnum.WORKOUT,
-					String.valueOf(UserStats.getWorkoutStats(mUser, d1, d2)));
+
+			mHandler.setValue(PanelRecords.FormAttEnum.WORKOUT, Util.hourFormat(UserStats.getWorkoutStats(mUser, d1, d2)));
 		
 			
 			
@@ -151,7 +149,6 @@ public class ControllerRecords implements ListSelectionListener {
 		mHandler.getComponent(PanelRecords.FormAttEnum.DATE1).setEnabled(true);
 		mHandler.getComponent(PanelRecords.FormAttEnum.DATE2).setEnabled(true);
 		mHandler.getComponent(PanelRecords.FormAttEnum.CALORIAS).setEnabled(false);
-		mHandler.getComponent(PanelRecords.FormAttEnum.PONTOS).setEnabled(false);
 		mHandler.getComponent(PanelRecords.FormAttEnum.DISTANCIA).setEnabled(false);
 	}
 

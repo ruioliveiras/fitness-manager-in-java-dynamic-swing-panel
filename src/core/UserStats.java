@@ -27,10 +27,10 @@ public class UserStats
     /**
      * @return time in hours
      */
-    static public double getWorkoutStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
-        int totalTime = 0;
+    static public long getWorkoutStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
+        long totalTime = 0;
         for(Activity act : usr.actividadesEntre(startDate, endDate))
-            totalTime += act.getDuration_inHours();
+            totalTime += act.getDuration();
         return totalTime;
     }
     

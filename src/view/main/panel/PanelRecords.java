@@ -45,10 +45,9 @@ public class PanelRecords extends PanelListToolBar {
 	public enum FormAttEnum implements FormAttr{
 		DATE1		("Data1",JTextField.class,23),
 		DATE2		("Data2",JTextField.class,23),
-		CALORIAS	("Calorias",JTextField.class,4),
-		DISTANCIA	("Distancia",JTextField.class,4),
-		WORKOUT		("Workout",JTextField.class,4),
-		PONTOS		("Pontos",JTextField.class,4);
+		CALORIAS	("Calorias(kcal)",JTextField.class,4),
+		DISTANCIA	("Distancia(m)",JTextField.class,4),
+		WORKOUT		("Workout",JTextField.class,10);
 		
 		
 		private String eName;

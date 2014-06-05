@@ -98,6 +98,8 @@ public abstract class Activity implements ObjectClonable,ObjectRecordClass.Objec
     	return get(recordType.getMov());
     }
     
+ 
+    
     public final long compareRecord(Activity otherActivity,Record recordType) {
     	long sThis,sOther;
     	boolean isSimilar = true;

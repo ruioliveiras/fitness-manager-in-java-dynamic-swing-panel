@@ -108,9 +108,9 @@ public class EventContest extends Event{
     @Override
     public String toString(){
         StringBuilder stringb = new StringBuilder();
-        stringb.append("Nome: " + this.getName() + "\n");
-        stringb.append("Actividade: " + this.getActivity().getName() + "\n");
-        stringb.append("Data: " + this.getEventDate().toString() + "\n");
+        stringb.append("Nome: " + this.getName());
+        stringb.append(", Actividade: " + this.getActivity().getName());
+        stringb.append(", Data: " + Util.dateFormat_only(this.getEventDate()));
         return stringb.toString();
     }
     
