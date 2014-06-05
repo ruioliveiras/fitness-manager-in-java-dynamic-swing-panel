@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import view.main.panel.PanelProfile;
+import view.main.panel.PanelProfile.FormAttEnum;
 import core.FormUtils.FormHandle;
 
 public class FormRegister {
@@ -32,6 +33,7 @@ public class FormRegister {
 		
 		mFrame.pack();
 		mFrame.setVisible(true);
+		 setVisible(true);
 	}
 
 	public FormHandle getHandler(){
@@ -40,11 +42,14 @@ public class FormRegister {
 
 	public void hide() {
 		mFrame.setVisible(false);
+		mFrame.dispose();
 	}
 
 
-	public static void main(String[] args){
-		FormRegister f = new FormRegister();
-		f.show();
+	public void setVisible(boolean b){
+		for(FormAttEnum a:PanelProfile.FormAttEnum.values()){
+			mProfile.getComponent(a).setEnabled(b);
+		}
+		
 	}
 }

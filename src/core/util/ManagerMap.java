@@ -35,7 +35,7 @@ public class ManagerMap<V> extends Manager<V>{
 	@Override
 	public boolean contains(V obj) {
 		if (obj instanceof ObjectKey)
-			return mMap.get(((ObjectKey) obj).getKey()) == null;
+			return mMap.containsKey(((ObjectKey) obj).getKey());
 		else
 			return false;
 	}

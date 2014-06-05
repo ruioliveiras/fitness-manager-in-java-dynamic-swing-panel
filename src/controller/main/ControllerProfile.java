@@ -3,11 +3,12 @@ package controller.main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import model.activity.Activity;
@@ -20,10 +21,10 @@ import view.main.panel.PanelProfile.FormAttEnum;
 import view.main.panel.PanelProfile.FormButtonEnum;
 import controller.Main;
 import controller.NameDontExistException;
-import core.FormUtils;
 import core.FormUtils.FormHandle;
 import core.FormUtils.SimpleListener;
 import core.util.Manager.ObjectDontExistException;
+import core.util.Util;
 
 public class ControllerProfile {
 	private FormHandle mHandler;
@@ -85,8 +86,11 @@ public class ControllerProfile {
 		});
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void initValues(){
-		SimpleDateFormat sdf = new SimpleDateFormat(FormUtils.DATA_PATTERM);
+		((JComboBox<String>) mHandler.getComponent(PanelProfile.FormAttEnum.PREFERIDO))
+			.setModel(new DefaultComboBoxModel<String>(Main.getActivitiesNames()));
+
 		
 		mHandler.setValue(FormAttEnum.NAME, mUser.getNome());
 		mHandler.setValue(FormAttEnum.EMAIL, mUser.getEmail());
@@ -96,8 +100,13 @@ public class ControllerProfile {
 		mHandler.setValue(FormAttEnum.FREQ, String.valueOf(mUser.getFreqCardio()));
 		mHandler.setValue(FormAttEnum.FORMA, String.valueOf(mUser.getForma()));
 		mHandler.setValue(FormAttEnum.SEXO, mUser.getGenero().toString());
-		mHandler.setValue(FormAttEnum.PREFERIDO, mUser.getDesportoFavorito().getName());
-		mHandler.setValue(FormAttEnum.NASCIMENTO, sdf.format(mUser.getDataNascimento().getTime()).toString());
+		try {
+			mHandler.setValue(FormAttEnum.PREFERIDO, Main.getActivityIndex(mUser.getDesportoFavorito().getName()));
+			mHandler.setValue(FormAttEnum.NASCIMENTO,Util.dateFormat_only(mUser.getDataNascimento()));
+		} catch (NameDontExistException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void addOnDeleteAcount(SimpleListener simpleListener) {
@@ -152,28 +161,25 @@ public class ControllerProfile {
 		Activity desportoFavorito;
 		
 		try {
-			email = mHandler.getValue(PanelProfile.FormAttEnum.EMAIL);
-			nome = mHandler.getValue(PanelProfile.FormAttEnum.NAME);
-			password = mHandler.getValue(PanelProfile.FormAttEnum.PASS);
-			altura = Integer.parseInt(mHandler.getValue(PanelProfile.FormAttEnum.ALTURA));
-			peso =  Integer.parseInt(mHandler.getValue(PanelProfile.FormAttEnum.PESO));
-			String despAux = mHandler.getValue(PanelProfile.FormAttEnum.PREFERIDO);
+			email = (String) mHandler.getValue(PanelProfile.FormAttEnum.EMAIL);
+			nome = (String) mHandler.getValue(PanelProfile.FormAttEnum.NAME);
+			password = (String) mHandler.getValue(PanelProfile.FormAttEnum.PASS);
+			altura = Integer.parseInt((String) mHandler.getValue(PanelProfile.FormAttEnum.ALTURA));
+			peso =  Integer.parseInt((String) mHandler.getValue(PanelProfile.FormAttEnum.PESO));
+			Integer despAux =(Integer) mHandler.getValue(PanelProfile.FormAttEnum.PREFERIDO);
 			desportoFavorito = Main.getActivity(despAux);
 			
-			char g =  mHandler.getValue(PanelProfile.FormAttEnum.SEXO).toLowerCase().charAt(0); 
+			char g =  ((String)mHandler.getValue(PanelProfile.FormAttEnum.SEXO)).toLowerCase().charAt(0); 
 			genero = (g == 'm' ) ? Genero.Masculino : (g == 'f') ? Genero.Feminino : Genero.Desconhecido; 
 
-			String d = mHandler.getValue(PanelProfile.FormAttEnum.NASCIMENTO);
+			String d =(String) mHandler.getValue(PanelProfile.FormAttEnum.NASCIMENTO);
 			date = new GregorianCalendar();
 
-			date.setTime((new SimpleDateFormat(FormUtils.DATA_PATTERM)).parse(d));
+			date.setTimeInMillis(Util.dateFormat_only(d));
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(null, "Data de Nascimento com formato invalido");
 			/*Dont save*/
 			return; 
-		}catch (NameDontExistException e) {
-			JOptionPane.showMessageDialog(null, "Desporto não existe");
-			return;
 		}catch (StringIndexOutOfBoundsException e) {
 			JOptionPane.showMessageDialog(null, "Introduzir sexo");
 			return;

@@ -8,6 +8,7 @@ import java.util.Iterator;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -89,10 +90,13 @@ public abstract class PanelToolBar implements FormHandle{
 	
 	
 	@Override
-	public String getValue(FormAttr a) {
+	public Object getValue(FormAttr a) {
 		JComponent c = getComponent(a);
 		if (c instanceof JTextField){
 			return ((JTextField)c).getText();
+		}
+		else if (c instanceof JComboBox){
+			return ((JComboBox<?>) c).getSelectedIndex();		
 		} 
 		
 		return "";
@@ -103,6 +107,9 @@ public abstract class PanelToolBar implements FormHandle{
 		JComponent c = getComponent(a);
 		if (c instanceof JTextField && obj instanceof String){
 			((JTextField)c).setText((String) obj);;
+		}else if (c instanceof JComboBox && obj instanceof Integer){
+			
+			((JComboBox) c).setSelectedIndex(Integer.valueOf((int)obj));		
 		}
 	
 	}

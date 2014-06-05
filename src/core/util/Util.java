@@ -10,13 +10,22 @@ import java.util.TimeZone;
 public class Util {
 	
 	public static final String DATA_PATTERM = "yyyy-MM-dd HH:mm:ss.SSS";
+	public static final String DATA_ONLY = "yyyy-MM-dd";
 	
     public static int CalcHashCode(int a,int b,int c){
         return Long.valueOf((a * 31 + b) * 31 + c).hashCode();
     }
 
+    public static String dateFormat_only(Calendar c){
+    	DateFormat df = new SimpleDateFormat(DATA_ONLY);
+    	return df.format(c.getTime());
+    }
+    public static long dateFormat_only(String c) throws ParseException{
+    	DateFormat df = new SimpleDateFormat(DATA_ONLY);
+    	return df.parse(c).getTime();
+    }
 
-    public static String dateFormat(Calendar c)throws ParseException{
+    public static String dateFormat(Calendar c){
     	DateFormat df = new SimpleDateFormat(DATA_PATTERM);
     	return df.format(c.getTime());
     }

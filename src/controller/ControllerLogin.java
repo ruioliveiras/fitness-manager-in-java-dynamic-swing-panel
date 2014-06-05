@@ -3,10 +3,11 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import model.activity.Activity;
@@ -18,9 +19,9 @@ import view.FormRegister;
 import view.main.panel.PanelLogin.FormAttEnum;
 import view.main.panel.PanelLogin.FormButtonEnum;
 import view.main.panel.PanelProfile;
-import core.FormUtils;
 import core.FormUtils.FormHandle;
 import core.util.Manager.ObjectDontExistException;
+import core.util.Util;
 
 public class ControllerLogin{
 	private FormLogin mViewLogin;
@@ -45,9 +46,16 @@ public class ControllerLogin{
 		mControllerMain = new ControllerMain(user);
 		mControllerMain.start();
 	}
+
+	@SuppressWarnings("unchecked")
 	private void register(){
+		mViewRegister = new FormRegister();
 		mViewRegister.show();
 		mViewRegister.getHandler().setText2(PanelProfile.FormButtonEnum.EDITAR);
+		mViewRegister.getHandler().getButton(PanelProfile.FormButtonEnum.APAGAR).setVisible(false);
+		mViewRegister.getHandler().getComponent(PanelProfile.FormAttEnum.FORMA).setVisible(false);
+		mViewRegister.getHandler().setValue(PanelProfile.FormAttEnum.NASCIMENTO,Util.dateFormat_only(new GregorianCalendar()));
+		((JComboBox<String>) mViewRegister.getHandler().getComponent(PanelProfile.FormAttEnum.PREFERIDO)).setModel(new DefaultComboBoxModel<String>(Main.getActivitiesNames()));
 		mViewRegister.getHandler().addButtonListener(PanelProfile.FormButtonEnum.EDITAR, new ActionListener() {
 
 			@Override
@@ -59,28 +67,25 @@ public class ControllerLogin{
 				Activity desportoFavorito;
 				
 				try {
-					email = mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.EMAIL);
-					nome = mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.NAME);
-					password = mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.PASS);
-					altura = Integer.parseInt(mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.ALTURA));
-					peso =  Integer.parseInt(mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.PESO));
-					String despAux = mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.PREFERIDO);
+					email = (String) mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.EMAIL);
+					
+					nome = (String) mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.NAME);
+					password =(String) mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.PASS);
+					altura = Integer.parseInt((String) mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.ALTURA));
+					peso =  Integer.parseInt((String) mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.PESO));
+					int despAux =	((JComboBox<String>) mViewRegister.getHandler().getComponent(PanelProfile.FormAttEnum.PREFERIDO)).getSelectedIndex();
 					desportoFavorito = Main.getActivity(despAux);
 					
-					char g =  mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.SEXO).toLowerCase().charAt(0); 
+					char g =  ((String)mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.SEXO)).toLowerCase().charAt(0); 
 					genero = (g == 'm' ) ? Genero.Masculino : (g == 'f') ? Genero.Feminino : Genero.Desconhecido; 
 
-					String d = mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.NASCIMENTO);
+					String d =(String) mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.NASCIMENTO);
 					date = new GregorianCalendar();
-
-					date.setTime((new SimpleDateFormat(FormUtils.DATA_PATTERM)).parse(d));
+					date.setTimeInMillis(Util.dateFormat_only(d));
 				} catch (ParseException e) {
 					JOptionPane.showMessageDialog(null, "Data de Nascimento com formato invalido");
 					/*Dont save*/
 					return; 
-				}catch (NameDontExistException e) {
-					JOptionPane.showMessageDialog(null, "Desporto não existe");
-					return;
 				}catch (StringIndexOutOfBoundsException e) {
 					JOptionPane.showMessageDialog(null, "Introduzir sexo");
 					return;
@@ -100,9 +105,13 @@ public class ControllerLogin{
 
 				User u = new User(nome, email, password, genero, altura, peso, 
 						date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH), date.get(Calendar.YEAR), desportoFavorito, Permissoes.User, 0);
-				Main.getDataSet().userManager().add(u);
-				Main.save();
-				mViewRegister.hide();
+				if (Main.getDataSet().userManager().contains(u)){
+					JOptionPane.showMessageDialog(null, "Email já existe");
+				}else{
+					Main.getDataSet().userManager().add(u);
+					Main.save();
+					mViewRegister.hide();
+				}
 			}
 		});
 	}
@@ -112,8 +121,8 @@ public class ControllerLogin{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String email = mHandler.getValue(FormAttEnum.EMAIL);
-				String pass = mHandler.getValue(FormAttEnum.PASS);
+				String email = (String)mHandler.getValue(FormAttEnum.EMAIL);
+				String pass = (String)mHandler.getValue(FormAttEnum.PASS);
 				User user;
 				try {
 					//autoLogin

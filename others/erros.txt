@@ -1,16 +1,23 @@
 LOGIN:
-- Não é possível registar novos users, não deixa escrever nos campos de registo.
+X- Não é possível registar novos users, não deixa escrever nos campos de registo.
 - Tirar login automatico? Só deixar entrar se for colocado efectivamente um email e password.
 
 PERFIL:
-- Apenas deixar editar próprio perfil e impedir a edição do perfil de amigos, só com direitos de admin.
-- Colocar o desporto favorito como uma caixa de selecção em vez de string, o mesmo para o genero - poderá dar conflito ter um dado como string na interface gráfica e Classe/Enumeração no código?
-- Tirar a hora da data de nascimento.
-- A forma não parece estar a ser bem mostrada. O cálculo garante um valor entre 0.1 e 1, após adicionar algumas actividades, 
+X- Apenas deixar editar próprio perfil e impedir a edição do perfil de amigos, só com direitos de admin.
+(Admin pode modificar o que quiser, user.normal e que nao)
+
+X- Colocar o desporto favorito como uma caixa de selecção em vez de string, 
+?- o mesmo para o genero - poderá dar conflito ter um dado como string na interface gráfica e Classe/Enumeração no código?
+(Não e preciso...)
+X - Tirar a hora da data de nascimento.
+?- A forma não parece estar a ser bem mostrada. O cálculo garante um valor entre 0.1 e 1, após adicionar algumas actividades, 
+(Estou a imprimir "String.valueOf(mUser.getForma()" Existe alguma ciencia por de traz disto?)
 
 ACTIVIDADES:
-- Não permitir adicionar actividades a amigos.
-- Nem sempre as actividades são criadas (não é possivel acrescentar duas actividades com exactamente a mesma data?)
+X- Não permitir adicionar actividades a amigos.
+(Admin pode, estavas logado em admin)
+X- Nem sempre as actividades são criadas (não é possivel acrescentar duas actividades com exactamente a mesma data?)
+(A chave de uma actividade é a sua data, para resolver isto mete-se datas diferentes, para isso e que tem la os minutos, outras soluções são bem vindas)
 
 RECORDES:
 - Ao se adicionar novas actividades como Basquetebol, Futebol ou Skate não são criados records.
@@ -20,4 +27,4 @@ EVENTOS:
 - toString() errado na indicação da distância e da data.
 
 ADICIONAR AMIGO:
-- Depois de se adicionar um amigo, HOME desaparece.
+X- Depois de se adicionar um amigo, HOME desaparece.

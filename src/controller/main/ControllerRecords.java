@@ -88,8 +88,6 @@ public class ControllerRecords implements ListSelectionListener {
 					setComponentsEnable();
 				} catch (ObjectDontExistException e) {
 					JOptionPane.showMessageDialog(null, "Utilizador invalido");
-				} catch (ParseException e) {
-					JOptionPane.showMessageDialog(null, "Data Invalidada");
 				}
 				setActivityString(mActivitys);
 				mHandler.addStringAll(mActivitysString);
@@ -100,12 +98,12 @@ public class ControllerRecords implements ListSelectionListener {
 
 	private void refresh()  {
 		try {
-			String sd1 = mHandler.getValue(PanelRecords.FormAttEnum.DATE1);
+			String sd1 =(String) mHandler.getValue(PanelRecords.FormAttEnum.DATE1);
 			GregorianCalendar d1 = new GregorianCalendar();
 			d1.setTimeInMillis(Util.dateFormat(sd1));
 			
 
-			String sd2 = mHandler.getValue(PanelRecords.FormAttEnum.DATE2);
+			String sd2 =(String) mHandler.getValue(PanelRecords.FormAttEnum.DATE2);
 			GregorianCalendar d2 = new GregorianCalendar();
 			d2.setTimeInMillis(Util.dateFormat(sd2));
 			

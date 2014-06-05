@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -58,10 +57,6 @@ public class ControllerMain implements MainListener,ListModel<String>{
 			u.convitesManager().add(mUserCopy.getEmail());
 			Main.getDataSet().userManager().edit(u);
 			Main.save();
-						
-			Collection<String> co = mUserCopy.amigosManager().collection();
-			int size = co.size();
-			mViewMain.setFriends(co.toArray(new String[size]));
 		} catch (ObjectDontExistException e) {
 			JOptionPane.showMessageDialog(null, "Email não existe");
 		}

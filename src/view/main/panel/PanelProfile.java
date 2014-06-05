@@ -7,6 +7,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPasswordField;
@@ -53,15 +54,8 @@ public class PanelProfile extends PanelToolBar {
 		ALTURA    	("Altura", JTextField.class,4),
 		PESO      	("Peso", JTextField.class,4),
 		FREQ      	("Fr/card.", JTextField.class,4),
-		PREFERIDO 	("Desporto Favorito", JTextField.class,15),
-		NASCIMENTO	("Data Nascimento", JFormattedTextField.class,15){
-			@Override
-			public Constructor<? extends JComponent> getComponetConstructor() {
-				try {return JFormattedTextField.class.getConstructor(Format.class);} 
-				catch (NoSuchMethodException | SecurityException e) 
-				{e.printStackTrace();return null;}
-			}
-		},
+		PREFERIDO 	("Desporto Favorito", JComboBox.class,15),
+		NASCIMENTO	("Data Nascimento", JTextField.class,15),
 		FORMA      	("Forma", JTextField.class,4);
 		
 		
@@ -123,9 +117,9 @@ public class PanelProfile extends PanelToolBar {
 				}
 			}
 			/*Specific Cases*/
-			mJComponets[FormAttEnum.NASCIMENTO.ordinal()] = FormAttEnum.NASCIMENTO.getComponetConstructor()
-					.newInstance(new SimpleDateFormat(FormUtils.DATA_PATTERM));
-		
+//			mJComponets[FormAttEnum.NASCIMENTO.ordinal()] = FormAttEnum.NASCIMENTO.getComponetConstructor()
+//					.newInstance(new SimpleDateFormat(FormUtils.DATA_PATTERM));
+//		
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException
 				| InvocationTargetException e1) {
