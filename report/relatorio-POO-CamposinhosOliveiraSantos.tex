@@ -147,9 +147,47 @@ Lista de features da aplicação.
 \section{User class}
 \label{sec:user}
 (...)
+\begin{code}[caption=Variáveis de instância da classe User (src/model/user)., label=code:user]
+private String email;
+private String nome;
+private String password;
+private Genero genero;
+private int altura; /*cm*/
+private int peso; /*kg*/
+private GregorianCalendar dataNascimento;
+private Activity desportoFavorito;
+private Permissoes permissoes;
+private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /*ver documentacao*/
+private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
+private Manager<String> amigos; /*emails amigos:HashSet com chaves para rede social*/
+private Manager<String> convitesAmigos; /*emails de amigos: convites - HashSet*/
+private Manager<Activity> actividadesUser; /*Actividades do User:TreeSet -Comp.ByDate*/
+\end{code}
+
 \section{Activity class}
 \label{sec:activity}
 (...)
+\begin{code}[caption=Variáveis de instância da classe User (src/model/user)., label=code:user]
+/*Super Classe*/
+private GregorianCalendar mDate;
+private long mDuration; /*activity duration [ms]*/
+private Weather mWeather;
+private int mHearthRate;/*heart rate [1/min] - for calorie burn calculation*/
+
+/*Especializacoes Classe Distance*/
+private int mDistance;
+private int mMaxSpeed;
+
+/*Especializacoes Classe Contest*/
+private int mPointRival;
+private int mPointTeam;
+private Contest.Result mResult;
+
+/*Especializacoes Classe Skill*/
+private int mPoints;
+private int mMaxTrick;
+\end{code}
+
 \section{Record interface}
 \label{sec:interface}
 (...)
