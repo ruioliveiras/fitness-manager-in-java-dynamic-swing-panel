@@ -56,6 +56,7 @@ public class ControllerProfile {
 				setComponentsEnable(isEdit); // enable if isEdit
 				if (isEdit){
 					mHandler.setText2(FormButtonEnum.EDITAR);
+					mHandler.getComponent(PanelProfile.FormAttEnum.EMAIL).setEnabled(false);
 				}else{
 					mHandler.setText1(FormButtonEnum.EDITAR);
 					saveProfileChanges();

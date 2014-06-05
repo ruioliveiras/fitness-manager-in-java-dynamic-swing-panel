@@ -33,7 +33,7 @@ public class EventContest extends Event{
     public EventContest(String name, Activity activity, GregorianCalendar eventDate,
                     GregorianCalendar endDate, long preRequisite, int maxNumUsers, int recordType,
                     int games, int victoryPts, int drawPts, int lossPts) {
-        super(name, activity, eventDate, endDate, preRequisite, maxNumUsers,recordType);
+        super(name, activity, eventDate, endDate,new ArrayList<String>(), preRequisite, maxNumUsers,recordType);
         this.mNum = games;
         this.mPointsVic = victoryPts;
         this.mPointsDraw = drawPts;

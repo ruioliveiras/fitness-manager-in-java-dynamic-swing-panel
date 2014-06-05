@@ -63,6 +63,7 @@ public class ControllerActivitys implements ListSelectionListener{
 				//setActivity(mSelected);
 				if (isEdit){
 					mHandler.setText2(FormButtonEnum.EDITAR);
+					 mHandler.getComponent(FormAttEnum.DATE).setEnabled(false);
 				}else{
 					mHandler.setText1(FormButtonEnum.EDITAR);
 					saveActivity(mSelected);

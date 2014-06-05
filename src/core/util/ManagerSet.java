@@ -1,5 +1,6 @@
 package core.util;
 
+import java.util.Collection;
 import java.util.Set;
 
 import model.ObjectKey;
@@ -61,6 +62,12 @@ public class ManagerSet<V> extends Manager<V>{
 	}
 	public int size() {
 		return mSet.size();
+	}
+	public void addAll(Collection<V> collection) {
+		for (V obj : collection) {
+			add(obj);
+		}
+		
 	}
 
 

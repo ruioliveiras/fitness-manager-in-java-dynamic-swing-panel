@@ -1,4 +1,5 @@
 package model.events;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import model.activity.Activity;
@@ -26,7 +27,7 @@ public class EventDistance extends Event {
     
     public EventDistance(String name, Activity activity, GregorianCalendar eventDate,
                     GregorianCalendar endDate, long preRequisite, int maxNumUsers, int recordType, int distance) {
-        super(name, activity, eventDate, endDate, preRequisite, maxNumUsers, recordType);
+        super(name, activity, eventDate, endDate,new ArrayList<String>(), preRequisite, maxNumUsers, recordType);
         this.mEventDistance = distance;
     }
     

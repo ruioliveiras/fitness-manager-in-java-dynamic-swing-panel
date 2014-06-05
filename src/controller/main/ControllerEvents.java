@@ -91,6 +91,7 @@ public class ControllerEvents{
 				boolean isEdit = mHandler.getTextIndex(FormButtonEnum.EDITAR) == 1; 
 				setComponentsEnable(isEdit); // enable if isEdit
 				if (isEdit){
+					mHandler.getComponent(FormAttEnum.NOME).setEnabled(false);
 					mHandler.setText2(FormButtonEnum.EDITAR);
 				}else{
 					mHandler.setText1(FormButtonEnum.EDITAR);
@@ -121,6 +122,7 @@ public class ControllerEvents{
 				}else{
 					mHandler.setText1(FormButtonEnum.CRIAR_SALVAR);
 					saveEventChanges();
+					refresh();
 				}
 			}
 		});
@@ -329,8 +331,7 @@ public class ControllerEvents{
         for(FormAttEnum e: FormAttEnum .values()){
             mHandler.getComponent(e).setEnabled(b);
         }
-        mHandler.getComponent(FormAttEnum.NUM_USER_ACT).setEnabled(false);
-         
+        mHandler.getComponent(FormAttEnum.NUM_USER_ACT).setEnabled(false);         
     }
 
 
@@ -340,14 +341,16 @@ public class ControllerEvents{
 	}
 
 	private void refresh(){
-		
+		mEvents.clear();
+		mEvents.addAll(Main.getDataSet().eventManager().collection());
+		mHandler.addStringAll(mEvents); 
 	}
 	
 	private void aderir() {
 		try {
         	mSelected.getUserManager().size();
 			mSelected.addUser(mUser);
-			Main.getDataSet().eventManager().add(mSelected);
+			Main.getDataSet().eventManager().edit(mSelected);
 			Main.save();
 		} catch (AddEventException e) {
 			JOptionPane.showMessageDialog(null, "Não pode Aderir");

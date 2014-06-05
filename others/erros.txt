@@ -1,6 +1,8 @@
 LOGIN:
 X- Não é possível registar novos users, não deixa escrever nos campos de registo.
-- Tirar login automatico? Só deixar entrar se for colocado efectivamente um email e password.
+?- Tirar login automatico? Só deixar entrar se for colocado efectivamente um email e password.
+(è so apagar um IFFF, e a login nomal funciona a mesma
+Caso a string seja vazia e que faz autolooogin)
 
 PERFIL:
 X- Apenas deixar editar próprio perfil e impedir a edição do perfil de amigos, só com direitos de admin.
@@ -20,8 +22,8 @@ X- Nem sempre as actividades são criadas (não é possivel acrescentar duas act
 (A chave de uma actividade é a sua data, para resolver isto mete-se datas diferentes, para isso e que tem la os minutos, outras soluções são bem vindas)
 
 RECORDES:
-- Ao se adicionar novas actividades como Basquetebol, Futebol ou Skate não são criados records.
-- Alguns records não são actualizados com os valores correctos (exemplo records de Esgrima)
+X - Ao se adicionar novas actividades como Basquetebol, Futebol ou Skate não são criados records.
+X - Alguns records não são actualizados com os valores correctos (exemplo records de Esgrima)
 
 EVENTOS:
 - toString() errado na indicação da distância e da data.

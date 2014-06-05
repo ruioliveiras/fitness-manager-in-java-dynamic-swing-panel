@@ -1,6 +1,7 @@
 package model.events;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
@@ -36,7 +37,7 @@ public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
         mUsers = new ManagerSet<String>(mListenerBeforeAdd, new HashSet<String>());
     }
     public Event(String name, Activity activity, GregorianCalendar eventDate,
-                    GregorianCalendar endDate, long preRequisite, int maxNumUsers, int recordType) {
+                    GregorianCalendar endDate,Collection<String> friends,long preRequisite, int maxNumUsers, int recordType) {
         mName = name;
         mActivity = activity;
         mEventDate = eventDate;
@@ -45,10 +46,11 @@ public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
         mMaxNumUsers = maxNumUsers;
         mRecordType = recordType;
         mUsers = new ManagerSet<String>(mListenerBeforeAdd, new HashSet<String>());
+        mUsers.addAll(friends);
     }
 
     public Event(Event e){
-        this(e.getName(),e.getActivity(),e.getEventDate(),e.getEndDate(),e.getPreRequisite(),e.getMaxNumUsers(), e.getRecordType());
+        this(e.getName(),e.getActivity(),e.getEventDate(),e.getEndDate(),e.getUserManager().collection(),e.getPreRequisite(),e.getMaxNumUsers(), e.getRecordType());
     }
     
     public String getName() {
