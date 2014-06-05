@@ -413,7 +413,7 @@ public class ControllerEvents{
         Map<String,ArrayList<Long>> allResults = EventSimulation.getAllResults(users, act, recordType, stages);
         
         /*apresentacao dos resultados por etapa*/
-        for(int i = 0; i < stages; i++){
+        for(int i = 1; i <= stages; i++){
             TreeSet<DistancePair> aux = EventSimulation.getStageClassification(allResults, i);
             printDistanceEvent(aux, i);
         }
@@ -512,11 +512,11 @@ public class ControllerEvents{
     
     /*print auxiliares*/
     private final static void clearScreen (){
-       System.out.print('\u000C');
+       /*System.out.print('\u000C');*/
     }
     
     private static void nextOutput(){
-        
+        /*
         Scanner reader = new Scanner(System.in);
         String c;
         System.out.println("--- Prima <n> para mais resultados ---");
@@ -524,6 +524,7 @@ public class ControllerEvents{
             c = reader.nextLine();
         }
         while(c.endsWith("n") != true);
+        */
         
     }
     

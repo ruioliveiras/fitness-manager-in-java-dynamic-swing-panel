@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.params=
 comment0.target=Event()
-comment1.params=name\ activity\ eventDate\ endDate\ preRequisite\ maxNumUsers\ recordType
-comment1.target=Event(java.lang.String,\ model.activity.Activity,\ java.util.GregorianCalendar,\ java.util.GregorianCalendar,\ long,\ int,\ int)
+comment1.params=name\ activity\ eventDate\ endDate\ friends\ preRequisite\ maxNumUsers\ recordType
+comment1.target=Event(java.lang.String,\ model.activity.Activity,\ java.util.GregorianCalendar,\ java.util.GregorianCalendar,\ java.util.Collection,\ long,\ int,\ int)
 comment10.params=endDate
 comment10.target=void\ setEndDate(java.util.GregorianCalendar)
 comment11.params=

@@ -1,4 +1,16 @@
 #BlueJ class context
 comment0.params=a\ b\ c
 comment0.target=int\ CalcHashCode(int,\ int,\ int)
-numComments=1
+comment1.params=c
+comment1.target=java.lang.String\ dateFormat_only(java.util.Calendar)
+comment2.params=c
+comment2.target=long\ dateFormat_only(java.lang.String)
+comment3.params=c
+comment3.target=java.lang.String\ dateFormat(java.util.Calendar)
+comment4.params=c
+comment4.target=long\ dateFormat(java.lang.String)
+comment5.params=miliduration
+comment5.target=java.lang.String\ hourFormat(long)
+comment6.params=s
+comment6.target=long\ hourFormat(java.lang.String)
+numComments=7

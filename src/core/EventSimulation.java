@@ -30,11 +30,11 @@ public class EventSimulation {
         double rndFact = 1 + (Math.random() - 0.50);
         double prsBest=0;
         try {
-            prsBest = (double) (u.getRecordValue(act.getClass(), recordType))/stages;
+            prsBest = (double) ((u.getRecordValue(act.getClass(), recordType))/stages);
         } catch (RecordDontExitExeception e) {
             e.printStackTrace();
         } /*tempo por intervalo, Ex:por km*/
-        double fitnessFact = u.getForma();
+        double fitnessFact = 1/u.getForma();/*pior forma => pior tempo*/
         double weatherFact = (double) Math.min(0.1, (double) w.getLvl()/20);
         long result;
         if(Math.random()*20 < 0.01*u.getIdade()) /*probabilida de de desistir proporcional a faixa etaria, 1% para 20 anos*/

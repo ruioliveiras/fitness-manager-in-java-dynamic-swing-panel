@@ -41,9 +41,11 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     private Permissoes permissoes;
     private Map<Class<?>, HashMap<Integer, Activity>>  recordes; /* 1º level key class, values 2ºlevel key recordtype, values recordActivitys*/
     private int fcr; /*frequencia cardiaca em repouso - para calculo das calorias*/
-    private Manager<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
-    private Manager<String> convitesAmigos; /*emails de amigos: convites*/
-    private Manager<Activity> actividadesUser;
+
+    private Manager<String> amigos;  /*emails de amigos: HashSet com chaves para aceder ao HashMap da rede social*/
+    private Manager<String> convitesAmigos; /*emails de amigos: convites - HashSet*/
+    private Manager<Activity> actividadesUser;/*Actividades do User: TreeSet -ComparatorByDate- */
+
 
     
     
