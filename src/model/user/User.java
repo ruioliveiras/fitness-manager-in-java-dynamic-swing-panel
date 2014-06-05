@@ -44,7 +44,6 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     private Manager<String> amigos; /*emails de amigos: chaves para aceder ao HashMap da rede social*/
     private Manager<String> convitesAmigos; /*emails de amigos: convites*/
     private Manager<Activity> actividadesUser;
-    private TreeSet<Activity> treeActividadesUser;
 
     
     
@@ -66,8 +65,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
         this.fcr = 0;
         this.amigos = new ManagerSet<String>(new HashSet<String>());
         this.convitesAmigos = new ManagerSet<String>(new HashSet<String>());
-        this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
-        this.actividadesUser = new ManagerSet<Activity>(this.treeActividadesUser);
+        this.actividadesUser = new ManagerSet<Activity>(new TreeSet<Activity>(new ActivityComparatorByDate()));
     }
     public User(String email){
         this();
@@ -90,8 +88,7 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     	this.fcr = fcRepouso;
     	this.amigos = new ManagerSet<String>(new HashSet<String>());
     	this.convitesAmigos = new ManagerSet<String>(new HashSet<String>());
-    	this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
-    	this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd,this.treeActividadesUser);
+    	this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd,new TreeSet<Activity>(new ActivityComparatorByDate()));
     }
 
     public User(User u){
@@ -114,9 +111,9 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
 
 
 
-    	this.treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
-    	this.treeActividadesUser.addAll(u.atividadesManager().collection());
-    	this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd,this.treeActividadesUser);
+    	TreeSet<Activity> treeActividadesUser = new TreeSet<Activity>(new ActivityComparatorByDate());
+    	treeActividadesUser.addAll(u.atividadesManager().collection());
+    	this.actividadesUser = new ManagerSet<Activity>(mListenerBeforeAdd, treeActividadesUser);
     }
     
       /*
@@ -193,14 +190,17 @@ public class User implements ObjectKey,ObjectClonable,Serializable{
     
     
     public Set<Activity> actividadesEntre(GregorianCalendar dataInferior, GregorianCalendar dataSuperior){
-         Set<Activity> res = new TreeSet<Activity>(new ActivityComparatorByDate());
+    	TreeSet<Activity> aux = new TreeSet<Activity>(new ActivityComparatorByDate());
+    	Set<Activity> res =  new TreeSet<Activity>( new ActivityComparatorByDate());
+    	aux.addAll(actividadesUser.collection());
          /*Actividades artificiais para efeitos de comparacao*/
          Activity a1 = new Ciclismo(); a1.setDate(dataInferior);
          Activity a2 = new Ciclismo(); a2.setDate(dataSuperior);
          
-         for(Activity ac : this.treeActividadesUser.subSet(a1, true, a2, true)){
-             res.add((Activity) ac.clone());
-         }
+   
+         res.addAll( aux.subSet(a1, true, a2, true));
+         
+ 
          
          return res;
     }

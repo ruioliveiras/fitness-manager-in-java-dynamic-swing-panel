@@ -67,9 +67,9 @@ public abstract class Distance extends Activity {
     	MENOR_TEMPO10000("Menor tempo 10km",Attr.TIME,Attr.DISTANCE,10000),
     	MENOR_TEMPO5000 ("Menor tempo 5km",Attr.TIME,Attr.DISTANCE,5000),
     	MENOR_TEMPO3000 ("Menor tempo 3km",Attr.TIME,Attr.DISTANCE,3000),
-    	MENOR_TEMPO2000 ("Menor tempo 2km",Attr.TIME,Attr.DISTANCE,2000),
-    	MENOR_TEMPO1000 ("Menor tempo 1km",Attr.TIME,Attr.DISTANCE,1000),
-    	MENOR_TEMPO500  ("Menor tempo 500m",Attr.TIME,Attr.DISTANCE,500),
+    	MENOR_TEMPO1500 ("Menor tempo 1.5km",Attr.TIME,Attr.DISTANCE,1500),
+    	MENOR_TEMPO800 ("Menor tempo 800m",Attr.TIME,Attr.DISTANCE,800),
+    	MENOR_TEMPO400  ("Menor tempo 400m",Attr.TIME,Attr.DISTANCE,400),
     	MENOR_TEMPO200  ("Menor tempo 200m",Attr.TIME,Attr.DISTANCE,200),
     	MENOR_TEMPO100  ("Menor tempo 100m",Attr.TIME,Attr.DISTANCE,100),
     	MAXSPEED  		("Maior Velocidade",Attr.SPEED);
@@ -88,8 +88,11 @@ public abstract class Distance extends Activity {
 		@Override
 		public EnumAttr getFixed() {return eFix;}
 		@Override
-		public boolean similar(long value) 
-			{return (Math.abs(value - eValue) < eValue/2);}
+		public boolean similar(long value) {
+			if (value <  eValue){
+				return false;
+			}else return (Math.abs(value) < eValue*2);
+		}
 		@Override
 		public EnumAttr getMov() {return eMov;}
 		@Override
@@ -109,7 +112,7 @@ public abstract class Distance extends Activity {
 		if (att.getName().equals(Attr.DISTANCE.getName())){
 			return getDistance();
 		}else if (att.getName().equals(Attr.SPEED.getName())){
-			return getMaxSpeed();
+			return (long) getVelocity();
 		}else if (att.getName().equals(Attr.TIME.getName())){
 			return getDuration();
 		}else {
@@ -130,7 +133,7 @@ public abstract class Distance extends Activity {
     public void correct(Record recordType) {	
     	if (recordType.getName().equals(MyRecords.MAXSPEED.getName()))
     		return;
-    	if (recordType.getMov().getName().equals(Attr.DISTANCE.getName())){
+    	if (recordType.getMov().getName().equals(Attr.TIME.getName())){
     		setDuration((getDuration() * recordType.getValue() )/mDistance);
     		setDistance((int) recordType.getValue());
     	}

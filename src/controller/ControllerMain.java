@@ -153,8 +153,7 @@ public class ControllerMain implements MainListener,ListModel<String>{
 		
 		} catch (ObjectDontExistException e) {
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 	
 	

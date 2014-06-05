@@ -162,7 +162,7 @@ public class ControllerActivitys implements ListSelectionListener{
 			time.setText(Util.hourFormat(act.getDuration()));
 			hr.setText(String.valueOf(act.getHeartRate()));
 			((JComboBox<?>) mHandler.getComponent(FormAttEnum.TEMPO)).setSelectedIndex(Weather.getIndexWeather(act.getWeather()));
-			date.setText(new SimpleDateFormat(FormUtils.DATA_PATTERM).format(act.getDate().getTime()));
+			date.setText(Util.dateFormat(act.getDate()));
 			calorias.setText(String.valueOf(act.calculateCalories(mUser)));
 			
 			if (act instanceof Distance){
@@ -240,7 +240,7 @@ public class ControllerActivitys implements ListSelectionListener{
 			act.setHeartRate(Integer.parseInt( hr.getText()));
 			//((JTextField) mHandler.getComponent(FormAttEnum.TEMPO))
 			GregorianCalendar greg = new GregorianCalendar();
-			greg.setTime(new SimpleDateFormat(FormUtils.DATA_PATTERM).parse(date.getText()));
+			greg.setTimeInMillis(Util.dateFormat(date.getText()));
 			act.setDate(greg);
 
 			act.setWeather( Weather.getWeatherIndex(((JComboBox<?>) mHandler.getComponent(FormAttEnum.TEMPO)).getSelectedIndex()));
@@ -271,11 +271,11 @@ public class ControllerActivitys implements ListSelectionListener{
 			Main.save();
 			refresh();
 		} catch (NameDontExistException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "ERRo nome não existe");
 		} catch (ParseException e) {
 			
-			
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Parse error");
+	
 		}
 
 	}

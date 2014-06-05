@@ -2,6 +2,7 @@ package controller.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -99,7 +100,8 @@ public class ControllerProfile {
 		mHandler.setValue(FormAttEnum.ALTURA, String.valueOf(mUser.getAltura()));
 		mHandler.setValue(FormAttEnum.PESO, String.valueOf(mUser.getPeso()));
 		mHandler.setValue(FormAttEnum.FREQ, String.valueOf(mUser.getFreqCardio()));
-		mHandler.setValue(FormAttEnum.FORMA, String.valueOf(mUser.getForma()));
+		 DecimalFormat decimalF = new DecimalFormat("###%");
+		mHandler.setValue(FormAttEnum.FORMA, decimalF.format(mUser.getForma()));
 		mHandler.setValue(FormAttEnum.SEXO, mUser.getGenero().toString());
 		try {
 			mHandler.setValue(FormAttEnum.PREFERIDO, Main.getActivityIndex(mUser.getDesportoFavorito().getName()));

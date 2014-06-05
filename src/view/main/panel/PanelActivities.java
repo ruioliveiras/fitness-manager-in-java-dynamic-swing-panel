@@ -43,8 +43,8 @@ public class PanelActivities extends PanelListToolBar {
 		TIME		("Time",JTextField.class,10),
 		HEARTH		("Pulsação",JTextField.class,7),
 		TEMPO		("Tempo",JComboBox.class,15),
-		DATE		("Date",JTextField.class,10), 
-		CALORIAS	("Calorias",JTextField.class,10), 
+		DATE		("Date",JTextField.class,15), 
+		CALORIAS	("Calorias",JTextField.class,5), 
 		//DISTANCE:
 		DISTANCE	("Distancia [m]",JTextField.class,4),
 		MAXSPEED 	("Vel. Maxima",JTextField.class,4),

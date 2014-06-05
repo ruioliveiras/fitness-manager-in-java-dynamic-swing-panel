@@ -109,11 +109,15 @@ public abstract class Activity implements ObjectClonable,ObjectRecordClass.Objec
     		sThis  = this.get(recordType.getFixed());
     		isSimilar = recordType.similar(sThis); 
     	}
-    	sThis  = this.get(recordType.getMov());
+    	Activity _this = this.clone();
+    	_this.correct(recordType);
+    	sThis  = _this.get(recordType.getMov());
     	sOther = 0;
     	if (isSimilar){
     		
     		if(otherActivity != null){
+//    			otherActivity = otherActivity.clone();
+//    			otherActivity.correct(recordType);
     			sOther = otherActivity.get(recordType.getMov());
 //    			if (!recordType.similar(sOther)){
 //    				return 1; 

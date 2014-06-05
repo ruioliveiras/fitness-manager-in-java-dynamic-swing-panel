@@ -12,7 +12,7 @@ X- Colocar o desporto favorito como uma caixa de selecção em vez de string,
 ?- o mesmo para o genero - poderá dar conflito ter um dado como string na interface gráfica e Classe/Enumeração no código?
 (Não e preciso...)
 X - Tirar a hora da data de nascimento.
-?- A forma não parece estar a ser bem mostrada. O cálculo garante um valor entre 0.1 e 1, após adicionar algumas actividades, 
+X- A forma não parece estar a ser bem mostrada. O cálculo garante um valor entre 0.1 e 1, após adicionar algumas actividades, 
 (Estou a imprimir "String.valueOf(mUser.getForma()" Existe alguma ciencia por de traz disto?)
 
 ACTIVIDADES:
@@ -26,7 +26,9 @@ X - Ao se adicionar novas actividades como Basquetebol, Futebol ou Skate não s�
 X - Alguns records não são actualizados com os valores correctos (exemplo records de Esgrima)
 
 EVENTOS:
-- toString() errado na indicação da distância e da data.
+X- toString() errado na indicação da distância e da data.
 
 ADICIONAR AMIGO:
 X- Depois de se adicionar um amigo, HOME desaparece.
+
+1402003347417

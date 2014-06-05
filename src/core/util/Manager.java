@@ -43,7 +43,8 @@ public abstract class Manager<V> implements Serializable{
 			res = mAddListener.beforeAdd(obj);
 		}
 		return res;
-	}	
+	}
+
 	public boolean edit(V obj){
 		remove(obj);
 		return add(obj);
@@ -126,9 +127,6 @@ public abstract class Manager<V> implements Serializable{
 
 		public ObjectDontExistException(String message) {
 			super(message);
-		}
-		
-		
-		
+		}	
 	}
 }
