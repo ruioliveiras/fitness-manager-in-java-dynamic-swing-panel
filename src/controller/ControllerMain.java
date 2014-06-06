@@ -76,8 +76,11 @@ public class ControllerMain implements MainListener,ListModel<String>{
 			
 			@Override
 			public Object action(Object o) {
-				if (mUserCopy.getPermissoes() != Permissoes.Admin){
+				if (mUserCopy.equals(o)){
 					mViewMain.dismiss();
+					ControllerLogin login = new ControllerLogin();
+				    login.start();
+			
 				}else{
 					mFriend.remove(((User) o).getEmail());
 					mViewMain.notifyDataChaged(ControllerMain.this);
@@ -96,7 +99,8 @@ public class ControllerMain implements MainListener,ListModel<String>{
 				}
 				
 				if (index == 0){
-					loadUser(mUserCopy.getEmail(),Permissoes.User);
+					Permissoes p = (mUserCopy.getPermissoes() == Permissoes.Admin) ? Permissoes.Admin : Permissoes.Guest;
+					loadUser(mUserCopy.getEmail(),p);
 					return;
 				}
 				index--;

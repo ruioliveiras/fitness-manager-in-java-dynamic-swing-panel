@@ -86,6 +86,7 @@ public class ControllerProfile {
 
 			
 		});
+		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -145,7 +146,7 @@ public class ControllerProfile {
 				event.getUserManager().remove(mUser.getEmail());
 				Main.getDataSet().eventManager().edit(event);
 			}
-			
+
 		}
 		Main.getDataSet().userManager().remove(mUser);
 		Main.save();

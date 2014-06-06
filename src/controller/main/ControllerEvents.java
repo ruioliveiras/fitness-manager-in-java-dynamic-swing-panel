@@ -319,8 +319,8 @@ public class ControllerEvents{
     }
 
     private void checkRight(){
-	    boolean isAdmin = mRight == Permissoes.Admin;
-	    boolean isUser = mRight == Permissoes.User; 
+	    boolean isAdmin = (mRight == Permissoes.Admin);
+	    boolean isUser = (mRight == Permissoes.User); 
 	
 	    
 	    mHandler.getButton(FormButtonEnum.ADERIR).setEnabled(isUser || isAdmin); 

@@ -76,8 +76,15 @@ public class ControllerLogin{
 					int despAux =	((JComboBox<String>) mViewRegister.getHandler().getComponent(PanelProfile.FormAttEnum.PREFERIDO)).getSelectedIndex();
 					desportoFavorito = Main.getActivity(despAux);
 					
-					char g =  ((String)mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.SEXO)).toLowerCase().charAt(0); 
-					genero = (g == 'm' ) ? Genero.Masculino : (g == 'f') ? Genero.Feminino : Genero.Desconhecido; 
+					String sexoString =((String)mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.SEXO));
+					char g =  sexoString.toLowerCase().charAt(0); 
+					if (sexoString.length() == 1 &&  ((g == 'f') || (g == 'm') || (g == 'd') )){
+						genero = (g == 'm' ) ? Genero.Masculino : (g == 'f') ? Genero.Feminino : Genero.Desconhecido; 
+					}else{
+						throw new StringIndexOutOfBoundsException();
+					}
+						
+					
 
 					String d =(String) mViewRegister.getHandler().getValue(PanelProfile.FormAttEnum.NASCIMENTO);
 					date = new GregorianCalendar();
