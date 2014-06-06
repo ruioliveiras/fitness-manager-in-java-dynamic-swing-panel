@@ -364,7 +364,7 @@ public class ControllerEvents{
 			@Override
 			public Object action(Object o) {
 				Weather weather = (Weather) o;
-				mSelected.getActivity().setWeather(weather);
+				mSelected.setWeather(weather);
 				
 				if(mSelected.getActivity() instanceof Distance)
 		            iniciarDistanceEvent();

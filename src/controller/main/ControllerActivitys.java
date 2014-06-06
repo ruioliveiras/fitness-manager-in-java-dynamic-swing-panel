@@ -107,7 +107,9 @@ public class ControllerActivitys implements ListSelectionListener{
 
 		});
 		mHandler.addListListener(this);
-		((JComboBox<Weather>) mHandler.getComponent(FormAttEnum.TEMPO)).setModel(new DefaultComboBoxModel<>(Weather.getWeatherArray()));
+		Object weather[] = {"Indoor","Sunny Windless","Sunny Moderate wind","Sunny Strong wind","Cloudy Windless","Cloudy ","Cloudy Moderate wind","Rainy Windless","Rainy Moderate wind","Rainy Strong wind"};
+
+		((JComboBox<Object>) mHandler.getComponent(FormAttEnum.TEMPO)).setModel(new DefaultComboBoxModel<>(weather));//Weather.getWeatherArray()));
 
 		JComboBox<?> a = (JComboBox<?>) mHandler.getComponent(FormAttEnum.COMBO);
 		a.setModel(new DefaultComboBoxModel(Main.getActivitiesNames()));

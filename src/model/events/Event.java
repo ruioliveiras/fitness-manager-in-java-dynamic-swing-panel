@@ -5,9 +5,11 @@ import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
+import sun.awt.X11.MWMConstants;
 import model.ObjectClonable;
 import model.ObjectKey;
 import model.activity.Activity;
+import model.activity.Weather;
 import model.user.RecordDontExitExeception;
 import model.user.User;
 import core.util.Manager;
@@ -53,6 +55,9 @@ public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
         this(e.getName(),e.getActivity(),e.getEventDate(),e.getEndDate(),e.getUserManager().collection(),e.getPreRequisite(),e.getMaxNumUsers(), e.getRecordType());
     }
     
+    public void setWeather(Weather weather){
+    	mActivity.setWeather(weather);
+    }
     public String getName() {
         return mName;
     }

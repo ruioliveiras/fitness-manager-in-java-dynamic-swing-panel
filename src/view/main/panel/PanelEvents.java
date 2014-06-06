@@ -171,18 +171,23 @@ public class PanelEvents extends PanelListToolBar{
 		mPopupInviteFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Container contentPane = mPopupInviteFrame.getContentPane();
 
-		final JComboBox<Weather> weather = new JComboBox<>();
-		weather.setModel(new DefaultComboBoxModel<Weather>(Weather.getWeatherArray()));
-		contentPane.add(weather, BorderLayout.CENTER);
+		final JComboBox<Object> weather = new JComboBox<>();
+		
+		Object a[] = {"Indoor","Sunny Windless","Sunny Moderate wind","Sunny Strong wind","Cloudy Windless","Cloudy ","Cloudy Moderate wind","Rainy Windless","Rainy Moderate wind","Rainy Strong wind"};
+		weather.setModel(new DefaultComboBoxModel<Object>(a));//Weather.getWeatherArray()));
+		contentPane.add(weather, BorderLayout.NORTH);
 
 		JToggleButton accept = new JToggleButton("Iniciar");
-		contentPane.add(accept, BorderLayout.SOUTH);
+		contentPane.add(accept, BorderLayout.CENTER);
+
+		JToggleButton cont = new JToggleButton("Continuar");
+		contentPane.add(cont, BorderLayout.SOUTH);
 
 		accept.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Weather a = (Weather) weather.getSelectedItem();
+				Weather a = Weather.getWeatherIndex(weather.getSelectedIndex());
 				action.action(a);
 				mPopupInviteFrame.setVisible(false);
 				mPopupInviteFrame.dispose();
