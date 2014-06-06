@@ -34,8 +34,8 @@ public class EventSimulation {
         } catch (RecordDontExitExeception e) {
             e.printStackTrace();
         } /*tempo por intervalo, Ex:por km*/
-        double fitnessFact = 1/u.getForma();/*pior forma => pior tempo*/
-        double weatherFact = (double) Math.min(0.1, (double) w.getLvl()/20);
+        double fitnessFact = 1/u.getForma();/*pior forma => mais tempo (pior)*/
+        double weatherFact = 1/Math.max(0.1, (double) w.getLvl()/20);/*pior tempo => mais tempo (pior), no limite duplica o tempo*/
         long result;
         if(Math.random()*20 < 0.01*u.getIdade()) /*probabilida de de desistir proporcional a faixa etaria, 1% para 20 anos*/
             result = Long.MAX_VALUE/2; /*desistiu => duracao muito elevada*/
@@ -73,8 +73,12 @@ public class EventSimulation {
     
     static private long getStageResult(ArrayList<Long> results, int stage){
         long stageResult = 0;
-        for(int i = 0; i < stage; i++)
-            stageResult = stageResult + results.get(i);
+        int i = 1;
+        for(Long r : results){
+            if(i > stage) break;
+            stageResult = stageResult + r;
+            i++;
+        }
         return stageResult;
     }
     

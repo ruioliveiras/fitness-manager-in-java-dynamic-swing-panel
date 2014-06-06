@@ -365,6 +365,7 @@ public class ControllerEvents{
 			@Override
 			public Object action(Object o) {
 				Weather weather = (Weather) o;
+				mSelected.getActivity().setWeather(weather);
 				
 				if(mSelected.getActivity() instanceof Distance)
 		            iniciarDistanceEvent(weather);
@@ -397,6 +398,9 @@ public class ControllerEvents{
         int recordType = mSelected.getRecordType();
         long eventDistance = act.getRecord(recordType).getValue();
         int stages = (eventDistance > 1000) ? (int) eventDistance/1000 : 1;
+        
+        System.out.println(mSelected.toString());
+        System.out.println("Meteo: " + mSelected.getActivity().getWeather().toString());
         
         /*adicionar Users atraves das keys*/
         for(String uKey : usersKeys){
@@ -432,6 +436,7 @@ public class ControllerEvents{
         /*output*/
         clearScreen();
         System.out.println(mSelected.toString());
+        System.out.println("Meteo: " + mSelected.getActivity().getWeather().toString());
         
         /*imprimir jogos*/
         for(ContestPair g : games)
