@@ -349,12 +349,11 @@ public class ControllerEvents{
 	
 	private void aderir() {
 		try {
-        	mSelected.getUserManager().size();
-			mSelected.addUser(mUser);
+        	mSelected.addUser(mUser);
 			Main.getDataSet().eventManager().edit(mSelected);
 			Main.save();
 		} catch (AddEventException e) {
-			JOptionPane.showMessageDialog(null, "Não pode Aderir");
+			JOptionPane.showMessageDialog(null, "Não pode Aderir: " +e.getMessage() );
 		}
     }
     

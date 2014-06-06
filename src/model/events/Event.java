@@ -103,9 +103,10 @@ public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
     public void addUser(User u) throws AddEventException{
         String userEmail = u.getEmail();
         GregorianCalendar agora = new GregorianCalendar();
+        if (getUserManager().contains(u.getEmail())){throw new AddEventException("Já está inscrito");}
+
         if(this.mEndDate.compareTo(new GregorianCalendar()) < 0) throw new AddEventException("Data limite de inscrição!");/*data posterior ao limite de inscricao*/
         if(this.mMaxNumUsers <= this.mUsers.size()) throw new AddEventException("Número máximo de inscrições!"); /*excedeu limite de users*/
-       
         try {
         	long aux = u.getRecordValue(this.mActivity.getClass(), this.mRecordType);
         	if (mActivity.isRecordBiggerBetter(mActivity.getRecord(mRecordType))){
@@ -113,8 +114,8 @@ public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
         	}else{
         		if(this.mPreRequisite < aux) throw new AddEventException("Não cumpre o pré-requisito!");
         	}
-			
-		} catch (RecordDontExitExeception e) {
+
+        } catch (RecordDontExitExeception e) {
 			throw new AddEventException();
 		} /*nao tem tempo minimo*/
         mUsers.add(userEmail);

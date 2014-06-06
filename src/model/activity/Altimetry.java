@@ -161,10 +161,10 @@ public abstract class Altimetry extends Distance {
     	sb.append(getName());sb.append(" |- ");sb.append(recordType.getName());
     	sb.append(" ");
     	
-		if (att.getName().equals(Attr.ALTURA.getName())){
-			sb.append(getMaxAltitude());sb.append("m");
-		}else if (att.getName().equals(Attr.ALTURA.getName())){
-			sb.append(getMaxSpeed());sb.append(Util.hourFormat(getDuration()));
+    	if (recordType.getName().equals(MyRecords.MAIOR_ALTURA.getName())){
+    		sb.append(getMaxAltitude());sb.append("m");
+    	}else if (att.getName().equals(Attr.ALTURA.getName())){
+			sb.append(getAscendent()-getDescendent());sb.append(Util.hourFormat(getDuration()));
 		}
 		return sb.toString();
     }

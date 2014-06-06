@@ -209,7 +209,7 @@ public class ControllerActivitys implements ListSelectionListener{
 			
 			
 		} catch (NameDontExistException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Utilizador invalido");
 		}
 	}
 	
@@ -276,6 +276,8 @@ public class ControllerActivitys implements ListSelectionListener{
 			
 			JOptionPane.showMessageDialog(null, "Parse error");
 	
+		} catch (ArithmeticException e){
+			JOptionPane.showMessageDialog(null, "Erro:  Zero");
 		}
 
 	}

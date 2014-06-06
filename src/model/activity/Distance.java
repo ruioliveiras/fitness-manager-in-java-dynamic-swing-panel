@@ -155,7 +155,7 @@ public abstract class Distance extends Activity {
     	sb.append(getName());sb.append(" |- ");sb.append(recordType.getName());
     	sb.append(" ");
     	if (att.getName().equals(Attr.SPEED.getName())){
-    		sb.append(getMaxSpeed());sb.append("m/s");
+    		sb.append(getVelocity());sb.append("m/s");
     	}else if (att.getName().equals(Attr.TIME.getName())){
     		sb.append(Util.hourFormat(getDuration()));
     	}
