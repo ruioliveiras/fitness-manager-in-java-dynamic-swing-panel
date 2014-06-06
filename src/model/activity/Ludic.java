@@ -10,23 +10,43 @@ import core.util.Util;
 
 public abstract class Ludic extends Activity {
 
-	
-	
-	
-	public Ludic() {
-		super();
-	}
-	public Ludic(Activity act) {
-		super(act);
-	}
-	public Ludic(long time, Weather weather, int hRate, GregorianCalendar date) {
-		super(time, weather, hRate, date);
-	}
 	/**
-	 * 
+	 * Serial ID
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
+    /**
+     * Construtor vazio
+     */
+	public Ludic() {
+		super();
+	}
+	
+    /**
+     * Construtor de Copia
+     * @param act actividade a copiar
+     */
+	public Ludic(Activity act) {
+		super(act);
+	}
+	
+
+    /**
+     * Contrutor parametrizado
+     * @param time duração da actividade em milisegundos
+     * @param weather Weather tempo meteorologico da actividade
+     * @param hRate pulsasão da actividade
+     * @param date data da actividade
+     */
+	public Ludic(long time, Weather weather, int hRate, GregorianCalendar date) {
+		super(time, weather, hRate, date);
+	}
+
+	
+	/**
+	 * Enumeração que representa os Atributos das actividades
+	 */
 	public enum Attr implements ObjectRecordClass.EnumAttr {
 		TEMPO("Tempo");
 
@@ -39,9 +59,11 @@ public abstract class Ludic extends Activity {
 		public int getAttrType() {return ordinal();}
 	}
 
-
+	/**
+	 * Enumeração para os tipos de Recordes
+	 */
 	public enum MyRecords implements Record{
-       	TIME ("Tempo de duracao",Attr.TEMPO);
+		TIME ("Tempo de duracao",Attr.TEMPO);
     	
 		private ObjectRecordClass.EnumAttr eFix;
 		private ObjectRecordClass.EnumAttr eMov;

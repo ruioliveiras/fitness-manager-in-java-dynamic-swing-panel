@@ -11,7 +11,7 @@ public abstract class Altimetry extends Distance {
 
 
 	/**
-	 * 
+	 * Serial Id, para serizalização
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -21,6 +21,7 @@ public abstract class Altimetry extends Distance {
 	private int mDescendent;
 	private int mMinAltitude;
 	private int mMaxAltitude;
+	
 	
 	
 	public Altimetry() {

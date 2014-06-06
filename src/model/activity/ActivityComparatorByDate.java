@@ -7,11 +7,10 @@ import java.util.GregorianCalendar;
 /**
  * Classe de criacao de comparator de actividades por data de realizacao.
  * 
- * @author andrerfcsantos 
  */
 public class ActivityComparatorByDate implements Comparator<Activity>,Serializable{
     /**
-	 * 
+	 * Serial Id, para serializaçao
 	 */
 	private static final long serialVersionUID = 1L;
 

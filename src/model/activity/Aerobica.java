@@ -3,18 +3,36 @@ package model.activity;
 import java.util.GregorianCalendar;
 
 
-
+/**
+ * Actividade Aerobica, é um deposto Ludico
+ * 
+ */
 public class Aerobica extends Ludic {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Construtor vazio
+     */
     public Aerobica() {
 		super();
 	}
+    
+    /**
+     * Contrutor parametrizado
+     * @param time duração da actividade em milisegundos
+     * @param weather Weather tempo meteorologico da actividade
+     * @param hRate pulsasão da actividade
+     * @param date data da actividade
+     */
 	public Aerobica(long time, Weather weather, int hRate,
 			GregorianCalendar date) {
 		super(time, weather, hRate, date);
 	}
-
+	
+    /**
+     * Construtor de Copia
+     * @param act actividade a copiar
+     */
 	public Aerobica(Aerobica act){
         super(act);
     }
