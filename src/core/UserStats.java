@@ -42,12 +42,12 @@ public class UserStats
         /*data agora*/
         GregorianCalendar endDate = new GregorianCalendar();
         /*data um ano antes*/
-        GregorianCalendar startDate = new GregorianCalendar(endDate.YEAR - 1, endDate.MONTH, endDate.DAY_OF_MONTH);
+        GregorianCalendar startDate = new GregorianCalendar(endDate.get(Calendar.YEAR) - 1, endDate.get(Calendar.MONTH), endDate.get(Calendar.DAY_OF_MONTH));
         
         for(Activity act: usr.actividadesEntre(startDate, endDate)){
-            if(act.getClass().equals(category.getClass()) && act instanceof Skill) totalPontos += ((Skill) act).getPoints();
+            if( act instanceof Skill) totalPontos += ((Skill) act).getPoints();
             else
-            if(act.getClass().equals(category.getClass()) && act instanceof Contest)
+            if(act instanceof Contest)
                 totalPontos += ((Contest) act).getPointTeam() - ((Contest) act).getPointRival();
         }
         

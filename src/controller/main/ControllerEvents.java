@@ -42,7 +42,9 @@ import controller.ComboRecordModel;
 import controller.EventNotPermited;
 import controller.Main;
 import controller.NameDontExistException;
-import core.DistancePair;
+import core.ComparatorContest;
+import core.ComparatorDistancePair;
+import core.SimulationPair;
 import core.EventSimulation;
 import core.FormUtils;
 import core.FormUtils.FormHandle;
@@ -381,10 +383,10 @@ public class ControllerEvents{
 
     
     
-    private void printDistanceEvent(TreeSet<DistancePair> results, int stage){
+    private void printDistanceEvent(TreeSet<SimulationPair> results, int stage){
         clearScreen();
         System.out.println("--- Classificação após a ronda " + stage + " ---");
-        for(DistancePair p : results)
+        for(SimulationPair p : results)
             System.out.println(p.toString());
         
         nextOutput();
@@ -416,7 +418,7 @@ public class ControllerEvents{
         System.out.println(mSelected.toString());
         System.out.println("Meteo: " + act.getWeather().toString());
         for(int i = 1; i <= stages; i++){
-            TreeSet<DistancePair> aux = EventSimulation.getStageClassification(allResults, i);
+            TreeSet<SimulationPair> aux = EventSimulation.getStageClassification(allResults, i);
             printDistanceEvent(aux, i);
         }
     }
@@ -424,11 +426,11 @@ public class ControllerEvents{
     private void iniciarContestEvent(){
         List<ContestPair> games = gamesResults();
         Map<String,Integer> table = contestTable(games);
-        TreeSet<DistancePair> classif = new TreeSet<>();
+        TreeSet<SimulationPair> classif = new TreeSet<>(new ComparatorContest());
         
         Iterator<String> it = table.keySet().iterator();
         for(Integer pts : table.values())
-            classif.add(new DistancePair(it.next(),pts));/*atencao mudar o nome de DistancePair*/
+            classif.add(new SimulationPair(it.next(),pts));/*atencao mudar o nome de DistancePair*/
         
             
         /*output*/
@@ -443,7 +445,7 @@ public class ControllerEvents{
         nextOutput();    
         /*imprimir tabela ordenada*/
         System.out.println("--- Tabela Classificativa ---");
-        for(DistancePair p : classif)
+        for(SimulationPair p : classif)
             System.out.println(p.getName() + " --- " + p.getResult());  
     }
     
@@ -493,19 +495,18 @@ public class ControllerEvents{
            if(resultAux == 0) {
                u1Pts = u2Pts = ((EventContest) mSelected).getDrawPts();
                p.setUser1Pts(u1Pts);
-               p.setUser1Pts(u2Pts);
-           }
-           else if(resultAux < 0) {
+               p.setUser2Pts(u2Pts);
+           }else if(resultAux < 0) {
                u1Pts = ((EventContest) mSelected).getVicPts();
                u2Pts = ((EventContest) mSelected).getLossPts();
                p.setUser1Pts(u1Pts);
-               p.setUser1Pts(u2Pts);
+               p.setUser2Pts(u2Pts);
            }
            else{
                u2Pts = ((EventContest) mSelected).getVicPts();
                u1Pts = ((EventContest) mSelected).getLossPts();
                p.setUser1Pts(u1Pts);
-               p.setUser1Pts(u2Pts);
+               p.setUser2Pts(u2Pts);
            }
         }
         

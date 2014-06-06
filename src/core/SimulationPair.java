@@ -9,11 +9,11 @@ import core.util.Util;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class DistancePair{
+public class SimulationPair{
     private String mUserName;
     private long mUserResult;
     
-    public DistancePair(String name, long result){
+    public SimulationPair(String name, long result){
         mUserName = name; 
         mUserResult = result;
     }

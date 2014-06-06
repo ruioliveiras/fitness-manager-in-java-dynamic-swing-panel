@@ -83,14 +83,14 @@ public class EventSimulation {
     }
     
     /*treeSet para resultados ordenados por etapa(km)*/
-    static public TreeSet<DistancePair> getStageClassification(Map<String,ArrayList<Long>> results, int stage){
-        TreeSet<DistancePair> r = new TreeSet<>(new ComparatorDistancePair());
+    static public TreeSet<SimulationPair> getStageClassification(Map<String,ArrayList<Long>> results, int stage){
+        TreeSet<SimulationPair> r = new TreeSet<>(new ComparatorDistancePair());
         
         
         Iterator<String> it = results.keySet().iterator();
         for(ArrayList<Long> lst : results.values()){
             long auxResult = getStageResult(lst, stage);
-            r.add(new DistancePair(it.next(),auxResult));
+            r.add(new SimulationPair(it.next(),auxResult));
         }
             
         return r;

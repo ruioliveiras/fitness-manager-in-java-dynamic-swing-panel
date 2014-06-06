@@ -34,6 +34,6 @@ public class ContestPair
             resultado = ", Vencedor= " + this.mUser1;
         else
             resultado = ", Vencedor= " + this.mUser2;
-        return (this.mUser1 + "VS" + this.mUser2 + resultado);
+        return (this.mUser1 + " vs " + this.mUser2 + resultado);
     }
 }
