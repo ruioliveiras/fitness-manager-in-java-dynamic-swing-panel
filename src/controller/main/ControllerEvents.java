@@ -439,14 +439,19 @@ public class ControllerEvents{
         System.out.println("Meteo: " + mSelected.getActivity().getWeather().toString());
         
         /*imprimir jogos*/
-        for(ContestPair g : games)
+        int i = 1;
+        for(ContestPair g : games){
+            System.out.println("Jogo " + i);
             System.out.println(g.toString());
+            System.out.println("");
+            i++;
+        }
 
         nextOutput();    
         /*imprimir tabela ordenada*/
         System.out.println("--- Tabela Classificativa ---");
         for(SimulationPair p : classif)
-            System.out.println(p.getName() + " --- " + p.getResult());  
+            System.out.println(p.getName() + " --------- " + p.getResult());  
     }
     
     /**contest simulation*/

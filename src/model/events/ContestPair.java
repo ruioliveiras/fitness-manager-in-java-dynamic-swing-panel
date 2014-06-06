@@ -29,11 +29,11 @@ public class ContestPair
     public String toString(){
         String resultado;
         if(this.mPtsUser1 == this.mPtsUser2)
-            resultado = ", Empate";
+            resultado = "\t ------- Empate";
         else if(this.mPtsUser1 > this.mPtsUser2)
-            resultado = ", Vencedor= " + this.mUser1;
+            resultado = " ------- Vencedor= " + this.mUser1;
         else
-            resultado = ", Vencedor= " + this.mUser2;
-        return (this.mUser1 + " vs " + this.mUser2 + resultado);
+            resultado = " ------- Vencedor= " + this.mUser2;
+        return (this.mUser1 + "  vs  " + this.mUser2 + resultado);
     }
 }
