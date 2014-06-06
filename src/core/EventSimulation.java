@@ -35,7 +35,7 @@ public class EventSimulation {
             e.printStackTrace();
         } /*tempo por intervalo, Ex:por km*/
         double fitnessFact = 1/u.getForma();/*pior forma => mais tempo (pior)*/
-        double weatherFact = 1/Math.max(0.1, (double) w.getLvl()/20);/*pior tempo => mais tempo (pior), no limite duplica o tempo*/
+        double weatherFact = 1/Math.max(0.5, (double) w.getLvl()/20);/*pior tempo => mais tempo (pior), no limite duplica o tempo*/
         long result;
         if(Math.random()*20 < 0.01*u.getIdade()) /*probabilida de de desistir proporcional a faixa etaria, 1% para 20 anos*/
             result = Long.MAX_VALUE/2; /*desistiu => duracao muito elevada*/
@@ -106,9 +106,11 @@ public class EventSimulation {
     static public int getSimulationContest(User u1, User u2, Class<? extends Activity> category){
         int user1Pts = UserStats.getPtsFromLastYear(u1, category);
         int user2Pts = UserStats.getPtsFromLastYear(u2, category);
+        double user1Fitness = u1.getForma();
+        double user2Fitness = u2.getForma();
         double rnd1 = 1 + (Math.random() - 0.50);
         double rnd2 = 1 + (Math.random() - 0.50);
-        return (int) (rnd2*user2Pts - rnd1*user1Pts);
+        return (int) (rnd2*user2Pts*user2Fitness - rnd1*user1Pts*user1Fitness);
     }      
 
 }

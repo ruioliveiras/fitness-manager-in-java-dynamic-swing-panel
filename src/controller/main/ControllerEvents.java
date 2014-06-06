@@ -368,9 +368,9 @@ public class ControllerEvents{
 				mSelected.getActivity().setWeather(weather);
 				
 				if(mSelected.getActivity() instanceof Distance)
-		            iniciarDistanceEvent(weather);
+		            iniciarDistanceEvent();
 		        else
-		            iniciarContestEvent(weather);
+		            iniciarContestEvent();
 				
 				
 				return null;
@@ -391,16 +391,13 @@ public class ControllerEvents{
         nextOutput();
     }
     
-    private void iniciarDistanceEvent(Weather w){
+    private void iniciarDistanceEvent(){
         List<String> usersKeys = mSelected.getUserManager().collection();/*ler keys do evento seleccionado*/
         List<User> users = new ArrayList<>();
         Distance act = (Distance) mSelected.getActivity();
         int recordType = mSelected.getRecordType();
         long eventDistance = act.getRecord(recordType).getValue();
         int stages = (eventDistance > 1000) ? (int) eventDistance/1000 : 1;
-        
-        System.out.println(mSelected.toString());
-        System.out.println("Meteo: " + mSelected.getActivity().getWeather().toString());
         
         /*adicionar Users atraves das keys*/
         for(String uKey : usersKeys){
@@ -417,13 +414,15 @@ public class ControllerEvents{
         Map<String,ArrayList<Long>> allResults = EventSimulation.getAllResults(users, act, recordType, stages);
         
         /*apresentacao dos resultados por etapa*/
+        System.out.println(mSelected.toString());
+        System.out.println("Meteo: " + act.getWeather().toString());
         for(int i = 1; i <= stages; i++){
             TreeSet<DistancePair> aux = EventSimulation.getStageClassification(allResults, i);
             printDistanceEvent(aux, i);
         }
     }
     
-    private void iniciarContestEvent(Weather w){
+    private void iniciarContestEvent(){
         List<ContestPair> games = gamesResults();
         Map<String,Integer> table = contestTable(games);
         TreeSet<DistancePair> classif = new TreeSet<>();
