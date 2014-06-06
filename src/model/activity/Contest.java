@@ -102,7 +102,7 @@ public abstract class Contest extends Activity {
 		if (att.getName().equals(Attr. POINT_TEAM.getName())){
 			return getPointTeam();
 		}else if (att.getName().equals(Attr.RESULT_DIF.getName())){
-			return getPointTeam();
+			return (getPointTeam() - getPointRival());
 		}else if (att.getName().equals(Attr.TEMPO.getName())){
 			return getDuration();
 		}else {

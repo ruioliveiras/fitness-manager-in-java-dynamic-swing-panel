@@ -47,7 +47,7 @@ public class PanelRecords extends PanelListToolBar {
 		DATE2		("Data2",JTextField.class,23),
 		CALORIAS	("Calorias(kcal)",JTextField.class,4),
 		DISTANCIA	("Distancia(m)",JTextField.class,4),
-		WORKOUT		("Workout",JTextField.class,10);
+		WORKOUT		("Workout(h)",JTextField.class,10);
 		
 		
 		private String eName;

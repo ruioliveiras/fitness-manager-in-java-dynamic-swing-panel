@@ -54,8 +54,8 @@ public class PanelActivities extends PanelListToolBar {
 		MINALT		("Min Altura [m]",JTextField.class,4),
 		MAXALT		("Max Altura [m]",JTextField.class,4),
 		//CONTEST
-		POINTRIVAL	("Equipa",JTextField.class,4),
-		POINTTEAM	("           Oponente",JTextField.class,4),
+		POINTTEAM	("Equipa",JTextField.class,4),
+		POINTRIVAL	("           Oponente",JTextField.class,4),
 		//SKILL
 		MAXPOINT	("Max trik",JTextField.class,4),
 		POINTS		("            Pontos",JTextField.class,4);

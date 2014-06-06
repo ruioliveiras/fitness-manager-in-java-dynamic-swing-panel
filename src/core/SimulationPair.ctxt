@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.params=name\ result
-comment0.target=DistancePair(java.lang.String,\ long)
+comment0.target=SimulationPair(java.lang.String,\ long)
 comment1.params=
 comment1.target=java.lang.String\ getName()
 comment2.params=
