@@ -239,6 +239,19 @@ public class Main {
         }
         
         
+        Event ev2 = new EventContest("Street Basket UM", new Basquetebol(), new GregorianCalendar(),
+                                        new GregorianCalendar(2014,GregorianCalendar.JUNE,7), 1, 5, 
+                                        Contest.MyRecords.MAX_PONTOS.getrecordType(), 2, 3, 1, 0); 
+                                        
+        try{
+        ev2.addUser(u1);
+        ev2.addUser(u2);
+        ev2.addUser(u3);
+        ev2.addUser(u4);
+        }catch(AddEventException e){
+            System.out.println("Excepcao ao adicionar user ao evento:" + e.getMessage());
+        }
+
         
         sDataSet = new Dataset();
         sDataSet.userManager().add(u1);
@@ -247,6 +260,7 @@ public class Main {
         sDataSet.userManager().add(u4);
         sDataSet.userManager().add(u5);
         sDataSet.eventManager().add(ev1);
+        sDataSet.eventManager().add(ev2);
     }
     public static void clean() {
         loadSample();
