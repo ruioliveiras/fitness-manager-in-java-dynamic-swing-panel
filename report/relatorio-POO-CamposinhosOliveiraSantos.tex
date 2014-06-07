@@ -523,47 +523,36 @@ Somadas todas as contribuições de cada dia, tem-se a forma final.
 
 \chapter{Estatísticas dos Utilizadores}
 \label{cap:estatisticas}
-(...)
-@COMENT: ANDRÉ - PEQUENA DESCRIÇÃO DOS MÉTODOS DE ESTATISTICA (metodo auxiliar actividadesEntre, metodologia geral com data de inicio e fim, pontos só para simulação)
-(...)
-\begin{code}[caption=Métodos para cálculo de estatísticas (src/core/UserStats)., label=code:userStats]
-static public int getDistanceStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
-    int totalDist = 0;
-    for(Activity act : usr.actividadesEntre(startDate, endDate))
-	if(act instanceof Distance) totalDist += ((Distance) act).getDistance();
-    return totalDist;
-}
+As estatísticas sobre as actividades dos utilizadores, para além de um requisito da aplicação, 
+foi também útil para para a simulação de eventos (\ref{cap:simula)}. 
+Para esses dois propósitos foi criada uma classe \verb!UserStats!, contendo os métodos de estatísticas. 
+O excerto de código \ref{code:userStats} apresenta os cabeçalhos dos métodos desenvolvidos.
 
-static public int getCaloriesStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
-    int totalCal = 0;
-    for(Activity act : usr.actividadesEntre(startDate, endDate))
-	totalCal += act.calculateCalories(usr);
-    return totalCal;
-}
+Os três primeiros métodos recebem um utilizador e duas datas passadas como argumento, e devolvem informação sobre as actividades desse utilizador 
+entre o período decorrido entre as duas datas.
+O método \verb!getDistanceStats! devolve a distância que um utilizador percorreu no total. 
+Para o cálculo, são tidas em conta todas as actividades subclasse de \verb!Distance!.
+O método \verb!getCaloriesStats! devolve as calorias gastas. 
+Uma vez que a todas as actividades está associado um gasto de calorias, para o cálculo são tidas em conta todas 
+as actividades do utilizador no período considerado.
+O método \verb!getWorkoutStats! devolve o tempo total gasto em actividades. 
+Tal como no método anterior, também este tem em conta todas as actividades do utilizador no período entre as datas passadas como argumento.
+
+Para as actividades em que a performance possa ser avaliada por uma pontuação (\verb!Contest! e \verb!Skill!) foi criado um método adicional 
+(quarto método do código \ref{code:userStats}).
+Este método recebe um utilizador e uma classe. A classe passada como argumento corresponde à modalidade da actividade que se pretende considerar. 
+É devolvido um inteiro com o total de pontos conseguidos pelo utilizador no último ano e na actividade especificada.
+
+\begin{code}[caption=Métodos para cálculo de estatísticas (src/core/UserStats)., label=code:userStats]
+static public int getDistanceStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate);
+
+static public int getCaloriesStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate);
 
 /** @return time in hours **/
-static public double getWorkoutStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
-    long totalTime = 0;
-    for(Activity act : usr.actividadesEntre(startDate, endDate))
-	totalTime += act.getDuration();
-    return (double) totalTime/(1000*3600);
-}
+static public double getWorkoutStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate);
   
 /** points only for simulation purpose **/
-static public int getPtsFromLastYear(User usr, Class<? extends Activity> category){
-    int totalPontos = 0;
-    /*date now*/
-    GregorianCalendar endDate = new GregorianCalendar();
-    /*date one year before*/
-    GregorianCalendar startDate = new GregorianCalendar(endDate.get(Calendar.YEAR) - 1, endDate.get(Calendar.MONTH), endDate.get(Calendar.DAY_OF_MONTH));
-    for(Activity act: usr.actividadesEntre(startDate, endDate)){
-	if( act instanceof Skill) totalPontos += ((Skill) act).getPoints();
-	else
-	if(act instanceof Contest)
-	    totalPontos += ((Contest) act).getPointTeam() - ((Contest) act).getPointRival();
-    }
-    return totalPontos;
-}
+static public int getPtsFromLastYear(User usr, Class<? extends Activity> category);
 \end{code}
 
 
