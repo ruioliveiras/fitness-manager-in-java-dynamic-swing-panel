@@ -274,6 +274,11 @@ A aplicação desenvolvida apresenta um conjunto considerável de funcionalidade
  \item Possibilidade de extensibilidade para novas actividades e eventos.
 \end{itemize}
 
+%----------------------------------------------------------------------
+\newpage
+\phantom{placeholder} % doesn't appear on page
+\thispagestyle{empty} % if want no header/footer
+%----------------------------------------------------------------------
 \chapter{Estruturas de Dados Principais}
 \label{cap:estruturas}
 \section{User class}
@@ -551,6 +556,11 @@ valor corrigido $CMET$ (eq. \ref{eq:CMET}), para mais detalhes ver \url{https://
 CMET = MET \times \frac{3.5 \text{ ml/kg/min}}{RMRCB [\text{ ml/kg/min}]}
 \end{equation}
 
+%----------------------------------------------------------------------
+\newpage
+\phantom{placeholder} % doesn't appear on page
+\thispagestyle{empty} % if want no header/footer
+%----------------------------------------------------------------------
 \chapter{Cálculo da Forma dos Utilizadores}
 \label{cap:forma}
 A forma é definida por um valor entre 0.1 e 1, podendo ser mudado alterando as variáveis \verb!MAX_FORMA! e \verb!MIN_FORMA!.
@@ -568,6 +578,11 @@ A contribuição para a forma de cada dia é calculada multiplicando o peso dess
 fez de uma actividade e o número de minutos recomendado para essa actividade (número de minutos recomendado para uma actividade = \verb!Intensidade!). 
 Somadas todas as contribuições de cada dia, tem-se a forma final.
 
+%----------------------------------------------------------------------
+\newpage
+\phantom{placeholder} % doesn't appear on page
+\thispagestyle{empty} % if want no header/footer
+%----------------------------------------------------------------------
 \chapter{Estatísticas dos Utilizadores}
 \label{cap:estatisticas}
 As estatísticas sobre as actividades dos utilizadores, para além de um requisito da aplicação, 
@@ -602,8 +617,11 @@ static public double getWorkoutStats(User usr, GregorianCalendar startDate, Greg
 static public int getPtsFromLastYear(User usr, Class<? extends Activity> category);
 \end{code}
 
-
-
+%----------------------------------------------------------------------
+\newpage
+\phantom{placeholder} % doesn't appear on page
+\thispagestyle{empty} % if want no header/footer
+%----------------------------------------------------------------------
 \chapter{Simulação de Eventos}
 \label{cap:simula}
 \section{Eventos do Tipo Corrida (Distance)}
@@ -687,13 +705,39 @@ static public int getSimulationContest(User u1, User u2, Class<? extends Activit
 }
 \end{code}  
 
+%----------------------------------------------------------------------
+\newpage
+\phantom{placeholder} % doesn't appear on page
+\thispagestyle{empty} % if want no header/footer
+%----------------------------------------------------------------------
+%----------------------------------------------------------------------
+\newpage
+\phantom{placeholder} % doesn't appear on page
+\thispagestyle{empty} % if want no header/footer
+%----------------------------------------------------------------------
 \chapter{Conclusões}
 \label{cap:concl}
-(...)
+O presente relatório descreveu, de forma não exaustiva, as principais componentes da aplicação desenvolvida 
+para a avaliação do projeto \emph{FitnessUM} da unidade curricular de LI3. 
+Considera-se que os objectivos básicos terão sido todos atingidos, tendo-se ainda conseguido responder a alguns dos objectivos 
+complementares, de que é exemplo a simulação de eventos. 
+Pese embora não fosse requerido, foi ainda possível implementar uma interface I/O gráfica, valorizando a aplicação.
+O trabalho foi desenvolvido num verdadeiro ambiente de trabalho de equipa, através de uma discussão permanente 
+dos aspectos essenciais para a concepção e de um rigoroso e robusto controlo de versões.
 
+%----------------------------------------------------------------------
+\newpage
+\phantom{placeholder} % doesn't appear on page
+\thispagestyle{empty} % if want no header/footer
+%----------------------------------------------------------------------
 \bibliographystyle{plain}
 \bibliography{relatorio-POO-CamposinhosOliveiraSantos}
 
+%----------------------------------------------------------------------
+\newpage
+\phantom{placeholder} % doesn't appear on page
+\thispagestyle{empty} % if want no header/footer
+%----------------------------------------------------------------------
 \appendix
 \chapter{Demo da aplicação}
 \label{anex:demo}
