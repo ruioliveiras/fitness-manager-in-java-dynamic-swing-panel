@@ -140,6 +140,9 @@ A figura \ref{fig:src} apresenta os packages principais da aplicação, em corre
 
 Na figura \ref{fig:model} descreve o package \emph{model}, com os seus sub-packages principais - activity, user e events -, 
 bem como \emph{Dataset} para gestão dos dados e a classe para definição dos recordes (ver \ref{sec:record}).
+A classe \emph{Dataset} é o conjunto de toda a informação referente à aplicação criada, 
+contendo um conjunto de utilizadores e outro de eventos. 
+Esta informação é acedida através da classe \emph{Manager}, descrita na secção \ref{sec:manager}.
 
 O package \emph{model}, descrito na figura \ref{fig:view}, gere toda a interface gráfica com o utilizador.
 
@@ -187,12 +190,20 @@ Todos os métodos foram implementados como \verb!static!.
 \label{fig:core}
 \end{figure}
 
-\section{Colections Manager}
+\section{Encapsulamento: Manager}
 \label{sec:manager}
-(...)
-@COMENT: OLIVEIRA - work your magic :)
-(...)
 A figura \ref{fig:manager} apresenta o diagrama de classes relativo ao \emph{Manager}.
+
+A classe Manager foi criada para facilitar o encapsulamento de tipos \verb!Map! ou \verb!Set!, e realiza as operações básicas de gestão 
+(na adição faz um clone, na pesquisa retornar um clone).
+
+Quando se instancia a classe \emph{Manager}, passa-se a estrutura que pretendemos encapsular, a partir daí esta estrutura nunca mais 
+pode ser acedida. Assim, caso seja necessária aceder a algum método especifico da estrutura, antes de esta ser instanciada deverá ser guardada.
+
+Desta forma torna-se suficiente retornar o \emph{Manager} para que o exterior consiga aceder de forma encapsulada à informação.
+
+Para se poder utilizar um \emph{Manager} de \verb!Map! os objetos devem implementar a interface \emph{ObjectKey}. 
+O valor retornado por essa função será a chave do objecto no \verb!Map!.
 
 \begin{figure}
 \centering
