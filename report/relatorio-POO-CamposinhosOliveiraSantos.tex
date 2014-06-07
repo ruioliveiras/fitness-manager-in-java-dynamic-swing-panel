@@ -92,7 +92,7 @@ Programação Orientada a Objectos.
 
 De acordo com o enunciado \cite{enunciado}, os principais objectivos definidos para a aplicação \emph{FitnessUM} são os seguintes:
 
-\textbf{Requisitos básicos:}
+\textbf{Requisitos básicos}
 \begin{itemize}
 \item Aceder à aplicação utilizando as credenciais (email e password);
 \item Visualizar a informação das actividades, do próprio e dos amigos, com possibilidade de aceder aos seus detalhes; 
@@ -101,7 +101,7 @@ De acordo com o enunciado \cite{enunciado}, os principais objectivos definidos p
 \item Aceder às estatísticas de distância, tempo e calorias gastas;
 \end{itemize}
 
-\textbf{Requisitos de valorização:}
+\textbf{Requisitos de valorização}
 \begin{itemize}
 \item Definir tipos de recordes e registar os recordes pessoais de cada utilizador;
 \item Definir eventos e proceder à sua simulação a partir dos administratores da aplicação.
@@ -109,10 +109,22 @@ De acordo com o enunciado \cite{enunciado}, os principais objectivos definidos p
 
 \section{Organização do Relatório}
 \label{sec:org}
-(...)
+O presente relatório serve de suporte à aplicação desenvolvida, apresentando uma descrição geral dos aspectos mais importantes.
+Com excepção do presente capítulo introdutório, o relatório é composto por dois capítulos iniciais e nucleares  - Arquitectura e 
+Estruturas de Dados - e por quatro capítulos complementares relacionados com funcionalidades particulares da aplicação - Consumo de Calorias, 
+Forma dos Utilizadores, Estatísticas e Simulação de Eventos. No final são tecidas algumas conclusões, bem como apresentadas algumas imagens da
+aplicação em anexo.
 
 \chapter{Arquitectura e Descrição da Aplicação}
 \label{cap:arq}
+
+Desenvolvida com Eclipse e Bluej.
+
+De forma a manter uma estrutura de pastas partilhada entre os autores e um controlo de versões eficaz, 
+foi utilizada a ferramenta open source \emph{GIT} (\url{http://git-scm.com/}), 
+com repositório privado no bitbucket (\url{https://bitbucket.org/ruiOliveiras94/fitnessum-poo}).
+
+
 \section{Packages}
 \label{sec:packages}
 (...)
@@ -124,19 +136,59 @@ Model–view–controller (MVC) figura \ref{fig:mvc}.
 \caption{Diagrama com a relação típica dos componentes do MVC (ref.:\url{http://en.wikipedia.org/wiki/Model-view-controller}).}
 \label{fig:mvc}
 \end{figure}
-(...)
 
-De forma a manter uma estrutura de pastas partilhada entre os autores e um controlo de versões eficaz, 
-foi utilizada a ferramenta open source \emph{GIT} (\url{http://git-scm.com/}), 
-com repositório privado no bitbucket (\url{https://bitbucket.org/ruiOliveiras94/fitnessum-poo}).
+\begin{figure}
+\centering
+\includegraphics[width=7cm]{src.png}
+\caption{Pasta \emph{source} com os vários \emph{packages} desenvolvidos.}
+\label{fig:src}
+\end{figure}
 
-falar também do Manager, Dataset, ...
+\begin{figure}
+\centering
+\includegraphics[width=7cm]{model.png}
+\caption{\emph{Package model} (src/model).}
+\label{fig:model}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=7cm]{view.png}
+\caption{\emph{Package view} (src/view).}
+\label{fig:view}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=7cm]{controller.png}
+\caption{\emph{Package controller} (src/controller).}
+\label{fig:controller}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=7cm]{core.png}
+\caption{\emph{Package core} (src/core).}
+\label{fig:core}
+\end{figure}
+
+
+
+falar também do, Dataset, ...
 
 \section{Colections Manager}
 \label{sec:manager}
 (...)
 @COMENT: OLIVEIRA - work your magic :)
 (...)
+A figura \ref{fig:manager} apresenta o diagrama de classes relativo ao \emph{Manager}.
+
+\begin{figure}
+\centering
+\includegraphics[width=7cm]{coreUtil.png}
+\caption{\emph{Package} util (src/core/util) com o \emph{Manager} de colecções.}
+\label{fig:manager}
+\end{figure}
 
 \section{Diagramas de Classes}
 \label{sec:classes}
@@ -163,6 +215,7 @@ Lista de features da aplicação.
 \section{User class}
 \label{sec:user}
 As variáveis de instância da classe \verb!User! são apresentadas no excerto de código \ref{code:user}.
+Na figura \ref{fig:user} apresenta-se o package respetivo.
 Para as permissões foi usada uma enumeração correspondente aos diferentes tipos de utilizador. 
 Estas permissões são usadas para controlar as funcionalidades a que o utilizador tem acesso na aplicação.
 Para os recordes foi usado um \verb!Map! de uma classe correspondente a uma modalidade para o conjunto de recordes dessa modalidade. 
@@ -170,6 +223,13 @@ Um recorde é constituído pelo seu tipo, dado por um inteiro e por uma ``Activi
 Para os amigos e lista de amigos foi utilizado o \verb!Manager!, que é instanciado numa \verb!HashSet! de \verb!String!.
 Para o conjunto de actividades realizadas, foi também utilizado o Manager instanciado numa árvore (TreeSet), ordenado por meio 
 de um \verb!Comparator!, que compara as actividades por ordem crescente da sua data de realização.
+
+\begin{figure}
+\centering
+\includegraphics[width=7cm]{user.png}
+\caption{\emph{Package user}  (src/model/user).}
+\label{fig:user}
+\end{figure}
 
 \begin{code}[caption=Variáveis de instância da classe User (src/model/user)., label=code:user]
 private String email;
