@@ -87,7 +87,7 @@ A aplicação foi desenvolvida na linguagem \emph{java} e pretende simular um am
 
 \section{Objectivos}
 \label{sec:obj}
-O presente projeto tem como objectivo principal consolidar e colocar em práctica os conceitos fundamentais transmitidos durante a UC de 
+O presente projecto tem como objectivo principal consolidar e colocar em prática os conceitos fundamentais transmitidos durante a UC de 
 Programação Orientada a Objectos.
 
 De acordo com o enunciado \cite{enunciado}, os principais objectivos definidos para a aplicação \emph{FitnessUM} são os seguintes:
@@ -104,7 +104,7 @@ De acordo com o enunciado \cite{enunciado}, os principais objectivos definidos p
 \textbf{Requisitos de valorização}
 \begin{itemize}
 \item Definir tipos de recordes e registar os recordes pessoais de cada utilizador;
-\item Definir eventos e proceder à sua simulação a partir dos administratores da aplicação.
+\item Definir eventos e proceder à sua simulação a partir dos administradores da aplicação.
 \end{itemize}
 
 \section{Organização do Relatório}
@@ -197,12 +197,12 @@ A figura \ref{fig:manager} apresenta o diagrama de classes relativo ao \emph{Man
 A classe Manager foi criada para facilitar o encapsulamento de tipos \verb!Map! ou \verb!Set!, e realiza as operações básicas de gestão 
 (na adição faz um clone, na pesquisa retornar um clone).
 
-Quando se instancia a classe \emph{Manager}, passa-se a estrutura que pretendemos encapsular, a partir daí esta estrutura nunca mais 
+Quando se instância a classe \emph{Manager}, passa-se a estrutura que pretendemos encapsular, a partir daí esta estrutura nunca mais 
 pode ser acedida. Assim, caso seja necessária aceder a algum método especifico da estrutura, antes de esta ser instanciada deverá ser guardada.
 
 Desta forma torna-se suficiente retornar o \emph{Manager} para que o exterior consiga aceder de forma encapsulada à informação.
 
-Para se poder utilizar um \emph{Manager} de \verb!Map! os objetos devem implementar a interface \emph{ObjectKey}. 
+Para se poder utilizar um \emph{Manager} de \verb!Map! os objectos devem implementar a interface \emph{ObjectKey}. 
 O valor retornado por essa função será a chave do objecto no \verb!Map!.
 
 \begin{figure}
@@ -217,16 +217,16 @@ O valor retornado por essa função será a chave do objecto no \verb!Map!.
 \subsection{Actividades}
 \label{subsec:actividadesDiagrama}
 Na figura \ref{fig:activityTable} apresentam-se todas as actividades físicas implementadas na aplicação, 
-bem como as constantes especificas de cada clasee \verb!MET! e \verb!Intensidade!, que serão descritas adiante.
+bem como as constantes especificas de cada classe \verb!MET! e \verb!Intensidade!, que serão descritas adiante.
 As actividades foram todas classificadas em um de cinco tipos: Distance, Altimetry, Skill, Ludic e Contest.
 As estruturas de dados de cada classe encontram-se descritas no capítulo \ref{cap:estruturas}.
 
 As classes de actividades físicas para além de funcionarem como um modelo de classificação, 
-obedecem a uma hierarquia, onde são herdados atributos e ``obrigações'' das classes hierárquicamente superiores.
+obedecem a uma hierarquia, onde são herdados atributos e ``obrigações'' das classes hierarquicamente superiores.
 A figura \ref{fig:activityDiagram} apresenta o diagrama de classes de actividades, obtido através do \emph{BlueJ}.
 A hierarquia de classes definida implica a herança de alguns métodos abstractos fundamentais para a aplicação.
 São exemplo disso os método \verb!getIntensidade()! e o \verb!getMET()!.
-O primeiro devolve o número de minutos diários recomendados para a actividade, para que o utilizador atinga uma forma ideal. 
+O primeiro devolve o número de minutos diários recomendados para a actividade, para que o utilizador atinja uma forma ideal. 
 O segundo, serve de base ao cálculo das calorias dessa actividade, devolvendo uma constante específica de cada actividade (ver secção \ref{sec:caloriasMet}).
 
 \begin{figure}
@@ -267,7 +267,7 @@ A aplicação desenvolvida apresenta um conjunto considerável de funcionalidade
  \item Possibilidade de registar actividade em 41 modalidades;
  \item Amizades entre utilizadores (dependendo da aceitação de convites);
  \item Apresentação de índice evolutivo de forma em função das actividades registadas;
- \item Cálculo das calorias dispendidas em função do género e características físicas de cada índividuo, 
+ \item Cálculo das calorias despendidas em função do género e características físicas de cada indivíduo, 
 	  por intermédio da frequência cardíaca ou tipo de actividade;
  \item Apresentação de estatísticas de actividades em termos de duração, calorias e distância percorrida;
  \item Criação e simulação de eventos de distância ou do tipo torneio;
@@ -279,7 +279,7 @@ A aplicação desenvolvida apresenta um conjunto considerável de funcionalidade
 \section{User class}
 \label{sec:user}
 As variáveis de instância da classe \verb!User! são apresentadas no excerto de código \ref{code:user}.
-Na figura \ref{fig:user} apresenta-se o package respetivo.
+Na figura \ref{fig:user} apresenta-se o package respectivo.
 Para as permissões foi usada uma enumeração correspondente aos diferentes tipos de utilizador. 
 Estas permissões são usadas para controlar as funcionalidades a que o utilizador tem acesso na aplicação.
 Para os recordes foi usado um \verb!Map! de uma classe correspondente a uma modalidade para o conjunto de recordes dessa modalidade. 
@@ -426,12 +426,12 @@ private int mPointsLoss;
 
 \chapter{Cálculo do Consumo de Calorias por Actividade}
 \label{cap:calorias}
-O procedimento de cálculo utilizado para estimar a quantidade de calorias dispendidas por actividade seguiu uma filosofia semelhante à utilizada 
+O procedimento de cálculo utilizado para estimar a quantidade de calorias despendidas por actividade seguiu uma filosofia semelhante à utilizada 
 na rede social \emph{Endomondo} (\url{www.endomondo.com}). 
 Na figura \ref{fig:caloriasProcedimento} apresenta-se um diagrama explicativo do mesmo, onde se evidenciam duas vias: uma baseada na frequência 
 cardíaca e outra no tipo de actividade.
 
-Os dados básicos necessários para o cálculo das calorias dispendidas estão relacionados com o individuo e são:
+Os dados básicos necessários para o cálculo das calorias despendidas estão relacionados com o individuo e são:
 \begin{itemize}
  \item Género;
  \item Características físicas --- peso, altura;
@@ -458,11 +458,11 @@ Os dados complementares são:
 As formulações expostas na presente secção tiveram por base a aplicação web ``Heart Rate Based Calorie Burn Calculator'', 
 da página \url{http://www.shapesense.com/fitness-exercise/calculators/}. Por uma questão de completitude apresentam-se todas as referências originais.
 No cálculo pela via da frequência cardíaca um dos parâmetros fundamentais é o $VO2_{max}$, que é a capacidade máxima do corpo de um 
-indivíduo em transportar e fazer uso de oxigênio durante um exercício físico incremental.
+indivíduo em transportar e fazer uso de oxigénio durante um exercício físico incremental.
 Este parâmetro pode ser estimado de acordo com \cite{VO2max}, com base na frequência cardíaca máxima ($MHR$) e em 
 repouso ($RHR$) --- equação \ref{eq:VO2max}.
 A frequência cardíaca máxima pode ser estimada com base na idade de acordo com \cite{MHR} --- equação \ref{eq:MHR}.
-As calorias brutas dispendidas ($GCB$) foram estimadas de acordo com \cite{GCB} --- equação \ref{eq:GCB}.
+As calorias brutas despendidas ($GCB$) foram estimadas de acordo com \cite{GCB} --- equação \ref{eq:GCB}.
 Por fim, para se determinar o número de calorias efectivas ($NCB$) calculou-se a taxa metabólica basal ($BMR$) e a taxa de actividade ($RMRCB$)
 A estimativa das calorias efectivas foi realizada de acordo com \cite{NCB} --- equações \ref{eq:NCB}, \ref{eq:RMRCB} e \ref{eq:BMR}.
 
@@ -506,9 +506,9 @@ H &=& \text{altura [cm]}\nonumber\\
 
 \section{Cálculo Baseado no Tipo de Actividade}
 \label{sec:caloriasMet}
-Na ausência de dados relativos à frequência cardíaca do individuo, o cálculo do número de calorias dispendidas ($CB$) é efectuado com base 
+Na ausência de dados relativos à frequência cardíaca do individuo, o cálculo do número de calorias despendidas ($CB$) é efectuado com base 
 no índice MET (``The Metabolic Equivalent of Task''). Este índice é uma medida fisiológica do custo energético de um dado exercício físico.
-Com base nesta abordagem mais simplificada, as calorias dispendidas podem ser calculadas de acordo com a equação \ref{eq:CBmet}.
+Com base nesta abordagem mais simplificada, as calorias despendidas podem ser calculadas de acordo com a equação \ref{eq:CBmet}.
 
 \begin{equation} \label{eq:CBmet} 
 CB = MET \times W \times T \text{\hspace*{0.3cm}[kcal]}
@@ -517,7 +517,7 @@ CB = MET \times W \times T \text{\hspace*{0.3cm}[kcal]}
 Os índices MET foram definidos de acordo com o ``Compendium of physical activities'' \cite{compendium}, da autoria do ``Healthy Lifestyles Research Center``, 
 ''School of Nutrition and Health Promotion`` da Arizona State University \url{https://sites.google.com/site/compendiumofphysicalactivities/}.
 Na tabela \ref{tab:met} apresentam-se alguns valores típicos dos índices MET. 
-De forma a adaptar os valores dos índices MET a cada índividuo (peso, altura e idade), foram aplicadas correcções de acordo com \cite{NCB} --- 
+De forma a adaptar os valores dos índices MET a cada indivíduo (peso, altura e idade), foram aplicadas correcções de acordo com \cite{NCB} --- 
 valor corrigido $CMET$ (eq. \ref{eq:CMET}), para mais detalhes ver \url{https://sites.google.com/site/compendiumofphysicalactivities/corrected-mets}.
 
 \begin{table}
@@ -553,19 +553,19 @@ CMET = MET \times \frac{3.5 \text{ ml/kg/min}}{RMRCB [\text{ ml/kg/min}]}
 
 \chapter{Cálculo da Forma dos Utilizadores}
 \label{cap:forma}
-A forma é um valor de 0 a 1. (Pode ser mudado alterando as variáveis \verb!MAX_FORMA! e \verb!MIN_FORMA!).
+A forma é definida por um valor entre 0.1 e 1, podendo ser mudado alterando as variáveis \verb!MAX_FORMA! e \verb!MIN_FORMA!.
 
 O cálculo da forma assume um número de dias nos quais todas as actividades feitas nesse intervalo têm influência para a forma 
-(variável \verb!DIAS_RELEVANTES!). Se \verb!DIAS_RELEVANTES=24!, significa eu só as actividades nos últimos 24 dias têm influência para a forma.  
-Isto serve para simular o facto de só as actividades mais recentes deverem ter influência na forma actual e quanto mais recentes as 
+(variável \verb!DIAS_RELEVANTES!). Se \verb!DIAS_RELEVANTES=24!, significa que só as actividades nos últimos 24 dias têm influência para a forma.  
+Assim só as actividades mais recentes têm influência na forma actual e quanto mais recentes as 
 actividades, maior a influência na forma.
 
-A cada dia é atribuído um ''peso``, o quanto esse dia vai valer para o cálculo final da forma. 
-No entanto, não é feita uma distribuição equitativa dos pesos pelos dias. Dias mais distantes no tempo têm menos influência e portanto, 
-menos peso. Essa “menos influência” é dada por uma taxa (variável TAXA) que representa o decréscimo na forma resultante de ficar 1 dia sem 
+A cada dia é atribuído um ''peso`` (impacto no cálculo final da forma). 
+A definição do valor do peso não é feita de forma equitativa pelos dias. Assim, dias mais distantes no tempo têm menos influência e portanto, 
+menos peso. Essa menor influência é dada por uma taxa (variável \verb!TAXA!) que representa o decréscimo na forma resultante de ficar um dia sem 
 fazer nenhuma actividade. Se \verb!TAXA=0.05!, significa que cada dia que se ande para trás, tem -5\% de influência no cálculo da forma.
-A contribuição para a forma de cada dia é calculado multiplicando o peso desse dia pelo quociente entre o número de minutos que o utilizador 
-fez de uma actividade e o número de minutos recomendado para essa actividade (número de minutos recomendado para 1 actividade = \verb!Intensidade!). 
+A contribuição para a forma de cada dia é calculada multiplicando o peso desse dia pelo quociente entre o número de minutos que o utilizador 
+fez de uma actividade e o número de minutos recomendado para essa actividade (número de minutos recomendado para uma actividade = \verb!Intensidade!). 
 Somadas todas as contribuições de cada dia, tem-se a forma final.
 
 \chapter{Estatísticas dos Utilizadores}
@@ -619,7 +619,7 @@ Para a simulação de eventos de corrida foi definido um método que tem em cont
 	  ou melhorando para idades inferiores).
 \end{itemize}
 Multiplicando todos os factores enunciados obtém-se um valor aleatório para cada etapa.
-Este método foi designado \verb!getSimulationDistance! e é parcialmente apresentado no ínicio do excerto de código \ref{code:simulaCorrida}.
+Este método foi designado \verb!getSimulationDistance! e é parcialmente apresentado no início do excerto de código \ref{code:simulaCorrida}.
 
 A simulação completa processa-se de acordo com as seguintes fases de cálculo:
 \begin{enumerate}
