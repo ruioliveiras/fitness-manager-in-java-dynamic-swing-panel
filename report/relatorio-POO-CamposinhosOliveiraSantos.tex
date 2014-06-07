@@ -118,24 +118,39 @@ aplicação em anexo.
 \chapter{Arquitectura e Descrição da Aplicação}
 \label{cap:arq}
 
-Desenvolvida com Eclipse e Bluej.
+A aplicação foi desenvolvida utilizando simultaneamente os IDEs \emph{Eclipse} e \emph{BlueJ}.
+
+Foi utilizada uma arquitectura do tipo \emph{Model–View–Controller} (MVC) - ver figura \ref{fig:mvc} -, 
+permitindo uma interface gráfica com o utilizador.
 
 De forma a manter uma estrutura de pastas partilhada entre os autores e um controlo de versões eficaz, 
 foi utilizada a ferramenta open source \emph{GIT} (\url{http://git-scm.com/}), 
 com repositório privado no bitbucket (\url{https://bitbucket.org/ruiOliveiras94/fitnessum-poo}).
 
-
-\section{Packages}
-\label{sec:packages}
-(...)
-Model–view–controller (MVC) figura \ref{fig:mvc}.
-(...)
 \begin{figure}
 \centering
 \includegraphics[width=4cm]{MVC-Process.png}
 \caption{Diagrama com a relação típica dos componentes do MVC (ref.:\url{http://en.wikipedia.org/wiki/Model-view-controller}).}
 \label{fig:mvc}
 \end{figure}
+
+\section{Packages}
+\label{sec:packages}
+A figura \ref{fig:src} apresenta os packages principais da aplicação, em correspondência com a arquitectura MVC descrita.
+
+Na figura \ref{fig:model} descreve o package \emph{model}, com os seus sub-packages principais - activity, user e events -, 
+bem como \emph{Dataset} para gestão dos dados e a classe para definição dos recordes (ver \ref{sec:record}).
+
+O package \emph{model}, descrito na figura \ref{fig:view}, gere toda a interface gráfica com o utilizador.
+
+O package \emph{controller} encontra-se descrito na figura \ref{fig:controller}, possuindo todas as classes de controlo da aplicação, 
+bem como a classe principal (Main) com o executável da aplicação.
+
+O package \emph{core}, descrito na figura \ref{fig:core}, foi criado para alojar algumas funcionalidades mais especificas da aplicação.
+A sua separação dos packages principais deveu-se unicamente a uma opção de organização e gestão do código, 
+assim como para facilitar o desenvolvimento em paralelo por parte dos diferentes autores.
+Neste package inclui-se o código desenvolvido para o cálculo de calorias, cálculo da forma, cálculo de estatísticas e métodos de simulação.
+Todos os métodos foram implementados como \verb!static!.
 
 \begin{figure}
 \centering
@@ -172,10 +187,6 @@ Model–view–controller (MVC) figura \ref{fig:mvc}.
 \label{fig:core}
 \end{figure}
 
-
-
-falar também do, Dataset, ...
-
 \section{Colections Manager}
 \label{sec:manager}
 (...)
@@ -192,23 +203,65 @@ A figura \ref{fig:manager} apresenta o diagrama de classes relativo ao \emph{Man
 
 \section{Diagramas de Classes}
 \label{sec:classes}
-(...)
-A figura (...) apresenta o grafo de dependências dos vários ficheiros de código, obtido através do \emph{BlueJ}.
+\subsection{Actividades}
+\label{subsec:actividadesDiagrama}
+Na figura \ref{fig:activityTable} apresentam-se todas as actividades físicas implementadas na aplicação, 
+bem como as constantes especificas de cada clasee \verb!MET! e \verb!Intensidade!, que serão descritas adiante.
+As actividades foram todas classificadas em um de cinco tipos: Distance, Altimetry, Skill, Ludic e Contest.
+As estruturas de dados de cada classe encontram-se descritas no capítulo \ref{cap:estruturas}.
 
-COLOCAR TABELA EXCEL DAS ACTIVIDADES?
+As classes de actividades físicas para além de funcionarem como um modelo de classificação, 
+obedecem a uma hierarquia, onde são herdados atributos e ``obrigações'' das classes hierárquicamente superiores.
+A figura \ref{fig:activityDiagram} apresenta o diagrama de classes de actividades, obtido através do \emph{BlueJ}.
+A hierarquia de classes definida implica a herança de alguns métodos abstractos fundamentais para a aplicação.
+São exemplo disso os método \verb!getIntensidade()! e o \verb!getMET()!.
+O primeiro devolve o número de minutos diários recomendados para a actividade, para que o utilizador atinga uma forma ideal. 
+O segundo, serve de base ao cálculo das calorias dessa actividade, devolvendo uma constante específica de cada actividade (ver secção \ref{sec:caloriasMet}).
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{activitiesTable.png}
+\caption{Lista de actividades implementadas na aplicação.}
+\label{fig:activitiesTable}
+\end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{diagramaActivities.png}
-\caption{Diagrama com dependências da super classe \emph{Activity}.}
+\caption{Diagrama com dependências da super classe \emph{Activity} (src/model/activity).}
 \label{fig:activityDiagram}
+\end{figure}
+
+\subsection{Eventos}
+\label{subsec:eventosDiagrama}
+Para além das actividades, também os eventos obedecem a uma hierarquia.
+As estruturas de dados de cada classe de evento encontram-se descritas no capítulo \ref{cap:estruturas}.
+De forma semelhante às actividades, embora mais simplificada, definiram dois tipos de eventos: Distance e Contest.
+A figura \ref{fig:eventDiagram} descreve essas dependências.
+
+\begin{figure}
+\centering
+\includegraphics[width=10cm]{events.png}
+\caption{Diagrama com dependências da super classe \emph{Event} (src/model/events).}
+\label{fig:eventDiagram}
 \end{figure}
 
 \section{Funcionalidades da Aplicação}
 \label{sec:funcionalidades}
-(...)
-Lista de features da aplicação.
-(...)
+A aplicação desenvolvida apresenta um conjunto considerável de funcionalidades, sendo de destacar as seguintes:
+
+\begin{itemize}
+ \item Interface gráfica com o utilizador;
+ \item Registo de novos utilizadores com credenciais;
+ \item Possibilidade de registar actividade em 41 modalidades;
+ \item Amizades entre utilizadores (dependendo da aceitação de convites);
+ \item Apresentação de índice evolutivo de forma em função das actividades registadas;
+ \item Cálculo das calorias dispendidas em função do género e características físicas de cada índividuo, 
+	  por intermédio da frequência cardíaca ou tipo de actividade;
+ \item Apresentação de estatísticas de actividades em termos de duração, calorias e distância percorrida;
+ \item Criação e simulação de eventos de distância ou do tipo torneio;
+ \item Possibilidade de extensibilidade para novas actividades e eventos.
+\end{itemize}
 
 \chapter{Estruturas de Dados Principais}
 \label{cap:estruturas}
@@ -267,11 +320,6 @@ A subclasse \verb!Ludic! representa actividades mais simples e com um carácter 
 superclasse. Para além dos métodos abstractos impostos pela superclasse, são também definidos nesta classe os tipos de recordes específicos.
 Todas as variáveis da superclasse e subclasses referidas são apresentadas no excerto de código \ref{code:activity}.
 
-Para além dos atributos apresentados, a hierarquia de classes definida implica a herança de alguns métodos abstractos fundamentais para a aplicação.
-São exemplo disso os método \verb!getIntensidade()! e o \verb!getMET()!.
-O primeiro devolve o número de minutos diários recomendados para a actividade, para que o utilizador atinga uma forma ideal. 
-O segundo, serve de base ao cálculo das calorias dessa actividade, devolvendo uma constante específica de cada actividade (ver secção \ref{sec:caloriasMet}).
-
 \begin{code}[caption=Variáveis de instância da superclasse Activity e subclasses respectivas (src/model/activity)., label=code:activity]
 /***Super Classe***/
 private GregorianCalendar mDate;
@@ -294,7 +342,7 @@ private int mMaxTrick;
 \end{code}
 
 \section{Record interface}
-\label{sec:interface}
+\label{sec:record}
 (...)
 @COMENT: OLIVEIRA - work your magic :)
 (...)

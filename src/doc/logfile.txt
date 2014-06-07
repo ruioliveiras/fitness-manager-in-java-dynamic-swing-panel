@@ -1,0 +1,54 @@
+Class documentation
+<---- javadoc command: ---->
+/usr/lib/jvm/jdk1.7.0_55/bin/javadoc
+-author
+-version
+-nodeprecated
+-package
+-noindex
+-notree
+-nohelp
+-nonavbar
+-source
+1.7
+-classpath
+/usr/share/bluej/bluejcore.jar:/usr/share/bluej/junit-4.8.2.jar:/mnt/hgfs/UM/2-POO/fitnessum-poo/src
+-d
+/mnt/hgfs/UM/2-POO/fitnessum-poo/src/doc
+-encoding
+UTF-8
+-charset
+UTF-8
+-docletpath
+/usr/share/bluej/bjdoclet.jar
+-doclet
+bluej.doclet.doclets.formats.html.HtmlDoclet
+/mnt/hgfs/UM/2-POO/fitnessum-poo/src/model/ObjectRecordClass.java
+<---- end of javadoc command ---->
+Loading source file /mnt/hgfs/UM/2-POO/fitnessum-poo/src/model/ObjectRecordClass.java...
+Constructing Javadoc information...
+Standard Doclet version 1.7.0_55
+Building tree for all the packages and classes...
+Generating /mnt/hgfs/UM/2-POO/fitnessum-poo/src/doc/model/ObjectRecordClass.html...
+Generating /mnt/hgfs/UM/2-POO/fitnessum-poo/src/doc/model/ObjectRecordClass.EnumAttr.html...
+Generating /mnt/hgfs/UM/2-POO/fitnessum-poo/src/doc/model/ObjectRecordClass.ObjectRecord.html...
+/mnt/hgfs/UM/2-POO/fitnessum-poo/src/model/ObjectRecordClass.java:20: warning - Tag @link: reference not found: getRecordSize
+/mnt/hgfs/UM/2-POO/fitnessum-poo/src/model/ObjectRecordClass.java:20: warning - Tag @link: reference not found: getRecord
+/mnt/hgfs/UM/2-POO/fitnessum-poo/src/model/ObjectRecordClass.java:20: warning - Tag @link: reference not found: get
+/mnt/hgfs/UM/2-POO/fitnessum-poo/src/model/ObjectRecordClass.java:20: warning - Tag @link: reference not found: compareRecord
+/mnt/hgfs/UM/2-POO/fitnessum-poo/src/model/ObjectRecordClass.java:20: warning - Tag @link: reference not found: correct
+/mnt/hgfs/UM/2-POO/fitnessum-poo/src/model/ObjectRecordClass.java:37: warning - @return tag has no arguments.
+/mnt/hgfs/UM/2-POO/fitnessum-poo/src/model/ObjectRecordClass.java:43: warning - @return tag has no arguments.
+Generating /mnt/hgfs/UM/2-POO/fitnessum-poo/src/doc/model/ObjectRecordClass.Record.html...
+/mnt/hgfs/UM/2-POO/fitnessum-poo/src/model/ObjectRecordClass.java:110: warning - Tag @link: reference not found: similar
+/mnt/hgfs/UM/2-POO/fitnessum-poo/src/model/ObjectRecordClass.java:104: warning - Tag @link: reference not found: getValue
+Generating /mnt/hgfs/UM/2-POO/fitnessum-poo/src/doc/model/package-frame.html...
+Generating /mnt/hgfs/UM/2-POO/fitnessum-poo/src/doc/model/package-summary.html...
+Generating /mnt/hgfs/UM/2-POO/fitnessum-poo/src/doc/constant-values.html...
+Building index for all the packages and classes...
+Building index for all classes...
+Generating /mnt/hgfs/UM/2-POO/fitnessum-poo/src/doc/allclasses-frame.html...
+Generating /mnt/hgfs/UM/2-POO/fitnessum-poo/src/doc/allclasses-noframe.html...
+Generating /mnt/hgfs/UM/2-POO/fitnessum-poo/src/doc/index.html...
+Generating /mnt/hgfs/UM/2-POO/fitnessum-poo/src/doc/stylesheet.css...
+9 warnings
