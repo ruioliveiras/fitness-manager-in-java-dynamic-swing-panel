@@ -359,7 +359,7 @@ public class ControllerEvents{
 		}
     }
     
-    
+    private Object mlockObject;
     private void iniciar() {
     	((PanelEvents) mHandler).showPopupEvent(new SimpleListener() {
 			
@@ -367,14 +367,36 @@ public class ControllerEvents{
 			public Object action(Object o) {
 				Weather weather = (Weather) o;
 				mSelected.setWeather(weather);
-				
-				if(mSelected.getActivity() instanceof Distance)
-		            iniciarDistanceEvent();
-		        else
-		            iniciarContestEvent();
+				mlockObject = new Object();
+				Runnable r;
+				if(mSelected.getActivity() instanceof Distance){
+					r= new Runnable() {
+						public void run() {
+							iniciarDistanceEvent();
+						}
+					};
+				}else{
+					r =new Runnable() {
+						public void run() {
+							 iniciarContestEvent();
+						}
+					};
+				}
+				Thread th = new Thread(r);
+				th.start();
 				
 				
 				return null;
+			}
+		}, new SimpleListener() {
+			
+			@Override
+			public Object action(Object o) {
+		        synchronized (mlockObject) {
+		        	mlockObject.notify();
+					return null;
+		        }
+			
 			}
 		});
 
@@ -417,13 +439,18 @@ public class ControllerEvents{
         /*apresentacao dos resultados por etapa*/
         System.out.println(mSelected.toString());
         System.out.println("Meteo: " + act.getWeather().toString());
-        for(int i = 1; i <= stages; i++){
-            TreeSet<SimulationPair> aux = EventSimulation.getStageClassification(allResults, i);
-            printDistanceEvent(aux, i);
+        synchronized (mlockObject) {
+	        for(int i = 1; i <= stages; i++){
+	            TreeSet<SimulationPair> aux = EventSimulation.getStageClassification(allResults, i);
+	            printDistanceEvent(aux, i);
+        		try {
+        			mlockObject.wait();
+        		} catch (InterruptedException e) {}
+	        }
         }
     }
     
-    private void iniciarContestEvent(){
+    private synchronized void iniciarContestEvent(){
         List<ContestPair> games = gamesResults();
         Map<String,Integer> table = contestTable(games);
         TreeSet<SimulationPair> classif = new TreeSet<>(new ComparatorContest());
@@ -437,21 +464,29 @@ public class ControllerEvents{
         clearScreen();
         System.out.println(mSelected.toString());
         System.out.println("Meteo: " + mSelected.getActivity().getWeather().toString());
-        
-        /*imprimir jogos*/
-        int i = 1;
-        for(ContestPair g : games){
-            System.out.println("Jogo " + i);
-            System.out.println(g.toString());
-            System.out.println("");
-            i++;
-        }
 
-        nextOutput();    
-        /*imprimir tabela ordenada*/
-        System.out.println("--- Tabela Classificativa ---");
-        for(SimulationPair p : classif)
-            System.out.println(p.getName() + " --------- " + p.getResult());  
+        /*imprimir jogos*/
+        synchronized (mlockObject) {
+        	int i = 1;
+        	for(ContestPair g : games){
+        		try {
+        			mlockObject.wait();
+        		} catch (InterruptedException e) {}
+        		System.out.println("Jogo " + i);
+        		System.out.println(g.toString());
+        		System.out.println("");
+        		i++;
+        	}
+        	nextOutput();    
+        	/*imprimir tabela ordenada*/
+        	System.out.println("--- Tabela Classificativa ---");
+        	try {
+        		mlockObject.wait();
+        	} catch (InterruptedException e) {}
+        	for(SimulationPair p : classif)
+        		System.out.println(p.getName() + " --------- " + p.getResult());  
+        }
+       
     }
     
     /**contest simulation*/
