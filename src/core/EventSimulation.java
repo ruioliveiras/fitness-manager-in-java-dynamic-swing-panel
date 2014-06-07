@@ -37,13 +37,13 @@ public class EventSimulation {
         double fitnessFact = 1/u.getForma();/*pior forma => mais tempo (pior)*/
         double weatherFact = 1/Math.max(0.5, (double) w.getLvl()/20);/*pior tempo => mais tempo (pior), no limite duplica o tempo*/
         long result;
-        if(Math.random()*20 < 0.01*u.getIdade()) /*probabilida de de desistir proporcional a faixa etaria, 1% para 20 anos*/
+        if(Math.random()*20 < 0.01*u.getIdade()) /*probabilida de desistir proporcional a faixa etaria, 1% para 20 anos*/
             result = Long.MAX_VALUE/2; /*desistiu => duracao muito elevada*/
         else{
+            /* result = [0.5-1.5]*prsBest*[10-1]*[2-1] */
             result = (long) (rndFact * prsBest * fitnessFact * weatherFact);
         }
         return result;
-        /**TODO - adicionar automaticamente os resultados como novas actividades do User?*/
     }
          
     /**simulation of the all race (several stages) for a User*/

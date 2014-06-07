@@ -222,7 +222,7 @@ O segundo, serve de base ao cálculo das calorias dessa actividade, devolvendo u
 \centering
 \includegraphics[width=\textwidth]{activitiesTable.png}
 \caption{Lista de actividades implementadas na aplicação.}
-\label{fig:activitiesTable}
+\label{fig:activityTable}
 \end{figure}
 
 \begin{figure}
@@ -560,7 +560,7 @@ Somadas todas as contribuições de cada dia, tem-se a forma final.
 \chapter{Estatísticas dos Utilizadores}
 \label{cap:estatisticas}
 As estatísticas sobre as actividades dos utilizadores, para além de um requisito da aplicação, 
-foi também útil para para a simulação de eventos (\ref{cap:simula)}. 
+foi também útil para para a simulação de eventos (ver capítulo \ref{cap:simula}). 
 Para esses dois propósitos foi criada uma classe \verb!UserStats!, contendo os métodos de estatísticas. 
 O excerto de código \ref{code:userStats} apresenta os cabeçalhos dos métodos desenvolvidos.
 
@@ -595,7 +595,86 @@ static public int getPtsFromLastYear(User usr, Class<? extends Activity> categor
 
 \chapter{Simulação de Eventos}
 \label{cap:simula}
-(...)
+\section{Eventos do Tipo Corrida (Distance)}
+\label{sec:simulaCorrida}
+Para a simulação de eventos de corrida foi definido um método que tem em conta os seguintes factores:
+\begin{itemize}
+ \item Recorde pessoal do utilizador para a distância da corrida;
+ \item Parâmetro aleatório, variável entre 0.5 e 1.5 e que pode traduzir um ganho ou perda em relação ao recorde;
+ \item Parâmetro de forma, tal como discutido no capítulo \ref{cap:forma};
+ \item Parâmetro relativo às condições meteorológicas, que pode traduzir um aumento do tempo do recorde de duas vezes (condições más)
+	  ou não afectar o tempo do recorde (em condições ideais);
+ \item O método permite simular uma desistência, que foi definida com probabilidade de 1\% para a idade de 20 (agravando para idades superiores, 
+	  ou melhorando para idades inferiores).
+\end{itemize}
+Multiplicando todos os factores enunciados obtém-se um valor aleatório para cada etapa.
+Este método foi designado \verb!getSimulationDistance! e é parcialmente apresentado no ínicio do excerto de código \ref{code:simulaCorrida}.
+
+A simulação completa processa-se de acordo com as seguintes fases de cálculo:
+\begin{enumerate}
+ \item Geração de resultados aleatórios para todas as etapas da corrida (usualmente 1 etapa = 1km), 
+	  guardando os resultados de cada utilizador num \verb!ArrayList!;
+ \item Este resultados são guardados num \verb!Map!, em que a chave são os emails dos utilizadores e os valores os resultados referidos 
+	  (penúltimo método no código \ref{code:simulaCorrida});
+ \item Com os resultados indexados por chave de utilizador e em \verb!ArrayList!, é possível definir a classificação em cada etapa,
+	  somando os tempos acumulados até à etapa pretendida e construindo um \verb!TreeSet!, ordenado por tempo
+	  (último método no código \ref{code:simulaCorrida}).
+\end{enumerate}
+
+\begin{code}[caption=Métodos para a simulação de corridas (src/core/EventSimulation.java)., label=code:simulaCorrida]
+/** simulacao de uma etapa de uma corrida de um User */
+static private long getSimulationDistance(User u, Distance act,
+                                                int recordType, int stages) {
+    (...)
+
+    /*probabilida de desistir proporcional a faixa etaria, 1% para 20 anos*/
+    if(Math.random()*20 < 0.01*u.getIdade())
+	result = Long.MAX_VALUE/2; /*desistiu => duracao muito elevada*/
+    else{
+	/* result = [0.5-1.5]*prsBest*[10-1]*[2-1] */
+	result = (long) (rndFact * prsBest * fitnessFact * weatherFact);
+    }
+    return result;
+}
+
+/** simulacao completa para todos os Users **/
+static public Map<String,ArrayList<Long>> getAllResults(List<User> users, Distance act, 
+                                                int recordType, int stages);
+
+/** treeSet para resultados ordenados por etapa(km) **/
+static public TreeSet<SimulationPair> getStageClassification(Map<String,ArrayList<Long>> results, int stage);
+\end{code}
+
+\section{Eventos do Tipo Torneio (Contest)}
+\label{sec:simulaTorneio}
+Na simulação de um torneio é necessário proceder às seguintes fases de cálculo:
+\begin{enumerate}
+ \item Gerar jogos entre os utilizadores, em função do número de mãos definidas;
+ \item Simular os diferentes jogos;
+ \item Criar um \verb!Map<String,Integer>! com os pontos acumulados por cada utilizador ao longo do torneio;
+ \item Gerar a tabela classificativa final, extraindo os resultados do \verb!Map! e construindo um \verb!TreeSet! ordenado por pontos.
+\end{enumerate}
+O método de simulação de jogos é apresentado no código \ref{code:simulaTorneio} e tem em conta os pontos acumulados na modalidade no último ano, 
+bem como a forma actual de cada utilizador.
+
+\begin{code}[caption=Métodos para a simulação de uma disputa entre dois utilizadores (src/core/EventSimulation.java)., label=code:simulaTorneio]
+/**
+* Simula uma disputa entre dois utilizadores
+* @param u1 utilizador 1
+* @param u2 utilizador 2
+* @param category categoria da actividade
+* @return <0 se user 1 vence; =0 se empatam; ou >0 se user 2 vence
+*/
+static public int getSimulationContest(User u1, User u2, Class<? extends Activity> category){
+  int user1Pts = UserStats.getPtsFromLastYear(u1, category);
+  int user2Pts = UserStats.getPtsFromLastYear(u2, category);
+  double user1Fitness = u1.getForma();
+  double user2Fitness = u2.getForma();
+  double rnd1 = 1 + (Math.random() - 0.50);
+  double rnd2 = 1 + (Math.random() - 0.50);
+  return (int) (rnd2*user2Pts*user2Fitness - rnd1*user1Pts*user1Fitness);
+}
+\end{code}  
 
 \chapter{Conclusões}
 \label{cap:concl}
