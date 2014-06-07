@@ -121,6 +121,12 @@ com repositório privado no bitbucket (\url{https://bitbucket.org/ruiOliveiras94
 
 falar também do Manager, Dataset, ...
 
+\section{Colections Manager}
+\label{sec:manager}
+(...)
+@COMENT: OLIVEIRA - work your magic :)
+(...)
+
 \section{Diagramas de Classes}
 \label{sec:classes}
 (...)
@@ -143,10 +149,17 @@ Lista de features da aplicação.
 
 \chapter{Estruturas de Dados Principais}
 \label{cap:estruturas}
-(...)
 \section{User class}
 \label{sec:user}
-(...)
+As variáveis de instância da classe \verb!User! são apresentadas no excerto de código \ref{code:user}.
+Para as permissões foi usada uma enumeração correspondente aos diferentes tipos de utilizador. 
+Estas permissões são usadas para controlar as funcionalidades a que o utilizador tem acesso na aplicação.
+Para os recordes foi usado um \verb!Map! de uma classe correspondente a uma modalidade para o conjunto de recordes dessa modalidade. 
+Um recorde é constituído pelo seu tipo, dado por um inteiro e por uma ``Actividade modelo'', que representa o recorde.
+Para os amigos e lista de amigos foi utilizado o \verb!Manager!, que é instanciado numa \verb!HashSet! de \verb!String!.
+Para o conjunto de actividades realizadas, foi também utilizado o Manager instanciado numa árvore (TreeSet), ordenado por meio 
+de um \verb!Comparator!, que compara as actividades por ordem crescente da sua data de realização.
+
 \begin{code}[caption=Variáveis de instância da classe User (src/model/user)., label=code:user]
 private String email;
 private String nome;
@@ -166,24 +179,45 @@ private Manager<Activity> actividadesUser; /*Actividades do User:TreeSet -Comp.B
 
 \section{Activity class}
 \label{sec:activity}
-(...)
-\begin{code}[caption=Variáveis de instância da classe User (src/model/user)., label=code:user]
-/*Super Classe*/
+Na superclasse abstracta \verb!Activity! foram incorporadas todas as variáveis de instância e métodos gerais das actividades, 
+designadamente a data, duração, meteorologia e frequência cardíaca média durante a actividade, caso seja fornecida pelo utilizador.
+Para as condições meteorológicas foi usada uma enumeração para cobrir as situações mais frequentes em termos de clima.
+Num nível hierárquico abaixo da superclasse surgem as subclasses \verb!Distance!, \verb!Altimetry!, \verb!Contest!, \verb!Skill! e \verb!Ludic!.
+
+A subclasse \verb!Distance! especializa a superclasse com duas variáveis de instância relativas a actividades que envolvam distâncias, a saber a 
+distância percorrida e a velocidade atingida no percurso.
+A subclasse \verb!Altimetry! descende da subclasse \verb!Distance!, acrescentando atributos às actividades que além de terem distância têm associada altura, 
+nomeadamente a distância que foi subida e descida, bem como as altitudes máxima e mínima atingidas.
+A subclasse \verb!Contest! descende da superclasse e representa as actividades em que esteja envolvido algum tipo de disputa/jogo (de equipa ou individual).
+As suas variáveis de instância representam os pontos obtidos pela equipa adversária e pela própria equipa.
+A subclasse \verb!Skill! representa as actividades em que a performance é avaliada em termos de uma pontuação, através de uma exibição individual.
+As variáveis de especialização são a pontuação final obtida e o máximo de pontuação obtida para um determinado movimento.
+A subclasse \verb!Ludic! representa actividades mais simples e com um carácter mais lúdico. Esta classe não apresenta nenhum especialização relativamente à 
+superclasse. Para além dos métodos abstractos impostos pela superclasse, são também definidos nesta classe os tipos de recordes específicos.
+Todas as variáveis da superclasse e subclasses referidas são apresentadas no excerto de código \ref{code:activity}.
+
+Para além dos atributos apresentados, a hierarquia de classes definida implica a herança de alguns métodos abstractos fundamentais para a aplicação.
+São exemplo disso os método \verb!getIntensidade()! e o \verb!getMET()!.
+O primeiro devolve o número de minutos diários recomendados para a actividade, para que o utilizador atinga uma forma ideal. 
+O segundo, serve de base ao cálculo das calorias dessa actividade, devolvendo uma constante específica de cada actividade (ver secção \ref{sec:caloriasMet}).
+
+\begin{code}[caption=Variáveis de instância da superclasse Activity e subclasses respectivas (src/model/activity)., label=code:activity]
+/***Super Classe***/
 private GregorianCalendar mDate;
 private long mDuration; /*activity duration [ms]*/
 private Weather mWeather;
 private int mHearthRate;/*heart rate [1/min] - for calorie burn calculation*/
 
-/*Especializacoes Classe Distance*/
+/**Especializacoes Classe Distance**/
 private int mDistance;
 private int mMaxSpeed;
 
-/*Especializacoes Classe Contest*/
+/**Especializacoes Classe Contest**/
 private int mPointRival;
 private int mPointTeam;
 private Contest.Result mResult;
 
-/*Especializacoes Classe Skill*/
+/**Especializacoes Classe Skill**/
 private int mPoints;
 private int mMaxTrick;
 \end{code}
@@ -191,9 +225,38 @@ private int mMaxTrick;
 \section{Record interface}
 \label{sec:interface}
 (...)
+@COMENT: OLIVEIRA - work your magic :)
+(...)
+
 \section{Event class}
 \label{sec:event}
-(...)
+As variáveis de instância da superclasse \verb!Event! são apresentadas no excerto de código \ref{code:event}.
+Um evento pode ser caracterizado pelo seu nome, actividade associada, tipo de recorde associado, 
+data de início e término, um valor correspondente a um pré-requisito necessário que um utilizador possa aderir ao evento, 
+o número máximo de utilizadores que o evento suporta e o número de utilizadores actualmente inscritos.
+Os eventos são também classificados em dois tipos: de distância, ou do tipo torneio (jogos).
+As subclasses que traduzem essa classificação são a subclasse \verb!EventDistance! e \verb!EventContest!.
+
+\begin{code}[caption=Variáveis de instância da superclasse Event e subclasses respectivas (src/model/event)., label=code:event]
+/***Super Classe***/
+private String mName;
+private Activity mActivity;/*ATENTION: event weather inside activity*/
+private int mRecordType;
+private GregorianCalendar mEventDate;
+private GregorianCalendar mEndDate;/*deadline for joining*/
+private long mPreRequisite;
+private int mMaxNumUsers;
+private ManagerSet<String> mUsers; /*HashSet ok User keys(emails)*/
+
+/**Especializacoes Classe EventDistance**/
+private int mEventDistance;/*An event is about a Activity with its record type, like: Run 10000m*/
+
+/**Especializacoes Classe Contest**/
+private int mNum;/*Legs Between Users (1 Leg = 2 games)*/
+private int mPointsVic;
+private int mPointsDraw;
+private int mPointsLoss;
+\end{code}
 
 \chapter{Cálculo do Consumo de Calorias por Actividade}
 \label{cap:calorias}
@@ -342,6 +405,49 @@ Somadas todas as contribuições de cada dia, tem-se a forma final.
 \chapter{Estatísticas dos Utilizadores}
 \label{cap:estatisticas}
 (...)
+@COMENT: ANDRÉ - PEQUENA DESCRIÇÃO DOS MÉTODOS DE ESTATISTICA (metodo auxiliar actividadesEntre, metodologia geral com data de inicio e fim, pontos só para simulação)
+(...)
+\begin{code}[caption=Métodos para cálculo de estatísticas (src/core/UserStats)., label=code:userStats]
+static public int getDistanceStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
+    int totalDist = 0;
+    for(Activity act : usr.actividadesEntre(startDate, endDate))
+	if(act instanceof Distance) totalDist += ((Distance) act).getDistance();
+    return totalDist;
+}
+
+static public int getCaloriesStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
+    int totalCal = 0;
+    for(Activity act : usr.actividadesEntre(startDate, endDate))
+	totalCal += act.calculateCalories(usr);
+    return totalCal;
+}
+
+/** @return time in hours **/
+static public double getWorkoutStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
+    long totalTime = 0;
+    for(Activity act : usr.actividadesEntre(startDate, endDate))
+	totalTime += act.getDuration();
+    return (double) totalTime/(1000*3600);
+}
+  
+/** points only for simulation purpose **/
+static public int getPtsFromLastYear(User usr, Class<? extends Activity> category){
+    int totalPontos = 0;
+    /*date now*/
+    GregorianCalendar endDate = new GregorianCalendar();
+    /*date one year before*/
+    GregorianCalendar startDate = new GregorianCalendar(endDate.get(Calendar.YEAR) - 1, endDate.get(Calendar.MONTH), endDate.get(Calendar.DAY_OF_MONTH));
+    for(Activity act: usr.actividadesEntre(startDate, endDate)){
+	if( act instanceof Skill) totalPontos += ((Skill) act).getPoints();
+	else
+	if(act instanceof Contest)
+	    totalPontos += ((Contest) act).getPointTeam() - ((Contest) act).getPointRival();
+    }
+    return totalPontos;
+}
+\end{code}
+
+
 
 \chapter{Simulação de Eventos}
 \label{cap:simula}

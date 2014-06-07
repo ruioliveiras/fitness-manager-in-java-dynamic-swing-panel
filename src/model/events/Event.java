@@ -20,13 +20,13 @@ import core.util.ManagerSet;
 
 public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
     private String mName;
-    private Activity mActivity;/**ATENCAO: weather do Evento dentro da activity?*/
+    private Activity mActivity;/**ATENCAO: weather do Evento dentro da activity*/
     private int mRecordType;
     private GregorianCalendar mEventDate;
-    private GregorianCalendar mEndDate;
+    private GregorianCalendar mEndDate;/*deadline for joining*/
     private long mPreRequisite;
     private int mMaxNumUsers;
-    private ManagerSet<String> mUsers;
+    private ManagerSet<String> mUsers; /*HashSet ok User keys(emails)*/
 
     public Event() {
         mName = "";

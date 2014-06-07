@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.params=
 comment0.target=EventDistance()
-comment0.text=An\ event\ is\ about\ a\ Activity\ with\ his\ record\ type,\ like\:\ Run\ 10000m
+comment0.text=An\ event\ is\ about\ a\ Activity\ with\ its\ record\ type,\ like\:\ Run\ 10000m
 comment1.params=activity
 comment1.target=EventDistance(model.activity.Activity)
 comment2.params=name\ activity\ eventDate\ endDate\ preRequisite\ maxNumUsers\ recordType\ distance

@@ -11,7 +11,7 @@ import core.util.Util;
  * @version (a version number or a date)
  */
 public class EventDistance extends Event {
-    private int mEventDistance;/*An event is about a Activity with his record type, like: Run 10000m*/
+    private int mEventDistance;/*An event is about a Activity with its record type, like: Run 10000m*/
     
     
     

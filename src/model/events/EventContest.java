@@ -13,7 +13,7 @@ import core.util.Util;
  * @version (a version number or a date)
  */
 public class EventContest extends Event{
-    private int mNum;/*GamesBetweenUse*/
+    private int mNum;/*Legs Between Users (1 Leg = 2 games)*/
     private int mPointsVic;
     private int mPointsDraw;
     private int mPointsLoss;

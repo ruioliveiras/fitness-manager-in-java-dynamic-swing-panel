@@ -7,9 +7,7 @@ import model.activity.Distance;
 import model.activity.Skill;
 import model.activity.Contest;
 
-/**TODO++++++++++++++++++*/
-public class UserStats
-{
+public class UserStats {
     static public int getDistanceStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
         int totalDist = 0;
         for(Activity act : usr.actividadesEntre(startDate, endDate))
@@ -39,9 +37,9 @@ public class UserStats
      */
     static public int getPtsFromLastYear(User usr, Class<? extends Activity> category){
         int totalPontos = 0;
-        /*data agora*/
+        /*date now*/
         GregorianCalendar endDate = new GregorianCalendar();
-        /*data um ano antes*/
+        /*date one year before*/
         GregorianCalendar startDate = new GregorianCalendar(endDate.get(Calendar.YEAR) - 1, endDate.get(Calendar.MONTH), endDate.get(Calendar.DAY_OF_MONTH));
         
         for(Activity act: usr.actividadesEntre(startDate, endDate)){
@@ -50,7 +48,6 @@ public class UserStats
             if(act instanceof Contest)
                 totalPontos += ((Contest) act).getPointTeam() - ((Contest) act).getPointRival();
         }
-        
         
         return totalPontos;
     }
