@@ -160,7 +160,7 @@ public class PanelEvents extends PanelListToolBar{
 	
 
 	private JFrame mPopupInviteFrame; 
-	public void showPopupEvent(final SimpleListener action){
+	public void showPopupEvent(final SimpleListener iniciar,final SimpleListener next){
 		if (mPopupInviteFrame != null){
 			mPopupInviteFrame.setVisible(false);
 			mPopupInviteFrame.dispose();
@@ -177,23 +177,31 @@ public class PanelEvents extends PanelListToolBar{
 		weather.setModel(new DefaultComboBoxModel<Object>(a));//Weather.getWeatherArray()));
 		contentPane.add(weather, BorderLayout.NORTH);
 
-		JToggleButton accept = new JToggleButton("Iniciar");
-		contentPane.add(accept, BorderLayout.CENTER);
+		final JToggleButton iniciarBu = new JToggleButton("Iniciar");
+		contentPane.add(iniciarBu, BorderLayout.CENTER);
 
-		JToggleButton cont = new JToggleButton("Continuar");
-		contentPane.add(cont, BorderLayout.SOUTH);
+		JToggleButton nextButton = new JToggleButton("Continuar");
+		contentPane.add(nextButton, BorderLayout.SOUTH);
 
-		accept.addActionListener(new ActionListener() {
+		iniciarBu.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Weather a = Weather.getWeatherIndex(weather.getSelectedIndex());
-				action.action(a);
-				mPopupInviteFrame.setVisible(false);
-				mPopupInviteFrame.dispose();
+				iniciar.action(a);
+				iniciarBu.setVisible(false);
+//				mPopupInviteFrame.setVisible(false);
+//				mPopupInviteFrame.dispose();
 			}
 		});
 
+		nextButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				next.action(null);
+			}
+		});
 
 
 		mPopupInviteFrame.setSize(300, 125);

@@ -99,7 +99,7 @@ public class ControllerMain implements MainListener,ListModel<String>{
 				}
 				
 				if (index == 0){
-					Permissoes p = (mUserCopy.getPermissoes() == Permissoes.Admin) ? Permissoes.Admin : Permissoes.Guest;
+					Permissoes p = (mUserCopy.getPermissoes() == Permissoes.Admin) ? Permissoes.Admin : Permissoes.User;
 					loadUser(mUserCopy.getEmail(),p);
 					return;
 				}
