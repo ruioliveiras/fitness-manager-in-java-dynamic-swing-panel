@@ -341,11 +341,47 @@ private int mPoints;
 private int mMaxTrick;
 \end{code}
 
-\section{Record interface}
+\section{Mecanismo para Recordes}
 \label{sec:record}
-(...)
-@COMENT: OLIVEIRA - work your magic :)
-(...)
+Os recordes das Actividades foram organizados da seguinte forma: todas as actividades implementam \verb!ObjectRecord!, e em cada actividade 
+tem uma enumeração de \verb!Records! e outra com os \verb!EnumAttr!.
+Os \verb!Records! e os \verb!EnumAttr! devem ser acedidos através dos métodos da interface \verb!ObjectRecord!.
+
+Quando uma actividade extende a outra (exemplo: \verb!Altimetry! extende a \verb!Distance!), 
+os métodos de acesso aos \verb!Records! do objecto funcionam da seguinte forma:
+\begin{itemize}
+ \item Se o recorde estiver definido naquela Actividade encontrou e pára;
+ \item Caso contrario pesquisa no nível seguinte
+\end{itemize}
+
+\subsection{Record interface}
+\label{subsec:record}
+A interface \verb!Record! representa um tipo de recorde e é caracterizado por:
+\begin{itemize}
+ \item Um Nome e um ID. 
+ \item Um atributo principal, que é atributo que irá ser medido.
+ \item Um atributo fixo (opcional), que funciona como constante para criar recordes semelhantes, mas com um valor diferente 
+	(exemplo: \"recorde de tempo em X metros\", X pode é visto como um atributo fixo).
+\end{itemize}
+
+Esta interface também oferece a funcionalidade de verificar, quando necessário, se um valor de um atributo é semelhante ao valor do atributo fixo.
+
+\subsection{EnumAttr interface}
+\label{subsec:enumAttr}
+A interface \verb!EnumAttr! representa um atributo, é caracterizado por um Nome e um ID. 
+Esta interface permite aceder aos atributos de forma genérica.
+
+\subsection{ObjectRecord interface}
+\label{subsec:objectRecord}
+A interface \verb!ObjectRecord! representa uma entidade constituída por vários recordes. 
+Assim, um objecto que implemente \verb!ObjectRecord! terá as seguintes funcionalidades:
+
+\begin{itemize}
+ \item Porta de acesso para os recordes através do seu ID.
+ \item Porta de acesso para os atributos através do seu ID.
+ \item Ser comparado com outro \verb!ObjectRecord!, para um determinado \verb!Record!, e saber qual é o melhor.
+ \item Representar este \verb!ObjectRecord! para um determinado \verb!Record! sobe a forma de String.
+\end{itemize}
 
 \section{Event class}
 \label{sec:event}
