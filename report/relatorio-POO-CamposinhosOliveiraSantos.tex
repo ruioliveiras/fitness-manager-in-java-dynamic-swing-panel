@@ -118,24 +118,39 @@ aplicação em anexo.
 \chapter{Arquitectura e Descrição da Aplicação}
 \label{cap:arq}
 
-Desenvolvida com Eclipse e Bluej.
+A aplicação foi desenvolvida utilizando simultaneamente os IDEs \emph{Eclipse} e \emph{BlueJ}.
+
+Foi utilizada uma arquitectura do tipo \emph{Model–View–Controller} (MVC) - ver figura \ref{fig:mvc} -, 
+permitindo uma interface gráfica com o utilizador.
 
 De forma a manter uma estrutura de pastas partilhada entre os autores e um controlo de versões eficaz, 
 foi utilizada a ferramenta open source \emph{GIT} (\url{http://git-scm.com/}), 
 com repositório privado no bitbucket (\url{https://bitbucket.org/ruiOliveiras94/fitnessum-poo}).
 
-
-\section{Packages}
-\label{sec:packages}
-(...)
-Model–view–controller (MVC) figura \ref{fig:mvc}.
-(...)
 \begin{figure}
 \centering
 \includegraphics[width=4cm]{MVC-Process.png}
 \caption{Diagrama com a relação típica dos componentes do MVC (ref.:\url{http://en.wikipedia.org/wiki/Model-view-controller}).}
 \label{fig:mvc}
 \end{figure}
+
+\section{Packages}
+\label{sec:packages}
+A figura \ref{fig:src} apresenta os packages principais da aplicação, em correspondência com a arquitectura MVC descrita.
+
+Na figura \ref{fig:model} descreve o package \emph{model}, com os seus sub-packages principais - activity, user e events -, 
+bem como \emph{Dataset} para gestão dos dados e a classe para definição dos recordes (ver \ref{sec:record}).
+
+O package \emph{model}, descrito na figura \ref{fig:view}, gere toda a interface gráfica com o utilizador.
+
+O package \emph{controller} encontra-se descrito na figura \ref{fig:controller}, possuindo todas as classes de controlo da aplicação, 
+bem como a classe principal (Main) com o executável da aplicação.
+
+O package \emph{core}, descrito na figura \ref{fig:core}, foi criado para alojar algumas funcionalidades mais especificas da aplicação.
+A sua separação dos packages principais deveu-se unicamente a uma opção de organização e gestão do código, 
+assim como para facilitar o desenvolvimento em paralelo por parte dos diferentes autores.
+Neste package inclui-se o código desenvolvido para o cálculo de calorias, cálculo da forma, cálculo de estatísticas e métodos de simulação.
+Todos os métodos foram implementados como \verb!static!.
 
 \begin{figure}
 \centering
@@ -172,10 +187,6 @@ Model–view–controller (MVC) figura \ref{fig:mvc}.
 \label{fig:core}
 \end{figure}
 
-
-
-falar também do, Dataset, ...
-
 \section{Colections Manager}
 \label{sec:manager}
 (...)
@@ -192,23 +203,65 @@ A figura \ref{fig:manager} apresenta o diagrama de classes relativo ao \emph{Man
 
 \section{Diagramas de Classes}
 \label{sec:classes}
-(...)
-A figura (...) apresenta o grafo de dependências dos vários ficheiros de código, obtido através do \emph{BlueJ}.
+\subsection{Actividades}
+\label{subsec:actividadesDiagrama}
+Na figura \ref{fig:activityTable} apresentam-se todas as actividades físicas implementadas na aplicação, 
+bem como as constantes especificas de cada clasee \verb!MET! e \verb!Intensidade!, que serão descritas adiante.
+As actividades foram todas classificadas em um de cinco tipos: Distance, Altimetry, Skill, Ludic e Contest.
+As estruturas de dados de cada classe encontram-se descritas no capítulo \ref{cap:estruturas}.
 
-COLOCAR TABELA EXCEL DAS ACTIVIDADES?
+As classes de actividades físicas para além de funcionarem como um modelo de classificação, 
+obedecem a uma hierarquia, onde são herdados atributos e ``obrigações'' das classes hierárquicamente superiores.
+A figura \ref{fig:activityDiagram} apresenta o diagrama de classes de actividades, obtido através do \emph{BlueJ}.
+A hierarquia de classes definida implica a herança de alguns métodos abstractos fundamentais para a aplicação.
+São exemplo disso os método \verb!getIntensidade()! e o \verb!getMET()!.
+O primeiro devolve o número de minutos diários recomendados para a actividade, para que o utilizador atinga uma forma ideal. 
+O segundo, serve de base ao cálculo das calorias dessa actividade, devolvendo uma constante específica de cada actividade (ver secção \ref{sec:caloriasMet}).
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{activitiesTable.png}
+\caption{Lista de actividades implementadas na aplicação.}
+\label{fig:activitiesTable}
+\end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{diagramaActivities.png}
-\caption{Diagrama com dependências da super classe \emph{Activity}.}
+\caption{Diagrama com dependências da super classe \emph{Activity} (src/model/activity).}
 \label{fig:activityDiagram}
+\end{figure}
+
+\subsection{Eventos}
+\label{subsec:eventosDiagrama}
+Para além das actividades, também os eventos obedecem a uma hierarquia.
+As estruturas de dados de cada classe de evento encontram-se descritas no capítulo \ref{cap:estruturas}.
+De forma semelhante às actividades, embora mais simplificada, definiram dois tipos de eventos: Distance e Contest.
+A figura \ref{fig:eventDiagram} descreve essas dependências.
+
+\begin{figure}
+\centering
+\includegraphics[width=10cm]{events.png}
+\caption{Diagrama com dependências da super classe \emph{Event} (src/model/events).}
+\label{fig:eventDiagram}
 \end{figure}
 
 \section{Funcionalidades da Aplicação}
 \label{sec:funcionalidades}
-(...)
-Lista de features da aplicação.
-(...)
+A aplicação desenvolvida apresenta um conjunto considerável de funcionalidades, sendo de destacar as seguintes:
+
+\begin{itemize}
+ \item Interface gráfica com o utilizador;
+ \item Registo de novos utilizadores com credenciais;
+ \item Possibilidade de registar actividade em 41 modalidades;
+ \item Amizades entre utilizadores (dependendo da aceitação de convites);
+ \item Apresentação de índice evolutivo de forma em função das actividades registadas;
+ \item Cálculo das calorias dispendidas em função do género e características físicas de cada índividuo, 
+	  por intermédio da frequência cardíaca ou tipo de actividade;
+ \item Apresentação de estatísticas de actividades em termos de duração, calorias e distância percorrida;
+ \item Criação e simulação de eventos de distância ou do tipo torneio;
+ \item Possibilidade de extensibilidade para novas actividades e eventos.
+\end{itemize}
 
 \chapter{Estruturas de Dados Principais}
 \label{cap:estruturas}
@@ -267,11 +320,6 @@ A subclasse \verb!Ludic! representa actividades mais simples e com um carácter 
 superclasse. Para além dos métodos abstractos impostos pela superclasse, são também definidos nesta classe os tipos de recordes específicos.
 Todas as variáveis da superclasse e subclasses referidas são apresentadas no excerto de código \ref{code:activity}.
 
-Para além dos atributos apresentados, a hierarquia de classes definida implica a herança de alguns métodos abstractos fundamentais para a aplicação.
-São exemplo disso os método \verb!getIntensidade()! e o \verb!getMET()!.
-O primeiro devolve o número de minutos diários recomendados para a actividade, para que o utilizador atinga uma forma ideal. 
-O segundo, serve de base ao cálculo das calorias dessa actividade, devolvendo uma constante específica de cada actividade (ver secção \ref{sec:caloriasMet}).
-
 \begin{code}[caption=Variáveis de instância da superclasse Activity e subclasses respectivas (src/model/activity)., label=code:activity]
 /***Super Classe***/
 private GregorianCalendar mDate;
@@ -293,11 +341,47 @@ private int mPoints;
 private int mMaxTrick;
 \end{code}
 
-\section{Record interface}
-\label{sec:interface}
-(...)
-@COMENT: OLIVEIRA - work your magic :)
-(...)
+\section{Mecanismo para Recordes}
+\label{sec:record}
+Os recordes das Actividades foram organizados da seguinte forma: todas as actividades implementam \verb!ObjectRecord!, e em cada actividade 
+tem uma enumeração de \verb!Records! e outra com os \verb!EnumAttr!.
+Os \verb!Records! e os \verb!EnumAttr! devem ser acedidos através dos métodos da interface \verb!ObjectRecord!.
+
+Quando uma actividade extende a outra (exemplo: \verb!Altimetry! extende a \verb!Distance!), 
+os métodos de acesso aos \verb!Records! do objecto funcionam da seguinte forma:
+\begin{itemize}
+ \item Se o recorde estiver definido naquela Actividade encontrou e pára;
+ \item Caso contrario pesquisa no nível seguinte
+\end{itemize}
+
+\subsection{Record interface}
+\label{subsec:record}
+A interface \verb!Record! representa um tipo de recorde e é caracterizado por:
+\begin{itemize}
+ \item Um Nome e um ID. 
+ \item Um atributo principal, que é atributo que irá ser medido.
+ \item Um atributo fixo (opcional), que funciona como constante para criar recordes semelhantes, mas com um valor diferente 
+	(exemplo: \"recorde de tempo em X metros\", X pode é visto como um atributo fixo).
+\end{itemize}
+
+Esta interface também oferece a funcionalidade de verificar, quando necessário, se um valor de um atributo é semelhante ao valor do atributo fixo.
+
+\subsection{EnumAttr interface}
+\label{subsec:enumAttr}
+A interface \verb!EnumAttr! representa um atributo, é caracterizado por um Nome e um ID. 
+Esta interface permite aceder aos atributos de forma genérica.
+
+\subsection{ObjectRecord interface}
+\label{subsec:objectRecord}
+A interface \verb!ObjectRecord! representa uma entidade constituída por vários recordes. 
+Assim, um objecto que implemente \verb!ObjectRecord! terá as seguintes funcionalidades:
+
+\begin{itemize}
+ \item Porta de acesso para os recordes através do seu ID.
+ \item Porta de acesso para os atributos através do seu ID.
+ \item Ser comparado com outro \verb!ObjectRecord!, para um determinado \verb!Record!, e saber qual é o melhor.
+ \item Representar este \verb!ObjectRecord! para um determinado \verb!Record! sobe a forma de String.
+\end{itemize}
 
 \section{Event class}
 \label{sec:event}
@@ -475,47 +559,36 @@ Somadas todas as contribuições de cada dia, tem-se a forma final.
 
 \chapter{Estatísticas dos Utilizadores}
 \label{cap:estatisticas}
-(...)
-@COMENT: ANDRÉ - PEQUENA DESCRIÇÃO DOS MÉTODOS DE ESTATISTICA (metodo auxiliar actividadesEntre, metodologia geral com data de inicio e fim, pontos só para simulação)
-(...)
-\begin{code}[caption=Métodos para cálculo de estatísticas (src/core/UserStats)., label=code:userStats]
-static public int getDistanceStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
-    int totalDist = 0;
-    for(Activity act : usr.actividadesEntre(startDate, endDate))
-	if(act instanceof Distance) totalDist += ((Distance) act).getDistance();
-    return totalDist;
-}
+As estatísticas sobre as actividades dos utilizadores, para além de um requisito da aplicação, 
+foi também útil para para a simulação de eventos (\ref{cap:simula)}. 
+Para esses dois propósitos foi criada uma classe \verb!UserStats!, contendo os métodos de estatísticas. 
+O excerto de código \ref{code:userStats} apresenta os cabeçalhos dos métodos desenvolvidos.
 
-static public int getCaloriesStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
-    int totalCal = 0;
-    for(Activity act : usr.actividadesEntre(startDate, endDate))
-	totalCal += act.calculateCalories(usr);
-    return totalCal;
-}
+Os três primeiros métodos recebem um utilizador e duas datas passadas como argumento, e devolvem informação sobre as actividades desse utilizador 
+entre o período decorrido entre as duas datas.
+O método \verb!getDistanceStats! devolve a distância que um utilizador percorreu no total. 
+Para o cálculo, são tidas em conta todas as actividades subclasse de \verb!Distance!.
+O método \verb!getCaloriesStats! devolve as calorias gastas. 
+Uma vez que a todas as actividades está associado um gasto de calorias, para o cálculo são tidas em conta todas 
+as actividades do utilizador no período considerado.
+O método \verb!getWorkoutStats! devolve o tempo total gasto em actividades. 
+Tal como no método anterior, também este tem em conta todas as actividades do utilizador no período entre as datas passadas como argumento.
+
+Para as actividades em que a performance possa ser avaliada por uma pontuação (\verb!Contest! e \verb!Skill!) foi criado um método adicional 
+(quarto método do código \ref{code:userStats}).
+Este método recebe um utilizador e uma classe. A classe passada como argumento corresponde à modalidade da actividade que se pretende considerar. 
+É devolvido um inteiro com o total de pontos conseguidos pelo utilizador no último ano e na actividade especificada.
+
+\begin{code}[caption=Métodos para cálculo de estatísticas (src/core/UserStats)., label=code:userStats]
+static public int getDistanceStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate);
+
+static public int getCaloriesStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate);
 
 /** @return time in hours **/
-static public double getWorkoutStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate){
-    long totalTime = 0;
-    for(Activity act : usr.actividadesEntre(startDate, endDate))
-	totalTime += act.getDuration();
-    return (double) totalTime/(1000*3600);
-}
+static public double getWorkoutStats(User usr, GregorianCalendar startDate, GregorianCalendar endDate);
   
 /** points only for simulation purpose **/
-static public int getPtsFromLastYear(User usr, Class<? extends Activity> category){
-    int totalPontos = 0;
-    /*date now*/
-    GregorianCalendar endDate = new GregorianCalendar();
-    /*date one year before*/
-    GregorianCalendar startDate = new GregorianCalendar(endDate.get(Calendar.YEAR) - 1, endDate.get(Calendar.MONTH), endDate.get(Calendar.DAY_OF_MONTH));
-    for(Activity act: usr.actividadesEntre(startDate, endDate)){
-	if( act instanceof Skill) totalPontos += ((Skill) act).getPoints();
-	else
-	if(act instanceof Contest)
-	    totalPontos += ((Contest) act).getPointTeam() - ((Contest) act).getPointRival();
-    }
-    return totalPontos;
-}
+static public int getPtsFromLastYear(User usr, Class<? extends Activity> category);
 \end{code}
 
 
