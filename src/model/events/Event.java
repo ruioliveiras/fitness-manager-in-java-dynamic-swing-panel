@@ -53,6 +53,8 @@ public abstract class Event implements ObjectClonable,ObjectKey,Serializable {
 
     public Event(Event e){
         this(e.getName(),e.getActivity(),e.getEventDate(),e.getEndDate(),e.getUserManager().collection(),e.getPreRequisite(),e.getMaxNumUsers(), e.getRecordType());
+        mUsers = new ManagerSet<String>(mListenerBeforeAdd, new HashSet<String>());
+        mUsers.addAll(e.mUsers.collection());
     }
     
     public void setWeather(Weather weather){
