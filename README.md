@@ -1,19 +1,27 @@
-FitenessUM 
+**FitenessUM**
 ==============
 
-Developers:
+**Developers:**
+
 Andre Santos andrerfcsantos AT gmail DOT com
-Rui Camposinhos 
+
+Rui Camposinhos rui DOT camposinhos AT gmail DOT com
+
 (Owner) Rui Oliveira rui96pedro AT hotmail DOT com
+
 --------------
 
-**Abstract**
+0) Abstract
+==============
+
 This project is a personal Fitness manager, was created for a practical work in University of Minho.
+
 In this application it's possible to create new users, insert new Activities (like swim, cycling...) and automatically create is Personal records board.
 Also it's possible for an Admin create new Events and simulate than.
 
 
-**Requirements**
+1) Requirements
+==============
 
 Basic Requirements: 
 
@@ -32,6 +40,10 @@ Advanced Requirements
  - Admin user can create an Event where:
  	- normal users can only adhere if fulfil the one pre-requirement;
  - An Event should be able to be simulated by the admin.
+
+
+
+
 
 **Source do Projeto**
 Recomendado o uso de BlueJ, download: https://www.eclipse.org/downloads/. Eventualmente pode ser usado eclipse.
