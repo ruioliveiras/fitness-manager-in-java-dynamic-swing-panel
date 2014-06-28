@@ -3,13 +3,17 @@
 
 **Developers:**
 
-Andre Santos andrerfcsantos AT gmail DOT com
+Andre Santos  -> andrerfcsantos AT gmail DOT com
 
-Rui Camposinhos rui DOT camposinhos AT gmail DOT com
+Rui Camposinhos -> rui DOT camposinhos AT gmail DOT com
 
-(Owner) Rui Oliveira rui96pedro AT hotmail DOT com
+(Owner) Rui Oliveira -> rui96pedro AT hotmail DOT com
 
 --------------
+0) Abstract
+1) Requirements
+2) Implementation highlights
+
 
 0) Abstract
 ==============
