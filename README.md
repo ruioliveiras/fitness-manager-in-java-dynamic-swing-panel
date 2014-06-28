@@ -41,30 +41,13 @@ Advanced Requirements
  	- normal users can only adhere if fulfil the one pre-requirement;
  - An Event should be able to be simulated by the admin.
 
+2) Implementation highlights
+==============
 
-
-
-
-**Source do Projeto**
-Recomendado o uso de BlueJ, download: https://www.eclipse.org/downloads/. Eventualmente pode ser usado eclipse.
-
-Projeto segue a arquitetura de MVC Model-View-Controller
-
-
-**TODO (de acordo com reuniao de dia 05/05/2014):**
-
-- Ver TODOs especificos nos ficheiros .java --- DONE
-
--Classe de conjunto de Users (rede social) --- MANAGER???
-
--Classe Calendario (cada User deve ter um calendario de actividades - requisito!) --- DONE (actividadesUser + actividadesEntre)
-
--Classes especializadas de cada actividade em particular --- DONE (completar)
-
--Recordes (ref. facebook Oliveira) --- falta comparar recordes
-
--Package eventos: Classe Evento + Classe Simulacao
-
--Classe Evento: {Conjunto Users, Actividade, Categoria, Data evento, Data inscricao, Nome, pre-requisito inscricao (long tempo/distancia), numero maximo de participantes}
-
--Classe DataSet: {HashMap Users, HashMap Eventos, ...} --- DONE (80%)
+ - MVC architecture
+ - Java Swing windows created dynamically using Enums with the show values for each class.
+ - Full Calorie calculation using MET (activity constant) or hearth frequency.
+ - Dynamically calculation of records - fixing one variable and finding the best value to another.
+ 	-Example: activity cycling record 10 km, fix distance on 10 km and find best time.
+ - Events result are randomly calculated using user history on the event activity, user performance on other activities and  weather if it is outdoor. Also there is a certain probability of give up (linear with the age)
+ -
