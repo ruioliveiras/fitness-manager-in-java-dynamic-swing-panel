@@ -1,8 +1,9 @@
 
 
 package core;
-import model.activity.Activity;
-import model.user.User;
+import model.Activity;
+import model.User;
+
 import java.lang.Math;
 import java.util.*;
 

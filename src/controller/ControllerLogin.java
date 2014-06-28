@@ -10,10 +10,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-import model.activity.Activity;
-import model.user.Genero;
-import model.user.Permissoes;
-import model.user.User;
+import model.Activity;
+import model.User;
+import model.objectEnum.Genero;
+import model.objectEnum.Permissoes;
 import view.FormLogin;
 import view.FormRegister;
 import view.main.panel.PanelLogin.FormAttEnum;

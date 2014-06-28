@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.params=a
-comment0.target=ComboRecordModel(model.activity.Activity)
-comment1.params=index
-comment1.target=java.lang.Object\ getElementAt(int)
-comment2.params=
-comment2.target=int\ getSize()
-numComments=3

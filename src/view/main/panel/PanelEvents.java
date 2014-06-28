@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
-import model.activity.Weather;
+import model.objectEnum.Weather;
 import view.main.PanelListToolBar;
 import core.FormUtils;
 import core.FormUtils.FormAttr;

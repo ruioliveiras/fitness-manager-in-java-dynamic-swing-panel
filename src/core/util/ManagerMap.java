@@ -3,7 +3,7 @@ package core.util;
 import java.util.Collection;
 import java.util.Map;
 
-import model.ObjectKey;
+import model.objectInterface.ObjectKey;
 
 public class ManagerMap<V> extends Manager<V>{
 	/**

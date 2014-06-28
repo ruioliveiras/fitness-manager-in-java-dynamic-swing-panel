@@ -3,7 +3,7 @@ package core.util;
 import java.util.Collection;
 import java.util.Set;
 
-import model.ObjectKey;
+import model.objectInterface.ObjectKey;
 
 public class ManagerSet<V> extends Manager<V>{
 	/**

@@ -1,8 +1,8 @@
 package core;
 
-import model.activity.Activity;
-import model.user.Genero;
-import model.user.User;
+import model.Activity;
+import model.User;
+import model.objectEnum.Genero;
 
 public class CaloriesCalculation {
     /**

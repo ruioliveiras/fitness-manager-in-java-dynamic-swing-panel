@@ -1,8 +1,10 @@
 package core;
-import model.user.User;
+import model.Activity;
+import model.User;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import model.activity.Activity;
+
 import model.activity.Distance;
 import model.activity.Skill;
 import model.activity.Contest;

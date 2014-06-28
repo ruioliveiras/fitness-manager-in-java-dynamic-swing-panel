@@ -2,7 +2,9 @@ package model.events;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ArrayList;
-import model.activity.Activity;
+
+import model.Activity;
+import model.Event;
 import core.util.Util;
 
 

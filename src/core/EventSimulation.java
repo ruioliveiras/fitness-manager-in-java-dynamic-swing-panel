@@ -1,11 +1,9 @@
 package core;
 
-import model.activity.Activity;
+import model.Activity;
+import model.User;
 import model.activity.Distance;
 import model.activity.Contest;
-import model.activity.Weather;
-import model.user.RecordDontExitExeception;
-import model.user.User;
 import core.UserStats;
 
 import java.util.Set;
@@ -17,6 +15,8 @@ import java.util.HashMap;
 import java.util.GregorianCalendar;
 
 import model.events.ContestPair;
+import model.exeption.RecordDontExitExeception;
+import model.objectEnum.Weather;
 
 import java.util.Iterator;
 

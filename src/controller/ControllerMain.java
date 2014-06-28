@@ -9,8 +9,8 @@ import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import model.user.Permissoes;
-import model.user.User;
+import model.User;
+import model.objectEnum.Permissoes;
 import view.FormMain;
 import view.FormMain.MainListener;
 import controller.main.ControllerActivitys;

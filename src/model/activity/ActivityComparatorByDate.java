@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
 
+import model.Activity;
+
 /**
  * Classe de criacao de comparator de actividades por data de realizacao.
  * 

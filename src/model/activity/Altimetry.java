@@ -2,9 +2,10 @@ package model.activity;
 
 import java.util.GregorianCalendar;
 
-import model.ObjectRecordClass;
-import model.ObjectRecordClass.EnumAttr;
-import model.ObjectRecordClass.Record;
+import model.objectEnum.Weather;
+import model.objectInterface.ObjectRecordClass;
+import model.objectInterface.ObjectRecordClass.EnumAttr;
+import model.objectInterface.ObjectRecordClass.Record;
 import core.util.Util;
 
 public abstract class Altimetry extends Distance {

@@ -6,8 +6,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import model.events.Event;
-import model.user.User;
 import core.util.Manager;
 import core.util.ManagerMap;
 

@@ -9,8 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
 
-import model.ObjectClonable;
-import model.ObjectKey;
+import model.objectInterface.ObjectClonable;
+import model.objectInterface.ObjectKey;
 
 
 public abstract class Manager<V> implements Serializable{

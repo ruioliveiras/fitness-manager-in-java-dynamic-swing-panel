@@ -2,10 +2,55 @@ package controller;
 
 import java.io.*;
 import java.util.*;
+
+import controller.exception.NameDontExistException;
 import model.*;
 import model.activity.*;
-import model.user.*;
+import model.activity.altimerty.BTT;
+import model.activity.altimerty.CaminhadaMontanha;
+import model.activity.altimerty.Ciclismo;
+import model.activity.altimerty.Corrida;
+import model.activity.contest.Andebol;
+import model.activity.contest.ArtesMarciais;
+import model.activity.contest.Badminton;
+import model.activity.contest.Basquetebol;
+import model.activity.contest.Boxe;
+import model.activity.contest.Esgrima;
+import model.activity.contest.Futebol;
+import model.activity.contest.Hoquei;
+import model.activity.contest.Polo;
+import model.activity.contest.Raguebi;
+import model.activity.contest.Squash;
+import model.activity.contest.Tenis;
+import model.activity.contest.TenisMesa;
+import model.activity.contest.Voleibol;
+import model.activity.contest.VoleibolPraia;
+import model.activity.distance.Caiaque;
+import model.activity.distance.Caminhada;
+import model.activity.distance.CorridaOrientacao;
+import model.activity.distance.Natacao;
+import model.activity.distance.Remo;
+import model.activity.distance.SkiDownhill;
+import model.activity.distance.Vela;
+import model.activity.distance.WindSurf;
+import model.activity.ludic.Aerobica;
+import model.activity.ludic.Danca;
+import model.activity.ludic.Escalada;
+import model.activity.ludic.Ginasio;
+import model.activity.ludic.Ginastica;
+import model.activity.ludic.Ioga;
+import model.activity.ludic.Mergulho;
+import model.activity.ludic.Pilates;
+import model.activity.skill.Golfe;
+import model.activity.skill.Hipismo;
+import model.activity.skill.Skate;
+import model.activity.skill.Snowboard;
+import model.activity.skill.Surf;
 import model.events.*;
+import model.exeption.AddEventException;
+import model.objectEnum.Genero;
+import model.objectEnum.Permissoes;
+import model.objectEnum.Weather;
 
 public class Main {
 

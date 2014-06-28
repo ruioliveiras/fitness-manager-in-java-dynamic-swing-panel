@@ -18,9 +18,9 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import model.activity.Activity;
-import model.user.Permissoes;
-import model.user.User;
+import model.Activity;
+import model.User;
+import model.objectEnum.Permissoes;
 import view.main.panel.PanelRecords;
 import view.main.panel.PanelRecords.FormAttEnum;
 import view.main.panel.PanelRecords.FormButtonEnum;
